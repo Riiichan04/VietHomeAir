@@ -1,5 +1,4 @@
-# PythonProgramming_Project
-Đồ án nhóm 14 - Lập trình Python - NLU 2024-2025 - Weather Center
+# Weather Center - Đồ án môn Lập trình Python - Nhóm 14 - NLU 2024-2025
 
 #### Lưu ý: Repo này chỉ mới config cơ bản, chưa hề config phần csdl, phân trang và model
 
@@ -36,3 +35,8 @@
 - Version Python là: 3.10
 - Version Django là: 5.1.2
 - Version pip (bộ cài đặt thư viện,...) là: 24.2
+
+---
+### Lưu ý với Pycharm:
+- Nên tạo 1 project Django rồi đưa code vào
+- Có thể setup cho Pycharm thủ công để nó detect ra đây là project Django
