@@ -9,7 +9,7 @@
 2. Mở repo = IDE/Text Editor
 3. Gõ: `python -m venv .venv` để tạo Virtual Environment
 4. Mở terminal gõ: `.venv\Scripts\Activate.ps1`
-5. Gõ `python pip install Django`
+5. Gõ `pip install Django`
 6. Với Pycharm:
    - Cách 1:Chỉ cần click run là được
    - Cách 2: Mở terminal gõ: `python manage.py runserver`
@@ -18,13 +18,13 @@
 
 #### Cách 2: Chạy trực tiếp
 1. Clone repo này về
-2. Mở terminal của pj này và gõ `python pip install Django`
+2. Mở terminal của pj này và gõ `pip install Django`
 3. Gõ `python manage.py runserver`
 
 ---
 ### Các library cần cài để dùng:
-1. **Django**: `python pip install Django`
-2. **requests**: `python pip install requests`
+1. **Django**: `pip install Django`
+2. **requests**: `pip install requests`
 
 ---
 ### Cách config Django:
