@@ -22,5 +22,5 @@ class SimpleView(TemplateView):
         return context_data
 
 class SimpleComplexView(TemplateView):
-    template_name = "application/templates/page/templates/sample_page.html"
+    template_name = "application/templates/page/templates/frontend_test.html"
 

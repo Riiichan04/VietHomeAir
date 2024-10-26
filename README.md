@@ -1,6 +1,6 @@
 # Weather Center - Đồ án môn Lập trình Python - Nhóm 14 - NLU 2024-2025
 
-#### Lưu ý: Repo này chỉ mới config cơ bản, chưa hề config phần csdl, phân trang và model
+#### Lưu ý: Repo này chỉ mới config cơ bản, chưa config csdl và model
 
 ---
 ### Cách chạy code:
