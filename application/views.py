@@ -6,7 +6,7 @@ import time, requests
 load_dotenv(find_dotenv())
 # Create your views here.
 class SimpleView(TemplateView):
-    template_name = "application/templates/page/base.html"
+    template_name = "application/templates/page/templates/base.html"
 
     # Mỗi khi load home thì sẽ gọi function này ra để kiểm tra
     def get_context_data(self, **kwargs):
@@ -22,5 +22,5 @@ class SimpleView(TemplateView):
         return context_data
 
 class SimpleComplexView(TemplateView):
-    template_name = "application/templates/page/sample_page.html"
+    template_name = "application/templates/page/templates/sample_page.html"
 
