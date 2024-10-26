@@ -25,6 +25,7 @@
 ### Các library cần cài để dùng:
 1. **Django**: `pip install Django`
 2. **requests**: `pip install requests`
+3. **python-dotenv**: `pip install python-dotenv`
 
 ---
 ### Cách config Django:
@@ -44,8 +45,10 @@
 - Version Python là: 3.10
 - Version Django là: 5.1.2
 - Version requests là 2.32.3 (Dùng để fetch api của bên thứ 3)
+- Version python-dotenv là 1.0.1
 - Version pip (bộ cài đặt thư viện,...) là: 24.2
-
+- Các biến môi trường (.env) sử dụng (tạo 1 file tên .env trong project):
+  - OpenWeather API Key
 ---
 ### Lưu ý với Pycharm:
 - Nên tạo 1 project Django rồi đưa code vào

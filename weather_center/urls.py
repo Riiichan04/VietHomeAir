@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from weather_app.views import SimpleView, SimpleComplexView
+from application.views import SimpleView, SimpleComplexView
 
 urlpatterns = [
     path('admin/', admin.site.urls),

@@ -2,5 +2,5 @@
 .idea/*
 .venv
 .venv/*
-config
+.env
 db.sqlite3
