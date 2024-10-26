@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,51 +14,7 @@
     <!-- JQuery -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
-    <style>
-        :root {
-            --web-background-color: #f5f5f5;
-            --light-component-background-color: #e9f1ec;
-            --dark-component-background-color: #4d6a55;
-            --big-text-color: #4d6a55;
-            --label-color: #f5f5f5;
-            --text-color: #000b0e;
-            --text-hover-color: #c8c8c8;
-            --main-cta-button: #c86f46;
-            --sub-cta-button: #4d6a55;
-        }
-        
-        header {
-            background-color: var(--dark-component-background-color) !important;
-        }
-
-        header input {
-            background-color: var(--label-color) !important;
-            padding-left: 1.75rem !important;
-            padding-right: 1.75rem !important;
-        }
-        
-        header i {
-            font-size: 24px;
-            color: var(--label-color) !important;
-        }
-        
-        header p {
-            margin: 0;
-            color: var(--label-color) !important;
-        }
-        
-        header ul>li, header i {
-            cursor: pointer;
-        }
-        
-        header ul>li:hover * {
-            color: var(--text-hover-color) !important;
-        }
-        
-        #header-logo {
-            font-size: 40px;
-        }
-    </style>
+    <link rel="stylesheet" href="{% static 'style/sample_page.css' %}">
 </head>
 <body>
 <header>
