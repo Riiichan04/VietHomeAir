@@ -1,6 +1,6 @@
 # Weather Center - Đồ án môn Lập trình Python - Nhóm 14 - NLU 2024-2025
 
-#### Lưu ý: Repo này chỉ mới config cơ bản, chưa hề config phần csdl, phân trang và model
+#### Lưu ý: Repo này chỉ mới config cơ bản, chưa config csdl và model
 
 ---
 ### Cách chạy code:
@@ -9,7 +9,7 @@
 2. Mở repo = IDE/Text Editor
 3. Gõ: `python -m venv .venv` để tạo Virtual Environment
 4. Mở terminal gõ: `.venv\Scripts\Activate.ps1`
-5. Gõ `python pip install Django`
+5. Gõ `pip install Django`
 6. Với Pycharm:
    - Cách 1:Chỉ cần click run là được
    - Cách 2: Mở terminal gõ: `python manage.py runserver`
@@ -18,13 +18,14 @@
 
 #### Cách 2: Chạy trực tiếp
 1. Clone repo này về
-2. Mở terminal của pj này và gõ `python pip install Django`
+2. Mở terminal của pj này và gõ `pip install Django`
 3. Gõ `python manage.py runserver`
 
 ---
 ### Các library cần cài để dùng:
-1. **Django**: `python pip install Django`
-2. **requests**: `python pip install requests`
+1. **Django**: `pip install Django`
+2. **requests**: `pip install requests`
+3. **python-dotenv**: `pip install python-dotenv`
 
 ---
 ### Cách config Django:
@@ -44,8 +45,10 @@
 - Version Python là: 3.10
 - Version Django là: 5.1.2
 - Version requests là 2.32.3 (Dùng để fetch api của bên thứ 3)
+- Version python-dotenv là 1.0.1
 - Version pip (bộ cài đặt thư viện,...) là: 24.2
-
+- Các biến môi trường (.env) sử dụng (tạo 1 file tên .env trong project):
+  - OpenWeather API Key
 ---
 ### Lưu ý với Pycharm:
 - Nên tạo 1 project Django rồi đưa code vào
