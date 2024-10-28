@@ -15,11 +15,25 @@
    - Cách 2: Mở terminal gõ: `python manage.py runserver`
 7. Với VSCode:
    - Gõ lệnh: `python manage.py runserver`
+8. Cài thêm các thư viện hỗ trợ:
+   - **requests**: `pip install requests`
+   - **python-dotenv**: `pip install python-dotenv`
+9. Tạo 1 file tên là `.env` và đặt trong project với thông tin như sau:
+```
+OPEN_WEATHER="Open Weather API Key"
+```
 
 #### Cách 2: Chạy trực tiếp
 1. Clone repo này về
 2. Mở terminal của pj này và gõ `pip install Django`
 3. Gõ `python manage.py runserver`
+4. Cài thêm các thư viện hỗ trợ:
+   - **requests**: `pip install requests`
+   - **python-dotenv**: `pip install python-dotenv`
+5. Tạo 1 file tên là `.env` và đặt trong project với thông tin như sau:
+```
+OPEN_WEATHER="Open Weather API Key"
+```
 
 ---
 ### Các library cần cài để dùng:
