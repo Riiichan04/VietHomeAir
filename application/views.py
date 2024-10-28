@@ -13,7 +13,6 @@ class SimpleView(TemplateView):
         context_data = super().get_context_data(**kwargs)
         cache_file = open(os.getcwd() + '/application/data/cache_data.json')
         cache_data = json.load(cache_file)
-        print(is_need_renew_weather_cache_data(cache_data))
         if is_need_renew_weather_cache_data(cache_data):
             location = "Ho Chi Minh"
             lang = "vi"
