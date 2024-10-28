@@ -1,13 +1,13 @@
 # Danh sách tính năng 
 
 
-## Coi thời tiết trong vòng 24h 
+## Xem thời tiết trong vòng 24h 
 - Nhiệt độ trong ngày.
 - Khả năng mưa ngày hôm đó.
 
 
 ## Xem tin tức thời tiết trong ngày hôm đó.
-- Tổng hợp từ các trang báo lớn (VNExpress,baomoi.com,...)
+- Tổng hợp từ các trang báo lớn (VNExpress)
 - Cập nhật các thiên tai, áp thấp nhiệt đới,... nếu có.
 
 
