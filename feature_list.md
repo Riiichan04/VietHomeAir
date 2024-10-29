@@ -79,7 +79,7 @@
     - Config Model
     - Config Database
     - Config connect to OpenWeather API
-
+   
 5. *(Optional)* ***Tính năng AI về Cảnh báo/gợi ý vật dụng ra ngoài.***
 
-6. Database
+6. Database: <strong>Người thực hiện: Loan</strong> 
