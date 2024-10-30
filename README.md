@@ -102,8 +102,10 @@ OPEN_WEATHER="Open Weather API Key"
     - **static**: Chứa các phần tĩnh của web (gồm CSS và JS):
         - **scripts**: Nơi chứa các file JS
         - **style**: Nơi chứa các file CSS
+        - **image**: Nơi chứa hình ảnh
+        - **favicon.ico**: Icon của web
     - **templates**: Nơi chứa các file HTML (html trong Django sử dụng định dạng **Jinja2**) và file Jinja2
-    - **__init__.py**: <em><u>File mặc định</u></em> dùng để cho python biết rằng thư mục chứa nó (application) là 1 module
+    - **\__init\__.py**: <em><u>File mặc định</u></em> dùng để cho python biết rằng thư mục chứa nó (application) là 1 module
     - **admin.py**: <em><u>File mặc định</u></em> chứa thông tin liên quan đến tài khoản admin (Dùng để truy cập vào model/database)
     - **models.py**: <em><u>File mặc định</u></em> chứa phần Model của app. Đây cũng là nơi thao tác trực tiếp với phần Database
     - **tests.py**: <em><u>File mặc định</u></em> chứa phần Testcase của app
@@ -112,7 +114,7 @@ OPEN_WEATHER="Open Weather API Key"
 
 - **weather_center**: Đây là directory chứa các thông tin về project
 
-    - **__init__.py**: <em><u>File mặc định</u></em> dùng để cho python biết rằng thư mục chứa nó (weather_center) là 1 module
+    - **\__init\__.py**: <em><u>File mặc định</u></em> dùng để cho python biết rằng thư mục chứa nó (weather_center) là 1 module
     - **asgi.py**: <em><u>File mặc định</u></em>, đây là file dùng để thực hiện Asynchronous Server Gateway Interface (Xem ở Google).
     - **settings.py**: <em><u>File mặc định</u></em> dùng để chứa các setting của project
     - **urls.py**: <em><u>File mặc định</u></em> dùng để đăng ký url (1 trang mới) trên web
