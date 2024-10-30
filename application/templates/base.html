@@ -1,13 +1,15 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Base HTML</title>
+    <meta charset="UTF-8">
+    <title>Python WeatherCenter</title>
+    <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
 </head>
 <body>
-    {{ weather_data }}
-    {% block content %}
-    {% endblock content %}
+{{ weather_data }}
+{% block content %}
+{% endblock content %}
 
 </body>
 </html>
