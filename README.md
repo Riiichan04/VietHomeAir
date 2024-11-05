@@ -1,4 +1,4 @@
-# Weather Center - Đồ án môn Lập trình Python - Nhóm 14 - NLU 2024-2025
+# Weather Center - Đồ án môn Lập trình Python - Nhóm 12 - NLU 2024-2025
 
 #### Lưu ý: Repo này chỉ mới config cơ bản, chưa config csdl và model
 
@@ -21,11 +21,15 @@
 8. Cài thêm các thư viện hỗ trợ:
     - **requests**: `pip install requests`
     - **python-dotenv**: `pip install python-dotenv`
-9. Tạo 1 file tên là `.env` và đặt trong project với thông tin như sau:
 
-```
-OPEN_WEATHER="Open Weather API Key"
-```
+[//]: # (9. Tạo 1 file tên là `.env` và đặt trong project với thông tin như sau:)
+
+[//]: # ()
+[//]: # (```)
+
+[//]: # (OPEN_WEATHER="Open Weather API Key")
+
+[//]: # (```)
 
 #### Cách 2: Chạy trực tiếp
 
@@ -35,11 +39,15 @@ OPEN_WEATHER="Open Weather API Key"
 4. Cài thêm các thư viện hỗ trợ:
     - **requests**: `pip install requests`
     - **python-dotenv**: `pip install python-dotenv`
-5. Tạo 1 file tên là `.env` và đặt trong project với thông tin như sau:
 
-```
-OPEN_WEATHER="Open Weather API Key"
-```
+[//]: # (5. Tạo 1 file tên là `.env` và đặt trong project với thông tin như sau:)
+
+[//]: # ()
+[//]: # (```)
+
+[//]: # (OPEN_WEATHER="Open Weather API Key")
+
+[//]: # (```)
 
 ---
 
@@ -112,7 +120,7 @@ OPEN_WEATHER="Open Weather API Key"
     - **views.py**: <em><u>File mặc định</u></em> chứa phần View của app. Đây cũng là nơi thao tác với các API của bên thứ 3 trong app
   
 
-- **weather_center**: Đây là directory chứa các thông tin về project
+- **bed_and_breakfast**: Đây là directory chứa các thông tin về project
 
     - **\__init\__.py**: <em><u>File mặc định</u></em> dùng để cho python biết rằng thư mục chứa nó (weather_center) là 1 module
     - **asgi.py**: <em><u>File mặc định</u></em>, đây là file dùng để thực hiện Asynchronous Server Gateway Interface (Xem ở Google).
