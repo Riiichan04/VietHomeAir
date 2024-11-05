@@ -3,14 +3,14 @@
 ## Xem thời tiết trong vòng 24h
 
 - Nhiệt độ trong ngày.
-- Khả năng mưa ngày hôm đó.
+- Thông tin tổng quan về thời tiết: nhiệt độ cao nhất, thấp nhất, thời tiết,... .
 
 ## Xem tin tức thời tiết trong ngày hôm đó.
 
 - Tổng hợp từ các trang báo lớn (VNExpress)
 - Cập nhật các thiên tai, áp thấp nhiệt đới,... nếu có.
 
-## Cảnh báo mưa lớn, gợi ý vật dụng cần thiết khi ra ngoài hoặc cách phòng tránh thiên tai
+## Cảnh báo mưa lớn, gợi ý vật dụng cần thiết khi ra ngoài hoặc cách phòng tránh thiên tai (Optional)
 
 - Nhận feedback của người dùng về thời tiết, từ đó lấy dữ liệu để train cho hệ thống gợi ý.
 

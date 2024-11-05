@@ -4,4 +4,4 @@
 .venv/*
 .env
 db.sqlite3
-application/data/*
+application/data/cache_data.json
