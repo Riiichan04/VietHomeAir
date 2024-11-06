@@ -1,85 +1,199 @@
-# Danh sách tính năng
+### List tính năng
+- Quản lý dịch vụ
+- Hệ thống account
+- Tìm kiếm dịch vụ
+- Đánh giá dịch vụ
+- Gợi ý tour du lịch
+- Sắp xếp đánh giá dịch vụ
+- Thống kê dịch vụ: Theo đánh giá, rating,...
 
-## Xem thời tiết trong vòng 24h
+---
+### Chi tiết tính năng
+#### Homepage (Thông)
+- Dịch vụ có rating cao nhất
+- Hiển thị một vài địa điểm có dịch vụ + tour phổ biến nhất 
+- Hiển thị category
+- Hiển thị chọn dựa theo tiện ích
+- Hiển thị tất cả dịch vụ
+- Tìm kiếm: Theo tên dịch vụ/ theo danh mục
 
-- Nhiệt độ trong ngày.
-- Thông tin tổng quan về thời tiết: nhiệt độ cao nhất, thấp nhất, thời tiết,... .
+### Trang kết quả tìm kiếm (Loan)
+- Hiển thị kết quả
+- Bộ lọc: Theo danh mục, theo vị trí, theo tiện ích, theo rating, theo giá/đêm
 
-## Xem tin tức thời tiết trong ngày hôm đó.
+### Trang danh mục (Loan)
+- Hiển thị dịch vụ
+- Bộ lọc: Theo danh mục, theo vị trí, theo tiện ích, theo rating, theo giá/đêm
 
-- Tổng hợp từ các trang báo lớn (VNExpress)
-- Cập nhật các thiên tai, áp thấp nhiệt đới,... nếu có.
+#### Thông tin dịch vụ bnb
+- Tên dịch vụ
+- List hình ảnh
+- Thông tin dịch vụ: Có mấy phòng,...
+- Tiện ích đi kèm
+- Chủ nhà/Người tổ chức
+- Mô tả dịch vụ
+- Thông tin phụ
+- Thời gian booking
+- Danh mục: Loại nhà
+-> (Thông)
 
-## Cảnh báo mưa lớn, gợi ý vật dụng cần thiết khi ra ngoài hoặc cách phòng tránh thiên tai (Optional)
+- Danh sách yêu thích, chia sẻ, báo cáo
+- Giá tiền
+- Đánh giá: Rating + Số lượt rating
+-> (Thịnh)
 
-- Nhận feedback của người dùng về thời tiết, từ đó lấy dữ liệu để train cho hệ thống gợi ý.
+- Bình luận + Rating
+- Có phân loại đánh giá: sạch sẽ, chủ nhà,...
+- Nơi sẽ đến (Cụ thể = map)
+-> (Thư)
 
-## Vẽ biểu đồ phân bố lượng mưa từng vùng trong khu vực lân cận.
+- Mô tả nơi đến + (Có thể thêm mô tả tiện ích xung quanh)
+- Mô tả tour du lịch ở khu vực đó (nếu có)
+- Card thông tin chủ nhà
+- Nội quy của dịch vụ
+- Gợi ý các dịch vụ khác
+-> (Loan)
+#### Tài khoản
+* 3 loại tài khoản: Admin, user, chủ nhà 
+-> Mỗi loại account có 1 trang tương ứng
 
-- Lấy dữ liệu từ các bài báo, API thời tiết.
+- Admin: (Thư)
+  - Quản lý dịch vụ: CRUD dịch vụ
+  - Thống kê: 
+    - Rating của dịch vụ
+    - Số lượt checkin của dịch vụ
+    - Khu vực: Số lượt checkin, dịch vụ khác ở khu vực,...
+  - Quản lý tài khoản user và chủ nhà
 
-## Vẽ biểu đồ biến đổi nhiệt độ/lượng mưa/UV/Gió/Độ ẩm/Sương mù/Ô nhiễm không khí trong ngày.
+- User (Thư)
+  - Chia sẻ
+  - Danh sách yêu thích
+  - Báo cáo dịch vụ
+  - Lịch sử truy cập
+  - Lịch sử đặt phòng
 
-- Lấy dữ liệu từ API thời tiết.
+- Chủ nhà (Thịnh)
+  - Cung cấp thông tin liên lạc
+  - Quản lý dịch vụ của mình: CRUD
+  - Hệ thống rating (Optional)
+  - Số lượt đánh giá (Optional)
+  - Cung cấp thông tin chủ nhà
 
-## Chế độ Dark/Light Mode cho thiết bị.
+### Trang đăng ký, đăng nhập, quên mật khẩu (Thịnh)
 
-- Chuyển đổi chế độ sáng/tối.
+#### Thành phần phụ (base.html) (Thông)
+- Header
+- Footer:
+  - About us
+  - Contact us
+  - Privacy policy
 
-## Chuyển đổi đơn vị đo lường nhiệt độ cho từng quốc gia.
+### DB:
+- Account:
+  - id*
+  - username*
+  - email
+  - passwd
+  - phone
+  - type
+  - gender
 
-- Tùy mỗi quốc gia sẽ có đơn vị đo nhiệt độ khác nhau.
-
-## Dự báo thời tiết cho 1 tuần.
-
-- Kèm chức năng coi thời tiết trong 24h, xem tin tức, cảnh báo/gợi ý, vẽ biểu đồ.
-
-## Có thể lưu khu vực người dùng mong muốn theo dõi thời tiết hằng ngày.
-
-- Tiện lợi cho người đi làm, đi học, hoạt động xa nơi sinh hoạt.
-
-## Phân trang
-
-1. ***Cho n trang hiển thị thông tin thòi tiết cơ bản của n location khác nhau. Trong đó:***
-    - Tên chỗ vị trí hiện tại.
-    - Nhiệt độ hiện tại.
-    - High-low temperature.
-    - Cảnh báo mưa trong khoảng thời gian nào.
-    - Danh sách khung giờ + khả năng mưa (24H).
-    <div><strong>Người thực hiện: Thông</strong></div>
-
-    - Dự báo 10 ngày tiếp theo.
-    - Danh sách các thành phố đã lưu.
-    - Cảnh báo/gợi ý vật dụng ra ngoài.
-    - Tin tức trong ngày.
-    - Bản đồ nhiệt độ toàn khu vực.
-    <div><strong>Người thực hiện: Thư</strong></div> 
-
-
-2. ***Ứng với mỗi trang ở 1. thì sẽ có 1 trang chứa mọi biểu đồ tương ứng của location đó như sau:***
-    - Đối với nhiệt độ: Biểu đồ biến động nhiệt độ.
-    - Đối với UV: Biểu đồ biến động UV.
-    - Đối với lượng mưa: Biểu đồ phần trăm khả năng mưa.
-    - Đối với độ ẩm/sương mù: Biến đổi độ ẩm (%)
-    - Đối với ô nhiễm không khí: Biến đổi lượng CO2.
-    <div><strong>Người thực hiện: Loan</strong></div> 
-
-
-3. ***Ứng với mỗi location thì sẽ có 1 trang chứa các thông tin chi tiết và thống kê của từng location như sau:***
-    - Tên trang (Nhiệt độ/Lượng mưa/UV/Gió/Độ ẩm/Sương mù/Ô nhiễm không khí).
-    - Danh sách ngày (thứ + ngày) (10 ngày)
-    - Thông tin ngày được chọn.
-    - Trạng thái thông tin ở thời điểm hiện tại.
-    - Thông tin về Nhiệt độ/Lượng mưa/UV/Gió/Độ ẩm/Sương mù/Ô nhiễm không khí
-    <div><strong>Người thực hiện: Thịnh</strong></div> 
-
-
-4. ***Về Django:***
-    - Config View
-    - Config Model
-    - Config Database
-    - Config connect to OpenWeather API
+- History:
+  - hid*
+  - account_id
+  - sid
    
-5. *(Optional)* ***Tính năng AI về Cảnh báo/gợi ý vật dụng ra ngoài.***
+- Favorite:
+  - bid*
+  - sid*
+  - account_id
 
-6. Database: <strong>Người thực hiện: Loan</strong> 
+- ServiceOwner:
+  - id*
+  - rating
+  - count_rating
+  - count_report   
+
+- Service:
+  - sid*
+  - pid*
+  - oid
+  - cid
+  - name
+  - detail
+  - description
+  - place
+  - status
+  - address_id
+  - price
+  - time 
+  - count_report
+  - capacity
+
+- ServiceImage:
+  - image_id*
+  - sid
+  - url
+
+- ServiceRule:
+  - sid*
+  - rule
+  - description
+  
+- ServiceRating:
+  - rating_id*
+  - sid
+  - rating
+  - comment
+  - rating_at
+
+- ServiceRatingType
+  - rating_id*
+  - type_name
+
+- Address:
+  - address_id*
+  - province
+  - location
+
+- Post
+  - pid*
+  - oid
+  - title
+  - post_description
+  - upload_date
+  - edit_date
+
+- Category
+  - cid
+  - name
+
+- ServiceExtension:
+  - seid*
+  - sid
+
+- Extension:
+  - eid*
+  - name
+
+- Tour:
+  - tid*
+  - address_id
+  - name
+  - description
+  - image
+
+**s: service
+**p: post
+**o: owner
+**c: category
+**e: extension
+**t: tour
+
+~~=> Config Django + Config View: (Thông)~~
+=> Phần DB Service + Tour + Extension + Post: (Loan + Thông)
+=> Phần account (Thư)
+=> Cào data: Thịnh
+=> AI: (optional)
+  - Gợi ý service (Loan + Thịnh)
+  - Gợi ý tour (Thư + Thông)
