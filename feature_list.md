@@ -7,7 +7,9 @@
 - Sắp xếp đánh giá dịch vụ
 - Thống kê dịch vụ: Theo đánh giá, rating,...
 
-#### Homepage
+---
+### Chi tiết tính năng
+#### Homepage (Thông)
 - Dịch vụ có rating cao nhất
 - Hiển thị một vài địa điểm có dịch vụ + tour phổ biến nhất 
 - Hiển thị category
@@ -15,11 +17,11 @@
 - Hiển thị tất cả dịch vụ
 - Tìm kiếm: Theo tên dịch vụ/ theo danh mục
 
-### Trang kết quả tìm kiếm
+### Trang kết quả tìm kiếm (Loan)
 - Hiển thị kết quả
 - Bộ lọc: Theo danh mục, theo vị trí, theo tiện ích, theo rating, theo giá/đêm
 
-### Trang danh mục
+### Trang danh mục (Loan)
 - Hiển thị dịch vụ
 - Bộ lọc: Theo danh mục, theo vị trí, theo tiện ích, theo rating, theo giá/đêm
 
@@ -33,29 +35,29 @@
 - Thông tin phụ
 - Thời gian booking
 - Danh mục: Loại nhà
+-> (Thông)
 
 - Danh sách yêu thích, chia sẻ, báo cáo
 - Giá tiền
-
 - Đánh giá: Rating + Số lượt rating
+-> (Thịnh)
+
 - Bình luận + Rating
 - Có phân loại đánh giá: sạch sẽ, chủ nhà,...
-
 - Nơi sẽ đến (Cụ thể = map)
+-> (Thư)
+
 - Mô tả nơi đến + (Có thể thêm mô tả tiện ích xung quanh)
 - Mô tả tour du lịch ở khu vực đó (nếu có)
-
 - Card thông tin chủ nhà
-
 - Nội quy của dịch vụ
-
 - Gợi ý các dịch vụ khác
-
+-> (Loan)
 #### Tài khoản
 * 3 loại tài khoản: Admin, user, chủ nhà 
 -> Mỗi loại account có 1 trang tương ứng
 
-- Admin:
+- Admin: (Thư)
   - Quản lý dịch vụ: CRUD dịch vụ
   - Thống kê: 
     - Rating của dịch vụ
@@ -63,23 +65,23 @@
     - Khu vực: Số lượt checkin, dịch vụ khác ở khu vực,...
   - Quản lý tài khoản user và chủ nhà
 
-- User
+- User (Thư)
   - Chia sẻ
   - Danh sách yêu thích
   - Báo cáo dịch vụ
   - Lịch sử truy cập
   - Lịch sử đặt phòng
 
-- Chủ nhà
+- Chủ nhà (Thịnh)
   - Cung cấp thông tin liên lạc
   - Quản lý dịch vụ của mình: CRUD
   - Hệ thống rating (Optional)
   - Số lượt đánh giá (Optional)
   - Cung cấp thông tin chủ nhà
 
-### Trang đăng ký, đăng nhập, quên mật khẩu
+### Trang đăng ký, đăng nhập, quên mật khẩu (Thịnh)
 
-#### Thành phần phụ (base.html)
+#### Thành phần phụ (base.html) (Thông)
 - Header
 - Footer:
   - About us
@@ -187,3 +189,11 @@
 **c: category
 **e: extension
 **t: tour
+
+~~=> Config Django + Config View: (Thông)~~
+=> Phần DB Service + Tour + Extension + Post: (Loan + Thông)
+=> Phần account (Thư)
+=> Cào data: Thịnh
+=> AI: (optional)
+  - Gợi ý service (Loan + Thịnh)
+  - Gợi ý tour (Thư + Thông)
