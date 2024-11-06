@@ -116,15 +116,14 @@
 
 - Service:
   - sid*
-  - pid*
-  - oid
-  - cid
+  - oid 1Table?
+  - cid 1Table?
+  - address_id 1Table?
   - name
   - detail
   - description
   - place
   - status
-  - address_id
   - price
   - time 
   - count_report
@@ -132,7 +131,7 @@
 
 - ServiceImage:
   - image_id*
-  - sid
+  - sid*
   - url
 
 - ServiceRule:
@@ -158,6 +157,7 @@
 
 - Post
   - pid*
+  - sid
   - oid
   - title
   - post_description
