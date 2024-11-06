@@ -1,4 +1,4 @@
-# Weather Center - Đồ án môn Lập trình Python - Nhóm 12 - NLU 2024-2025
+# VietHomeAir - Đồ án môn Lập trình Python - Nhóm 12 - NLU 2024-2025
 
 #### Lưu ý: Repo này chỉ mới config cơ bản, chưa config csdl và model
 
