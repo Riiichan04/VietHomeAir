@@ -17,8 +17,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from application.views.BasedView import BaseView
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path('', SimpleView.as_view(), name='home'),
-    # path('header', SimpleComplexView.as_view(), name='header'),
+    path('', BaseView.as_view(), name=''),
 ]
