@@ -146,16 +146,16 @@
   - comment
   - rating_at
 
-- ServiceRatingType
+- ServiceRatingType !!
   - rating_id*
   - type_name
 
-- Address:
+- Address: !!
   - address_id*
   - province
   - location
 
-- Post
+- Post !!
   - pid*
   - sid
   - oid

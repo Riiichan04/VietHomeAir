@@ -1,4 +1,4 @@
-# Weather Center - Đồ án môn Lập trình Python - Nhóm 12 - NLU 2024-2025
+# VietHomeAir - Đồ án môn Lập trình Python - Nhóm 12 - NLU 2024-2025
 
 #### Lưu ý: Repo này chỉ mới config cơ bản, chưa config csdl và model
 
@@ -22,15 +22,6 @@
     - **requests**: `pip install requests`
     - **python-dotenv**: `pip install python-dotenv`
 
-[//]: # (9. Tạo 1 file tên là `.env` và đặt trong project với thông tin như sau:)
-
-[//]: # ()
-[//]: # (```)
-
-[//]: # (OPEN_WEATHER="Open Weather API Key")
-
-[//]: # (```)
-
 #### Cách 2: Chạy trực tiếp
 
 1. Clone repo này về
@@ -39,15 +30,6 @@
 4. Cài thêm các thư viện hỗ trợ:
     - **requests**: `pip install requests`
     - **python-dotenv**: `pip install python-dotenv`
-
-[//]: # (5. Tạo 1 file tên là `.env` và đặt trong project với thông tin như sau:)
-
-[//]: # ()
-[//]: # (```)
-
-[//]: # (OPEN_WEATHER="Open Weather API Key")
-
-[//]: # (```)
 
 ---
 
@@ -65,7 +47,7 @@
 2. Gõ `.venv\Scripts\Activate.ps1` để bật venv
 3. Gõ `python pip install Django` để cài Django vào venv
 4. Gõ `django-admin startproject tên_pj .` để tạo project, dấu . để cho Python biết là cài ngay ở current dir (Ở
-   Python_WeatherCenter)
+   VietHomeAir)
 5. Gõ `python manage.py startapp tên_app` để tạo 1 app
 6. Add dòng `tên_app.apps.TênAppConfig` vào file `setting.py` trong project
 7. Tạo 1 directory tên là `templates` để chứa các file html/Jinja2, tạo các file html tùy ý
@@ -83,8 +65,6 @@
 - Version requests là 2.32.3 (Dùng để fetch api của bên thứ 3)
 - Version python-dotenv là 1.0.1
 - Version pip (bộ cài đặt thư viện,...) là: 24.2
-- Các biến môi trường (.env) sử dụng (tạo 1 file tên .env trong project):
-    - OpenWeather API Key
 
 ---
 
