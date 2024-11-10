@@ -101,24 +101,31 @@
 - History:
   - hid*
   - account_id
-  - sid
-   
+- history_services:
+  - hid*
+  - sid*
+  - started
+  - ended 
+  - pay_method
 - Favorite:
-  - bid*
+  - bid* (?????)
   - sid*
   - account_id
 
 - ServiceOwner:
-  - id*
+  - oid*
+  - description
   - rating
   - count_rating
   - count_report   
-
+- owner_services
+  - sid*
+  - oid*
+  - createdAt
+  - updatedAt
 - Service:
   - sid*
-  - oid 1Table?
-  - cid 1Table?
-  - address_id 1Table?
+  - address_id 
   - name
   - detail
   - description
@@ -128,7 +135,10 @@
   - time 
   - count_report
   - capacity
-
+- category_services:
+  - sid*
+  - cid*
+  - createdAt
 - ServiceImage:
   - image_id*
   - sid*
@@ -146,31 +156,22 @@
   - comment
   - rating_at
 
-- ServiceRatingType !!
+- ServiceRatingType
   - rating_id*
   - type_name
 
-- Address: !!
+- Address:
   - address_id*
   - province
   - location
 
-- Post !!
-  - pid*
-  - sid
-  - oid
-  - title
-  - post_description
-  - upload_date
-  - edit_date
-
 - Category
-  - cid
+  - cid*
   - name
 
 - ServiceExtension:
-  - seid*
-  - sid
+  - eid*
+  - sid*
 
 - Extension:
   - eid*
