@@ -155,7 +155,7 @@
   - rating
   - comment
   - rating_at
-
+  - 
 - ServiceRatingType
   - rating_id*
   - type_name
@@ -192,7 +192,7 @@
 **t: tour
 
 ~~=> Config Django + Config View: (Thông)~~
-=> Phần DB Service + Tour + Extension + Post: (Loan + Thông)
+=> Phần DB Service + Tour + Extension: (Loan + Thông)
 => Phần account (Thư)
 => Cào data: Thịnh
 => AI: (optional)
