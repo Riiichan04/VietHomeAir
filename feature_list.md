@@ -114,11 +114,15 @@
   - count_rating
   - count_report   
 
+*Cần 1 bảng chứa oid + sid
+*Cần 1 bảng chứa cid + sid
+  
+[//]: # (  - oid 1Table?)
+[//]: # (  - cid 1Table?)
+[//]: # (  - address_id 1Table?)
+
 - Service:
   - sid*
-  - oid 1Table?
-  - cid 1Table?
-  - address_id 1Table?
   - name
   - detail
   - description
@@ -146,23 +150,6 @@
   - comment
   - rating_at
 
-- ServiceRatingType !!
-  - rating_id*
-  - type_name
-
-- Address: !!
-  - address_id*
-  - province
-  - location
-
-- Post !!
-  - pid*
-  - sid
-  - oid
-  - title
-  - post_description
-  - upload_date
-  - edit_date
 
 - Category
   - cid
@@ -191,7 +178,7 @@
 **t: tour
 
 ~~=> Config Django + Config View: (Thông)~~
-=> Phần DB Service + Tour + Extension + Post: (Loan + Thông)
+=> Phần DB Service + Tour + Extension: (Loan + Thông)
 => Phần account (Thư)
 => Cào data: Thịnh
 => AI: (optional)
