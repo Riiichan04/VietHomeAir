@@ -108,7 +108,7 @@
   - ended 
   - pay_method
 - Favorite:
-  - bid* (?????)
+  - bid*
   - sid*
   - account_id
 
@@ -125,7 +125,6 @@
   - updatedAt
 - Service:
   - sid*
-  - address_id 
   - name
   - detail
   - description
@@ -160,10 +159,6 @@
   - rating_id*
   - type_name
 
-- Address:
-  - address_id*
-  - province
-  - location
 
 - Category
   - cid*
