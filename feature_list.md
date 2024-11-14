@@ -108,7 +108,7 @@
   - ended 
   - pay_method
 - Favorite:
-  - bid* (?????)
+  - bid*
   - sid*
   - account_id
 
@@ -125,7 +125,6 @@
   - updatedAt
 - Service:
   - sid*
-  - address_id 
   - name
   - detail
   - description
@@ -155,15 +154,11 @@
   - rating
   - comment
   - rating_at
-
+  - 
 - ServiceRatingType
   - rating_id*
   - type_name
 
-- Address:
-  - address_id*
-  - province
-  - location
 
 - Category
   - cid*
@@ -192,7 +187,7 @@
 **t: tour
 
 ~~=> Config Django + Config View: (Thông)~~
-=> Phần DB Service + Tour + Extension + Post: (Loan + Thông)
+=> Phần DB Service + Tour + Extension: (Loan + Thông)
 => Phần account (Thư)
 => Cào data: Thịnh
 => AI: (optional)
