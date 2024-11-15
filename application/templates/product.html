@@ -1,11 +1,34 @@
-{% extends base.html %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <section class="container">
+        <h2>Cỏ May</h2>
+        <div class="row">
+            <div class="col-6">
+                <img class="col-12" src="{% static 'image/product_img1.jpg' %}" alt="">
+            </div>
+            <div class="col-6">
+                <img class="col-6" src="{% static 'image/product_img2.jpg' %}" alt="">
+                <img class="col-6" src="{% static 'image/product_img3.jpeg' %}" alt="">
+            </div>
+        </div>
+        
+        <div class="row">
+            <h4>Chủ nhà: NguyenVanD</h4>
+            <div>
+                <div>
+                    <h5>Tự nhận phòng</h5>
+                    <p>Có thể gặp người trực để nhận phòng</p>
+                </div>
+                <div>
+                    <h5>Có máy lạnh</h5>
+                    <p>Thổi bay cái nóng với máy lạnh :3</p>
+                </div>
+                <div>
+                    <h5>Cách bãi biển 10 phút đi bộ</h5>
+                    <p>Cách biển Cần Giờ 10 phút đi bộ</p>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock content %}
