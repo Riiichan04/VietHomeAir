@@ -1,0 +1,12 @@
+.product-images img {
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+
+.product-other-images__top-right {
+    border-top-right-radius: 20px;
+}
+
+.product-other-images__bottom-right {
+    border-bottom-right-radius: 20px;
+}
