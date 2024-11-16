@@ -1,9 +1,14 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}Cỏ May - VietHomeAir{% endblock title %}
+
+{% block title %}
+    <title>Cỏ May - VietHomeAir</title>
+{% endblock title %}
+
 {% block stylesheet %}
     <link rel="stylesheet" href="{% static 'style/product.css' %}">
 {% endblock stylesheet %}
+
 {% block content %}
     <section class="container p-4">
         <div class="row">
@@ -27,16 +32,15 @@
                     <img class="col-6 px-1 product-other-images__bottom-right" src="{% static 'image/product_img5.jpg' %}" alt="">
                 </div>
             </div>
-            <div>
-                <span>Có 2 phòng ngủ, 1 phòng khách, 1 phòng bếp và hơn thế nữa</span>
-            </div>
+
         </div>
         <hr/>
 
         <div class="row">
-            <h4>Chủ nhà: NguyenVanD</h4>
-            <hr/>
             <div>
+                <div>
+                    <p><i class="fa-solid fa-house-chimney h5"></i> Có 2 phòng ngủ, 1 phòng khách, 1 phòng bếp và hơn thế nữa</p>
+                </div>
                 <div>
                     <h5><i class="bi bi-building-check"></i> Tự nhận phòng</h5>
                     <p>Có thể gặp người trực để nhận phòng</p>
@@ -86,6 +90,7 @@
                 </div>
             </div>
             <hr/>
+            {# Chỗ này dành cho comment #}
             <div>
                 <h5>Nội quy chỗ ở</h5>
                 <div class="row mt-3">
