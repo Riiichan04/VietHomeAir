@@ -1,1 +1,8 @@
 /*Put css for base.html here*/
+html, body {
+    background-color: var(--web-background-color);
+}
+
+i, p {
+    color: var(--text-color);
+}
