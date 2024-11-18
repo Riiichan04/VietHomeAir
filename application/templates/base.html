@@ -3,20 +3,28 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Python WeatherCenter</title>
     <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
     <link rel="stylesheet" href="{% static 'style/base.css' %}">
+    <link rel="stylesheet" href="{% static 'style/index.css' %}">
+
+    {# Thêm cusomize title cho web #}
+    {% block title %}<title>VietHomeAir</title>{% endblock title %}
+    {# Thêm customize css #}
+    {% block stylesheet %}{% endblock stylesheet %}
+    {# Thêm header js (nếu cần) #}
+    {% block header_scripts %}{% endblock header_scripts %}
 
     <script src="https://kit.fontawesome.com/2643e782c1.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 <body>
-{# Phần body #}
-{% block content %}
-{% endblock content %}
+    <header></header>
+    {% block content %}{% endblock content %} {# Phần body #}
+    <footer></footer>
+    {% block scripts %}{% endblock scripts %} {# Thêm customize js #}
 </body>
 </html>
