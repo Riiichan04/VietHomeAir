@@ -6,39 +6,10 @@
 {% endblock title %}
 
 {% block stylesheet %}
-    <link rel="stylesheet" href="{% static 'style/product.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'style/product.css' %}">
 {% endblock stylesheet %}
 
 {% block content %}
-      <div class="popup-container">
-        <div class="description-popup p-4 rounded">
-            <div class="d-flex justify-content-end">
-                <button type="button" class="btn-close d-flex justify-content-end"></button>
-            </div>
-            <h5>Mô tả về chỗ ở này:</h5>
-            <p>
-                Biệt thự riêng tinh tế với hồ bơi với các đồ trang trí mà bạn mong đợi tại một khu nghỉ dưỡng phong
-                cách Thụy Điển. Được thiết kế hoàn hảo với đồ nội thất hiện đại trong suốt, biệt thự được bao quanh
-                bởi các cánh cửa kính nhiều lớp để cho ánh sáng và gió tràn ngập ngôi nhà. Một khu vực ăn uống ngoài
-                trời rộng lớn.
-            </p>
-            <p>
-                Biệt thự được thiết kế để trở thành một nơi nghỉ dưỡng riêng. Ẩn mình trong một con đường nhỏ. Nhà
-                hàng gần nhất cách 50m và bãi biển cách mười phút đi bộ.
-            </p>
-            <h6>Về chỗ ở</h6>
-            <p>
-                Studio riêng rộng 32 m2 nằm ở tầng 3 của một tòa nhà nằm trong khu vực an toàn của biển Cần Giờ
-                Nó được trang trí độc đáo với:
-            </p>
-            <ul>
-                <li>Hồ bơi riêng</li>
-                <li>Sân vườn cùng nơi tổ chức tiệc BBQ</li>
-                <li>Các tiện ích khác như spa,.. chỉ cách 2 phút đi bộ</li>
-                <li>Bãi đậu xe riêng có thể chứa được 2 chiếc xe 7 chỗ</li>
-            </ul>
-        </div>
-    </div>
 
     <section class="container p-4">
         <div class="row">
@@ -55,11 +26,13 @@
             <div class="col-6 d-flex flex-column justify-content-between product-other-images">
                 <div class="row mb-1">
                     <img class="col-6 px-1" src="{% static 'image/product_img2.jpg' %}" alt="">
-                    <img class="col-6 px-1 product-other-images__top-right" src="{% static 'image/product_img3.jpeg' %}" alt="">
+                    <img class="col-6 px-1 product-other-images__top-right" src="{% static 'image/product_img3.jpeg' %}"
+                         alt="">
                 </div>
                 <div class="row mt-1">
                     <img class="col-6 px-1" src="{% static 'image/product_img4.jpg' %}" alt="">
-                    <img class="col-6 px-1 product-other-images__bottom-right" src="{% static 'image/product_img5.jpg' %}" alt="">
+                    <img class="col-6 px-1 product-other-images__bottom-right"
+                         src="{% static 'image/product_img5.jpg' %}" alt="">
                 </div>
             </div>
 
@@ -69,7 +42,8 @@
         <div class="row">
             <div>
                 <div>
-                    <p><i class="fa-solid fa-house-chimney h5"></i> Có 2 phòng ngủ, 1 phòng khách, 1 phòng bếp và hơn thế nữa</p>
+                    <p><i class="fa-solid fa-house-chimney h5"></i> Có 2 phòng ngủ, 1 phòng khách, 1 phòng bếp và hơn
+                        thế nữa</p>
                 </div>
                 <div>
                     <h5><i class="bi bi-building-check"></i> Tự nhận phòng</h5>
@@ -93,7 +67,7 @@
                     trời rộng lớn.</p>
                 <p>Biệt thự được thiết kế để trở thành một nơi nghỉ dưỡng riêng. Ẩn mình trong một con đường nhỏ. Nhà
                     hàng gần nhất cách 50m và bãi biển cách mười phút đi bộ.</p>
-                <h6><u>Hiển thị thêm ></u></h6>
+                <h6 id="show-description-popup" ><u>Hiển thị thêm ></u></h6>
             </div>
             <div class="mt-4">
                 <h5>Ngoài ra, chỗ ở vẫn còn...</h5>
@@ -146,5 +120,37 @@
         </div>
     </section>
 
+    <div class="popup-container">
+        <div class="description-popup p-4 rounded">
+            <div class="d-flex justify-content-end">
+                <button id="close-popup-btn" type="button" class="btn-close d-flex justify-content-end"></button>
+            </div>
+            <h5>Mô tả về chỗ ở này:</h5>
+            <p>
+                Biệt thự riêng tinh tế với hồ bơi với các đồ trang trí mà bạn mong đợi tại một khu nghỉ dưỡng phong
+                cách Thụy Điển. Được thiết kế hoàn hảo với đồ nội thất hiện đại trong suốt, biệt thự được bao quanh
+                bởi các cánh cửa kính nhiều lớp để cho ánh sáng và gió tràn ngập ngôi nhà. Một khu vực ăn uống ngoài
+                trời rộng lớn.
+            </p>
+            <p>
+                Biệt thự được thiết kế để trở thành một nơi nghỉ dưỡng riêng. Ẩn mình trong một con đường nhỏ. Nhà
+                hàng gần nhất cách 50m và bãi biển cách mười phút đi bộ.
+            </p>
+            <h6>Về chỗ ở</h6>
+            <p>
+                Studio riêng rộng 32 m2 nằm ở tầng 3 của một tòa nhà nằm trong khu vực an toàn của biển Cần Giờ
+                Nó được trang trí độc đáo với:
+            </p>
+            <ul>
+                <li>Hồ bơi riêng</li>
+                <li>Sân vườn cùng nơi tổ chức tiệc BBQ</li>
+                <li>Các tiện ích khác như spa,.. chỉ cách 2 phút đi bộ</li>
+                <li>Bãi đậu xe riêng có thể chứa được 2 chiếc xe 7 chỗ</li>
+            </ul>
+        </div>
+    </div>
 
 {% endblock content %}
+{% block scripts %}
+    <script src="{% static 'scripts/product.js' %}"></script>
+{% endblock scripts %}

@@ -6,6 +6,7 @@
     top: 0;
     left: 0;
     z-index: 1;
+    display: none;
 }
 
 .description-popup {
@@ -15,6 +16,10 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+.description-popup p {
+    text-indent: 2%;
 }
 
 .product-images img {
