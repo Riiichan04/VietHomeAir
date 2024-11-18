@@ -1,0 +1,359 @@
+{
+  "name": "models",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Riiichan04/VietHomeAir.git"
+  },
+  "private": true,
+  "products": [
+    {
+      "title":"Nha Trang, Việt Nam",
+      "image":"https://a0.muscache.com/im/pictures/d682f7bf-caa4-4433-9038-c5f81a01845b.jpg?im_w=720",
+      "des":"Hướng Biển và biển",
+      "price":"d24.845.600đ",
+      "rate":"Xếp hạng trung bình 5,0/5"
+    },
+
+    {
+      "title":"Nha Trang, Việt Nam",
+      "image":"https://a0.muscache.com/im/pictures/19292248-6cca-4b02-9860-94925b29397e.jpg?im_w=720",
+      "des":"Hướng Biển và biển",
+      "price":"13.923.200đ",
+      "rate":"Xếp hạng trung bình 4,92/5"
+    },
+
+    {
+      "title":"Thủ Thiêm, Việt Nam",
+      "image":"https://a0.muscache.com/im/pictures/miso/Hosting-1091860487475871035/original/660fdcfc-4aa5-4dd8-ad90-293d4c20bfad.jpeg?im_w=720",
+      "des":"Hướng Cảng và sông",
+      "price":"3.213.885đ",
+      "rate":"Xếp hạng trung bình 4,8/5"
+    },
+
+     {
+      "title":"Thành phố Hồ Chí Minh, Việt Nam",
+      "image":"https://a0.muscache.com/im/pictures/hosting/Hosting-1149240334267861341/original/2528c07d-cd0f-4561-8844-1e2302fd5fd8.jpeg?im_w=720",
+      "des":"Hướng Cảng và thành phố",
+      "price":"3.256.845đ",
+      "rate":"Xếp hạng trung bình 5.0/5"
+    },
+
+    {
+      "title":"Thành phố Phan Thiết, Việt Nam",
+      "image":"https://a0.muscache.com/im/pictures/miso/Hosting-1007879262958729349/original/5f93a386-db37-43fd-9491-32da65f7247a.jpeg?im_w=720",
+      "des":"Hướng Biển",
+      "price":"1.173.826đ",
+      "rate":"Xếp hạng trung bình 4,76/5"
+    },
+
+    {
+      "title":"Thành phố Đà Lạt, Việt Nam",
+      "image":"https://a0.muscache.com/im/pictures/08b58008-9ec0-4dc3-9316-69aaef12c518.jpg?im_w=720",
+      "des":"Cách 228km",
+      "price":"586.500đ",
+      "rate":"Xếp hạng trung bình 4,84/5"
+    },
+
+    {
+      "title":"Thành phố Đà Lạt, Việt Nam",
+      "image":"https://a0.muscache.com/im/pictures/284df0de-7fc3-4cca-b537-3fd0b3b3608e.jpg?im_w=720",
+      "des":"Hướng Núi và gần hồ",
+      "price":"586.500đ",
+      "rate":"Xếp hạng trung bình5,0/5"
+    },
+
+     {
+      "title":"Thành phố Phan Thiết, Việt Nam",
+      "image":"https://a0.muscache.com/im/pictures/miso/Hosting-613402549749387923/original/b2b4ab6d-fff6-4664-9807-6f99f6d0e1f6.jpeg?im_w=720",
+      "des":"Hướng Biển và khu nghỉ dưỡng",
+      "price":"586.500đ",
+      "rate":"Xếp hạng trung bình 4,96/5"
+    },
+
+    {
+      "title":"Thành phố Hồ Chí Minh, Việt Nam",
+      "image":"https://a0.muscache.com/im/pictures/miso/Hosting-1219315725727012605/original/9a51711b-2fbf-42a7-9d7b-5dde6d4afac3.png?im_w=720",
+      "des":"Hướng Sông và kênh đào",
+      "price":"2.052.257đ",
+      "rate":"Xếp hạng trung bình 4,8/5"
+    },
+
+    {
+      "title":"Thủ Thiêm, Việt Nam",
+      "image":"https://a0.muscache.com/im/pictures/hosting/Hosting-1169437322560814981/original/20845b6d-ed26-4d10-b4be-9cdf214d8891.jpeg?im_w=720",
+      "des":"Hướng Sông và kênh đào",
+      "price":"2.556.236đ",
+      "rate":"Xếp hạng trung bình 5,0/5"
+    },
+
+    {
+      "title":"District 2, Việt Nam",
+      "image":"https://a0.muscache.com/im/pictures/miso/Hosting-1218160747957389672/original/199e8400-7478-4bba-833a-0dcd869a679f.jpeg?im_w=720",
+      "des":"Hướng Sông và kênh đào",
+      "price":"2.738.286đ",
+      "rate":"Xếp hạng trung bình 5,0/5"
+    },
+
+    {
+      "title":"Thành phố Hồ Chí Minh, Việt Nam",
+      "image":"https://a0.muscache.com/im/pictures/hosting/Hosting-1105099918857994179/original/ebdce935-77e8-41a8-a526-6bd84de274ae.jpeg?im_w=720",
+      "des":"Hướng thành phố",
+      "price":"2.108.052đ",
+      "rate":"Xếp hạng trung bình 4,96/5"
+    },
+
+    {
+      "title":"Quận 2, Việt Nam",
+      "image":"https://a0.muscache.com/im/pictures/miso/Hosting-760520917764084987/original/e89fad42-288a-46f1-976e-a10804fb8e3f.jpeg?im_w=720",
+      "des":"Hướng Bến du thuyền và cảng",
+      "price":"2.755.069đ",
+      "rate":"Xếp hạng trung bình 4,94/5"
+    },
+
+    {
+      "title":"Thành phố Hồ Chí Minh, Việt Nam",
+      "image":"https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6OTg4ODk3NTY0MDEyMTg3NTI5/original/495b44c4-6300-490e-9491-9d4b3c323c7b.jpeg?im_w=720",
+      "des":"Hướng Bến du thuyền và công viên",
+      "price":"1.821.306đ",
+      "rate":"Xếp hạng trung bình 4,91/5"
+    },
+
+    {
+      "title":"Thủ Đức, Việt Nam",
+      "image":"https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6MTIxOTgwMDcyMzczNzI2MDE3Mg%3D%3D/original/dd4cb0fb-6574-4eaa-a5ea-23d471d672c9.jpeg?im_w=720",
+      "des":"Hướng Bến du thuyền và bể bơi",
+      "price":"6.016.753đ",
+      "rate":"Xếp hạng trung bình 5,0/5"
+    },
+
+    {
+      "title":"Hàm Tân, Việt Nam",
+      "image":"https://a0.muscache.com/im/pictures/754168e0-f555-4133-89b9-7fd8d7f324a6.jpg?im_w=720",
+      "des":"Hướng Bãi biển và núi",
+      "price":"3.988.091đ",
+      "rate":"Xếp hạng trung bình 4,91/5"
+    },
+
+    {
+      "title":"Căn hộ tại Thành phố Hồ Chí Minh",
+      "image":"https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6MTAyMTAyNzUyMzc2OTk5MDEzNw%3D%3D/original/6d431d7b-23a8-4bd1-9f1b-0bb31d1b27a2.png?im_w=720",
+      "des":"1 giường queen",
+      "price":"509.937đ",
+      "rate":"Xếp hạng trung bình 4,91/5"
+    },
+
+    {
+      "title":"Phòng tại Quận 3",
+      "image":"https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6MTE4NDUyMDAxOTI2MDY3Nzg5OQ%3D%3D/original/eb1f636e-3e54-425c-bb94-4860d3824b92.jpeg?im_w=720",
+      "des":"Chủ nhà: Vo Huynh Anh",
+      "price":"413.676đ",
+      "rate":"Xếp hạng trung bình 4,88/5"
+    },
+
+    {
+      "title":"Căn hộ tại Quận 2",
+      "image":"https://a0.muscache.com/im/pictures/miso/Hosting-821441607261345877/original/29b1bc43-888a-4b95-89cb-19890a71753d.jpeg?im_w=720",
+      "des":"403 - ban công lớn studio đáng yêu",
+      "price":"630.567đ",
+      "rate":"Xếp hạng trung bình 4,66/5"
+    },
+    {
+      "title":"Căn hộ tại Tân Bình",
+      "image":"https://a0.muscache.com/im/pictures/hosting/Hosting-1103527510549740698/original/b2a0c78d-7e71-4951-b59a-a2f5db0b384a.jpeg?im_w=720",
+      "des":"104 - Studio ấm cúng cạnh sân bay",
+      "price":"570.589đ",
+      "rate":"Xếp hạng trung bình 4,66/5"
+    },
+    {
+      "title":"Căn hộ tại Thủ Đức",
+      "image":"https://a0.muscache.com/im/pictures/miso/Hosting-1255798529297135373/original/625c3419-796c-4706-bdc3-bf6f06ae68ab.jpeg?im_w=720",
+      "des":"An Nhiên Vinhome Grand Park Quận 9",
+      "price":"513.530đ",
+      "rate":"Xếp hạng trung bình 5,0/5"
+    },
+
+    {
+      "title":"Căn hộ tại Quận 2",
+      "image":"https://a0.muscache.com/im/pictures/hosting/Hosting-1044586775765832107/original/96ba9857-9cfe-4a54-b535-e11105011a51.jpeg?im_w=720",
+      "des":"Soulful Stay Saigon - do House of LH quản lý",
+      "price":"1.213.867đ",
+      "rate":"Xếp hạng trung bình 4,92/5"
+    },
+
+    {
+      "title":"Căn hộ tại Quận 7",
+      "image":"https://a0.muscache.com/im/pictures/miso/Hosting-1244043996989768214/original/bca62ea5-6078-48ca-b19c-7f4eb4883754.jpeg?im_w=720",
+      "des":"Studio ấm cúng ở Q7",
+      "price":"357.540đ",
+      "rate":"Xếp hạng trung bình 4,8/5"
+    },
+
+     {
+      "title":"Căn hộ tại Phú Nhuận",
+      "image":"https://a0.muscache.com/im/pictures/hosting/Hosting-1288005556577651383/original/b52e73ef-fa77-4420-91ad-9e5a7e30a592.jpeg?im_w=720",
+      "des":"Khám phá một ốc đảo Nhật Bản ở Sài Gòn",
+      "price":"827.353đ",
+      "rate":"Xếp hạng trung bình 4,8/5"
+    },
+
+    {
+      "title":"Căn hộ tại Q7",
+      "image":"https://a0.muscache.com/im/pictures/hosting/Hosting-1252738991343117803/original/4a884309-d320-4da7-93aa-154c082365f2.jpeg?im_w=720",
+      "des":"Hmm Space - Căn hộ chữa lành, Cozy Homestay",
+      "price":"1.063.739đ",
+      "rate":"Xếp hạng trung bình 5,0/5"
+    },
+    {
+      "title":"Căn hộ tại Thủ Đức",
+      "image":"https://a0.muscache.com/im/pictures/miso/Hosting-1035278544251987862/original/220c72f2-01ff-4474-975d-f19338d65f0c.jpeg?im_w=720",
+      "des":"Lina Home 5 - Can ho 1PN+ Vinhomes Grand Park Q9",
+      "price":"622.374đ",
+      "rate":"Xếp hạng trung bình 5,0/5"
+    },
+    {
+      "title":"Căn hộ tại Thủ Đức",
+      "image":"https://a0.muscache.com/im/pictures/miso/Hosting-665102660109739656/original/ff6d0e12-c31b-4381-97fb-a0af60047914.jpeg?im_w=720",
+      "des":"Nhà ấm cúng có ban công tại tim Saigon Sn",
+      "price":"367.258đ",
+      "rate":"Xếp hạng trung bình 4,92/5"
+    },
+
+    {
+      "title":"Phòng tại Gò Vấp",
+      "image":"https://a0.muscache.com/im/pictures/9f515f41-397d-4652-95b4-e766e4de71bc.jpg?im_w=720",
+      "des":"Phòng của Misa11 có ban công cho khách đơn - Gò Vấp",
+      "price":"365.177đ",
+      "rate":"Xếp hạng trung bình 4,92/5"
+    },
+    {
+      "title":"Căn hộ tại Binh Trung Tay",
+      "image":"https://a0.muscache.com/im/pictures/miso/Hosting-718847532736912103/original/69791950-6e87-4d41-a867-3c915b2cca0c.jpeg?im_w=720",
+      "des":"# 2BR Luxury Diamond Island Condo# The Bahamas",
+      "price":"1.125.832đ",
+      "rate":"Xếp hạng trung bình 4,92/5"
+    },
+    {
+      "title":"Nơi ở tại Thành phố Hồ Chí Minh",
+      "image":"https://a0.muscache.com/im/pictures/miso/Hosting-744648800635801476/original/42b879a1-dcaf-4613-bb01-cbf106c00ea8.jpeg?im_w=720",
+      "des":"(Ấm cúng) L41@Chill Cozy Room, District 1, Elevator",
+      "price":"588.982đ",
+      "rate":"Xếp hạng trung bình 4,9/5"
+    },
+    {
+      "title":"Nơi ở tại Thành phố Hồ Chí Minh",
+      "image":"https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6MTA3MDc0MTY5NTUwODQzMjg2Ng%3D%3D/original/e704c10c-3c0e-4437-901c-df39d8655b0f.jpeg?im_w=720",
+      "des":"OperaHouse, đường phố Nhật Bản, Máy chiếu, Thang máy",
+      "price":"586.000đ",
+      "rate":"Xếp hạng trung bình 4,47/5"
+    },
+    {
+      "title":"Căn hộ tại Quận 7",
+      "image":"https://a0.muscache.com/im/pictures/hosting/Hosting-1099558448879802066/original/50d13dae-16d9-4c7e-8233-5ff5231a911a.jpeg?im_w=720",
+      "des":"Serenity Nest ở SG, Van Gogh Expo",
+      "price":"712.784đ",
+      "rate":"Xếp hạng trung bình 4,93/5"
+    },
+    {
+      "title":"Căn hộ tại Phú Nhuận",
+      "image":"https://a0.muscache.com/im/pictures/miso/Hosting-881107158862841887/original/8093a26e-6524-456c-98ba-4a041b663ab1.jpeg?im_w=720",
+      "des":"Sân bay Btw & trung tâm D1, Wi-fi nhanh và nhận phòng 24/7",
+      "price":"426.800đ",
+      "rate":"Xếp hạng trung bình 4,83/5"
+    },
+    {
+      "title":"Khách sạn tại thành phố Hồ Chí Minh",
+      "image":"https://a0.muscache.com/im/pictures/hosting/Hosting-1264444953280265755/original/6048757b-5d66-42ee-8b32-cf4131848848.jpeg?im_w=720",
+      "des":"Khuyến mãi 20% Phòng ấm cúng gần phố đi bộ Bùi Viện",
+      "price":"295.483đ",
+      "rate":"Xếp hạng trung bình 5/5"
+    },
+    {
+      "title":"Căn hộ tại Quận 9",
+      "image":"https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6MTEyMDcwNjgwNTk1Nzk4NzgzOQ%3D%3D/original/20d797ab-6f2d-4fda-8491-0e79dd230d21.jpeg?im_w=720",
+      "des":"Vinhomes grand park Q9_ An Trú",
+      "price":"581.694đ",
+      "rate":"Xếp hạng trung bình 5/5"
+    },
+    {
+      "title":"Căn hộ tại Tân Bình",
+      "image":"https://a0.muscache.com/im/pictures/578be297-fef1-455e-a68d-ae84bcad1c87.jpg?im_w=720",
+      "des":"[SKYHOMES]  - Tân Sơn Nhất Homestay",
+      "price":"671.012đ",
+      "rate":"Xếp hạng trung bình 4,77/5"
+    },
+    {
+      "title":"Nhà tại Đa Kao",
+      "image":"https://a0.muscache.com/im/pictures/miso/Hosting-1200708812779088258/original/77002678-39e5-4212-bd8e-8df5b6468d5f.jpeg?im_w=720",
+      "des":"Trung tâm/Bàn làm việc/Nhà bếp/Máy chiếu & Netflix/FreeWasher",
+      "price":"634.629đ",
+      "rate":"Xếp hạng trung bình 5,0/5"
+    },
+     {
+      "title":"Nhà tại Đa Kao",
+      "image":"https://a0.muscache.com/im/pictures/miso/Hosting-1200708812779088258/original/77002678-39e5-4212-bd8e-8df5b6468d5f.jpeg?im_w=720",
+      "des":"Trung tâm/Bàn làm việc/Nhà bếp/Máy chiếu & Netflix/FreeWasher",
+      "price":"634.629đ",
+      "rate":"Xếp hạng trung bình 5,0/5"
+    },
+
+    {
+      "title":"Căn hộ tại Quy Nhơn",
+      "image":"https://a0.muscache.com/im/pictures/miso/Hosting-1150327676869163559/original/2fd1c15a-6d99-44f6-90b0-605835dddb14.jpeg?im_w=720",
+      "des":"Căn hộ Studio view biển TMS Quy Nhơn - Hupasearest",
+      "price":"365.720đ",
+      "rate":"Xếp hạng trung bình 4,82/5"
+    },
+     {
+      "title":"Căn hộ tại Quy Nhơn",
+      "image":"https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6NzkzMDY2OTQwOTIxNDM5NDc3/original/4821b1cf-8235-43ae-adef-278cf5dbc929.jpeg?im_w=720",
+      "des":"Song Suoi TMS, căn hộ mới view biển cho gia đình",
+      "price":"462.177đ",
+      "rate":"Xếp hạng trung bình 5,0/5"
+    },
+
+    {
+      "title":"Căn hộ tại Quy Nhơn",
+      "image":"https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6NzkzMDY2OTQwOTIxNDM5NDc3/original/4821b1cf-8235-43ae-adef-278cf5dbc929.jpeg?im_w=720",
+      "des":"Song Suoi TMS, căn hộ mới view biển cho gia đình",
+      "price":"462.177đ",
+      "rate":"Xếp hạng trung bình 5,0/5"
+    },
+     {
+      "title":"Nhà tại Thành phố Đà lạt",
+      "image":"https://a0.muscache.com/im/ml/photo_enhancement/pictures/miso/Hosting-704828762802485541/original/b254e8f3-a100-4e73-9473-f795d8ceeff7.jpeg?im_w=720",
+      "des":"1 phòng ngủ ấm áp tại trung tâm thành phố Đà Lạt",
+      "price":"665.306đ",
+      "rate":"Xếp hạng trung bình 4,93/5"
+    },
+    {
+      "title":"Phòng tại Thành phố Đà lạt",
+      "image":"https://a0.muscache.com/im/pictures/miso/Hosting-863996371657185564/original/815e3612-8aba-4339-b0ea-c747135b1797.jpeg?im_w=720",
+      "des":"Lều gỗ phong cách Bắc Âu tại Đà Lạt -toilet riêng",
+      "price":"533.500đ",
+      "rate":"Xếp hạng trung bình 5,0/5"
+    },
+
+     {
+      "title":"Nhà tại Thành phố Đà lạt",
+      "image":"https://a0.muscache.com/im/pictures/hosting/Hosting-1048136985347145883/original/25d05397-8e74-4827-abc5-23b6690b6fc3.jpeg?im_w=720",
+      "des":"MrPostman Home - Đi bộ đến trung tâm",
+      "price":"370.573đ",
+      "rate":"Xếp hạng trung bình 4,92/5"
+    },
+    {
+      "title":"Nhà siêu nhỏ tại Thành phố Đà lạt",
+      "image":"https://a0.muscache.com/im/ml/photo_enhancement/pictures/8f9cbc81-d277-48e7-a2fc-081cd641b2f0.jpg?im_w=720",
+      "des":"Căn Family nguyên căn 2 phòng ngủ- Lavita home",
+      "price":"1.437.883đ",
+      "rate":"Xếp hạng trung bình 4,97/5"
+    }
+
+  ]
+
+}
