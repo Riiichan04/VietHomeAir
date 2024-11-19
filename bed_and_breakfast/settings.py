@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'application.apps.WeatherAppConfig', #Add application vào
+    'application.apps.VietHomeAirAppConfig', #Add application vào
 ]
 
 MIDDLEWARE = [
