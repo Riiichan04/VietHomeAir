@@ -7,6 +7,10 @@ i, p {
     color: var(--text-color);
 }
 
+footer a, footer p {
+    text-decoration: none;
+}
+
 #web-logo * {
     color: var(--logo-icon-color);
     cursor: pointer;
