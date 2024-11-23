@@ -22,7 +22,7 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 <body>
-<header class="container mb-4 p-3">
+<header class="container p-3">
     <div class="row px-3">
         <div class="col-1 d-flex flex-column align-items-center" id="web-logo">
             <i class="fa-brands fa-google-wallet"></i>
@@ -42,11 +42,11 @@
                 </div>
                 <p class="">Tour du lịch</p>
             </div>
-            <div class="header-function mx-2 cursor-pointer default-btn-style ">
+            <div class="header-function mx-2 cursor-pointer default-btn-style position-relative">
                 <div class="d-flex justify-content-center">
-                    <i class="fa-solid fa-globe"></i>
+                    <i class="fa-solid fa-map-location-dot"></i>
                 </div>
-                <p class="">Ngôn ngữ</p>
+                <p class="">Bản đồ</p>
             </div>
             <div class="header-function mx-2 cursor-pointer default-btn-style ">
                 <div class="d-flex justify-content-center">
@@ -60,6 +60,7 @@
 </header>
 {% block content %}{% endblock content %} {# Phần body #}
 <footer></footer>
+<script src="{% static 'scripts/base.js' %}"></script>
 {% block scripts %}{% endblock scripts %} {# Thêm customize js #}
 </body>
 </html>
