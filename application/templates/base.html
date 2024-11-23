@@ -22,9 +22,44 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 <body>
-    <header></header>
-    {% block content %}{% endblock content %} {# Phần body #}
-    <footer></footer>
-    {% block scripts %}{% endblock scripts %} {# Thêm customize js #}
+<header class="container mb-4 p-3">
+    <div class="row px-3">
+        <div class="col-1 d-flex flex-column align-items-center" id="web-logo">
+            <i class="fa-brands fa-google-wallet"></i>
+            <span class="h6">VietHomeAir</span>
+        </div>
+        <div class="col-1"></div>
+        <div class="col-7 text-white d-flex align-items-center">
+            <div class="input-group">
+                <span class="input-group-text fas d-flex align-items-center" style="color: #56595C">&#xf002 </span>
+                <input type="search" name="search" id="" class="form-control" placeholder="Tìm kiếm địa điểm">
+            </div>
+        </div>
+        <div class="col-3 d-flex align-items-center">
+            <div class="header-function mx-2 cursor-pointer default-btn-style ">
+                <div class="d-flex justify-content-center">
+                    <i class="fa-solid fa-map-pin"></i>
+                </div>
+                <p class="">Tour du lịch</p>
+            </div>
+            <div class="header-function mx-2 cursor-pointer default-btn-style ">
+                <div class="d-flex justify-content-center">
+                    <i class="fa-solid fa-globe"></i>
+                </div>
+                <p class="">Ngôn ngữ</p>
+            </div>
+            <div class="header-function mx-2 cursor-pointer default-btn-style ">
+                <div class="d-flex justify-content-center">
+                    <i class=" fa-solid fa-arrow-right-to-bracket"></i>
+                </div>
+                <p class="">Đăng nhập</p>
+            </div>
+        </div>
+    </div>
+    <hr/>
+</header>
+{% block content %}{% endblock content %} {# Phần body #}
+<footer></footer>
+{% block scripts %}{% endblock scripts %} {# Thêm customize js #}
 </body>
 </html>
