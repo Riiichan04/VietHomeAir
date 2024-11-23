@@ -59,7 +59,37 @@
     <hr/>
 </header>
 {% block content %}{% endblock content %} {# Phần body #}
-<footer></footer>
+<footer class="container mt-5">
+    <hr/>
+    <div class="row p-2">
+        <div class="col-3">
+            <h6>VietHomeAir, 2024</h6>
+            <p class="my-2"><i class="fa-solid fa-location-dot"></i> Khu phố 6, phường Linh Trung, TP.Thủ Đức, Thành phố Hồ Chí Minh,
+                Việt Nam
+            </p>
+            <p class="my-2"><i class="fa-solid fa-envelope"></i> hehehehe@gmail.com</p>
+        </div>
+        <div class="col-3">
+            <h5 class="mb-2">Về VietHomeAir</h5>
+            <p class="my-2">Trợ giúp</p>
+            <p class="my-2">Về chúng tôi</p>
+        </div>
+        <div class="col-3">
+            <h5 class="mb-2">Hỗ trợ</h5>
+            <p class="my-2">Quyền riêng tư</p>
+            <p class="my-2">Điều khoản sử dụng</p>
+            <p class="my-2">Chính sách</p>
+        </div>
+
+        <div class="col-3">
+            <h5 class="mb-2">Theo dõi chúng tôi ở</h5>
+            <p class="my-2"><i class="fa-brands fa-facebook"></i> Facebook</p>
+            <p class="my-2"><i class="fa-brands fa-instagram"></i> Instagram</p>
+            <p class="my-2"><i class="fa-brands fa-youtube"></i> Youtube</p>
+            <p class="my-2"><i class="fa-brands fa-telegram"></i> Telegram</p>
+        </div>
+    </div>
+</footer>
 <script src="{% static 'scripts/base.js' %}"></script>
 {% block scripts %}{% endblock scripts %} {# Thêm customize js #}
 </body>
