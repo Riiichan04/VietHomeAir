@@ -25,10 +25,10 @@ from application.views.BasedView import BaseView
 # Xem https://docs.djangoproject.com/en/5.1/ref/views/#django.views.defaults.page_not_found
 # Xem định nghĩa default các public url ở .venv/Lib/django/conf/urls/__init__.py
 
-handler400 = 'application.views.ErrorView.error_400'
-handler403 = 'application.views.ErrorView.error_403'
-handler404 = 'application.views.ErrorView.error_404'
-handler500 = 'application.views.ErrorView.error_500'
+handler400 = 'application.views.ErrorView.get_error_400_page'
+handler403 = 'application.views.ErrorView.get_error_403_page'
+handler404 = 'application.views.ErrorView.get_error_404_page'
+handler500 = 'application.views.ErrorView.get_error_500_page'
 
 urlpatterns = [
     path('admin/', admin.site.urls),
