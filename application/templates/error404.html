@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>404 - Không tìm thấy trang - VietHomeAir</title>
+{% endblock title %}
+
+{% block stylesheet %}
+    <style>
+        .main-cta-btn {
+            text-decoration: none;
+            background-color: #688bb3;
+            color: #f5f5f5;
+        }
+
+        .main-cta-btn:hover {
+            background-color: #78a2c0;
+        }
+    </style>
+{% endblock stylesheet %}
+
+{% block content %}
+    <div class="container">
+        <div class="row d-flex justify-content-center align-items-center">
+            <div class="col-6 d-flex flex-column align-items-center">
+                <div class="row d-flex justify-content-center">
+                    <img src="{% static 'image/error_image/error404.jpg' %}" alt=""
+                         style="width: 80%">
+                </div>
+                <h3>Con mèo đang nhìn bạn sao?</h3>
+                <p>Vì nó không tìm thấy trang bạn muốn đó!</p>
+                <p style="font-size: 14px" class="text-secondary">Mã lỗi: {{ status_code }}</p>
+                <div class="row">
+                    <div class="py-5">
+                        <a class="main-cta-btn p-3 rounded h5" href="index.html">Quay về trang chủ</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
