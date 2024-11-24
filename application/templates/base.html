@@ -22,9 +22,75 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 <body>
-    <header></header>
-    {% block content %}{% endblock content %} {# Phần body #}
-    <footer></footer>
-    {% block scripts %}{% endblock scripts %} {# Thêm customize js #}
+<header class="container p-3">
+    <div class="row px-3">
+        <div class="col-1 d-flex flex-column align-items-center" id="web-logo">
+            <i class="fa-brands fa-google-wallet"></i>
+            <span class="h6">VietHomeAir</span>
+        </div>
+        <div class="col-1"></div>
+        <div class="col-7 text-white d-flex align-items-center">
+            <div class="input-group">
+                <span class="input-group-text fas d-flex align-items-center" style="color: #56595C">&#xf002 </span>
+                <input type="search" name="search" id="" class="form-control" placeholder="Tìm kiếm địa điểm, tên nhà, ...">
+            </div>
+        </div>
+        <div class="col-3 d-flex align-items-center">
+            <div class="header-function mx-2 cursor-pointer default-btn-style ">
+                <div class="d-flex justify-content-center">
+                    <i class="fa-solid fa-map-pin"></i>
+                </div>
+                <p class="">Tour du lịch</p>
+            </div>
+            <div class="header-function mx-2 cursor-pointer default-btn-style position-relative">
+                <div class="d-flex justify-content-center">
+                    <i class="fa-solid fa-map-location-dot"></i>
+                </div>
+                <p class="">Bản đồ</p>
+            </div>
+            <div class="header-function mx-2 cursor-pointer default-btn-style ">
+                <div class="d-flex justify-content-center">
+                    <i class=" fa-solid fa-arrow-right-to-bracket"></i>
+                </div>
+                <p class="">Đăng nhập</p>
+            </div>
+        </div>
+    </div>
+    <hr/>
+</header>
+{% block content %}{% endblock content %} {# Phần body #}
+<footer class="container mt-5">
+    <hr/>
+    <div class="row p-2">
+        <div class="col-3">
+            <h6>VietHomeAir, 2024</h6>
+            <p class="my-2"><i class="fa-solid fa-location-dot"></i> Khu phố 6, phường Linh Trung, TP.Thủ Đức, Thành phố Hồ Chí Minh,
+                Việt Nam
+            </p>
+            <p class="my-2"><i class="fa-solid fa-envelope"></i> hehehehe@gmail.com</p>
+        </div>
+        <div class="col-3">
+            <h5 class="mb-2">Về VietHomeAir</h5>
+            <p class="my-2">Trợ giúp</p>
+            <p class="my-2">Về chúng tôi</p>
+        </div>
+        <div class="col-3">
+            <h5 class="mb-2">Hỗ trợ</h5>
+            <p class="my-2">Quyền riêng tư</p>
+            <p class="my-2">Điều khoản sử dụng</p>
+            <p class="my-2">Chính sách</p>
+        </div>
+
+        <div class="col-3">
+            <h5 class="mb-2">Theo dõi chúng tôi ở</h5>
+            <p class="my-2"><i class="fa-brands fa-facebook"></i> <a class="default-btn-style" href="#"> Facebook</a></p>
+            <p class="my-2"><i class="fa-brands fa-instagram"></i> <a class="default-btn-style" href="#"> Instagram</a></p>
+            <p class="my-2"><i class="fa-brands fa-youtube"></i> <a class="default-btn-style" href="#"> Youtube</a></p>
+            <p class="my-2"><i class="fa-brands fa-telegram"></i> <a class="default-btn-style" href="#"> Telegram</a></p>
+        </div>
+    </div>
+</footer>
+<script src="{% static 'scripts/base.js' %}"></script>
+{% block scripts %}{% endblock scripts %} {# Thêm customize js #}
 </body>
 </html>

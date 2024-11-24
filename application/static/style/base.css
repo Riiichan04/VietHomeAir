@@ -6,3 +6,33 @@ html, body {
 i, p {
     color: var(--text-color);
 }
+
+footer a, footer p {
+    text-decoration: none;
+}
+
+#web-logo * {
+    color: var(--logo-icon-color);
+    cursor: pointer;
+    user-select: none;
+}
+
+#web-logo i {
+    font-size: 50px;
+}
+
+/*.header-function * {*/
+/*    color: var(--logo-icon-color);*/
+/*}*/
+
+.header-function i {
+    font-size: 1.5rem;
+}
+
+.header-function p {
+    margin: 0;
+}
+
+.header-function:hover * {
+    color: var(--text-color-hover);
+}
