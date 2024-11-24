@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Không tìm thấy trang</title>
+{% endblock title %}
+
+{% block stylesheet %}
+    <style>
+        .main-cta-btn {
+            text-decoration: none;
+            background-color: #688bb3;
+            color: #f5f5f5;
+        }
+
+        .main-cta-btn:hover {
+            background-color: #78a2c0;
+        }
+    </style>
+{% endblock stylesheet %}
+
+{% block content %}
+    <div class="container p-5 my-5">
+        <div class="row d-flex justify-content-center">
+            <div class="col"></div>
+            <div class="col-4">
+                <img src="https://res.cloudinary.com/dh90ponfw/image/upload/v1726809069/error_image.webp" alt=""
+                     class="col">
+            </div>
+            <div class="col-6 d-flex align-items-center">
+                <div>
+                    <h3>Opps!!!</h3>
+                    <p>Rất tiếc, chúng tôi không thể tìm thấy trang bạn muốn...</p>
+                    <p style="font-size: 14px" class="text-secondary">Mã lỗi: 404</p>
+                    <div class="row">
+                        <div class="py-5">
+                            <a class="main-cta-btn p-3 rounded h5" href="base.html">Quay về trang chủ</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
