@@ -24,7 +24,11 @@ from application.views.BasedView import BaseView
 # (Trong môi trường dev thì hãy đặt ALLOWED_HOSTS = ["localhost"])
 # Xem https://docs.djangoproject.com/en/5.1/ref/views/#django.views.defaults.page_not_found
 # Xem định nghĩa default các public url ở .venv/Lib/django/conf/urls/__init__.py
+
+handler400 = 'application.views.ErrorView.error_400'
+handler403 = 'application.views.ErrorView.error_403'
 handler404 = 'application.views.ErrorView.error_404'
+handler500 = 'application.views.ErrorView.error_500'
 
 urlpatterns = [
     path('admin/', admin.site.urls),
