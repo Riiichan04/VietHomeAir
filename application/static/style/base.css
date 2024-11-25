@@ -36,3 +36,20 @@ footer a, footer p {
 .header-function:hover * {
     color: var(--text-color-hover);
 }
+
+
+.breadcrumb a {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    text-decoration: none;
+    color: var(--text-color);
+}
+
+.breadcrumb a:hover {
+    color: var(--text-color-hover);
+}
+
+
+/*.main-color {*/
+/*    color: var(--logo-icon-color) !important;*/
+/*}*/

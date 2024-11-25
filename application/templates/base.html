@@ -32,7 +32,8 @@
         <div class="col-7 text-white d-flex align-items-center">
             <div class="input-group">
                 <span class="input-group-text fas d-flex align-items-center" style="color: #56595C">&#xf002 </span>
-                <input type="search" name="search" id="" class="form-control" placeholder="Tìm kiếm địa điểm, tên nhà, ...">
+                <input type="search" name="search" id="" class="form-control"
+                       placeholder="Tìm kiếm địa điểm, tên nhà, ...">
             </div>
         </div>
         <div class="col-3 d-flex align-items-center">
@@ -58,13 +59,27 @@
     </div>
     <hr/>
 </header>
+
+<nav style="--bs-breadcrumb-divider: '>';" class="container">
+    <ol class="breadcrumb">
+        {# Nội dung của Breadcrumb có dạng như sau: #}
+        {# <li class="breadcrumb-item"><a href="index.html">Trang chủ</a></li>#}
+        {# <li class="breadcrumb-item"><a href="tên_file_html">tên_trang_cha</a></li>#}
+        {# ... #}
+        {# <li class="breadcrumb-item active">Tên_trang_hiện_tại</li>#}
+        {% block breadcrumb %}{% endblock breadcrumb %}
+    </ol>
+</nav>
+
 {% block content %}{% endblock content %} {# Phần body #}
+
 <footer class="container mt-5">
     <hr/>
     <div class="row p-2">
         <div class="col-3">
             <h6>VietHomeAir, 2024</h6>
-            <p class="my-2"><i class="fa-solid fa-location-dot"></i> Khu phố 6, phường Linh Trung, TP.Thủ Đức, Thành phố Hồ Chí Minh,
+            <p class="my-2"><i class="fa-solid fa-location-dot"></i> Khu phố 6, phường Linh Trung, TP.Thủ Đức, Thành phố
+                Hồ Chí Minh,
                 Việt Nam
             </p>
             <p class="my-2"><i class="fa-solid fa-envelope"></i> hehehehe@gmail.com</p>
@@ -83,10 +98,13 @@
 
         <div class="col-3">
             <h5 class="mb-2">Theo dõi chúng tôi ở</h5>
-            <p class="my-2"><i class="fa-brands fa-facebook"></i> <a class="default-btn-style" href="#"> Facebook</a></p>
-            <p class="my-2"><i class="fa-brands fa-instagram"></i> <a class="default-btn-style" href="#"> Instagram</a></p>
+            <p class="my-2"><i class="fa-brands fa-facebook"></i> <a class="default-btn-style" href="#"> Facebook</a>
+            </p>
+            <p class="my-2"><i class="fa-brands fa-instagram"></i> <a class="default-btn-style" href="#"> Instagram</a>
+            </p>
             <p class="my-2"><i class="fa-brands fa-youtube"></i> <a class="default-btn-style" href="#"> Youtube</a></p>
-            <p class="my-2"><i class="fa-brands fa-telegram"></i> <a class="default-btn-style" href="#"> Telegram</a></p>
+            <p class="my-2"><i class="fa-brands fa-telegram"></i> <a class="default-btn-style" href="#"> Telegram</a>
+            </p>
         </div>
     </div>
 </footer>
