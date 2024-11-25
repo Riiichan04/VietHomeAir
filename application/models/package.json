@@ -1,17 +1,4 @@
-{
-  "name": "models",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Riiichan04/VietHomeAir.git"
-  },
-  "private": true,
-  "products": [
+"products": [
     {
       "title":"Nha Trang, Việt Nam",
       "image":"https://a0.muscache.com/im/pictures/d682f7bf-caa4-4433-9038-c5f81a01845b.jpg?im_w=720",
@@ -356,4 +343,4 @@
 
   ]
 
-}
+
