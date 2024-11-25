@@ -27,11 +27,11 @@ SECRET_KEY = 'django-insecure-u%qnh4q!zryy5j3=ecii_m!f$pfx(3orn6ejyrnb#*2w59d@wl
 # (Trong môi trường dev thì hãy đặt ALLOWED_HOSTS = ["localhost"])
 # Xem https://docs.djangoproject.com/en/5.1/ref/views/#django.views.defaults.page_not_found
 
-# DEBUG = True
-# ALLOWED_HOSTS = []
-#
-DEBUG = False
-ALLOWED_HOSTS = ["localhost"]
+DEBUG = True
+ALLOWED_HOSTS = []
+
+# DEBUG = False
+# ALLOWED_HOSTS = ["localhost"]
 
 # Application definition
 
