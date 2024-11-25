@@ -35,6 +35,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', BaseView.as_view(), name=''),
     path('product/', ProductView.as_view(), name='product'),
-    path('privacy-policy/', PolicyViews.as_view(template_name='policy/privacy-policy.html'), name='privacy-policy'),
+    path('privacy/', PolicyViews.as_view(template_name='policy/privacy-policy.html'), name='privacy-policy'),
     path('terms-of-use/', PolicyViews.as_view(template_name='policy/terms.html'), name='terms-of-use'),
+    path('policy/', PolicyViews.as_view(template_name='policy/other-policy.html'), name='terms-of-use'),
 ]
