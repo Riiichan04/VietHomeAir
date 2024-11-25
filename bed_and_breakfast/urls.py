@@ -20,6 +20,16 @@ from django.urls import path, include
 from application.views.ProductView import ProductView
 from application.views.BasedView import BaseView
 
+# Lưu ý: Nếu muốn hiển thị các trang lỗi custom thì phải set DEBUG = False và phải set ALLOWED_HOSTS
+# (Trong môi trường dev thì hãy đặt ALLOWED_HOSTS = ["localhost"])
+# Xem https://docs.djangoproject.com/en/5.1/ref/views/#django.views.defaults.page_not_found
+# Xem định nghĩa default các public url ở .venv/Lib/django/conf/urls/__init__.py
+
+handler400 = 'application.views.ErrorView.get_error_400_page'
+handler403 = 'application.views.ErrorView.get_error_403_page'
+handler404 = 'application.views.ErrorView.get_error_404_page'
+handler500 = 'application.views.ErrorView.get_error_500_page'
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', BaseView.as_view(), name=''),
