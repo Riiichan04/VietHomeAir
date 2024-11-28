@@ -17,11 +17,25 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from application.views.PolicyView import PolicyViews
 from application.views.ProductView import ProductView
 from application.views.BasedView import BaseView
+
+# Lưu ý: Nếu muốn hiển thị các trang lỗi custom thì phải set DEBUG = False và phải set ALLOWED_HOSTS
+# (Trong môi trường dev thì hãy đặt ALLOWED_HOSTS = ["localhost"])
+# Xem https://docs.djangoproject.com/en/5.1/ref/views/#django.views.defaults.page_not_found
+# Xem định nghĩa default các public url ở .venv/Lib/django/conf/urls/__init__.py
+
+handler400 = 'application.views.ErrorView.get_error_400_page'
+handler403 = 'application.views.ErrorView.get_error_403_page'
+handler404 = 'application.views.ErrorView.get_error_404_page'
+handler500 = 'application.views.ErrorView.get_error_500_page'
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', BaseView.as_view(), name=''),
     path('product/', ProductView.as_view(), name='product'),
+    path('privacy/', PolicyViews.as_view(template_name='policy/privacy-policy.html'), name='privacy-policy'),
+    path('terms-of-use/', PolicyViews.as_view(template_name='policy/terms.html'), name='terms-of-use'),
+    path('policy/', PolicyViews.as_view(template_name='policy/other-policy.html'), name='terms-of-use'),
 ]
