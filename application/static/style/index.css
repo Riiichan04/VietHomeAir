@@ -1,0 +1,26 @@
+:root {
+    --web-background-color: #f5f5f5;
+    --text-color: #000b0e;
+    --text-color-hover: #777777;
+    --main-cta-color: #688bb3;
+    --main-cta-color-hover: #78a2c0;
+    --sub-cta-color: #555555;
+    --sub-cta-color-hover: #aaaaaa;
+    --logo-icon-color: #5874a5;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.text-color {
+    color: var(--text-color);
+}
+
+.default-btn-style {
+    color: var(--text-color);
+}
+
+.default-btn-style:hover {
+    color: var(--text-color-hover);
+}
