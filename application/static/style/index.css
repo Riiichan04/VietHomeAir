@@ -2,6 +2,8 @@
     --web-background-color: #f5f5f5;
     --text-color: #000b0e;
     --text-color-hover: #777777;
+    --sub-text-color: #888888;
+    --sub-text-color-hover: #bbbbbb;
     --main-cta-color: #688bb3;
     --main-cta-color-hover: #78a2c0;
     --sub-cta-color: #555555;
@@ -13,8 +15,16 @@
     cursor: pointer;
 }
 
+.main-color {
+    color: var(--main-cta-color);
+}
+
 .text-color {
     color: var(--text-color);
+}
+
+.sub-text-color {
+    color: var(--sub-text-color);
 }
 
 .default-btn-style {

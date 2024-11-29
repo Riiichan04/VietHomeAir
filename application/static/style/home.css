@@ -1,8 +1,14 @@
-.card {
-    height: 20rem;
+.card-item {
+    background-color: #fff;
+    border: solid var(--sub-cta-color-hover) 1px;
+    width: calc(20% - 1.5rem);
+    height: 25rem;
 }
-
-.card img {
+.card-item img {
     height: 70%;
     object-fit: cover;
+    aspect-ratio: 15/ 16;
+}
+
+.card-text__description {
 }
