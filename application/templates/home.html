@@ -10,6 +10,25 @@
 {% endblock stylesheet %}
 
 {% block content %}
+    <section id="landing-section" class="container-fluid  overflow-x-hidden">
+        <div class="row p-0 d-flex justify-content-center">
+            <div id="landing-info" class="w-75 position-absolute d-flex justify-content-center align-items-center flex-column z-2" style="height: 100%">
+{#                <div class="text-center my-3 landing-logo d-flex flex-column align-items-center">#}
+{#                    <i class="fa-brands fa-google-wallet"></i>#}
+{#                    <span class="h4">VietHomeAir</span>#}
+{#                </div>#}
+                <h2 class="text-center p-5 pb-0">Không còn băn khoăn nên ở đâu khi đi du lịch</h2>
+                <p class="text-center mt-2 mx-5">
+                    Chúng tôi sẽ giúp cho chuyến hành trình du lịch của bạn trở thành một chuyến đi
+                    đáng nhớ và đầy kỉ niệm thông qua dịch vụ Bed and Breakfast cùng những
+                    địa điểm du lịch hấp dẫn đang chờ đón bạn khám phá!
+                </p>
+            </div>
+            <div id="landing-image" class="col-12 p-0 position-relative">
+                <img class="w-100" src="{% static 'image/landing_img.jpg' %}" alt="" srcset="">
+            </div>
+        </div>
+    </section>
     <section class="container p-4">
         <h3>Nhà nghỉ dưỡng cho thuê được đánh giá cao nhất</h3>
         <p style="color: var(--sub-cta-color)">Những nơi ai cũng đồng ý về chất lượng dịch vụ hàng đầu</p>
@@ -213,8 +232,7 @@
             </div>
         </div>
     </section>
-
-     <section class="container p-4">
+    <section class="container p-4">
         <h3>Và đây là những nhà nghỉ dưỡng cho thuê tuyệt vời khác</h3>
         <div class="my-3 row gap-4 justify-content-center">
             <div class="p-0 card-item rounded">
@@ -701,7 +719,6 @@
                 </div>
             </div>
         </div>
-
     </section>
 {% endblock content %}
 {% block scripts %}

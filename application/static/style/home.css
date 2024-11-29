@@ -12,3 +12,33 @@
 
 .card-text__description {
 }
+
+.landing-logo * {
+    color: var(--logo-icon-color);
+    user-select: none;
+}
+
+.landing-logo i {
+    font-size: 100px;
+}
+
+#landing-section {
+    box-shadow: 10px 10px 36px 0px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 10px 10px 36px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 36px 0px rgba(0,0,0,0.75);
+    margin-bottom: 5rem !important;
+}
+
+#landing-info * {
+    color: var(--web-background-color);
+}
+
+#landing-image {
+    filter: brightness(0.3);
+    overflow: hidden;
+}
+
+#landing-image img {
+    object-fit: cover;
+    height: 40rem;
+}
