@@ -1,5 +1,5 @@
 .card-item {
-    background-color: #fff;
+    /*background-color: #fff;*/
     border: solid var(--sub-cta-color-hover) 1px;
     width: calc(20% - 1.5rem);
     height: 25rem;
@@ -20,6 +20,10 @@
 
 .landing-logo i {
     font-size: 100px;
+}
+
+.category-item {
+    font-size: 1rem;
 }
 
 #landing-section {
