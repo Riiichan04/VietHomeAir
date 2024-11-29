@@ -20,7 +20,6 @@ from django.urls import path, include
 from application.views.HomeView import HomeView
 from application.views.PolicyView import PolicyViews
 from application.views.ProductView import ProductView
-from application.views.BasedView import BaseView
 
 # Lưu ý: Nếu muốn hiển thị các trang lỗi custom thì phải set DEBUG = False và phải set ALLOWED_HOSTS
 # (Trong môi trường dev thì hãy đặt ALLOWED_HOSTS = ["localhost"])
