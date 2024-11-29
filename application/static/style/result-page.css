@@ -1,3 +1,38 @@
 li{
     list-style-type: none;
 }
+button{
+    border:none;
+}
+#filter{
+    width: 80%;
+    height: 50px;
+    border-radius: 5px;
+    background-color: var(--logo-icon-color);
+    color:var(--web-background-color);
+}
+/*Card*/
+.card-title{
+    color:var(--main-cta-color);
+    font-weight: bold;
+}
+.service-detail{
+    background-color: var(--logo-icon-color);
+    color: var(--web-background-color);
+}
+.service-detail:hover{
+    color: var(--logo-icon-color);
+    background-color: var(--web-background-color);
+}
+.bi-star-fill{
+    color: var(--logo-icon-color);
+}
+#scrollLeft,#scrollRight{
+    border-radius: 50%;
+    height: 50%;
+    width: 50px;
+    color:var(--text-color-hover);
+}
+.categories i,.categories p{
+    color: var(--sub-cta-color);
+}
