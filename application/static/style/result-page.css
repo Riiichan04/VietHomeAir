@@ -16,14 +16,6 @@ button{
     color:var(--main-cta-color);
     font-weight: bold;
 }
-.service-detail{
-    background-color: var(--logo-icon-color);
-    color: var(--web-background-color);
-}
-.service-detail:hover{
-    color: var(--logo-icon-color);
-    background-color: var(--web-background-color);
-}
 .bi-star-fill{
     color: var(--logo-icon-color);
 }
@@ -35,4 +27,9 @@ button{
 }
 .categories i,.categories p{
     color: var(--sub-cta-color);
+}
+.list-services .card-item{
+    width: calc(20% - 1.5rem);
+    height: 25rem;
+    border:solid 2px var(--main-cta-color);
 }
