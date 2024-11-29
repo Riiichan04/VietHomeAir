@@ -32,8 +32,7 @@
         <div class="col-7 text-white d-flex align-items-center">
             <div class="input-group">
                 <span class="input-group-text fas d-flex align-items-center" style="color: #56595C">&#xf002 </span>
-                <input type="search" name="search" id="" class="form-control"
-                       placeholder="Tìm kiếm địa điểm, tên nhà, ...">
+                <input type="search" name="search" id="" class="form-control" placeholder="Tìm kiếm địa điểm, tên nhà, ...">
             </div>
         </div>
         <div class="col-3 d-flex align-items-center">
@@ -59,20 +58,7 @@
     </div>
     <hr/>
 </header>
-
-<nav style="--bs-breadcrumb-divider: '>';" class="container">
-    <ol class="breadcrumb">
-        {# Nội dung của Breadcrumb có dạng như sau: #}
-        {# <li class="breadcrumb-item"><a href="index.html">Trang chủ</a></li>#}
-        {# <li class="breadcrumb-item"><a href="tên_file_html">tên_trang_cha</a></li>#}
-        {# ... #}
-        {# <li class="breadcrumb-item active">Tên_trang_hiện_tại</li>#}
-        {% block breadcrumb %}{% endblock breadcrumb %}
-    </ol>
-</nav>
-
 {% block content %}{% endblock content %} {# Phần body #}
-
 <footer class="container mt-5">
     <hr/>
     <div class="row p-2">
