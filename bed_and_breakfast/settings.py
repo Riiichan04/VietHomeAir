@@ -63,7 +63,7 @@ ROOT_URLCONF = 'bed_and_breakfast.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR, "template", os.path.join(BASE_DIR, 'global_template')],
+        'DIRS': [BASE_DIR, "template", os.path.join(BASE_DIR, 'global_template')],  #Quy định các file global
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
