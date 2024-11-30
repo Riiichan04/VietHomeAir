@@ -3,6 +3,7 @@
     border: solid var(--sub-cta-color-hover) 1px;
     width: calc(20% - 1.5rem);
     height: 25rem;
+    cursor: pointer;
 }
 .card-item img {
     height: 70%;
