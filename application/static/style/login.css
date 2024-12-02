@@ -58,7 +58,7 @@
     height: 100%;
 }
 
-.container-login input{
+.container-login input:not(input[type=checkbox]){
     background-color: #eee;
     border: none;
     margin: 8px 0;
@@ -79,7 +79,7 @@
 .sign-in{
     left: 0;
     width: 50%;
-    z-index: 2;
+    /*z-index: 2;*/
 }
 
 .form-container-login.active .sign-in{
@@ -89,7 +89,7 @@
 .sign-up{
     left: 0;
     width: 50%;
-    opacity: 0;
+    /*opacity: 0;*/
     z-index: 1;
 }
 
