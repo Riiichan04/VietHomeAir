@@ -51,7 +51,7 @@
 - Mô tả tour du lịch ở khu vực đó (nếu có)
 - Card thông tin chủ nhà
 - Nội quy của dịch vụ
-- Gợi ý các dịch vụ khác
+- Gợi ý các dịch vụ khácz
 -> (Loan)
 #### Tài khoản
 * 3 loại tài khoản: Admin, user, chủ nhà 
@@ -108,7 +108,7 @@
   - ended 
   - pay_method
 - Favorite:
-  - bid* (?????)
+  - bid*
   - sid*
   - account_id
 
@@ -125,7 +125,6 @@
   - updatedAt
 - Service:
   - sid*
-  - address_id 
   - name
   - detail
   - description
@@ -160,10 +159,6 @@
   - rating_id*
   - type_name
 
-- Address:
-  - address_id*
-  - province
-  - location
 
 - Category
   - cid*
