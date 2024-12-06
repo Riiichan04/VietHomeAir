@@ -10,7 +10,7 @@ class BnbInformation(models.Model):
     price = models.DecimalField()
     capacity = models.IntegerField()
     count_viewed = models.IntegerField()
-    image = models.ForeignKey(Image, on_delete=models.CASCADE)
+    # image = models.ForeignKey(Image, on_delete=models.CASCADE)
     category = models.ManyToManyField(Category)
     rule = models.ManyToManyField(Rule)
     service = models.ManyToManyField(Service)
