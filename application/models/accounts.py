@@ -1,7 +1,7 @@
 from django.db import models
 from django.forms import DecimalField, IntegerField, DateTimeField
 
-from application.models.bnb_detail import BnBDetail
+from application.models.bnb import BnbInformation
 
 
 class WishList(models.Model):
@@ -17,9 +17,11 @@ class Account(models.Model):
     gender = models.CharField(choices=(('male', 'Male'), ('female', 'Female'), ('other', 'Other')))
     role = models.IntegerField()
     wishlist = models.ForeignKey(WishList, on_delete=models.CASCADE)
+    register_time = DateTimeField()
+    status = models.BooleanField(default=True)
 
 class Owner(Account):
     rating = DecimalField(max_digits=5, decimal_places=2)
     count_rating = models.IntegerField(default=0)
-    bnb_owner = models.ForeignKey(BnBDetail, on_delete=models.CASCADE)
+    bnb_owner = models.ForeignKey(BnbInformation, on_delete=models.CASCADE)
 
