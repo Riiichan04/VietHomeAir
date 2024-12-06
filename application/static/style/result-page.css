@@ -11,7 +11,19 @@ button{
     background-color: var(--logo-icon-color);
     color:var(--web-background-color);
 }
+.on p,.on i{
+    font-weight: bold;
+}
 /*Card*/
+.service-item{
+    width: 100px;
+    height: 265px;
+}
+.card-img{
+    height: 60%;
+    object-fit: cover;
+    aspect-ratio: 15/ 16;
+}
 .card-title{
     color:var(--main-cta-color);
     font-weight: bold;
