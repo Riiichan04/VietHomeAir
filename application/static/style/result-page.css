@@ -14,6 +14,23 @@ button{
 .on p,.on i{
     font-weight: bold;
 }
+#filter-container{
+    background-color: var(--main-cta-color-hover);
+    width:750px;
+    left: 25%;
+    top: 12px;
+}
+.arrow-interact{
+    height: 50px;
+}
+.arrow-interact>input{
+    border-radius: 5px;
+}
+.convenient-list button{
+    width: 100px;
+    height: 40px;
+}
+
 /*Card*/
 .service-item{
     width: 100px;

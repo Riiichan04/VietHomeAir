@@ -136,10 +136,37 @@
                     <button id="scrollRight" class="mt-4">→</button>
                 </div>
             </div>
-            <div class="col pt-4 text-center">
+            <div class="col filter pt-4">
                 <button id="filter">
                     <i class="bi bi-filter-left pe-2" style="color: var(--web-background-color)"></i>Bộ lọc
                 </button>
+                <div id="filter-container"
+                     class="rounded position-absolute p-3">
+                    <div class="d-flex justify-content-end">
+                        <button type="button" class="btn-close header-popup__close-btn"
+                                aria-label="Close"></button>
+                    </div>
+                    <div class="price-amount">
+                        <div class="h5">Khoảng giá</div>
+                        <div class="h6">Giá theo đêm chưa gồm phí và thuế</div>
+                        <!--Bieu do ket qua-->
+                        <div class="chart-result"></div>
+                        <div class="arrow-interact">
+                            <input class="left-price border-white justify-content-start me-20" placeholder="from..."
+                                   style="float: left">
+                            <input class="right-price border-white justify-content-end" placeholder="to..."
+                                   style="float: right">
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="convenient-list">
+                        <div class="h5">Tiện nghi</div>
+                        <div class="group row ">
+                            <button class="col me-2"><i class="fa-solid fa-wifi pe-2"></i>Wifi</button>
+                            <button class="col me-2"><i class="fa-solid fa-kitchen-set pe-2"></i>Bếp</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <hr/>
