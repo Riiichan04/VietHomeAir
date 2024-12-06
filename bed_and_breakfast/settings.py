@@ -44,8 +44,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # Add config của application vào
     'application.apps.MainAppConfig',
-    'application_auth.apps.AuthApplicationConfig',
-    'application_user.apps.UserApplicationConfig'
 ]
 
 MIDDLEWARE = [
@@ -63,7 +61,9 @@ ROOT_URLCONF = 'bed_and_breakfast.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR, "template", os.path.join(BASE_DIR, 'public')],  #Quy định các file global
+        'DIRS': [BASE_DIR,
+                 "template",
+                 ],  # Quy định các file globals
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -85,7 +85,15 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    },
+   #  'default': {
+   #     'ENGINE': 'django.db.backends.mysql',
+   #     'NAME': <db_name>,
+   #     'USER': <db_user>,
+   #     'PASSWORD': <db_password>,
+   #     'HOST': 'localhost',
+   #     'PORT': '3306',   #Đây là port mặc định của MySQL
+   # }
 }
 
 # Password validation
@@ -120,9 +128,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'public/static')
-]
 STATIC_URL = 'static/'
 
 # Default primary key field type
