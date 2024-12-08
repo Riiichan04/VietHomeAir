@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from application.views.Book import BookView
 from application.views.PolicyView import PolicyViews
 from application.views.ProductView import ProductView
 from application.views.AboutUsView import AboutUsView
@@ -44,4 +45,5 @@ urlpatterns = [
     path('login/', LoginView.as_view(), name='login'),
     path('about-us/', AboutUsView.as_view(), name='about-us'),
     path('contact/', ContactView.as_view(), name='contact'),
+    path('book/', BookView.as_view(), name='book'),
 ]
