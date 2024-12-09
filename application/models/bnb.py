@@ -1,11 +1,11 @@
 from django.db import models
 
-from application.models.bnb_detail import Image, Category, Rule, Service, BnbLocation
+from application.models.bnb_detail import Image, Category, Rule, Service, Location
 
 class BnbInformation(models.Model):
     name = models.CharField()
     description = models.TextField()
-    location = models.OneToOneField(BnbLocation, on_delete=models.CASCADE)
+    location = models.OneToOneField(Location, on_delete=models.CASCADE)
     price = models.DecimalField()
     capacity = models.IntegerField()
     count_viewed = models.IntegerField()
