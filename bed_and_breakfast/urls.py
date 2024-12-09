@@ -15,13 +15,13 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 
 from application.views.PolicyView import PolicyViews
 from application.views.ProductView import ProductView
 from application.views.AboutUsView import AboutUsView
 from application.views.ContactView import ContactView
-from application.views.LoginView import LoginView
+from application.views.LoginView import LoginView, AuthView
 from application.views.HomeView import HomeView
 
 # Lưu ý: Nếu muốn hiển thị các trang lỗi custom thì phải set DEBUG = False và phải set ALLOWED_HOSTS
@@ -41,7 +41,7 @@ urlpatterns = [
     path('privacy/', PolicyViews.as_view(template_name='policy/privacy-policy.html'), name='privacy-policy'),
     path('terms-of-use/', PolicyViews.as_view(template_name='policy/terms.html'), name='terms-of-use'),
     path('policy/', PolicyViews.as_view(template_name='policy/other-policy.html'), name='terms-of-use'),
-    path('login/', LoginView.as_view(), name='login'),
     path('about-us/', AboutUsView.as_view(), name='about-us'),
     path('contact/', ContactView.as_view(), name='contact'),
+    re_path(r'^(login|register|forgot-password)/$', AuthView.as_view(), name='auth')
 ]
