@@ -29,3 +29,8 @@ class Review(models.Model):
 
     class Meta:
         unique_together = ('product', 'account')
+
+class BnbLocation(models.Model):
+    name = models.CharField(max_length=100)
+    lat = models.FloatField()
+    lon = models.FloatField()
