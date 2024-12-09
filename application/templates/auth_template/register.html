@@ -1,10 +1,58 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% load static %}
+{% block content %}
+    <section class="d-flex justify-content-center align-items-center" style="width: 100vw; height: 100vh">
+        {# method="post" #}
+        <form class="container">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col"></div>
+                <div class="col-9 rounded border border-2 row px-0">
+                    <div class="col-7 p-5 ">
+                        <h3>Đăng ký</h3>
+                        <p class="mt-0 mb-4">Đăng ký để tận hưởng dịch vụ mà chúng tôi đem lại</p>
+                        <input class="my-2 p-2 rounded border-1 d-block w-100" type="email"
+                               placeholder="Email của bạn">
+                        <input class="my-2 p-2 rounded border-1 d-block w-100" type="text"
+                               placeholder="Tên người dùng của bạn">
+                        <input class="my-2 p-2 rounded border-1 d-block w-100" type="text"
+                               placeholder="Họ và tên của bạn">
+                        <input class="my-2 p-2 rounded border-1 d-block w-100" type="password"
+                               placeholder="Mật khẩu của bạn">
+                        <input class="my-2 p-2 rounded border-1 d-block w-100" type="password"
+                               placeholder="Nhập lại mật khẩu của bạn">
+                        <select class="d-block border-black border-1 form-select">
+                            <option selected disabled hidden>Giới tính của bạn</option>
+                            <option value="1">Nam</option>
+                            <option value="2">Nữ</option>
+                            <option value="3">Khác</option>
+                        </select>
+                        <div class="mt-3 d-flex align-items-start form-check gap-2">
+                            <input type="checkbox" class="border-secondary form-check-input" id="term-and-policies-btn">
+                            <label class="form-check-label" for="term-and-policies-btn">
+                                Tôi đã đồng ý với các <a href="/terms-of-use/">điều khoản</a>, <a href="/policy/">chính
+                                sách</a> và chính sách <a href="/privacy/">quyền riêng tư</a> của VietHomeAir
+                            </label>
+                        </div>
+                        <div class="d-flex justify-content-center mt-4">
+                            <button type="submit" class="border-0 px-4 py-2 text-white rounded h5"
+                                    style="background-color: var(--main-cta-color)">
+                                Đăng ký
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col toggle-container rounded-end d-flex flex-column justify-content-center">
+                        <h3 class="text-center">Bạn đã có tài khoản?</h3>
+                        <p class="text-center">Hãy về với trang đăng nhập tại đây nhé!!!</p>
+                        <div class="d-flex justify-content-center">
+                            <button type="button" class="border-1 px-4 py-2 rounded text-black"
+                                    onclick="window.location = '/login'">Đăng nhập
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col"></div>
+            </div>
+        </form>
+    </section>
 
-</body>
-</html>
+{% endblock content %}
