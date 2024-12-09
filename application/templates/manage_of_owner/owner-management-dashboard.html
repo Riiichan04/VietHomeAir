@@ -1,125 +1,65 @@
-{% extends 'base.html' %}
+{% extends 'manage_of_owner/base.html' %}
 {% load static %}
 
 {% block title %}
     <title>Trang quản lý của chủ nhà - VietHomeAir</title>
 {% endblock title %}
 
-{% block stylesheet %}
+{% block sidebar_stylesheet %}
     <link rel="stylesheet" type="text/css" href="{% static 'style/index.css' %}">
-    <style>
-        .info-owner {
-            background-color: var(--main-cta-color);
-            padding: 17px 10px;
-            border-radius: 20px;
-        }
-    </style>
-{% endblock stylesheet %}
+{% endblock sidebar_stylesheet %}
 
-{% block content %}
-    {#    <div class="container">#}
-    {#        <div class="row">#}
-    {#            <div class="col-2 side-bar">fjksd</div>#}
-    {#            <div class="col content">jds</div>#}
-    {#        </div>#}
-    {#    </div>#}
-    <div class="container">
-        <div class="row">
-            <!-- Sidebar -->
-            <nav class="col-md-3 col-lg-2 d-md-block text-dark sidebar p-0">
-                <div class="position-sticky">
-                    <ul class="nav flex-column">
-                        <li class="nav-item info-owner">
-                            <a href="#"
-                               class="align-items-center text-decoration-none text-light">
-                                <div class="row">
-                                    <div class="col text-center align-content-center">
-                                        <img src="https://via.placeholder.com/70" alt="Avatar"
-                                             style="border-radius: 50%; margin-right: 10px;">
-                                        <p class="text-light m-0 mt-1">Nguyễn Văn A</p>
-                                    </div>
-                                    <div class="col align-content-center">
-                                        <h5 class="m-0">189</h5>
-                                        <p style="font-size: 14px" class="text-light">Đánh giá</p>
-                                        <hr>
-                                        <h5 class="m-0">4.8 ☆</h5>
-                                        <p style="font-size: 14px" class="text-light m-0">Xếp hạng</p>
-                                    </div>
-                                </div>
+{% block sidebar_content %}
+    <header class="pb-3">
+        <h1 class="h2">Quản lý BnB</h1>
+    </header>
 
-                            </a>
-
-                        </li>
-                        <hr>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" href="#"><i class="fas fa-home me-2"></i> Quản lý phòng</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" href="#"><i class="fas fa-plus-circle me-2"></i> Thêm phòng
-                                mới</a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-
-            <!-- Main Content -->
-            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-                <header class="py-3">
-                    <h1 class="h2">Quản lý BnB</h1>
-                </header>
-
-                <!-- Host Information -->
-                <section class="mb-4">
-                    <h2 class="h4">Thông tin chủ nhà</h2>
-                    <div class="bg-light p-3 rounded">
-                        <p><strong>Họ và tên:</strong> Nguyễn Văn A</p>
-                        <p><strong>Email:</strong> nguyenvana@example.com</p>
-                        <p><strong>Số điện thoại:</strong> 0123 456 789</p>
-                    </div>
-                </section>
-
-                <!-- Room Management -->
-                <section class="mb-4">
-                    <h2 class="h4">Danh sách các phòng</h2>
-                    <table class="table table-striped">
-                        <thead>
-                        <tr>
-                            <th>ID Phòng</th>
-                            <th>Tên Phòng</th>
-                            <th>Địa Chỉ</th>
-                            <th>Giá (VNĐ/đêm)</th>
-                            <th>Trạng Thái</th>
-                            <th>Hành Động</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Phòng Deluxe</td>
-                            <td>Hà Nội</td>
-                            <td>800,000</td>
-                            <td>Đang hoạt động</td>
-                            <td>
-                                <button class="btn btn-primary btn-sm">Chỉnh sửa</button>
-                                <button class="btn btn-danger btn-sm">Xóa</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Phòng Family</td>
-                            <td>Đà Nẵng</td>
-                            <td>1,200,000</td>
-                            <td>Đang hoạt động</td>
-                            <td>
-                                <button class="btn btn-primary btn-sm">Chỉnh sửa</button>
-                                <button class="btn btn-danger btn-sm">Xóa</button>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </section>
-            </main>
+    <!-- Host Information -->
+    <section class="mb-4">
+        <h2 class="h4">Thông tin chủ nhà</h2>
+        <div class="bg-light p-3 rounded">
+            <p><strong>Họ và tên:</strong> Nguyễn Văn A</p>
+            <p><strong>Email:</strong> nguyenvana@example.com</p>
+            <p><strong>Số điện thoại:</strong> 0123 456 789</p>
         </div>
-    </div>
+    </section>
 
-{% endblock content %}
+    <!-- Room Management -->
+    <section class="mb-4">
+        <h2 class="h4">Danh sách các phòng</h2>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>ID Phòng</th>
+                <th>Tên Phòng</th>
+                <th style="max-width: 300px">Địa Chỉ</th>
+                <th>Giá (VNĐ/đêm)</th>
+                <th>Hành Động</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>1</td>
+                <td>Phòng Deluxe</td>
+                <td style="max-width: 300px">Hà Nội</td>
+                <td>800,000</td>
+                <td>
+                    <a class="btn btn-success" href="/owner-management-form-bnb/">Chi tiết</a>
+                    <button class="btn btn-danger del-btn">Xóa</button>
+                </td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Phòng Family</td>
+                <td style="max-width: 300px">Đà Nẵng</td>
+                <td>1,200,000</td>
+                <td>
+                    <a class="btn btn-success" href="/owner-management-form-bnb/">Chi tiết</a>
+                    <button class="btn btn-danger del-btn">Xóa</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+
+{% endblock sidebar_content %}

@@ -23,6 +23,7 @@ from application.views.AboutUsView import AboutUsView
 from application.views.ContactView import ContactView
 from application.views.LoginView import LoginView
 from application.views.HomeView import HomeView
+from application.views.OwnerManagementView import OwnerManagementView
 
 # Lưu ý: Nếu muốn hiển thị các trang lỗi custom thì phải set DEBUG = False và phải set ALLOWED_HOSTS
 # (Trong môi trường dev thì hãy đặt ALLOWED_HOSTS = ["localhost"])
@@ -44,4 +45,13 @@ urlpatterns = [
     path('login/', LoginView.as_view(), name='login'),
     path('about-us/', AboutUsView.as_view(), name='about-us'),
     path('contact/', ContactView.as_view(), name='contact'),
+    path('owner-management-dashboard/',
+         OwnerManagementView.as_view(template_name='manage_of_owner/owner-management-dashboard.html'),
+         name='owner-management-dashboard'),
+    path('owner-management-add-bnb/',
+         OwnerManagementView.as_view(template_name='manage_of_owner/owner-management-add-bnb.html'),
+         name='owner-management-add-bnb'),
+    path('owner-management-form-bnb/',
+         OwnerManagementView.as_view(template_name='manage_of_owner/form-bnb.html'),
+         name='owner-management-form-bnb'),
 ]

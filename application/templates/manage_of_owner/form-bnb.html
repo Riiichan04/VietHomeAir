@@ -1,0 +1,97 @@
+{% extends 'manage_of_owner/base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Trang quản lý của chủ nhà - VietHomeAir</title>
+{% endblock title %}
+{% block sidebar_stylesheet %}
+    <link rel="stylesheet" type="text/css" href="{% static 'style/index.css' %}">
+{% endblock sidebar_stylesheet %}
+
+{% block sidebar_content %}
+    <header class="pb-3">
+        <h1 class="h2">Quản lý BnB</h1>
+    </header>
+    <!-- Form -->
+    <form id="edit-room-form" class="row g-3">
+                <div class="row text-center"><h3>Chỉnh sửa phòng</h3></div>
+                <div class="col-md-12">
+                    <label for="img-room" class="form-label">Hình ảnh: (Tick chọn để xóa)</label>
+                    <div class="row">
+                        <div class="col-5">
+                            <div class="img-container">
+                                <img src="https://a0.muscache.com/im/pictures/c4ba9dc7-02dc-4ee3-a293-a91cc20ec90c.jpg?im_w=1200&im_format=avif">
+                            </div>
+                        </div>
+                        <div class="col-1"><input type="checkbox" class="checkbox"></div>
+                        <div class="col-5">
+                            <div class="img-container">
+                                <img src="https://a0.muscache.com/im/pictures/c4ba9dc7-02dc-4ee3-a293-a91cc20ec90c.jpg?im_w=1200&im_format=avif">
+                            </div>
+                        </div>
+                        <div class="col-1"><input type="checkbox" class="checkbox"></div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <label for="img-room" class="form-label">Thêm hình ảnh:</label>
+                    <input type="file" id="img-room" accept="image/*" name="img-room" class="form-control" multiple
+                           required>
+                </div>
+                <div class="col-md-6">
+                    <label for="roomName" class="form-label">Tên phòng:</label>
+                    <input type="text" id="roomName" name="roomName" class="form-control" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="roomAddress" class="form-label">Địa chỉ:</label>
+                    <input type="text" id="roomAddress" name="roomAddress" class="form-control" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="roomPrice" class="form-label">Giá (VNĐ/đêm):</label>
+                    <input type="number" id="roomPrice" min="0" name="roomPrice" class="form-control" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="capacity" class="form-label">Sức chứa:</label>
+                    <input type="number" id="capacity" min="1" name="capacity" class="form-control" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="category" class="form-label">Danh mục:</label>
+                    <select class="form-control" name="category" multiple required>
+                        <option>Danh mục 1</option>
+                        <option>Danh mục 2</option>
+                        <option>Danh mục 3</option>
+                        <option>Danh mục 4</option>
+                        <option>Danh mục 4</option>
+                        <option>Danh mục 4</option>
+                        <option>Danh mục 4</option>
+                        <option>Danh mục 4</option>
+                        <option>Danh mục 4</option>
+                        <option>Danh mục 4</option>
+
+
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label for="service" class="form-label">Tiện ích:</label>
+                    <select class="form-control" name="service" multiple required>
+                        <option>Tiện ích 1</option>
+                        <option>Tiện ích 2</option>
+                        <option>Tiện ích 3</option>
+                        <option>Tiện ích 4</option>
+                        <option>Tiện ích 5</option>
+                        <option>Tiện ích 6</option>
+                    </select>
+                </div>
+                <div class="col-md-12">
+                    <label for="description" class="form-label">Mô tả:</label>
+                    <textarea type="text" name="description" placeholder="Nhập mô tả..."
+                              class="form-control style-text-area" required></textarea>
+                </div>
+                <div class="col-6 pt-3">
+                    <a type="button" class="w-100 btn cancel-btn" href="/owner-management-dashboard/">Hủy</a>
+                </div>
+                <div class="col-6 pt-3">
+                    <button type="submit" class="w-100 btn btn-success">Chỉnh sửa</button>
+                </div>
+
+            </form>
+{% endblock sidebar_content %}
