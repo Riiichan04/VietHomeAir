@@ -26,7 +26,8 @@ button{
 .arrow-interact>input{
     border-radius: 5px;
 }
-.group button{
+.convenient-list button{
+    width: 100px;
     height: 40px;
 }
 
