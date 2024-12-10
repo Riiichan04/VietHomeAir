@@ -30,6 +30,7 @@
 4. Cài thêm các thư viện hỗ trợ:
     - **requests**: `pip install requests`
     - **python-dotenv**: `pip install python-dotenv`
+    - **mysqlclient**: `pip install mysqlclient`
 
 ---
 
@@ -63,6 +64,7 @@
 - Version Python là: 3.10
 - Version Django là: 5.1.2
 - Version requests là 2.32.3 (Dùng để fetch api của bên thứ 3)
+- Version mysqlclient là 2.2.6
 - Version python-dotenv là 1.0.1
 - Version pip (bộ cài đặt thư viện,...) là: 24.2
 

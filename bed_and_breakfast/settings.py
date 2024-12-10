@@ -39,10 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
-    'django.contrib.sessions',
+    'django.contrib.sessions',  #Kích hoạt Session
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.sessions', #Kích hoạt session
     # Add config của application vào
     'application.apps.MainAppConfig',
 ]
@@ -83,19 +82,13 @@ WSGI_APPLICATION = 'bed_and_breakfast.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+import dotenv as dotenv
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     },
-   #  'default': {
-   #     'ENGINE': 'django.db.backends.mysql',
-   #     'NAME': <db_name>,
-   #     'USER': <db_user>,
-   #     'PASSWORD': <db_password>,
-   #     'HOST': 'localhost',
-   #     'PORT': '3306',   #Đây là port mặc định của MySQL
-   # }
 }
 
 # Password validation
