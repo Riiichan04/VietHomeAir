@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sessions', #Kích hoạt session
     # Add config của application vào
     'application.apps.MainAppConfig',
 ]
