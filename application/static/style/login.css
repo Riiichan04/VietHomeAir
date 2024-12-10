@@ -1,7 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
 
+.main-form {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+}
 
-.container-login{
+.toggle-container {
+    background-color: var(--main-cta-color);
+    color: var(--web-background-color);
+    border-bottom-left-radius: 10rem !important;
+    border-top-left-radius: 10rem !important;
+    height: 100%;
+}
+
+/* Code này sẽ bị xóa */
+.container-login {
     /*background-color: #fff;*/
     border-radius: 30px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
@@ -12,25 +24,25 @@
     min-height: 480px;
 }
 
-.container-login p{
+.container-login p {
     font-size: 14px;
     line-height: 20px;
     letter-spacing: 0.3px;
     margin: 20px 0;
 }
 
-.container-login span{
+.container-login span {
     font-size: 12px;
 }
 
-.container-login .icon-login{
+.container-login .icon-login {
     color: #333;
     font-size: 13px;
     text-decoration: none;
     margin: 15px 0 10px;
 }
 
-.btn-sign-up{
+.btn-sign-up {
     color: #fff;
     font-size: 12px;
     padding: 10px 45px;
@@ -43,12 +55,12 @@
     cursor: pointer;
 }
 
-.container-login button.hidden{
+.container-login button.hidden {
     background-color: transparent;
     border-color: #fff;
 }
 
-.container-login .form-container-login-sign-in{
+.container-login .form-container-login-sign-in {
     background-color: #fff;
     display: flex;
     align-items: center;
@@ -58,7 +70,7 @@
     height: 100%;
 }
 
-.container-login input:not(input[type=checkbox]){
+.container-login input:not(input[type=checkbox]) {
     background-color: #eee;
     border: none;
     margin: 8px 0;
@@ -69,53 +81,53 @@
     outline: none;
 }
 
-.form-container-login{
+.form-container-login {
     position: absolute;
     top: 0;
     height: 100%;
     transition: all 0.6s ease-in-out;
 }
 
-.sign-in{
+.sign-in {
     left: 0;
     width: 50%;
     /*z-index: 2;*/
 }
 
-.form-container-login.active .sign-in{
+.form-container-login.active .sign-in {
     transform: translateX(100%);
 }
 
-.sign-up{
+.sign-up {
     left: 0;
     width: 50%;
     /*opacity: 0;*/
     z-index: 1;
 }
 
-.form-container-login.active .sign-up{
+.form-container-login.active .sign-up {
     transform: translateX(100%);
     opacity: 1;
     z-index: 5;
     animation: move 0.6s;
 }
 
-@keyframes move{
-    0%, 49.99%{
+@keyframes move {
+    0%, 49.99% {
         opacity: 0;
         z-index: 1;
     }
-    50%, 100%{
+    50%, 100% {
         opacity: 1;
         z-index: 5;
     }
 }
 
-.social-icons{
+.social-icons {
     margin: 20px 0;
 }
 
-.social-icons a{
+.social-icons a {
     border: 1px solid #ccc;
     border-radius: 20%;
     display: inline-flex;
@@ -126,7 +138,7 @@
     height: 40px;
 }
 
-.toggle-container-login{
+.toggle-container-login {
     position: absolute;
     top: 0;
     left: 50%;
@@ -138,14 +150,14 @@
     z-index: 1000;
 }
 
-.container-login.active .toggle-container{
+.container-login.active .toggle-container {
     transform: translateX(-100%);
     border-radius: 0 150px 100px 0;
 }
 
-.toggle-login{
+.toggle-login {
     height: 100%;
-    background: var(--logo-icon-color) ;
+    background: var(--logo-icon-color);
     color: #fff;
     position: relative;
     left: -100%;
@@ -154,11 +166,11 @@
     transition: all 0.6s ease-in-out;
 }
 
-.container-login.active .toggle-login{
+.container-login.active .toggle-login {
     transform: translateX(50%);
 }
 
-.toggle-panel-login{
+.toggle-panel-login {
     position: absolute;
     width: 50%;
     height: 100%;
@@ -173,19 +185,19 @@
     transition: all 0.6s ease-in-out;
 }
 
-.toggle-left{
+.toggle-left {
     transform: translateX(-200%);
 }
 
-.container-login.active .toggle-left{
+.container-login.active .toggle-left {
     transform: translateX(0);
 }
 
-.toggle-right{
+.toggle-right {
     right: 0;
     transform: translateX(0);
 }
 
-.container-login.active .toggle-right{
+.container-login.active .toggle-right {
     transform: translateX(200%);
 }
