@@ -26,10 +26,11 @@ button{
 .arrow-interact>input{
     border-radius: 5px;
 }
-.convenient-list button{
-    width: 100px;
+.group-properties button{
     height: 40px;
+    border-radius: 5px;
 }
+
 
 /*Card*/
 .service-item{
