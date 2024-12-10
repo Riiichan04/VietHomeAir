@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
 
+.main-form {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+}
+
 .toggle-container {
     background-color: var(--main-cta-color);
     color: var(--web-background-color);
@@ -8,6 +12,7 @@
     height: 100%;
 }
 
+/* Code này sẽ bị xóa */
 .container-login {
     /*background-color: #fff;*/
     border-radius: 30px;
