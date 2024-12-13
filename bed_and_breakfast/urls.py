@@ -22,6 +22,7 @@ from application.views.SubInfoView import PolicyViews, ContactViews
 from application.views.ProductView import ProductView
 from application.views.LoginView import AuthView
 from application.views.HomeView import HomeView
+from application.views.ResultView import ResultView
 
 # Lưu ý: Nếu muốn hiển thị các trang lỗi custom thì phải set DEBUG = False và phải set ALLOWED_HOSTS
 # (Trong môi trường dev thì hãy đặt ALLOWED_HOSTS = ["localhost"])
@@ -43,4 +44,5 @@ urlpatterns = [
     re_path(r'^(login|register|forgot-password)/$', AuthView.as_view(), name='auth'),
     path('about-us/', ContactViews.as_view(template_name='other_template/about-us.html'), name='about-us'),
     path('contact/', ContactViews.as_view(template_name='other_template/contact-us.html'), name='contact-us'),
+    path('result/', ResultView.as_view(), name='result'),
 ]
