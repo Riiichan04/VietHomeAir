@@ -1,10 +1,5 @@
-input[type=date] {
-    background-color: rgba(0,0,0,0);
-
-}
-
 .popup-container {
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0, 0, 0, 0.5);
     position: fixed;
     width: 100vw;
     height: 100vh;
@@ -38,4 +33,9 @@ input[type=date] {
 
 .product-other-images__bottom-right {
     border-bottom-right-radius: 20px;
+}
+
+#booking-info input {
+    background-color: rgba(0, 0, 0, 0);
+    outline: 0;
 }
