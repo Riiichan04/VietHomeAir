@@ -4,6 +4,9 @@ li{
 button{
     border:none;
 }
+.h1,.h2,.h3,.h4,.h5{
+    color: var(--logo-icon-color);
+}
 #filter{
     width: 80%;
     height: 50px;
@@ -15,10 +18,22 @@ button{
     font-weight: bold;
 }
 #filter-container{
-    background-color: var(--main-cta-color-hover);
+    background-color: var(--web-background-color);
+    border: solid 1px var(--logo-icon-color);
     width:750px;
     left: 25%;
     top: 12px;
+}
+#filter-container .group-properties .select-option{
+    background-color: var(--web-background-color);
+    border: solid 1px var(--logo-icon-color);
+}
+#filter-container .group-properties .active{
+    background-color: var(--logo-icon-color);
+    color: var(--web-background-color);
+}
+#filter-container .group-properties .active >i{
+    color: var(--web-background-color);
 }
 .arrow-interact{
     height: 50px;
