@@ -1,3 +1,8 @@
+input[type=date] {
+    background-color: rgba(0,0,0,0);
+
+}
+
 .popup-container {
     background-color: rgba(0,0,0,0.5);
     position: fixed;
