@@ -14,7 +14,7 @@ class Account(models.Model):
     role = models.IntegerField()
     register_time = DateTimeField()
     status = models.BooleanField(default=True)
-
+#     Thiếu 1 trường phone
 
 class Owner(models.Model):
     account = models.OneToOneField(Account, on_delete=models.CASCADE)
