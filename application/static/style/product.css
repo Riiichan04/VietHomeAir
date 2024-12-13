@@ -39,3 +39,7 @@
     background-color: rgba(0, 0, 0, 0);
     outline: 0;
 }
+
+#owner-bnb-info {
+    box-shadow: 10px 10px 36px 0px rgba(0,0,0,0.75);
+}
