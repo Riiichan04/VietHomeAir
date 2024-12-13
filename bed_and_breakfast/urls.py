@@ -16,11 +16,11 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, re_path, include
 
-from application.views.ResultView import ResultView
-from application.views.PolicyView import PolicyViews
+from application.views.SubInfoView import PolicyViews, ContactViews
 from application.views.ProductView import ProductView
+from application.views.LoginView import AuthView
 from application.views.HomeView import HomeView
 
 # Lưu ý: Nếu muốn hiển thị các trang lỗi custom thì phải set DEBUG = False và phải set ALLOWED_HOSTS
@@ -40,5 +40,7 @@ urlpatterns = [
     path('privacy/', PolicyViews.as_view(template_name='other_template/privacy-policy.html'), name='privacy-policy'),
     path('terms-of-use/', PolicyViews.as_view(template_name='other_template/terms.html'), name='terms-of-use'),
     path('policy/', PolicyViews.as_view(template_name='other_template/other-policy.html'), name='terms-of-use'),
-    path('result/', ResultView.as_view() ,name='result'),
+    re_path(r'^(login|register|forgot-password)/$', AuthView.as_view(), name='auth'),
+    path('about-us/', ContactViews.as_view(template_name='other_template/about-us.html'), name='about-us'),
+    path('contact/', ContactViews.as_view(template_name='other_template/contact-us.html'), name='contact-us'),
 ]
