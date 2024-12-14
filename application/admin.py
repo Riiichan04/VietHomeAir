@@ -2,6 +2,7 @@ from django.contrib import admin
 
 import application.models.accounts as account_models
 import application.models.bnb as bnb_models
+import application.models.verification as verification_models
 
 # Register your models here.
 admin.site.register(account_models.Account)
@@ -17,3 +18,5 @@ admin.site.register(bnb_models.Location)
 admin.site.register(bnb_models.Rule)
 admin.site.register(bnb_models.Review)
 admin.site.register(bnb_models.Service)
+
+admin.site.register(verification_models.Verification)
