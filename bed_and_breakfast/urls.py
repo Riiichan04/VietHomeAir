@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from application.views.Book import BookView
+from application.views.BookView import BookView
 from application.views.PolicyView import PolicyViews
 from application.views.ProductView import ProductView
 from application.views.AboutUsView import AboutUsView

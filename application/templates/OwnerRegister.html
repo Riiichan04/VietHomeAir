@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Owner Register</title>
+{% endblock title %}
+
+{% block stylesheet %}
+    <link rel="stylesheet" type="text/css" href="{% static 'style/home.css' %}" >
+{% endblock stylesheet %}
+
+{% block content %}
+    <div class="container">
+        <!-- Section 1 -->
+        <div class="section" id="section-1">
+            <div class="title"><h1 class="text-center">Điều nào sau đây mô tả chính xác nhất về chỗ ở của bạn?</h1></div>
+            <div role="radiogroup">
+                <div class="card-item">Nhà</div>
+                <div class="card-item">Căn hộ</div>
+                <div class="card-item">Nhà nông trại</div>
+                <div class="card-item">Chỗ nghỉ phục vụ bữa sáng</div>
+                <!-- Add more options as needed -->
+            </div>
+            <div class="button">
+                <button onclick="showNextSection(2)">Tiếp theo</button>
+            </div>
+        </div>
+
+        <!-- Section 2 -->
+        <div class="section" id="section-2" style="display: none;">
+            <div class="title"><h1 class="text-center">Section mới</h1></div>
+            <p>Đây là nội dung của section mới sau khi nhấn "Tiếp theo".</p>
+            <div class="button">
+                <button onclick="showNextSection(1)">Quay lại</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showNextSection(sectionId) {
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                section.style.display = 'none';
+            });
+
+            const nextSection = document.getElementById(`section-${sectionId}`);
+            if (nextSection) {
+                nextSection.style.display = 'block';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('section-1').style.display = 'block';
+        });
+    </script>
+{% endblock content %}
