@@ -1,0 +1,155 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Đặt phòng - VietHomeAir</title>
+{% endblock title %}
+
+{% block stylesheet %}
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .booking-header {
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        .booking-header h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+
+        .booking-header p {
+            color: #6c757d;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .product-card img {
+            width: 100%;
+            border-radius: 10px;
+            height: auto;
+            object-fit: cover;
+        }
+
+        .product-card h5 {
+            color: #5874a5;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .product-card p {
+            margin-bottom: 0.5rem;
+            color: #6c757d;
+        }
+    </style>
+{% endblock stylesheet %}
+
+{% block content %}
+    <div class="container mt-5">
+        <!-- Header -->
+        <div class="booking-header">
+            <h1>Đặt phòng dễ dàng với VietHomeAir</h1>
+            <p>Khám phá các căn hộ và phòng nghỉ lý tưởng cho chuyến đi của bạn!</p>
+        </div>
+
+        <div class="row g-4">
+            <!-- Form bên trái -->
+            <div class="product-card col-lg-6">
+                <div class="custom-form">
+                    <h4 class="fw-bold mb-3">Đặt phòng</h4>
+                    <form method="post" action="">
+                        {% csrf_token %}
+                       
+                        <!-- Ngày nhận và trả phòng -->
+                        <div class="row g-2 mb-3">
+                            <div class="col">
+                                <label for="checkin_date" class="form-label">Ngày nhận phòng <span class="required" style="color: red">*</span></label>
+                                <input type="date" class="form-control" id="checkin_date" name="checkin_date" required>
+                            </div>
+                            <div class="col">
+                                <label for="checkout_date" class="form-label">Ngày trả phòng <span class="required" style="color: red">*</span></label>
+                                <input type="date" class="form-control" id="checkout_date" name="checkout_date" required>
+                            </div>
+                        </div>
+                        <!-- Số người lớn và trẻ em -->
+                        <div class="row g-2 mb-3">
+                            <div class="col">
+                                <label for="adults" class="form-label" >Người lớn  <span class="required" style="color: red">*</span></label>
+                                <input type="number" class="form-control" id="adults" name="adults" required>
+                            </div>
+                            <div class="col">
+                                <label for="children" class="form-label">Trẻ em <span class="required" style="color: red">*</span></label>
+                                <input type="number" class="form-control" id="children" name="childeren" required>
+                            </div>
+                        </div>
+                        
+                         <!-- CCCD -->
+                        <div class="mb-3">
+                            <label for="validate" class="form-label">CCCD<span class="required" style="color: red">*</span></label>
+                            <input type="text" class="form-control" id="location" name="location" placeholder="Nhập CCCD..." required>
+                        </div>
+
+                        <!-- ghi chú  -->
+                        <div class="row g-2 mb-3">
+                            <label for="note" class="form-label">Ghi chú </label>
+                            <textarea style="resize: none" name="" id="" cols="30" rows="10" placeholder="Bạn muốn thêm điều gì thú vị cho căn phòng..."></textarea>
+                        </div>
+                        
+                        
+
+                        <!-- Nút đặt phòng -->
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">Đặt phòng</button> <!-- Nút đã thay đổi thành Đặt phòng -->
+                        </div>
+                    </form>
+                </div>
+</div>
+
+
+            <!-- Danh sách sản phẩm bên phải -->
+            <div class="col-lg-6">
+                    <div class="row">
+                        <!-- Sản phẩm 1 -->
+                        <div class="col-md-12">
+                            <div class="product-card">
+                                <img src="https://a0.muscache.com/im/pictures/miso/Hosting-955365427007928655/original/08897e4a-d660-4c44-a411-d9be507e16c0.jpeg?im_w=720&im_format=avif" alt="Phòng nghỉ hiện đại" class="img-fluid">
+                                <h5>Biệt thự 1 phòng ngủ tại Flamingo, Hilltop H226</h5>
+                                <p>Toàn bộ biệt thự 1 phòng ngủ, 1 tầng, rộng 70m2 trong khuôn viên 470m2 có lối vào riêng.</p>
+                                <p><strong>₫1.026.000 / đêm</strong></p>
+
+                                <!-- Thông tin chủ nhà -->
+                                <div class="host-info mt-4">
+                                    <h6><strong>Chủ nhà: Andy Nguyen</strong></h6>
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <img src="https://a0.muscache.com/im/Portrait/Avatars/messaging/b3e03835-ade9-4eb7-a0bb-2466ab9a534d.jpg?im_policy=medq_w_text&im_t=N&im_w=720&im_f=airbnb-cereal-medium.ttf&im_c=ffffff&im_format=avif" alt="Chủ nhà" class="img-fluid rounded-circle">
+                                        </div>
+                                        <div class="col-md-10">
+                                            <p><strong>Andy Nguyen:</strong><br> Chủ nhà siêu cấp là những người có kinh nghiệm, được đánh giá cao và cam kết mang lại kỳ nghỉ tuyệt vời cho khách.</p>
+                                        </div>
+                                    </div>
+                                    <div class="border-bottom my-3"></div>
+
+                                    <!-- Tổng tiền -->
+                                    <div class="row">
+                                        <div class="col-md-6"><strong>Tổng tiền:</strong></div>
+                                        <div class="col-md-6 text-end"><strong>₫1.026.000</strong></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Các sản phẩm còn lại sẽ có cấu trúc tương tự -->
+                    </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
