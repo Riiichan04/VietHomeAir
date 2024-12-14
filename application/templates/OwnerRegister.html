@@ -10,47 +10,121 @@
 {% endblock stylesheet %}
 
 {% block content %}
-    <div class="container">
-        <!-- Section 1 -->
-        <div class="section" id="section-1">
-            <div class="title"><h1 class="text-center">Điều nào sau đây mô tả chính xác nhất về chỗ ở của bạn?</h1></div>
-            <div role="radiogroup">
-                <div class="card-item">Nhà</div>
-                <div class="card-item">Căn hộ</div>
-                <div class="card-item">Nhà nông trại</div>
-                <div class="card-item">Chỗ nghỉ phục vụ bữa sáng</div>
-                <!-- Add more options as needed -->
-            </div>
-            <div class="button">
-                <button onclick="showNextSection(2)">Tiếp theo</button>
+<div class="container mt-5">
+    <!-- Section 1 -->
+    <div class="section" id="section-1">
+        <div class="row mb-4">
+            <div class="col text-center">
+                <h1 class="mb-4">Điều nào sau đây mô tả chính xác nhất về chỗ ở của bạn?</h1>
             </div>
         </div>
-
-        <!-- Section 2 -->
-        <div class="section" id="section-2" style="display: none;">
-            <div class="title"><h1 class="text-center">Section mới</h1></div>
-            <p>Đây là nội dung của section mới sau khi nhấn "Tiếp theo".</p>
-            <div class="button">
-                <button onclick="showNextSection(1)">Quay lại</button>
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            <div class="col">
+                <div class="card shadow-sm selectable-card" onclick="selectCard(this)">
+                    <div class="card-body text-center">
+                        <p class="card-text">Nhà</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card shadow-sm selectable-card" onclick="selectCard(this)">
+                    <div class="card-body text-center">
+                        <p class="card-text">Căn hộ</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card shadow-sm selectable-card" onclick="selectCard(this)">
+                    <div class="card-body text-center">
+                        <p class="card-text">Nhà nông trại</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card shadow-sm selectable-card" onclick="selectCard(this)">
+                    <div class="card-body text-center">
+                        <p class="card-text">Chỗ nghỉ phục vụ bữa sáng</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Add more options here as needed -->
+        </div>
+        <div class="row mt-4">
+            <div class="col text-center">
+                <button class="btn btn-primary px-4 py-2" onclick="showNextSection(2)">Tiếp theo</button>
             </div>
         </div>
     </div>
 
-    <script>
-        function showNextSection(sectionId) {
-            const sections = document.querySelectorAll('.section');
-            sections.forEach(section => {
-                section.style.display = 'none';
-            });
+    <!-- Section 2 -->
+    <div class="section" id="section-2" style="display: none;">
+        <div class="row mb-4">
+            <div class="col text-center">
+                <h1 class="mb-4">Section mới</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col text-center">
+                <p class="lead">Đây là nội dung của section mới sau khi nhấn "Tiếp theo".</p>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col text-center">
+                <button class="btn btn-secondary px-4 py-2" onclick="showNextSection(1)">Quay lại</button>
+            </div>
+        </div>
+    </div>
+</div>
 
-            const nextSection = document.getElementById(`section-${sectionId}`);
-            if (nextSection) {
-                nextSection.style.display = 'block';
-            }
-        }
+<!-- Progress Bar -->
+<div class="progress fixed-bottom" style="height: 8px;">
+    <div id="progress-bar" class="progress-bar bg-primary" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
 
-        document.addEventListener('DOMContentLoaded', () => {
-            document.getElementById('section-1').style.display = 'block';
+<script>
+    function showNextSection(sectionId) {
+        const sections = document.querySelectorAll('.section');
+        sections.forEach(section => {
+            section.style.display = 'none';
         });
-    </script>
+
+        const nextSection = document.getElementById(`section-${sectionId}`);
+        if (nextSection) {
+            nextSection.style.display = 'block';
+            updateProgressBar(sectionId);
+        }
+    }
+
+    function updateProgressBar(sectionId) {
+        const progressBar = document.getElementById('progress-bar');
+        let progressValue = 0;
+        switch (sectionId) {
+            case 1:
+                progressValue = 50;
+                break;
+            case 2:
+                progressValue = 100;
+                break;
+            default:
+                progressValue = 0;
+        }
+        progressBar.style.width = `${progressValue}%`;
+        progressBar.setAttribute('aria-valuenow', progressValue);
+    }
+
+    function selectCard(card) {
+        // Deselect all cards
+        const cards = document.querySelectorAll('.selectable-card');
+        cards.forEach(c => c.classList.remove('border-primary', 'shadow-lg'));
+
+        // Select the clicked card
+        card.classList.add('border-primary', 'shadow-lg');
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        document.getElementById('section-1').style.display = 'block';
+        updateProgressBar(1);
+    });
+</script>
+
 {% endblock content %}
