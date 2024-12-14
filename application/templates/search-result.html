@@ -1,3 +1,496 @@
-{% extends 'base.html' %}
+{% extends 'application/templates/base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Kết quả tìm kiếm </title>
+{% endblock title %}
+
+{% block stylesheet %}
+    <link rel="stylesheet" type="text/css" href={% static "style/search-result.css" %}>
+{% endblock stylesheet %}
+
+
 {% block content %}
+    <div class="container ps-4">
+        <!--Breadcrumb-->
+        <div class="row">
+            <div class="col-9">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Kết quả</li>
+                    </ol>
+                </nav>
+            </div>
+            <div class="col-3">
+                <i class="bi bi-lightbulb"></i> Kết quả tìm kiếm theo <strong> "Bích Loan"</strong>
+            </div>
+        </div>
+        <!--Content-->
+        <div class="row py-2 m-0">
+            <div class="col-10">
+                <div id="scrollCarousel" class="carousel slide" style="display: flex;width: 100%;height: 80px">
+                    <button id="scrollLeft" class="mt-4">←</button>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <div class="scroll-container d-flex overflow-hidden categories row"
+                                 style="width:calc(100% - 30px)">
+                                <div class="col text-center me-3 category-item on">
+                                    <i class="bi bi-building"></i>
+                                    <p>Thành phố hàng đầu</p>
+                                </div>
+                                <div class="col text-center me-3">
+                                    <i class="bi bi-tsunami"></i>
+                                    <p>Hướng biển</p>
+                                </div>
+                                <div class="col text-center me-3">
+                                    <i class="bi bi-hospital"></i>
+                                    <p>Gần bệnh viện địa phương </p>
+                                </div>
+                                <div class="col text-center me-3">
+                                    <i class="bi bi-house"></i>
+                                    <p>Nhà trên cây cổ thụ </p>
+                                </div>
+                                <div class="col text-center me-3">
+                                    <i class="bi bi-box"></i>
+                                    <p>Container</p>
+                                </div>
+                                <div class="col text-center me-3">
+                                    <i class="bi bi-box"></i>
+                                    <p>Nhà gần siêu thị</p>
+                                </div>
+                                <div class="col text-center me-3">
+                                    <i class="bi bi-box"></i>
+                                    <p>Nhà gần hồ bơi</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="scroll-container d-flex overflow-hidden categories row"
+                                 style="width:calc(100% - 30px)">
+                                <div class="col text-center me-3">
+                                    <i class="bi bi-building"></i>
+                                    <p>Thành phố hàng đầu</p>
+                                </div>
+                                <div class="col text-center me-3">
+                                    <i class="bi bi-tsunami"></i>
+                                    <p>Hướng biển</p>
+                                </div>
+                                <div class="col text-center me-3">
+                                    <i class="bi bi-hospital"></i>
+                                    <p>Gần bệnh viện địa phương </p>
+                                </div>
+                                <div class="col text-center me-3">
+                                    <i class="bi bi-house"></i>
+                                    <p>Nhà trên cây cổ thụ </p>
+                                </div>
+                                <div class="col text-center me-3">
+                                    <i class="bi bi-box"></i>
+                                    <p>Container</p>
+                                </div>
+                                <div class="col text-center me-3">
+                                    <i class="bi bi-box"></i>
+                                    <p>Nhà gần siêu thị</p>
+                                </div>
+                                <div class="col text-center me-3">
+                                    <i class="bi bi-box"></i>
+                                    <p>Nhà gần hồ bơi</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="scroll-container d-flex overflow-hidden categories row"
+                                 style="width:calc(100% - 30px)">
+                                <div class="col text-center me-3">
+                                    <i class="bi bi-building"></i>
+                                    <p>Thành phố hàng đầu</p>
+                                </div>
+                                <div class="col text-center me-3">
+                                    <i class="bi bi-tsunami"></i>
+                                    <p>Hướng biển</p>
+                                </div>
+                                <div class="col text-center me-3">
+                                    <i class="bi bi-hospital"></i>
+                                    <p>Gần bệnh viện địa phương </p>
+                                </div>
+                                <div class="col text-center me-3">
+                                    <i class="bi bi-house"></i>
+                                    <p>Nhà trên cây cổ thụ </p>
+                                </div>
+                                <div class="col text-center me-3">
+                                    <i class="bi bi-box"></i>
+                                    <p>Container</p>
+                                </div>
+                                <div class="col text-center me-3">
+                                    <i class="bi bi-box"></i>
+                                    <p>Nhà gần siêu thị</p>
+                                </div>
+                                <div class="col text-center me-3">
+                                    <i class="bi bi-box"></i>
+                                    <p>Nhà gần hồ bơi</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Add more carousel items -->
+                    </div>
+                    <button id="scrollRight" class="mt-4">→</button>
+                </div>
+            </div>
+            <div class="col filter pt-4">
+                <button id="filter">
+                    <i class="bi bi-filter-left pe-2" style="color: var(--web-background-color)"></i>Bộ lọc
+                </button>
+            </div>
+        </div>
+        <hr/>
+        <div class="container py-2 list-services">
+            <div class="row p-0 my-2">
+                <div class="col p-0 service-item border-0 m-2">
+                    <img src="{% static 'image/product_img5.jpg' %}" class="card-img" alt="...">
+                    <div class="card-body px-1">
+                        <h5 class="card-title py-2">Cỏ May</h5>
+                        <p class="card-text text-truncate">Căn hộ tọa lạc ở Phú Quốc, riêng tư, ấm cúng.</p>
+                        <div class="d-flex pb-2">
+                            <div class="text-warning ">
+                                <i class="bi bi-star-fill"></i>
+                            </div>
+                            <div class=" ps-2 count-star">(4.0/5)</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col p-0 service-item border-0 m-2">
+                    <img src="{% static 'image/product_img5.jpg' %}" class="card-img" alt="...">
+                    <div class="card-body px-1">
+                        <h5 class="card-title py-2">Cỏ May</h5>
+                        <p class="card-text text-truncate">Căn hộ tọa lạc ở Phú Quốc, riêng tư, ấm cúng.</p>
+                        <div class="d-flex pb-2">
+                            <div class="text-warning ">
+                                <i class="bi bi-star-fill"></i>
+                            </div>
+                            <div class=" ps-2 count-star">(4.0/5)</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col p-0 service-item border-0 m-2">
+                    <img src="{% static 'image/product_img5.jpg' %}" class="card-img" alt="...">
+                    <div class="card-body px-1">
+                        <h5 class="card-title py-2">Cỏ May</h5>
+                        <p class="card-text text-truncate">Căn hộ tọa lạc ở Phú Quốc, riêng tư, ấm cúng.</p>
+                        <div class="d-flex pb-2">
+                            <div class="text-warning ">
+                                <i class="bi bi-star-fill"></i>
+                            </div>
+                            <div class=" ps-2 count-star">(4.0/5)</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col p-0 service-item border-0 m-2">
+                    <img src="{% static 'image/product_img5.jpg' %}" class="card-img" alt="...">
+                    <div class="card-body px-1">
+                        <h5 class="card-title py-2">Cỏ May</h5>
+                        <p class="card-text text-truncate">Căn hộ tọa lạc ở Phú Quốc, riêng tư, ấm cúng.</p>
+                        <div class="d-flex pb-2">
+                            <div class="text-warning ">
+                                <i class="bi bi-star-fill"></i>
+                            </div>
+                            <div class=" ps-2 count-star">(4.0/5)</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col p-0 service-item border-0 m-2">
+                    <img src="{% static 'image/product_img5.jpg' %}" class="card-img" alt="...">
+                    <div class="card-body px-1">
+                        <h5 class="card-title py-2">Cỏ May</h5>
+                        <p class="card-text text-truncate">Căn hộ tọa lạc ở Phú Quốc, riêng tư, ấm cúng.</p>
+                        <div class="d-flex pb-2">
+                            <div class="text-warning ">
+                                <i class="bi bi-star-fill"></i>
+                            </div>
+                            <div class=" ps-2 count-star">(4.0/5)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row p-0 my-2">
+                <div class="col p-0 service-item border-0 m-2">
+                    <img src="{% static 'image/product_img5.jpg' %}" class="card-img" alt="...">
+                    <div class="card-body px-1">
+                        <h5 class="card-title py-2">Cỏ May</h5>
+                        <p class="card-text text-truncate">Căn hộ tọa lạc ở Phú Quốc, riêng tư, ấm cúng.</p>
+                        <div class="d-flex pb-2">
+                            <div class="text-warning ">
+                                <i class="bi bi-star-fill"></i>
+                            </div>
+                            <div class=" ps-2 count-star">(4.0/5)</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col p-0 service-item border-0 m-2">
+                    <img src="{% static 'image/product_img5.jpg' %}" class="card-img" alt="...">
+                    <div class="card-body px-1">
+                        <h5 class="card-title py-2">Cỏ May</h5>
+                        <p class="card-text text-truncate">Căn hộ tọa lạc ở Phú Quốc, riêng tư, ấm cúng.</p>
+                        <div class="d-flex pb-2">
+                            <div class="text-warning ">
+                                <i class="bi bi-star-fill"></i>
+                            </div>
+                            <div class=" ps-2 count-star">(4.0/5)</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col p-0 service-item border-0 m-2">
+                    <img src="{% static 'image/product_img5.jpg' %}" class="card-img" alt="...">
+                    <div class="card-body px-1">
+                        <h5 class="card-title py-2">Cỏ May</h5>
+                        <p class="card-text text-truncate">Căn hộ tọa lạc ở Phú Quốc, riêng tư, ấm cúng.</p>
+                        <div class="d-flex pb-2">
+                            <div class="text-warning ">
+                                <i class="bi bi-star-fill"></i>
+                            </div>
+                            <div class=" ps-2 count-star">(4.0/5)</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col p-0 service-item border-0 m-2">
+                    <img src="{% static 'image/product_img5.jpg' %}" class="card-img" alt="...">
+                    <div class="card-body px-1">
+                        <h5 class="card-title py-2">Cỏ May</h5>
+                        <p class="card-text text-truncate">Căn hộ tọa lạc ở Phú Quốc, riêng tư, ấm cúng.</p>
+                        <div class="d-flex pb-2">
+                            <div class="text-warning ">
+                                <i class="bi bi-star-fill"></i>
+                            </div>
+                            <div class=" ps-2 count-star">(4.0/5)</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col p-0 service-item border-0 m-2">
+                    <img src="{% static 'image/product_img5.jpg' %}" class="card-img" alt="...">
+                    <div class="card-body px-1">
+                        <h5 class="card-title py-2">Cỏ May</h5>
+                        <p class="card-text text-truncate">Căn hộ tọa lạc ở Phú Quốc, riêng tư, ấm cúng.</p>
+                        <div class="d-flex pb-2">
+                            <div class="text-warning ">
+                                <i class="bi bi-star-fill"></i>
+                            </div>
+                            <div class=" ps-2 count-star">(4.0/5)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row p-0 my-2">
+                <div class="col p-0 service-item border-0 m-2">
+                    <img src="{% static 'image/product_img5.jpg' %}" class="card-img" alt="...">
+                    <div class="card-body px-1">
+                        <h5 class="card-title py-2">Cỏ May</h5>
+                        <p class="card-text text-truncate">Căn hộ tọa lạc ở Phú Quốc, riêng tư, ấm cúng.</p>
+                        <div class="d-flex pb-2">
+                            <div class="text-warning ">
+                                <i class="bi bi-star-fill"></i>
+                            </div>
+                            <div class=" ps-2 count-star">(4.0/5)</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col p-0 service-item border-0 m-2">
+                    <img src="{% static 'image/product_img5.jpg' %}" class="card-img" alt="...">
+                    <div class="card-body px-1">
+                        <h5 class="card-title py-2">Cỏ May</h5>
+                        <p class="card-text text-truncate">Căn hộ tọa lạc ở Phú Quốc, riêng tư, ấm cúng.</p>
+                        <div class="d-flex pb-2">
+                            <div class="text-warning ">
+                                <i class="bi bi-star-fill"></i>
+                            </div>
+                            <div class=" ps-2 count-star">(4.0/5)</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col p-0 service-item border-0 m-2">
+                    <img src="{% static 'image/product_img5.jpg' %}" class="card-img" alt="...">
+                    <div class="card-body px-1">
+                        <h5 class="card-title py-2">Cỏ May</h5>
+                        <p class="card-text text-truncate">Căn hộ tọa lạc ở Phú Quốc, riêng tư, ấm cúng.</p>
+                        <div class="d-flex pb-2">
+                            <div class="text-warning ">
+                                <i class="bi bi-star-fill"></i>
+                            </div>
+                            <div class=" ps-2 count-star">(4.0/5)</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col p-0 service-item border-0 m-2">
+                    <img src="{% static 'image/product_img5.jpg' %}" class="card-img" alt="...">
+                    <div class="card-body px-1">
+                        <h5 class="card-title py-2">Cỏ May</h5>
+                        <p class="card-text text-truncate">Căn hộ tọa lạc ở Phú Quốc, riêng tư, ấm cúng.</p>
+                        <div class="d-flex pb-2">
+                            <div class="text-warning ">
+                                <i class="bi bi-star-fill"></i>
+                            </div>
+                            <div class=" ps-2 count-star">(4.0/5)</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col p-0 service-item border-0 m-2">
+                    <img src="{% static 'image/product_img5.jpg' %}" class="card-img" alt="...">
+                    <div class="card-body px-1">
+                        <h5 class="card-title py-2">Cỏ May</h5>
+                        <p class="card-text text-truncate">Căn hộ tọa lạc ở Phú Quốc, riêng tư, ấm cúng.</p>
+                        <div class="d-flex pb-2">
+                            <div class="text-warning ">
+                                <i class="bi bi-star-fill"></i>
+                            </div>
+                            <div class=" ps-2 count-star">(4.0/5)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row p-0 my-2">
+                <div class="col p-0 service-item border-0 m-2">
+                    <img src="{% static 'image/product_img5.jpg' %}" class="card-img" alt="...">
+                    <div class="card-body px-1">
+                        <h5 class="card-title py-2">Cỏ May</h5>
+                        <p class="card-text text-truncate">Căn hộ tọa lạc ở Phú Quốc, riêng tư, ấm cúng.</p>
+                        <div class="d-flex pb-2">
+                            <div class="text-warning ">
+                                <i class="bi bi-star-fill"></i>
+                            </div>
+                            <div class=" ps-2 count-star">(4.0/5)</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col p-0 service-item border-0 m-2">
+                    <img src="{% static 'image/product_img5.jpg' %}" class="card-img" alt="...">
+                    <div class="card-body px-1">
+                        <h5 class="card-title py-2">Cỏ May</h5>
+                        <p class="card-text text-truncate">Căn hộ tọa lạc ở Phú Quốc, riêng tư, ấm cúng.</p>
+                        <div class="d-flex pb-2">
+                            <div class="text-warning ">
+                                <i class="bi bi-star-fill"></i>
+                            </div>
+                            <div class=" ps-2 count-star">(4.0/5)</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col p-0 service-item border-0 m-2">
+                    <img src="{% static 'image/product_img5.jpg' %}" class="card-img" alt="...">
+                    <div class="card-body px-1">
+                        <h5 class="card-title py-2">Cỏ May</h5>
+                        <p class="card-text text-truncate">Căn hộ tọa lạc ở Phú Quốc, riêng tư, ấm cúng.</p>
+                        <div class="d-flex pb-2">
+                            <div class="text-warning ">
+                                <i class="bi bi-star-fill"></i>
+                            </div>
+                            <div class=" ps-2 count-star">(4.0/5)</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col p-0 service-item border-0 m-2">
+                    <img src="{% static 'image/product_img5.jpg' %}" class="card-img" alt="...">
+                    <div class="card-body px-1">
+                        <h5 class="card-title py-2">Cỏ May</h5>
+                        <p class="card-text text-truncate">Căn hộ tọa lạc ở Phú Quốc, riêng tư, ấm cúng.</p>
+                        <div class="d-flex pb-2">
+                            <div class="text-warning ">
+                                <i class="bi bi-star-fill"></i>
+                            </div>
+                            <div class=" ps-2 count-star">(4.0/5)</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col p-0 service-item border-0 m-2">
+                    <img src="{% static 'image/product_img5.jpg' %}" class="card-img" alt="...">
+                    <div class="card-body px-1">
+                        <h5 class="card-title py-2">Cỏ May</h5>
+                        <p class="card-text text-truncate">Căn hộ tọa lạc ở Phú Quốc, riêng tư, ấm cúng.</p>
+                        <div class="d-flex pb-2">
+                            <div class="text-warning ">
+                                <i class="bi bi-star-fill"></i>
+                            </div>
+                            <div class=" ps-2 count-star">(4.0/5)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="filter-container"
+                 class="rounded position-absolute p-3 d-none">
+                <div class="d-flex justify-content-end">
+                    <button type="button" class="btn-close header-popup__close-btn"
+                            aria-label="Close"></button>
+                </div>
+                <div class="price-amount">
+                    <div class="h4">Khoảng giá</div>
+                    <hr/>
+                    <div class="h6">Giá theo đêm chưa gồm phí và thuế</div>
+                    <!--Bieu do ket qua-->
+                    <div class="chart-result"></div>
+                    <div class="arrow-interact">
+                        <input class="left-price border-white justify-content-start me-20" placeholder="from..."
+                               style="float: left">
+                        <input class="right-price border-white justify-content-end" placeholder="to..."
+                               style="float: right">
+                    </div>
+                </div>
+                <hr>
+                <div class="convenient-list">
+                    <div class="h5">Tiện nghi</div>
+                    <div class="group-properties  px-3">
+                        <div class="row mb-2">
+                            <button class="select-option col-3 me-2"><i class="fa-solid fa-wifi pe-2"></i>Wifi</button>
+                            <button class="select-option col-3 me-2"><i class="fa-solid fa-kitchen-set pe-2"></i>Bếp</button>
+                            <div class="col-6"></div>
+                        </div>
+                        <div class="row mb-2">
+                            <button class="select-option col-4 me-2"><i class="bi bi-droplet-half pe-2"></i>Máy giặt</button>
+                            <button class="select-option col-4 me-2"><i class="bi bi-wind pe-2"></i>Máy sấy quần áo</button>
+                            <button class="select-option col-3 me-2"><i class="fa-solid fa-tv pe-2"></i>TV</button>
+                        </div>
+                        <div class="row mb-2">
+                            <button class="select-option col-3 me-2"><i class="bi bi-snow3 pe-2"></i>Điều hòa</button>
+                            <button class="select-option col-3 me-2"><i class="bi bi-thermometer-half pe-2"></i>Hệ thống sưởi</button>
+                            <div class="col-6"></div>
+                        </div>
+                        <div class="row mb-2">
+                            <button class="select-option col-5 me-2"><i class="fa-solid fa-desktop pe-2"></i>Không gian làm việc riêng
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="features-list mt-4">
+                    <div class="h5">Đặc điểm</div>
+                    <div class="group-properties px-3">
+                        <div class="row mb-2">
+                            <button class="select-option col-3 me-2"><i class="fa-solid fa-water-ladder pe-2"></i>Bể bơi</button>
+                            <button class="select-option col-4 me-2"><i class="fa-solid fa-hot-tub-person pe-2"></i>Bồn tắm nước nóng
+                            </button>
+                            <div class="col-5"></div>
+                        </div>
+                        <div class="row mb-2">
+                            <button class="select-option col-4 me-2"><i class="fa-solid fa-square-parking pe-2"></i>Chỗ để xe miễn phí
+                            </button>
+                            <button class="select-option col-4 me-2"><i class="fa-solid fa-dumbbell pe-2"></i>Phòng tập thể hình
+                            </button>
+                        </div>
+                        <div class="row mb-2">
+                            <button class="select-option col-4 "><i class="fa-solid fa-smoking pe-2"></i>Cho phép hút thuốc</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="locations mt-4">
+                    <div class="h5">Vị trí</div>
+                    <div class="group-properties  px-3">
+                        <div class="row mb-2">
+                            <button class="select-option col-3 me-2"><i class="fa-solid fa-umbrella-beach pe-2"></i>Bờ biển</button>
+                            <button class="select-option col-4 me-2"><i class="fa-solid fa-water pe-2"></i>Ven hồ/sông/biển
+                            </button>
+                            <div class="col-5"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock content %}
+{% block scripts %}
+    <script src="{% static 'scripts/search-result.js' %}"></script>
+{% endblock scripts %}

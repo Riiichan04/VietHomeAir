@@ -1,0 +1,80 @@
+li{
+    list-style-type: none;
+}
+button{
+    border:none;
+}
+.h1,.h2,.h3,.h4,.h5{
+    color: var(--logo-icon-color);
+}
+#filter{
+    width: 80%;
+    height: 50px;
+    border-radius: 5px;
+    background-color: var(--logo-icon-color);
+    color:var(--web-background-color);
+}
+.on p,.on i{
+    font-weight: bold;
+}
+#filter-container{
+    background-color: var(--web-background-color);
+    border: solid 1px var(--logo-icon-color);
+    width:750px;
+    left: 25%;
+    top: 12px;
+}
+#filter-container .group-properties .select-option{
+    background-color: var(--web-background-color);
+    border: solid 1px var(--logo-icon-color);
+}
+#filter-container .group-properties .active{
+    background-color: var(--logo-icon-color);
+    color: var(--web-background-color);
+}
+#filter-container .group-properties .active >i{
+    color: var(--web-background-color);
+}
+.arrow-interact{
+    height: 50px;
+}
+.arrow-interact>input{
+    border-radius: 5px;
+}
+.group-properties button{
+    height: 40px;
+    border-radius: 5px;
+}
+
+
+/*Card*/
+.service-item{
+    width: 100px;
+    height: 265px;
+}
+.card-img{
+    height: 60%;
+    object-fit: cover;
+    aspect-ratio: 15/ 16;
+}
+.card-title{
+    color:var(--main-cta-color);
+    font-weight: bold;
+}
+.bi-star-fill{
+    color: var(--logo-icon-color);
+}
+#scrollLeft,#scrollRight{
+    border-radius: 50%;
+    height: 50%;
+    width: 50px;
+    color:var(--text-color-hover);
+}
+.categories i,.categories p{
+    color: var(--sub-cta-color);
+}
+.list-services .card-item{
+    width: calc(20% - 1.5rem);
+    height: 25rem;
+    border:solid 2px var(--main-cta-color);
+}

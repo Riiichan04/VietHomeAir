@@ -14,17 +14,15 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.urls import path, include
 
-from application.views.BookView import BookView
-from application.views.PolicyView import PolicyViews
+from django.contrib import admin
+from django.urls import path, re_path, include
+
+from application.views.SubInfoView import PolicyViews, ContactViews
 from application.views.ProductView import ProductView
-from application.views.AboutUsView import AboutUsView
-from application.views.ContactView import ContactView
-from application.views.LoginView import LoginView
+from application.views.LoginView import AuthView
 from application.views.HomeView import HomeView
-from application.views.BookView import BookView
+from application.views.ResultView import ResultView
 
 # Lưu ý: Nếu muốn hiển thị các trang lỗi custom thì phải set DEBUG = False và phải set ALLOWED_HOSTS
 # (Trong môi trường dev thì hãy đặt ALLOWED_HOSTS = ["localhost"])
@@ -40,11 +38,11 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', HomeView.as_view(), name=''),
     path('product/', ProductView.as_view(), name='product'),
-    path('privacy/', PolicyViews.as_view(template_name='policy/privacy-policy.html'), name='privacy-policy'),
-    path('terms-of-use/', PolicyViews.as_view(template_name='policy/terms.html'), name='terms-of-use'),
-    path('policy/', PolicyViews.as_view(template_name='policy/other-policy.html'), name='terms-of-use'),
-    path('login/', LoginView.as_view(), name='login'),
-    path('about-us/', AboutUsView.as_view(), name='about-us'),
-    path('contact/', ContactView.as_view(), name='contact'),
-    path('book/', BookView.as_view(), name='book'),
+    path('privacy/', PolicyViews.as_view(template_name='other_template/privacy-policy.html'), name='privacy-policy'),
+    path('terms-of-use/', PolicyViews.as_view(template_name='other_template/terms.html'), name='terms-of-use'),
+    path('policy/', PolicyViews.as_view(template_name='other_template/other-policy.html'), name='terms-of-use'),
+    re_path(r'^(login|register|forgot-password)/$', AuthView.as_view(), name='auth'),
+    path('about-us/', ContactViews.as_view(template_name='other_template/about-us.html'), name='about-us'),
+    path('contact/', ContactViews.as_view(template_name='other_template/contact-us.html'), name='contact-us'),
+    path('result/', ResultView.as_view(), name='result'),
 ]
