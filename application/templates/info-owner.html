@@ -1,0 +1,346 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Trang thông tin chủ nhà - VietHomeAir</title>
+{% endblock title %}
+
+{% block stylesheet %}
+    <link rel="stylesheet" type="text/css" href="{% static 'style/home.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'style/owner-management.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'style/product.css' %}">
+    <style>
+        .text-verify-owner {
+            font-weight: normal;
+            font-size: 16px;
+        }
+
+        .text-info-owner {
+            font-size: 18px;
+        }
+
+        .cmt-container {
+        {#border: solid 1px var(--text-color);#} background-color: rgb(248, 249, 250);
+            border-radius: 10px;
+        }
+
+        .cmt-avt-container {
+            width: 50px;
+            height: 50px;
+        }
+
+        .cmt-avt-container > img {
+            object-fit: cover;
+            border-radius: 60px;
+            width: 100%;
+            height: 100%;
+        }
+
+        .style-date {
+            font-size: 14px;
+            color: darkgray;
+        }
+    </style>
+{% endblock stylesheet %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-2 p-0">
+                <div class="align-items-center text-decoration-none text-light info-owner">
+                    <div class="row">
+                        <div class="col text-center align-content-center">
+                            <div class="avatar-container">
+                                <img src="https://via.placeholder.com/100" alt="Avatar">
+                            </div>
+                            <p class="text-light m-0 mt-1">Nguyễn Văn A</p>
+                        </div>
+                        <div class="col align-content-center">
+                            <h5 class="m-0">189</h5>
+                            <p style="font-size: 14px" class="text-light">Đánh giá</p>
+                            <hr>
+                            <h5 class="m-0">4.8 ☆</h5>
+                            <p style="font-size: 14px" class="text-light m-0">Xếp hạng</p>
+                        </div>
+                    </div>
+
+                </div>
+                <hr>
+                <div class="p-2">
+                    <h5 class="title-verify-owner pb-3">Thông tin đã xác thực của Tên Chủ Nhà</h5>
+                    <p class="text-verify-owner"><i class="fa-solid fa-check me-2"></i> Danh tính</p>
+                    <p><i class="fa-solid fa-check me-2"></i> Địa chỉ email</p>
+                    <p><i class="fa-solid fa-check me-2"></i> Số điện thoại</p>
+                </div>
+            </div>
+            <div class="col-10 ps-5">
+                <h3 class="mb-4" style="color: var(--main-cta-color)">Thông tin về Chủ nhà</h3>
+                <div class="row bg-light p-3 rounded mb-3">
+                    <div class="col text-info-owner text-center"><i class="fa-solid fa-user me-2"></i> Nguyễn Văn A
+                    </div>
+                    <div class="col text-info-owner text-center"><i class="fa-solid fa-envelope me-2"></i>
+                        nguyenvana@example.com
+                    </div>
+                    <div class="col text-info-owner text-center"><i class="fa-solid fa-phone me-2"></i> 0123 456 789
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <p class="mb-2">Xin chào!</p>
+                    <p class="mb-2">Tôi sinh ra ở Bangkok làm việc trong một bộ phận
+                        Truyền thông doanh nghiệp tại một công ty bán lẻ thực phẩm. Tôi có 7 năm kinh nghiệm trong ngành
+                        khách sạn,
+                        tức là Khách sạn Hyatt và Conrad và ước mơ của tôi là sở hữu một khách sạn.
+                        Vâng, bây giờ tôi bắt đầu với nhà/phòng cho thuê 2 phòng trên AirBnb :)</p>
+                    <p class="mb-2">Chồng tôi, Note, đã từng sống ở San Francisco trong 5 năm và bây giờ đang xây dựng
+                        một
+                        giấc mơ với tôi.</p>
+                    <p class="mb-2">Chúng tôi thích đi du lịch với nhóm bạn, đặc biệt là đến điểm đến lễ hội âm nhạc
+                        cũng
+                        như đến điểm đến bãi biển yên tĩnh / thư giãn.</p>
+                    <p class="mb-2">Chúng tôi thích đi du lịch và đi chơi hoàn toàn đến nỗi chúng tôi quyết định thuê
+                        một
+                        căn shophouse 40 năm tuổi và
+                        được cải tạo thành một mẫu đĩa co-living được gọi là "Ba hao",
+                        nơi có một quán bar trên tầng 1, một phòng khách chung và 2 phòng khách.</p>
+                    <p>Vâng, nếu tôi có cơ hội đón tiếp bạn, sẽ không chỉ có tôi và Lưu ý để đón tiếp bạn mà còn hơn thế
+                        nữa!</p>
+                </div>
+                <hr>
+                <h3 class="mb-4" style="color: var(--main-cta-color)">Đánh giá về Chủ nhà</h3>
+                <div class="row">
+                    <div class="col-6 px-2 mb-3">
+                        <div class="cmt-container p-3">
+                            <p>"…chỗ ở này khiến chuyến đi của tôi đến Bangkok trở nên đặc biệt, mọi thứ thật TUYỆT
+                                VỜI…"</p>
+                            <div class="row mt-4">
+                                <div class="col-2 ps-4">
+                                    <div class="cmt-avt-container">
+                                        <img src="https://via.placeholder.com/100">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <p class="mb-1">Nguyễn Văn B</p>
+                                    <p class="style-date m-0">12/12/2024</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 px-2 mb-3">
+                        <div class="cmt-container p-3">
+                            <p>"…chỗ ở này khiến chuyến đi của tôi đến Bangkok trở nên đặc biệt, mọi thứ thật TUYỆT
+                                VỜI…"</p>
+                            <div class="row mt-4">
+                                <div class="col-2 ps-4">
+                                    <div class="cmt-avt-container">
+                                        <img src="https://via.placeholder.com/100">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <p class="mb-1">Nguyễn Văn B</p>
+                                    <p class="style-date m-0">12/12/2024</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 px-2 mb-3">
+                        <div class="cmt-container p-3">
+                            <p>"…chỗ ở này khiến chuyến đi của tôi đến Bangkok trở nên đặc biệt, mọi thứ thật TUYỆT
+                                VỜI…"</p>
+                            <div class="row mt-4">
+                                <div class="col-2 ps-4">
+                                    <div class="cmt-avt-container">
+                                        <img src="https://via.placeholder.com/100">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <p class="mb-1">Nguyễn Văn B</p>
+                                    <p class="style-date m-0">12/12/2024</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 px-2 mb-3">
+                        <div class="cmt-container p-3">
+                            <p>"…chỗ ở này khiến chuyến đi của tôi đến Bangkok trở nên đặc biệt, mọi thứ thật TUYỆT
+                                VỜI…"</p>
+                            <div class="row mt-4">
+                                <div class="col-2 ps-4">
+                                    <div class="cmt-avt-container">
+                                        <img src="https://via.placeholder.com/100">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <p class="mb-1">Nguyễn Văn B</p>
+                                    <p class="style-date m-0">12/12/2024</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 px-2 mb-3">
+                        <div class="cmt-container p-3">
+                            <p>"…chỗ ở này khiến chuyến đi của tôi đến Bangkok trở nên đặc biệt, mọi thứ thật TUYỆT
+                                VỜI…"</p>
+                            <div class="row mt-4">
+                                <div class="col-2 ps-4">
+                                    <div class="cmt-avt-container">
+                                        <img src="https://via.placeholder.com/100">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <p class="mb-1">Nguyễn Văn B</p>
+                                    <p class="style-date m-0">12/12/2024</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 px-2 mb-3">
+                        <div class="cmt-container p-3">
+                            <p>"…chỗ ở này khiến chuyến đi của tôi đến Bangkok trở nên đặc biệt, mọi thứ thật TUYỆT
+                                VỜI…"</p>
+                            <div class="row mt-4">
+                                <div class="col-2 ps-4">
+                                    <div class="cmt-avt-container">
+                                        <img src="https://via.placeholder.com/100">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <p class="mb-1">Nguyễn Văn B</p>
+                                    <p class="style-date m-0">12/12/2024</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 px-2 mb-3">
+                        <div class="cmt-container p-3">
+                            <p>"…chỗ ở này khiến chuyến đi của tôi đến Bangkok trở nên đặc biệt, mọi thứ thật TUYỆT
+                                VỜI…"</p>
+                            <div class="row mt-4">
+                                <div class="col-2 ps-4">
+                                    <div class="cmt-avt-container">
+                                        <img src="https://via.placeholder.com/100">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <p class="mb-1">Nguyễn Văn B</p>
+                                    <p class="style-date m-0">12/12/2024</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <h3 class="mb-4" style="color: var(--main-cta-color)">Các BnB của Chủ nhà</h3>
+                <div class="row gap-4">
+                    <div class="p-0 card-item rounded">
+                        <div>
+                            <img class="col-12 rounded"
+                                 src="https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6MTI1MzM5MTg5NTY1MDQ1Nzg0NQ%3D%3D/original/bfa891d1-ce3a-447c-91c4-336274f81f44.jpeg?im_w=1200&im_format=avif"
+                                 alt="...">
+                        </div>
+                        <div class="p-2">
+                            <h5 class="mb-0">Biệt thự tại Hội An</h5>
+                            <div class="mt-1">
+                                <span style="font-size: 14px"><i class="fa-solid fa-star main-color"></i> 4.5/5</span>
+                            </div>
+                            <p class="mt-3 mb-2">Chủ nhà: NguyenThiD</p>
+                            <p style="font-size: 14px" class=" ol-12 card-text__description text-truncate">Một biệt thự
+                                sang
+                                chảnh cùng với những tiện
+                                ích tuyệt vời nằm giữa lòng Hội An. Chỉ cách biển 5 phút đi bộ. Cùng với đó là hồ bơi
+                                riêng,
+                                bể bơi riêng và 3 phòng ngủ với đầy đủ tiện nghi hiện đại.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="p-0 card-item rounded">
+                        <div>
+                            <img class="col-12 rounded"
+                                 src="https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6MTI1MzM5MTg5NTY1MDQ1Nzg0NQ%3D%3D/original/bfa891d1-ce3a-447c-91c4-336274f81f44.jpeg?im_w=1200&im_format=avif"
+                                 alt="...">
+                        </div>
+                        <div class="p-2">
+                            <h5 class="mb-0">Biệt thự tại Hội An</h5>
+                            <div class="mt-1">
+                                <span style="font-size: 14px"><i class="fa-solid fa-star main-color"></i> 4.5/5</span>
+                            </div>
+                            <p class="mt-3 mb-2">Chủ nhà: NguyenThiD</p>
+                            <p style="font-size: 14px" class=" ol-12 card-text__description text-truncate">Một biệt thự
+                                sang
+                                chảnh cùng với những tiện
+                                ích tuyệt vời nằm giữa lòng Hội An. Chỉ cách biển 5 phút đi bộ. Cùng với đó là hồ bơi
+                                riêng,
+                                bể bơi riêng và 3 phòng ngủ với đầy đủ tiện nghi hiện đại.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="p-0 card-item rounded">
+                        <div>
+                            <img class="col-12 rounded"
+                                 src="https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6MTI1MzM5MTg5NTY1MDQ1Nzg0NQ%3D%3D/original/bfa891d1-ce3a-447c-91c4-336274f81f44.jpeg?im_w=1200&im_format=avif"
+                                 alt="...">
+                        </div>
+                        <div class="p-2">
+                            <h5 class="mb-0">Biệt thự tại Hội An</h5>
+                            <div class="mt-1">
+                                <span style="font-size: 14px"><i class="fa-solid fa-star main-color"></i> 4.5/5</span>
+                            </div>
+                            <p class="mt-3 mb-2">Chủ nhà: NguyenThiD</p>
+                            <p style="font-size: 14px" class=" ol-12 card-text__description text-truncate">Một biệt thự
+                                sang
+                                chảnh cùng với những tiện
+                                ích tuyệt vời nằm giữa lòng Hội An. Chỉ cách biển 5 phút đi bộ. Cùng với đó là hồ bơi
+                                riêng,
+                                bể bơi riêng và 3 phòng ngủ với đầy đủ tiện nghi hiện đại.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="p-0 card-item rounded">
+                        <div>
+                            <img class="col-12 rounded"
+                                 src="https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6MTI1MzM5MTg5NTY1MDQ1Nzg0NQ%3D%3D/original/bfa891d1-ce3a-447c-91c4-336274f81f44.jpeg?im_w=1200&im_format=avif"
+                                 alt="...">
+                        </div>
+                        <div class="p-2">
+                            <h5 class="mb-0">Biệt thự tại Hội An</h5>
+                            <div class="mt-1">
+                                <span style="font-size: 14px"><i class="fa-solid fa-star main-color"></i> 4.5/5</span>
+                            </div>
+                            <p class="mt-3 mb-2">Chủ nhà: NguyenThiD</p>
+                            <p style="font-size: 14px" class=" ol-12 card-text__description text-truncate">Một biệt thự
+                                sang
+                                chảnh cùng với những tiện
+                                ích tuyệt vời nằm giữa lòng Hội An. Chỉ cách biển 5 phút đi bộ. Cùng với đó là hồ bơi
+                                riêng,
+                                bể bơi riêng và 3 phòng ngủ với đầy đủ tiện nghi hiện đại.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="p-0 card-item rounded">
+                        <div>
+                            <img class="col-12 rounded"
+                                 src="https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6MTI1MzM5MTg5NTY1MDQ1Nzg0NQ%3D%3D/original/bfa891d1-ce3a-447c-91c4-336274f81f44.jpeg?im_w=1200&im_format=avif"
+                                 alt="...">
+                        </div>
+                        <div class="p-2">
+                            <h5 class="mb-0">Biệt thự tại Hội An</h5>
+                            <div class="mt-1">
+                                <span style="font-size: 14px"><i class="fa-solid fa-star main-color"></i> 4.5/5</span>
+                            </div>
+                            <p class="mt-3 mb-2">Chủ nhà: NguyenThiD</p>
+                            <p style="font-size: 14px" class=" ol-12 card-text__description text-truncate">Một biệt thự
+                                sang
+                                chảnh cùng với những tiện
+                                ích tuyệt vời nằm giữa lòng Hội An. Chỉ cách biển 5 phút đi bộ. Cùng với đó là hồ bơi
+                                riêng,
+                                bể bơi riêng và 3 phòng ngủ với đầy đủ tiện nghi hiện đại.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block scripts %}
+{% endblock scripts %}
