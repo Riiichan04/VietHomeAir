@@ -17,13 +17,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from application.views.Book import BookView
+from application.views.BookView import BookView
 from application.views.PolicyView import PolicyViews
 from application.views.ProductView import ProductView
 from application.views.AboutUsView import AboutUsView
 from application.views.ContactView import ContactView
 from application.views.LoginView import LoginView
 from application.views.HomeView import HomeView
+from application.views.BookView import BookView
 
 # Lưu ý: Nếu muốn hiển thị các trang lỗi custom thì phải set DEBUG = False và phải set ALLOWED_HOSTS
 # (Trong môi trường dev thì hãy đặt ALLOWED_HOSTS = ["localhost"])
