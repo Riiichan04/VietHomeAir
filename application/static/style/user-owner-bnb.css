@@ -1,0 +1,26 @@
+.card-container {
+   border-radius: 5px;
+   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.owner-img {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    border: solid 1px var(--text-color);
+}
+.h1,.h2,.h3,.h4,.h5{
+    color: var(--logo-icon-color);
+}
+.owner-avt .bi-patch-check {
+    position: absolute;
+    top: 225px;
+    left: 210px;
+    text-align: center;
+    font-size: 40px;
+    line-height: 40px;
+    color: var(--logo-icon-color);
+}
+.owner-name{
+    text-align: center;
+}
