@@ -35,6 +35,10 @@
     border-bottom-right-radius: 20px;
 }
 
+.comment-rating__star {
+    font-size: 14px;
+}
+
 #booking-info input {
     background-color: rgba(0, 0, 0, 0);
     outline: 0;
