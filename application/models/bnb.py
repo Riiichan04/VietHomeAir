@@ -34,7 +34,7 @@ class BnbInformation(models.Model):
     rule = models.ManyToManyField(Rule)
     service = models.ManyToManyField(Service)
     owner = models.ForeignKey(Owner, on_delete=models.CASCADE)
-
+    status = models.BooleanField(default=True)
 
 # OneToMany -> Cần foreign key tới BnbInformation
 class Image(models.Model):

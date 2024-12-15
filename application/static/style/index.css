@@ -34,3 +34,12 @@
 .default-btn-style:hover {
     color: var(--text-color-hover);
 }
+
+.main-cta-button {
+    background-color: var(--main-cta-color);
+    color: var(--web-background-color);
+}
+
+.main-cta-button:hover {
+    background-color: var(--main-cta-color-hover);
+}

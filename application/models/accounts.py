@@ -8,11 +8,13 @@ class Account(models.Model):
     username = models.CharField(unique=True, max_length=100)
     password = models.CharField(max_length=32)
     email = models.CharField(max_length=200)
+    phone = models.CharField(max_length=11)
     description = models.TextField()
     fullname = models.CharField(max_length=200)
     gender = models.CharField(max_length=6, choices=(('male', 'Male'), ('female', 'Female'), ('other', 'Other')))
     role = models.IntegerField()
     register_time = DateTimeField()
+    is_verified = models.BooleanField(default=False)
     status = models.BooleanField(default=True)
 
 
