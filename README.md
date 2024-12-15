@@ -41,21 +41,22 @@
 3. **python-dotenv**: `pip install python-dotenv`
 
 ---
-
+![img.png](img.png)
 ### Cách config Django:
 
 1. Gõ: `python -m venv .venv` để tạo Virtual Environment
 2. Gõ `.venv\Scripts\Activate.ps1` để bật venv
 3. Gõ `python pip install Django` để cài Django vào venv
-4. Gõ `django-admin startproject tên_pj .` để tạo project, dấu . để cho Python biết là cài ngay ở current dir (Ở
+4. Gõ `pip install django-cors-headers` để cài cors header vào (cho phần sentiment analysis)
+5. Gõ `django-admin startproject tên_pj .` để tạo project, dấu . để cho Python biết là cài ngay ở current dir (Ở
    VietHomeAir)
-5. Gõ `python manage.py startapp tên_app` để tạo 1 app
-6. Add dòng `tên_app.apps.TênAppConfig` vào file `setting.py` trong project
-7. Tạo 1 directory tên là `templates` để chứa các file html/Jinja2, tạo các file html tùy ý
-8. Mở `views.py` trong app tạo class View với `template_name = tênfile.html`
-9. Mở `urls.py` trong project, trong `urlpatterns` thêm:
-   `path('tên_sub_page, TênClassView.as_views(), name='tên_sub_page')`
-10. Gõ `python manage.py runserer` để chạy server
+6. Gõ `python manage.py startapp tên_app` để tạo 1 app
+7. Add dòng `tên_app.apps.TênAppConfig` vào file `setting.py` trong project
+8. Tạo 1 directory tên là `templates` để chứa các file html/Jinja2, tạo các file html tùy ý
+9. Mở `views.py` trong app tạo class View với `template_name = tênfile.html`
+10. Mở `urls.py` trong project, trong `urlpatterns` thêm:
+    `path('tên_sub_page, TênClassView.as_views(), name='tên_sub_page')`
+11. Gõ `python manage.py runserer` để chạy server
 
 ---
 
