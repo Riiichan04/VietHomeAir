@@ -1,9 +1,12 @@
-.card-container {
+.user-info,.user-properties {
    border-radius: 5px;
    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
-
-.owner-img {
+.user-verify{
+    border-radius: 5px;
+    border: solid 1px var(--sub-text-color);
+}
+.user-img {
     border-radius: 50%;
     width: 100px;
     height: 100px;
@@ -12,15 +15,23 @@
 .h1,.h2,.h3,.h4,.h5{
     color: var(--logo-icon-color);
 }
-.owner-avt .bi-patch-check {
+.user-avt .bi-patch-check {
     position: absolute;
     top: 225px;
-    left: 210px;
+    left: 200px;
     text-align: center;
     font-size: 40px;
     line-height: 40px;
     color: var(--logo-icon-color);
 }
-.owner-name{
+.user-name{
     text-align: center;
+}
+.verify-license{
+    width: 150px;
+    margin-left: 12px;
+    height: 40px;
+    border-radius: 5px;
+    border: solid 1px var(--sub-text-color);
+    color: var(--text-color);
 }

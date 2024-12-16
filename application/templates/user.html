@@ -1,0 +1,84 @@
+{% extends 'other_template/base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Thông tin</title>
+{% endblock title %}
+{% block stylesheet %}
+    <link rel="stylesheet" type="text/css" href={% static "style/user.css" %}>
+{% endblock stylesheet %}
+{% block breadcrumb %}
+    <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+    <li class="breadcrumb-item active">Thông tin về chủ nhà</li>
+{% endblock breadcrumb %}
+{% block content %}
+    <div class="container mx-auto">
+        <div class="col-4 me-4">
+            <div class="row p-4 card-container user-info ">
+                <div class="col-5 me-4 text-center user-avt">
+                    <img src="../static/image/error_image/error500.jpg" class="row user-img">
+                    <i class="bi bi-patch-check"></i>
+                    <div class="row user-name h5 ps-4 py-2">Lôi</div>
+                </div>
+                <div class="col-6">
+                    <div class="row reviews border-bottom">
+                        <div class="row h5">32</div>
+                        <h6 class="row">Đánh giá</h6>
+                    </div>
+                    <div class="row experiences pt-2">
+                        <div class="row h5">3</div>
+                        <h6 class="row">
+                            năm hoạt động trên VietHomeAir.
+                        </h6>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4 p-4 card-container user-properties">
+                <div class="row">
+                    <div class="col-1"><i class="fa-solid fa-user"></i></div>
+                    <div class="col">Thông tin</div>
+                </div>
+                 <div class="row mt-3">
+                    <div class="col-1"><i class="fa-solid fa-house"></i></div>
+                    <div class="col">Lịch sử đặt thuê</div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-1"><i class="fa-solid fa-eye"></i></div>
+                    <div class="col">Lịch sử xem </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-1"><i class="fa-solid fa-pen"></i></div>
+                    <div class="col">Lịch sử đánh giá </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-1"><i class="fa-solid fa-heart"></i></div>
+                    <div class="col">Danh sách yêu thích</div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-1"><i class="bi bi-arrow-bar-left"></i></div>
+                    <div class="col">Đăng xuất</div>
+                </div>
+            </div>
+            <div class="row mt-4 p-4 user-verify card-container">
+                <h5>Thông tin đã được xác thực của Lôi</h5>
+                <div class="row">
+                    <i class="fa-solid fa-check col-1"></i>
+                    <div class="col-11">Email đã được xác thực</div>
+                </div>
+                <div class="row my-2">
+                    <i class="fa-solid fa-check col-1"></i>
+                    <div class="col-11">Số điện thoại đã được xác thực</div>
+                </div>
+                <hr/>
+                <div class="row user-license">
+                    <h5>Xác minh danh tính của bạn</h5>
+                    <p>Bạn phải hoàn tất bước này trước khi đặt phòng/ đặt chỗ trên VietHomeAir.</p>
+                    <button class="verify-license">Xác minh</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-7 ms-2">
+
+        </div>
+    </div>
+{% endblock content %}

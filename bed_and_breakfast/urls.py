@@ -18,6 +18,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, re_path, include
 
+from application.views.UserView import UserView
 from application.views.SubInfoView import PolicyViews, ContactViews
 from application.views.BnbInfoView import BnbInfoView, SampleBnbInfoView
 from application.views.LoginView import AuthView
@@ -48,4 +49,5 @@ urlpatterns = [
     path('contact/', ContactViews.as_view(template_name='other_template/contact-us.html'), name='contact-us'),
     path('result/', ResultView.as_view(), name='result'),
     path('book/', BookView.as_view(), name='book'),
+    path('user/',UserView.as_view(), name='user'),
 ]
