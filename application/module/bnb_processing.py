@@ -6,7 +6,6 @@ from application.models.bnb import Category, Image
 def get_bnb(bnb_id):
     return BnbInformation.objects.filter(status=True).filter(id=bnb_id).first()
 
-
 # Kiểm tra bnb có khả dụng không
 def is_bnb_valid(bnb_id):
     bnb = get_bnb(bnb_id)
