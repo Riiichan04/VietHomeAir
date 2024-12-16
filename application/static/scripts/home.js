@@ -1,3 +1,3 @@
-$(".card-item").click(function () {
-    window.location = "/product"
-})
+// $(".card-item").click(function () {
+//     window.location = "/product"
+// })
