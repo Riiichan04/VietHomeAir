@@ -1,4 +1,4 @@
-.user-info,.user-properties {
+.user-info,.user-properties,#user-content {
    border-radius: 5px;
    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
@@ -18,7 +18,7 @@
 .user-avt .bi-patch-check {
     position: absolute;
     top: 225px;
-    left: 200px;
+    left: 210px;
     text-align: center;
     font-size: 40px;
     line-height: 40px;

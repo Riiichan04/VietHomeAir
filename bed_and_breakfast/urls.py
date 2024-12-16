@@ -18,7 +18,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, re_path, include
 
-from application.views.UserView import UserView
+from application.views.UserView import UserView, UserInfoView
 from application.views.SubInfoView import PolicyViews, ContactViews
 from application.views.BnbInfoView import BnbInfoView, SampleBnbInfoView
 from application.views.LoginView import AuthView
@@ -50,4 +50,5 @@ urlpatterns = [
     path('result/', ResultView.as_view(), name='result'),
     path('book/', BookView.as_view(), name='book'),
     path('user/',UserView.as_view(), name='user'),
+    path('user/user-information/',UserInfoView.as_view(template_name='user/user-information.html'),name='user-info'),
 ]
