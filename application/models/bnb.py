@@ -9,7 +9,7 @@ class Category(models.Model):
 
 
 class Service(models.Model):
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=200, unique=True)
 
 
 class Rule(models.Model):
@@ -24,7 +24,7 @@ class Location(models.Model):
 
 
 class BnbInformation(models.Model):
-    name = models.CharField(max_length=300)
+    name = models.CharField(max_length=300, unique=True)
     description = models.TextField()
     location = models.OneToOneField(Location, on_delete=models.CASCADE)
     price = models.DecimalField(max_digits=10, decimal_places=2)
