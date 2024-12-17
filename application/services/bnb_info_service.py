@@ -4,11 +4,6 @@ from application.models import BnbInformation
 from enum import Enum
 
 
-class BookingConstant(Enum):
-    DEFAULT_BOOKING_DAYS = 5,
-    DEFAULT_SERVICE_FEE = 70000
-
-
 # Lấy bnb còn active với id được chỉ định. Nếu không tìm thấy hoặc bnb có status = False sẽ trả về None
 def get_bnb_info(bnb_id):
     bnb = BnbInformation.objects.filter(status=True).filter(id=bnb_id).first()
@@ -17,19 +12,21 @@ def get_bnb_info(bnb_id):
         'name': bnb.name,
         'description': bnb.description,
         'images': [image.url for image in bnb.image_set.all()],
-        'rules': [rule.description for rule in bnb.rules.all()],
-        'services': ''.join(list(["- " + service.name + '\n' for service in bnb.services.all()])),
+        'rules': [rule.description for rule in bnb.rule.all()],
+        'services': ''.join(list(["- " + service.name + '\n' for service in bnb.service.all()])),
         'prices': calculate_price(bnb.price),
         'owner': bnb.owner.account,
         'categories': [category.name for category in bnb.category.all()],
         # Đánh giá của owner
         # Số lượng đánh giá của owner
-        'reviews': [review for review in bnb.review_set.all()]
+        'reviews': [review for review in bnb.review_set.all()],
+        'sentiment_reviews': statistic_bnb_reviews_by_sentiment([review for review in bnb.review_set.all()]),
+        'rating_reviews': statistic_bnb_reviews_by_rating([review for review in bnb.review_set.all()]),
     }
 
 
 # Tính toán và hiển thị giá thuê bnb
-def calculate_price(price, date=BookingConstant.DEFAULT_BOOKING_DAYS, service_fee=BookingConstant.DEFAULT_SERVICE_FEE):
+def calculate_price(price, date=5, service_fee=70000):
     return {
         'default_price': '{0:,}'.format(price).replace('.00', '').replace(',', '.'),
         'base_bnb_price': '{0:,}'.format(price * date).replace('.00', '').replace(',', '.'),

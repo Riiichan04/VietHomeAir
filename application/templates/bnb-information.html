@@ -15,7 +15,7 @@
 
     <section class="container p-4">
         <div class="row">
-            <h2 class="col-10 ps-4 mb-2">{{ title }}</h2>
+            <h2 class="col-10 ps-4 mb-2">{{ bnb.name }}</h2>
             <div class="col-2 row">
                 <div class="col">
                     <div class="cursor-pointer" id="share-btn"><i class="fa-solid fa-arrow-up-from-bracket"></i> Chia sẻ
@@ -28,18 +28,18 @@
         </div>
         <div class="row">
             <div class="col-6 product-images" style="height: calc(30rem + .5rem)">
-                <img style="width: 100%; height: 100%" src="{{ images.0 }}" alt="">
+                <img style="width: 100%; height: 100%" src="{{ bnb.images.0 }}" alt="">
             </div>
             <div class="col-6 d-flex flex-column justify-content-between product-other-images" style="height: 30rem">
                 <div class="row mb-1" style="height: 50%">
-                    <img class="col-6 px-1" src="{{ images.1 }}" alt="">
-                    <img class="col-6 px-1 product-other-images__top-right" src="{{ images.2 }}"
+                    <img class="col-6 px-1" src="{{ bnb.images.1 }}" alt="">
+                    <img class="col-6 px-1 product-other-images__top-right" src="{{ bnb.images.2 }}"
                          alt="">
                 </div>
                 <div class="row mt-1" style="height: 50%">
-                    <img class="col-6 px-1" src="{{ images.3 }}" alt="">
+                    <img class="col-6 px-1" src="{{ bnb.images.3 }}" alt="">
                     <img class="col-6 px-1 product-other-images__bottom-right"
-                         src="{{ images.4 }}" alt="">
+                         src="{{ bnb.images.4 }}" alt="">
                 </div>
             </div>
 
@@ -84,7 +84,7 @@
             <div class="col-4">
                 <div class="rounded p-4 border border-black border-1">
                     <p class="mb-1">Giá thuê nhà:</p>
-                    <h4>{{ price }} VNĐ/ đêm</h4>
+                    <h4>{{ bnb.prices.default_price }} VNĐ/ đêm</h4>
                     <hr/>
                     <div id="booking-info">
                         <div class="row px-2 my-2">
@@ -117,15 +117,16 @@
                     <button class="button mt-3 p-3 w-100 rounded h5 border-0 main-cta-button">Đặt phòng</button>
                     <hr/>
                     <div>
-                        <p class="d-flex my-1 justify-content-between">{{ price }} VNĐ x 5 đêm:<span class="fw-semibold"
-                                                                                                     id="bnb-price">{{ default_calculated_price }} VNĐ</span>
+                        <p class="d-flex my-1 justify-content-between">{{ bnb.prices.default_price }} VNĐ x 5 đêm:<span
+                                class="fw-semibold"
+                                id="bnb-price">{{ bnb.prices.base_bnb_price }} VNĐ</span>
                         </p>
                         <p class="d-flex my-1 justify-content-between">Phí dịch vụ:<span class="fw-semibold"
                                                                                          id="bnb-price">70.000 VNĐ</span>
                         </p>
                         <hr/>
                         <p class="my-1 h5 fw-normal d-flex justify-content-between">Tổng tiền: <span
-                                class="h4 fw-semibold" id="bnb-price">{{ default_final_price }} VNĐ</span></p>
+                                class="h4 fw-semibold" id="bnb-price">{{ bnb.prices.final_bnb_price }} VNĐ</span></p>
                     </div>
                 </div>
             </div>
@@ -151,10 +152,10 @@
                 <div class="my-4 col-4 " style="width: 30% !important;">
                     <div class="rounded-4 row p-4 " id="owner-bnb-info">
                         <div class="col-9 d-flex flex-column justify-content-center align-items-center">
-{#                            <i class="text-center display-1 bi bi-person-circle"></i>#}
-                            <img class="text-center display-4 rounded-circle" src="{{ owner.account.avatar }}" alt=""
+                            {#                            <i class="text-center display-1 bi bi-person-circle"></i>#}
+                            <img class="text-center display-4 rounded-circle" src="{{ bnb.owner.avatar }}" alt=""
                                  width="80px" height="80px">
-                            <h4 class="my-2 text-center">{{ owner.account.fullname }}</h4>
+                            <h4 class="my-2 text-center">{{ bnb.owner.fullname }}</h4>
                         </div>
                         <div class="col">
                             <h5 class=" m-0">0</h5>
@@ -172,7 +173,7 @@
                 <div class="col"></div>
                 <div class="col-7 p-4">
                     <div class="mb-5">
-                        <h5>{{ owner.account.fullname }} là một chủ nhà rất xịn xò đó!</h5>
+                        <h5>{{ owner.account.fullname }} là một chủ nhà rất xịn xò đó!</h5> {# Cây quyết định #}
                         <p>Được mọi người đánh giá cao về chất lượng dịch vụ, là điểm đến lý tưởng của nhiều người</p>
                     </div>
                     <div class="mb-5">
@@ -186,7 +187,7 @@
             <hr/>
             {# Chỗ này dành cho comment #}
             <div class="my-4">
-                <h4 class="mb-4"><i class="fa-solid fa-star"></i> 4.75/5 · {{ reviews|length }} lượt đánh giá</h4>
+                <h4 class="mb-4"><i class="fa-solid fa-star"></i> {{ bnb.rating_reviews.avg_rating }}/5 · {{ bnb.reviews|length }} lượt đánh giá</h4>
                 <div class="row">
                     <div class="col-3 border-1 border-end">
                         <p class="fw-semibold">Xếp hạng tổng thể</p>
@@ -201,7 +202,8 @@
                                     :
                                 </div>
                                 <div>
-                                    <span>8 đánh giá</span>
+                                    {# Tạm thời #}
+                                    <span>{{ bnb.rating_reviews.count_rating.4 }} đánh giá</span>
                                 </div>
                             </div>
                             <div class="d-flex justify-content-between">
@@ -214,7 +216,7 @@
                                     :
                                 </div>
                                 <div>
-                                    <span>5 đánh giá</span>
+                                    <span>{{ bnb.rating_reviews.count_rating.3 }} đánh giá</span>
                                 </div>
                             </div>
                             <div class="d-flex justify-content-between">
@@ -227,7 +229,7 @@
                                     :
                                 </div>
                                 <div>
-                                    <span>2 đánh giá</span>
+                                    <span>{{ bnb.rating_reviews.count_rating.2 }} đánh giá</span>
                                 </div>
                             </div>
                             <div class="d-flex justify-content-between">
@@ -240,7 +242,7 @@
                                     :
                                 </div>
                                 <div>
-                                    <span>0 đánh giá</span>
+                                    <span>{{ bnb.rating_reviews.count_rating.1 }} đánh giá</span>
                                 </div>
                             </div>
                             <div class="d-flex justify-content-between">
@@ -253,7 +255,7 @@
                                     :
                                 </div>
                                 <div>
-                                    <span>0 đánh giá</span>
+                                    <span>{{ bnb.rating_reviews.count_rating.0 }} đánh giá</span>
                                 </div>
                             </div>
                         </div>
@@ -263,17 +265,12 @@
                         <div class="row">
                             <div class="col border-1 border-end ps-4 py-4">
                                 <p class="my-1">Tích cực</p>
-                                <h5 class="fw-semibold">10 bình luận</h5>
-                                <button class="button rounded mt-3">Xem bình luận</button>
-                            </div>
-                            <div class="col border-1 border-end ps-4 py-4">
-                                <p class="my-1">Trung tính</p>
-                                <h5 class="fw-semibold">10 bình luận</h5>
+                                <h5 class="fw-semibold">{{ bnb.sentiment_reviews.pos_reviews.amount }} bình luận</h5>
                                 <button class="button rounded mt-3">Xem bình luận</button>
                             </div>
                             <div class="col ps-4 py-4">
                                 <p class="my-1">Tiêu cực</p>
-                                <h5 class="fw-semibold">10 bình luận</h5>
+                                <h5 class="fw-semibold">{{ bnb.sentiment_reviews.neg_reviews.amount }} bình luận</h5>
                                 <button class="button rounded mt-3">Xem bình luận</button>
                             </div>
                         </div>
@@ -281,7 +278,7 @@
                 </div>
                 <hr/>
                 <div class="row">
-                    {% for review in reviews %}
+                    {% for review in bnb.reviews %}
                         <div class="col-6 comment-component">
                             <div class="rounded-4 row p-1">
                                 <div class="col-2 d-flex flex-column justify-content-center">
@@ -318,18 +315,18 @@
                 <div class="row mt-5">
                     <div class="col">
                         <h6 class="mb-2">Nội quy nhà</h6>
-                        <p class="my-1">{{ rule.0 }}</p>
-                        <p class="my-1">{{ rule.1 }}</p>
+                        <p class="my-1">{{ bnb.rules.0 }}</p>
+                        <p class="my-1">{{ bnb.rules.1 }}</p>
                     </div>
                     <div class="col">
                         <h6 class="mb-2">An toàn</h6>
-                        <p class="my-1">{{ rule.2 }}</p>
-                        <p class="my-1">{{ rule.3 }}</p>
+                        <p class="my-1">{{ bnb.rules.2 }}</p>
+                        <p class="my-1">{{ bnb.rules.3 }}</p>
                     </div>
                     <div class="col">
                         <h6 class="mb-2">Chính sách hoàn trả</h6>
-                        <p class="my-1">{{ rule.4 }}</p>
-                        <p class=my-1"> {{ rule.5 }}</p>
+                        <p class="my-1">{{ bnb.rules.4 }}</p>
+                        <p class=my-1"> {{ bnb.rules.5 }}</p>
                     </div>
                 </div>
             </div>
@@ -374,9 +371,9 @@
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script type="module">
         $(document).ready(() => {
-            $("#description-display").html(marked.parse(`{{ description|escapejs }}`))
-            $("#service-bnb").html(marked.parse(`{{ service|escapejs }}`))
-            $("#owner-description").html(marked.parse(`{{ owner.account.description|escapejs }}`))
+            $("#description-display").html(marked.parse(`{{ bnb.description|escapejs }}`))
+            $("#service-bnb").html(marked.parse(`{{ bnb.service|escapejs }}`))
+            $("#owner-description").html(marked.parse(`{{ bnb.owner.description|escapejs }}`))
         })
     </script>
 {% endblock scripts %}

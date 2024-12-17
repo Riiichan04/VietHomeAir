@@ -40,7 +40,6 @@ handler500 = 'application.views.ErrorView.get_error_500_page'
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', HomeView.as_view(), name=''),
-    path('rooms/sample_room', SampleBnbInfoView.as_view(), name='product'),
     path('rooms/<int:bnbid>', BnbInfoView.as_view(), name='product'),
     path('privacy/', PolicyViews.as_view(template_name='other_template/privacy-policy.html'), name='privacy-policy'),
     path('terms-of-use/', PolicyViews.as_view(template_name='other_template/terms.html'), name='terms-of-use'),
