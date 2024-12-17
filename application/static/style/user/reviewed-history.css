@@ -1,0 +1,15 @@
+a{
+    text-decoration: none;
+    color: var(--sub-cta-color);
+}
+.service-name{
+    color: var(--main-cta-color);
+    font-weight: bold;
+}
+.bi-star-fill,.bi-star{
+    color: var(--main-cta-color);
+}
+.review-list{
+    height: 700px;
+    overflow: scroll auto;
+}

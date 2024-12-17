@@ -1,3 +1,7 @@
+{% load static %}
+{%  block stylesheet %}
+    <link rel="stylesheet" type="text/css" href={% static "style/user/user-information.css" %}>
+{%  endblock stylesheet %}
 <div class="h4">Thông tin người dùng</div>
 <div class="row mt-4">
     <h6 class="col-3">Tên người dùng: </h6>
@@ -13,5 +17,5 @@
 </div>
 <div class="row mt-4 pe-4">
     <h6 class="col-8"></h6>
-    <button class="col-4">Chỉnh sửa</button>
+    <button class="col-4 edit-confirm">Chỉnh sửa</button>
 </div>

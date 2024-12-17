@@ -18,13 +18,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, re_path, include
 
-from application.views.UserView import UserView, UserInfoView
 from application.views.SubInfoView import PolicyViews, ContactViews
 from application.views.BnbInfoView import BnbInfoView, SampleBnbInfoView
 from application.views.LoginView import AuthView
 from application.views.HomeView import HomeView
 from application.views.ResultView import ResultView
 from application.views.BookView import BookView
+from application.views.UserView import UserView,UserInfoView,UserOrderHistoryView, UserViewedHistoryView, UserReviewHistoryView, UserWishListView
 
 # Lưu ý: Nếu muốn hiển thị các trang lỗi custom thì phải set DEBUG = False và phải set ALLOWED_HOSTS
 # (Trong môi trường dev thì hãy đặt ALLOWED_HOSTS = ["localhost"])
@@ -50,5 +50,10 @@ urlpatterns = [
     path('result/', ResultView.as_view(), name='result'),
     path('book/', BookView.as_view(), name='book'),
     path('user/',UserView.as_view(), name='user'),
-    path('user/user-information/',UserInfoView.as_view(template_name='user/user-information.html'),name='user-info'),
+    path('user/', UserView.as_view(), name='user'),
+    path('user/user-information/', UserInfoView.as_view(template_name='user/user-information.html'), name='user-info'),
+    path('user/order-history/', UserOrderHistoryView.as_view(template_name='user/user-order-history.html'),name='user-order-history'),
+    path('user/viewed-history/',UserViewedHistoryView.as_view(template_name='user/user-viewed-history.html'),name='user-viewed-history'),
+    path('user/review-history',UserReviewHistoryView.as_view(template_name='user/user-reviewed-history.html'),name='user-review-history'),
+    path('user/wishlist',UserWishListView.as_view(template_name='user/user-wishlist.html'),name='user-wishlist'),
 ]
