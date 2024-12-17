@@ -1,0 +1,21 @@
+{% load static %}
+{%  block stylesheet %}
+    <link rel="stylesheet" type="text/css" href={% static "style/user/user-information.css" %}>
+{%  endblock stylesheet %}
+<div class="h4">Thông tin người dùng</div>
+<div class="row mt-4">
+    <h6 class="col-3">Tên người dùng: </h6>
+    <input class="col-8" value="Nguyễn Văn Lôi">
+</div>
+<div class="row mt-4">
+    <h6 class="col-3">Địa chỉ email: </h6>
+    <input class="col-8" value="hehehe@gmail.com">
+</div>
+<div class="row mt-4">
+    <h6 class="col-3">Số điện thoại: </h6>
+    <input class="col-8" value="57162565">
+</div>
+<div class="row mt-4 pe-4">
+    <h6 class="col-8"></h6>
+    <button class="col-4 edit-confirm">Chỉnh sửa</button>
+</div>

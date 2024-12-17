@@ -1,0 +1,71 @@
+.user-info,.user-properties,#user-content {
+   border-radius: 5px;
+   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+.user-verify{
+    border-radius: 5px;
+    border: solid 1px var(--sub-text-color);
+}
+.user-img {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    border: solid 1px var(--text-color);
+}
+.h1,.h2,.h3,.h4,.h5{
+    color: var(--logo-icon-color);
+    font-weight: bold;
+}
+.user-avt .bi-patch-check {
+    position: absolute;
+    top: 225px;
+    left: 210px;
+    text-align: center;
+    font-size: 40px;
+    line-height: 40px;
+    color: var(--logo-icon-color);
+}
+.user-name{
+    text-align: center;
+}
+.verify-license{
+    width: 150px;
+    margin-left: 12px;
+    height: 40px;
+    border-radius: 5px;
+    border: solid 1px var(--sub-text-color);
+    color: var(--text-color);
+}
+.content-property{
+    /*padding: 0;*/
+    margin: 0;
+    border-radius: 5px;
+}
+.on{
+    background-color: var(--sub-text-color-hover);
+
+}
+/* Logout */
+#logout_alert{
+    display: none;
+    width:300px;
+    height:170px;
+    background-color: var(--web-background-color);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+#logout_alert #yesBtn{
+    background-color: var(--main-cta-color);
+    width: 100px;
+    color: var(--web-background-color);
+    border-radius: 5px;
+}
+#logout_alert #noBtn{
+    border: solid 1px var(--sub-cta-color-hover);
+    border-radius: 5px;
+}
