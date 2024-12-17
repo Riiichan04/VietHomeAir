@@ -9,6 +9,8 @@
     --sub-cta-color: #555555;
     --sub-cta-color-hover: #aaaaaa;
     --logo-icon-color: #5874a5;
+    --highlight-button-color: #c86f46;
+    --highlight-button-color-hover: #e78b5e;
 }
 
 .cursor-pointer {
