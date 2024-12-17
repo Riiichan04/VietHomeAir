@@ -1,0 +1,23 @@
+button{
+    border:none;
+}
+.service-item{
+    width: 100px;
+    height: 265px;
+}
+.card-title{
+    color: var(--main-cta-color);
+    font-weight: bold;
+}
+.bi-star-fill{
+    color: var(--main-cta-color);
+}
+.viewed-list{
+    height: 700px ;
+    overflow: scroll auto;
+}
+.order-service{
+    background-color: var(--main-cta-color);
+    color: #ffffff;
+    border-radius: 5px;
+}
