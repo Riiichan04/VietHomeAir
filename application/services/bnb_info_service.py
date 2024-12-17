@@ -1,8 +1,5 @@
 from datetime import datetime
-from math import trunc
-
 from application.models import BnbInformation
-from enum import Enum
 
 
 # Lấy bnb còn active với id được chỉ định. Nếu không tìm thấy hoặc bnb có status = False sẽ trả về None
@@ -10,6 +7,7 @@ def get_bnb_info(bnb_id):
     bnb = BnbInformation.objects.filter(status=True).filter(id=bnb_id).first()
     if bnb is None: return None
     return {
+        'id': bnb.id,
         'name': bnb.name,
         'description': bnb.description,
         'images': [image.url for image in bnb.image_set.all()],
@@ -21,7 +19,8 @@ def get_bnb_info(bnb_id):
         'capacity': bnb.capacity,
         # Đánh giá của owner
         # Số lượng đánh giá của owner
-        'reviews': [{'review_obj': review, 'display_content': display_review(review)} for review in bnb.review_set.all()],
+        'reviews': [{'review_obj': review, 'display_content': display_review(review)} for review in
+                    bnb.review_set.all()],
         'sentiment_reviews': statistic_bnb_reviews_by_sentiment([review for review in bnb.review_set.all()]),
         'rating_reviews': statistic_bnb_reviews_by_rating([review for review in bnb.review_set.all()]),
     }
@@ -47,7 +46,7 @@ def statistic_bnb_reviews_by_sentiment(bnb_reviews):
     neg_reviews = [review.content for review in bnb_reviews if review.sentiment == 'negative']
     return {
         'pos_reviews': {'amount': len(pos_reviews), 'reviews': pos_reviews},
-        'neg_reviews': {'amount': len(neg_reviews), 'reviews': neg_reviews}
+        'neg_reviews': {'amount': len(neg_reviews), 'reviews': neg_reviews},
     }
 
 
@@ -76,6 +75,7 @@ def display_review(review):
     html_result += '</div>'
     return html_result
 
+
 def display_time(time):
     format_time = '%Y-%m-%d %H:%M:%S.%f'
     time_sec = datetime.strptime(datetime.strftime(time, format_time), format_time).timestamp()
@@ -89,3 +89,15 @@ def display_time(time):
     value_index = converted_time.index(list(filter(lambda x: x > 0, converted_time))[0])
     return str(converted_time[value_index]) + label[value_index]
 
+
+# Dùng cho web filter
+def statistic_review_by_id(bnb_id):
+    reviews = [review for review in
+               BnbInformation.objects.filter(status=True).filter(id=bnb_id).first().review_set.all()]
+    pos_reviews = [review for review in reviews if review.sentiment == 'positive']
+    neg_reviews = [review for review in reviews if review.sentiment == 'negative']
+    return {
+        'pos_reviews': {'amount': len(pos_reviews), 'reviews': pos_reviews},
+        'neg_reviews': {'amount': len(neg_reviews), 'reviews': neg_reviews},
+        'all': {'amount': len(reviews), 'reviews': reviews}
+    }

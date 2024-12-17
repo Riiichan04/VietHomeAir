@@ -108,7 +108,7 @@
                                 <div class="p-1 mx-1 border border-1 border-black rounded ">
                                     <label class="w-100" style="font-size: 12px">Số lượng khách
                                         <input class="px-1 w-100 border-0 h6 fw-normal" type="number" name="" id=""
-                                       min="1" max="{{ bnb.capacity }}" value="1">
+                                               min="1" max="{{ bnb.capacity }}" value="1">
                                     </label>
                                 </div>
                             </div>
@@ -187,7 +187,8 @@
             <hr/>
             {# Chỗ này dành cho comment #}
             <div class="my-4">
-                <h4 class="mb-4"><i class="fa-solid fa-star"></i> {{ bnb.rating_reviews.avg_rating }}/5 · {{ bnb.reviews|length }} lượt đánh giá</h4>
+                <h4 class="mb-4"><i class="fa-solid fa-star"></i> {{ bnb.rating_reviews.avg_rating }}/5
+                    · {{ bnb.reviews|length }} lượt đánh giá</h4>
                 <div class="row">
                     <div class="col-3 border-1 border-end">
                         <p class="fw-semibold">Xếp hạng tổng thể</p>
@@ -282,11 +283,13 @@
                         <div class="col-6 comment-component">
                             <div class="rounded-4 row p-1">
                                 <div class="col-2 d-flex flex-column justify-content-center">
-                                    <img class="text-center display-4 rounded-circle" src="{{ review.review_obj.account.avatar }}"
+                                    <img class="text-center display-4 rounded-circle"
+                                         src="{{ review.review_obj.account.avatar }}"
                                          alt="" width="80px" height="80px">
                                 </div>
                                 <div class="col d-flex align-items-center">
-                                    <p style="font-size: 18px" class="fw-semibold m-0">{{ review.review_obj.account.fullname }}</p>
+                                    <p style="font-size: 18px"
+                                       class="fw-semibold m-0">{{ review.review_obj.account.fullname }}</p>
                                 </div>
                             </div>
                             <div class="row">
@@ -368,6 +371,49 @@
             $("#service-bnb").html(marked.parse(`{{ bnb.services|escapejs }}`))
             $("#owner-description").html(marked.parse(`{{ bnb.owner.description|escapejs }}`))
         })
-        
+
+        function filterReview(sentiment_type) {
+            $.ajax({
+                url: '{{ request.path }}',
+                data: {
+                    'sentiment_type': sentiment_type
+                },
+                success: function (response) {
+                    let commentsHtml = '';
+                    $.each(response.reviews, function (index, review) {
+                        commentsHtml += `
+                            <div class="col-6 comment-component">
+                            <div class="rounded-4 row p-1">
+                                <div class="col-2 d-flex flex-column justify-content-center">
+                                    <img class="text-center display-4 rounded-circle"
+                                         src="${review.avatar}"
+                                         alt="" width="80px" height="80px">
+                                </div>
+                                <div class="col d-flex align-items-center">
+                                    <p style="font-size: 18px"
+                                       class="fw-semibold m-0">${review.fullname}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                ${review.rating_content}
+                            </div>
+                            <div class="row comment-component__content my-2">
+                                <p>
+                                    ${review.content}
+                                </p>
+                            </div>
+                        </div>`
+                    });
+                    $('#review-display').html(commentsHtml);  // Cập nhật lại danh sách bình luận
+                }
+            })
+        }
+
+        $("#filter-positive-review").click(function() {
+            filterReview('positive')
+        })
+        $("#filter-negative-review").click(function() {
+            filterReview('negative')
+        })
     </script>
 {% endblock scripts %}

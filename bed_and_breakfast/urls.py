@@ -19,7 +19,7 @@ from django.contrib import admin
 from django.urls import path, re_path, include
 
 from application.views.SubInfoView import PolicyViews, ContactViews
-from application.views.BnbInfoView import BnbInfoView, SampleBnbInfoView
+from application.views.BnbInfoView import BnbInfoView
 from application.views.LoginView import AuthView
 from application.views.HomeView import HomeView
 from application.views.ResultView import ResultView
