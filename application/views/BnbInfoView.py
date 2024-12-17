@@ -39,7 +39,8 @@ class BnbInfoView(TemplateView):
                 }
                 for review in filtered_reviews['reviews']
             ]
-
+            print(sentiment_type)
+            print(json_result)
             return JsonResponse({'reviews': json_result})
 
         # Không phải ajax thì trả về trang bình thường

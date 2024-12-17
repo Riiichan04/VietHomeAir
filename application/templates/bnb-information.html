@@ -278,6 +278,12 @@
                     </div>
                 </div>
                 <hr/>
+                <p id="filter-text" class="d-none">Bạn đang xem các bình luận
+                    <span id="filter-label" class="fw-semibold"></span>.
+                    <span id="unfilter-review" style="cursor: pointer" class="text-decoration-underline">
+                            Hiển thị tất cả
+                        </span>
+                </p>
                 <div class="row" id="review-display">
                     {% for review in bnb.reviews %}
                         <div class="col-6 comment-component">
@@ -373,15 +379,31 @@
         })
 
         function filterReview(sentiment_type) {
+            let filterLabel = ""
+            switch (sentiment_type) {
+                case "positive":
+                    filterLabel = "Tích cực";
+                    break;
+                case "negative":
+                    filterLabel = "Tiêu cực";
+                    break;
+                default:
+                    filterLabel = ""
+            }
+
             $.ajax({
                 url: '{{ request.path }}',
                 data: {
                     'sentiment_type': sentiment_type
                 },
                 success: function (response) {
-                    let commentsHtml = '';
+                    let reviewContents = '';
+                    if (sentiment_type !== "all") {
+                        $("#filter-text").removeClass("d-none");
+                        $("#filter-label").text(filterLabel);
+                    } else $("#filter-text").addClass("d-none");
                     $.each(response.reviews, function (index, review) {
-                        commentsHtml += `
+                        reviewContents += `
                             <div class="col-6 comment-component">
                             <div class="rounded-4 row p-1">
                                 <div class="col-2 d-flex flex-column justify-content-center">
@@ -404,16 +426,19 @@
                             </div>
                         </div>`
                     });
-                    $('#review-display').html(commentsHtml);  // Cập nhật lại danh sách bình luận
+                    $('#review-display').html(reviewContents);  // Cập nhật lại danh sách bình luận
                 }
             })
         }
 
-        $("#filter-positive-review").click(function() {
+        $("#filter-positive-review").click(function () {
             filterReview('positive')
         })
-        $("#filter-negative-review").click(function() {
+        $("#filter-negative-review").click(function () {
             filterReview('negative')
+        })
+        $("#unfilter-review").click(function () {
+            filterReview('all')
         })
     </script>
 {% endblock scripts %}

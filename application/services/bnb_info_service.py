@@ -99,5 +99,5 @@ def statistic_review_by_id(bnb_id):
     return {
         'pos_reviews': {'amount': len(pos_reviews), 'reviews': pos_reviews},
         'neg_reviews': {'amount': len(neg_reviews), 'reviews': neg_reviews},
-        'all': {'amount': len(reviews), 'reviews': reviews}
+        'all_reviews': {'amount': len(reviews), 'reviews': [review for review in reviews]}
     }
