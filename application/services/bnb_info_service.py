@@ -54,7 +54,7 @@ def statistic_bnb_reviews_by_sentiment(bnb_reviews):
 
 # Thống kê review của bnb theo số sao đánh giá
 def statistic_bnb_reviews_by_rating(bnb_reviews):
-    avg_rating = sum(bnb_reviews) / len(bnb_reviews)
+    avg_rating = sum(map(lambda x: x.rating, bnb_reviews)) / len(bnb_reviews)
     count_rating = []
     for i in range(1, 6):
         count_rating.append(len([review.rating for review in bnb_reviews if review.rating == i]))
@@ -64,7 +64,8 @@ def statistic_bnb_reviews_by_rating(bnb_reviews):
         'count_rating': tuple(count_rating)
     }
 
-#Hiển thị html element cho
+
+# Hiển thị html element cho
 def display_review(review):
     html_result = ''
     review_rating = ''
@@ -86,4 +87,3 @@ def display_time(time):
     day_value = round(time_sec / (60 * 60 * 24), 2)
     hour_value = round(time_sec / (60 * 60), 2)
     minute_value = round(time_sec / (60), 2)
-    
