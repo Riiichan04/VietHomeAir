@@ -1,4 +1,5 @@
 from datetime import datetime
+from math import trunc
 
 from application.models import BnbInformation
 from enum import Enum
@@ -19,7 +20,7 @@ def get_bnb_info(bnb_id):
         'categories': [category.name for category in bnb.category.all()],
         # Đánh giá của owner
         # Số lượng đánh giá của owner
-        'reviews': [review for review in bnb.review_set.all()],
+        'reviews': [{'review_obj': review, 'display_content': display_review(review)} for review in bnb.review_set.all()],
         'sentiment_reviews': statistic_bnb_reviews_by_sentiment([review for review in bnb.review_set.all()]),
         'rating_reviews': statistic_bnb_reviews_by_rating([review for review in bnb.review_set.all()]),
     }
@@ -57,30 +58,33 @@ def statistic_bnb_reviews_by_rating(bnb_reviews):
         count_rating.append(len([review.rating for review in bnb_reviews if review.rating == i]))
 
     return {
-        'avg_rating': avg_rating,
+        'avg_rating': round(avg_rating, 2),
         'count_rating': tuple(count_rating)
     }
 
 
 # Hiển thị html element cho
 def display_review(review):
-    html_result = ''
-    review_rating = ''
+    html_result = '<div>'
     rating = review.rating
     for i in range(rating):
-        review_rating += '<i class="comment-rating__star fa-solid fa-star"></i>'
+        html_result += '<i class="comment-rating__star fa-solid fa-star"></i>'
     for i in range(rating, 5):
-        review_rating += '<i class="comment-rating__star fa-regular fa-star"></i>'
-
+        html_result += '<i class="comment-rating__star fa-regular fa-star"></i>'
+    html_result += f'<span class="ms-2 h6 fw-semibold">{display_time(review.created_at)}</span>'
+    html_result += '</div>'
+    return html_result
 
 def display_time(time):
-    time_sec = datetime.strptime(time, '%Y-%m-%d %H:%M:%S.%f').timestamp()
+    format_time = '%Y-%m-%d %H:%M:%S.%f'
+    time_sec = datetime.strptime(datetime.strftime(time, format_time), format_time).timestamp()
     now_sec = datetime.now().timestamp()
-    second_diff = now_sec - time_sec
+    second_diff = round((now_sec - time_sec), 0)
     if second_diff < 0: return ''
-    year_value = round(time_sec / (60 * 60 * 24 * 365), 2)
-    month_value = round(time_sec / (60 * 60 * 24 * 31), 2)
-    week_value = round(time_sec / (60 * 60 * 24 * 7), 2)
-    day_value = round(time_sec / (60 * 60 * 24), 2)
-    hour_value = round(time_sec / (60 * 60), 2)
-    minute_value = round(time_sec / (60), 2)
+    if second_diff < 60: return 'Bây giờ'
+    time_in_milisec = [60 * 60 * 24 * 365, 60 * 60 * 24 * 31, 60 * 60 * 24 * 7, 60 * 60 * 24, 60 * 60, 60]
+    label = [" năm trước", "tháng trước", " tuần trước", " ngày trước", " giờ trước", " phút trước"]
+    converted_time = list(map(lambda x: int(round(second_diff / x, 0)), time_in_milisec))
+    value_index = converted_time.index(list(filter(lambda x: x > 0, converted_time))[0])
+    return str(converted_time[value_index]) + label[value_index]
+

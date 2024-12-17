@@ -173,7 +173,7 @@
                 <div class="col"></div>
                 <div class="col-7 p-4">
                     <div class="mb-5">
-                        <h5>{{ owner.account.fullname }} là một chủ nhà rất xịn xò đó!</h5> {# Cây quyết định #}
+                        <h5>{{ bnb.owner.fullname }} là một chủ nhà rất xịn xò đó!</h5> {# Cây quyết định #}
                         <p>Được mọi người đánh giá cao về chất lượng dịch vụ, là điểm đến lý tưởng của nhiều người</p>
                     </div>
                     <div class="mb-5">
@@ -282,26 +282,19 @@
                         <div class="col-6 comment-component">
                             <div class="rounded-4 row p-1">
                                 <div class="col-2 d-flex flex-column justify-content-center">
-                                    <img class="text-center display-4 rounded-circle" src="{{ review.account.avatar }}"
+                                    <img class="text-center display-4 rounded-circle" src="{{ review.review_obj.account.avatar }}"
                                          alt="" width="80px" height="80px">
                                 </div>
                                 <div class="col d-flex align-items-center">
-                                    <p style="font-size: 18px" class="fw-semibold m-0">{{ review.account.fullname }}</p>
+                                    <p style="font-size: 18px" class="fw-semibold m-0">{{ review.review_obj.account.fullname }}</p>
                                 </div>
                             </div>
                             <div class="row">
-                                <div>
-                                    <i class="comment-rating__star fa-solid fa-star"></i>
-                                    <i class="comment-rating__star fa-solid fa-star"></i>
-                                    <i class="comment-rating__star fa-solid fa-star"></i>
-                                    <i class="comment-rating__star fa-solid fa-star"></i>
-                                    <i class="comment-rating__star fa-solid fa-star"></i>
-                                    <span class="ms-2 h6 fw-semibold">3 tuần trước</span>
-                                </div>
+                                {{ review.display_content|safe }}
                             </div>
-                            <div class="row comment-component__content">
+                            <div class="row comment-component__content my-2">
                                 <p>
-                                    {{ review.content }}
+                                    {{ review.review_obj.content }}
                                 </p>
                             </div>
                         </div>
