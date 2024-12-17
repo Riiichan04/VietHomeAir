@@ -18,6 +18,7 @@ def get_bnb_info(bnb_id):
         'prices': calculate_price(bnb.price),
         'owner': bnb.owner.account,
         'categories': [category.name for category in bnb.category.all()],
+        'capacity': bnb.capacity,
         # Đánh giá của owner
         # Số lượng đánh giá của owner
         'reviews': [{'review_obj': review, 'display_content': display_review(review)} for review in bnb.review_set.all()],

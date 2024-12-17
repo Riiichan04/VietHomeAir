@@ -1,15 +1,13 @@
+from django import template
+
 from django.http import Http404
 from django.views.generic import TemplateView
 from application.models import BnbInformation
 import application.services.bnb_info_service as bnb_service
 
-
-class SampleBnbInfoView(TemplateView):
-    template_name = "application/templates/bnb-information.html"
-
-
 class BnbInfoView(TemplateView):
     template_name = "application/templates/bnb-information.html"
+
 
     def get_context_data(self, **kwargs):
         bnb = bnb_service.get_bnb_info(self.kwargs['bnbid'])

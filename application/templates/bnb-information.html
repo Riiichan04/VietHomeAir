@@ -108,7 +108,7 @@
                                 <div class="p-1 mx-1 border border-1 border-black rounded ">
                                     <label class="w-100" style="font-size: 12px">Số lượng khách
                                         <input class="px-1 w-100 border-0 h6 fw-normal" type="number" name="" id=""
-                                               min="1" max="5" value="1">
+                                       min="1" max="{{ bnb.capacity }}" value="1">
                                     </label>
                                 </div>
                             </div>
@@ -266,18 +266,18 @@
                             <div class="col border-1 border-end ps-4 py-4">
                                 <p class="my-1">Tích cực</p>
                                 <h5 class="fw-semibold">{{ bnb.sentiment_reviews.pos_reviews.amount }} bình luận</h5>
-                                <button class="button rounded mt-3">Xem bình luận</button>
+                                <button id="filter-positive-review" class="button rounded mt-3">Xem bình luận</button>
                             </div>
                             <div class="col ps-4 py-4">
                                 <p class="my-1">Tiêu cực</p>
                                 <h5 class="fw-semibold">{{ bnb.sentiment_reviews.neg_reviews.amount }} bình luận</h5>
-                                <button class="button rounded mt-3">Xem bình luận</button>
+                                <button id="filter-negative-review" class="button rounded mt-3">Xem bình luận</button>
                             </div>
                         </div>
                     </div>
                 </div>
                 <hr/>
-                <div class="row">
+                <div class="row" id="review-display">
                     {% for review in bnb.reviews %}
                         <div class="col-6 comment-component">
                             <div class="rounded-4 row p-1">
@@ -365,8 +365,9 @@
     <script type="module">
         $(document).ready(() => {
             $("#description-display").html(marked.parse(`{{ bnb.description|escapejs }}`))
-            $("#service-bnb").html(marked.parse(`{{ bnb.service|escapejs }}`))
+            $("#service-bnb").html(marked.parse(`{{ bnb.services|escapejs }}`))
             $("#owner-description").html(marked.parse(`{{ bnb.owner.description|escapejs }}`))
         })
+        
     </script>
 {% endblock scripts %}
