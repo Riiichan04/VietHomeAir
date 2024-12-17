@@ -8,12 +8,14 @@
 {% block stylesheet %}
     <link rel="stylesheet" type="text/css" href="{% static 'style/bnb-information.css' %}">
 {% endblock stylesheet %}
+{% block header_scripts %}
 
+{% endblock header_scripts %}
 {% block content %}
 
     <section class="container p-4">
         <div class="row">
-            <h2 class="col-10 ps-4 mb-2">Cỏ May - Biệt thự tại Cần Giờ</h2>
+            <h2 class="col-10 ps-4 mb-2">{{ title }}</h2>
             <div class="col-2 row">
                 <div class="col">
                     <div class="cursor-pointer" id="share-btn"><i class="fa-solid fa-arrow-up-from-bracket"></i> Chia sẻ
@@ -25,19 +27,19 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-6 product-images">
-                <img style="width: 100%; height: 100%" src="{% static 'image/product_img1.jpg' %}" alt="">
+            <div class="col-6 product-images" style="height: calc(30rem + .5rem)">
+                <img style="width: 100%; height: 100%" src="{{ images.0 }}" alt="">
             </div>
-            <div class="col-6 d-flex flex-column justify-content-between product-other-images">
-                <div class="row mb-1">
-                    <img class="col-6 px-1" src="{% static 'image/product_img2.jpg' %}" alt="">
-                    <img class="col-6 px-1 product-other-images__top-right" src="{% static 'image/product_img3.jpeg' %}"
+            <div class="col-6 d-flex flex-column justify-content-between product-other-images" style="height: 30rem">
+                <div class="row mb-1" style="height: 50%">
+                    <img class="col-6 px-1" src="{{ images.1 }}" alt="">
+                    <img class="col-6 px-1 product-other-images__top-right" src="{{ images.2 }}"
                          alt="">
                 </div>
-                <div class="row mt-1">
-                    <img class="col-6 px-1" src="{% static 'image/product_img4.jpg' %}" alt="">
+                <div class="row mt-1" style="height: 50%">
+                    <img class="col-6 px-1" src="{{ images.3 }}" alt="">
                     <img class="col-6 px-1 product-other-images__bottom-right"
-                         src="{% static 'image/product_img5.jpg' %}" alt="">
+                         src="{{ images.4 }}" alt="">
                 </div>
             </div>
 
@@ -46,40 +48,43 @@
 
         <div class="row">
             <div class="col-8">
-                <div>
-                    <div>
-                        <h5><i class="bi bi-building-check"></i> Tự nhận phòng</h5>
-                        <p>Có thể gặp người trực để nhận phòng</p>
-                    </div>
-                    <div>
-                        <h5><i class="bi bi-thermometer-snow"></i> Có máy lạnh</h5>
-                        <p>Thổi bay cái nóng với máy lạnh :3</p>
-                    </div>
-                    <div>
-                        <h5><i class="fa-solid fa-umbrella-beach"></i> Cách bãi biển 10 phút đi bộ</h5>
-                        <p>Cách biển Cần Giờ 10 phút đi bộ</p>
-                    </div>
-                </div>
-                <hr/>
+                {#                <div>#}
+                {#                    <div>#}
+                {#                        <h5><i class="bi bi-building-check"></i> Tự nhận phòng</h5>#}
+                {#                        <p>Có thể gặp người trực để nhận phòng</p>#}
+                {#                    </div>#}
+                {#                    <div>#}
+                {#                        <h5><i class="bi bi-thermometer-snow"></i> Có máy lạnh</h5>#}
+                {#                        <p>Thổi bay cái nóng với máy lạnh :3</p>#}
+                {#                    </div>#}
+                {#                    <div>#}
+                {#                        <h5><i class="fa-solid fa-umbrella-beach"></i> Cách bãi biển 10 phút đi bộ</h5>#}
+                {#                        <p>Cách biển Cần Giờ 10 phút đi bộ</p>#}
+                {#                    </div>#}
+                {#                </div>#}
+                {#                <hr/>#}
                 <div class="mt-4">
                     <h5>Mô tả về chỗ ở:</h5>
-                    <p>Biệt thự riêng tinh tế với hồ bơi với các đồ trang trí mà bạn mong đợi tại một khu nghỉ dưỡng
-                        phong
-                        cách Thụy Điển. Được thiết kế hoàn hảo với đồ nội thất hiện đại trong suốt, biệt thự được bao
-                        quanh
-                        bởi các cánh cửa kính nhiều lớp để cho ánh sáng và gió tràn ngập ngôi nhà. Một khu vực ăn uống
-                        ngoài
-                        trời rộng lớn.</p>
-                    <p>Biệt thự được thiết kế để trở thành một nơi nghỉ dưỡng riêng. Ẩn mình trong một con đường nhỏ.
-                        Nhà
-                        hàng gần nhất cách 50m và bãi biển cách mười phút đi bộ.</p>
-                    <h6 id="show-description-popup"><u>Hiển thị thêm ></u></h6>
+                    {#                    <p>Biệt thự riêng tinh tế với hồ bơi với các đồ trang trí mà bạn mong đợi tại một khu nghỉ dưỡng#}
+                    {#                        phong#}
+                    {#                        cách Thụy Điển. Được thiết kế hoàn hảo với đồ nội thất hiện đại trong suốt, biệt thự được bao#}
+                    {#                        quanh#}
+                    {#                        bởi các cánh cửa kính nhiều lớp để cho ánh sáng và gió tràn ngập ngôi nhà. Một khu vực ăn uống#}
+                    {#                        ngoài#}
+                    {#                        trời rộng lớn.</p>#}
+                    {#                    <p>Biệt thự được thiết kế để trở thành một nơi nghỉ dưỡng riêng. Ẩn mình trong một con đường nhỏ.#}
+                    {#                        Nhà#}
+                    {#                        hàng gần nhất cách 50m và bãi biển cách mười phút đi bộ.</p>#}
+                    {#                    <h6 id="show-description-popup"><u>Hiển thị thêm ></u></h6>#}
+                    <div id="description-display">
+                        {#                        {{ description|safe }}#}
+                    </div>
                 </div>
             </div>
             <div class="col-4">
                 <div class="rounded p-4 border border-black border-1">
                     <p class="mb-1">Giá thuê nhà:</p>
-                    <h4>1.567.000 VNĐ/ đêm</h4>
+                    <h4>{{ price }} VNĐ/ đêm</h4>
                     <hr/>
                     <div id="booking-info">
                         <div class="row px-2 my-2">
@@ -112,15 +117,15 @@
                     <button class="button mt-3 p-3 w-100 rounded h5 border-0 main-cta-button">Đặt phòng</button>
                     <hr/>
                     <div>
-                        <p class="d-flex my-1 justify-content-between">1.567.000 VNĐ x 5 đêm:<span class="fw-semibold"
-                                                                                                   id="bnb-price">7.835.000 VNĐ</span>
+                        <p class="d-flex my-1 justify-content-between">{{ price }} VNĐ x 5 đêm:<span class="fw-semibold"
+                                                                                                     id="bnb-price">{{ default_calculated_price }} VNĐ</span>
                         </p>
                         <p class="d-flex my-1 justify-content-between">Phí dịch vụ:<span class="fw-semibold"
                                                                                          id="bnb-price">70.000 VNĐ</span>
                         </p>
                         <hr/>
                         <p class="my-1 h5 fw-normal d-flex justify-content-between">Tổng tiền: <span
-                                class="h4 fw-semibold" id="bnb-price">7.905.000 VNĐ</span></p>
+                                class="h4 fw-semibold" id="bnb-price">{{ default_final_price }} VNĐ</span></p>
                     </div>
                 </div>
             </div>
@@ -128,14 +133,16 @@
                 <hr/>
                 <h5>Ngoài ra, chỗ ở vẫn còn ...</h5>
                 <div class="row mt-4">
-                    <p class="col-6"><i class="fa-solid fa-water-ladder"></i> Hồ bơi riêng</p>
-                    <p class="col-6"><i class="fa-solid fa-wifi"></i> Wi-fi</p>
-                    <p class="col-6"><i class="fa-solid fa-worm"></i> Sân vườn riêng</p>
-                    <p class="col-6"><i class="fa-solid fa-hot-tub-person"></i> Bồn tắm nước nóng</p>
-                    <p class="col-6"><i class="fa-solid fa-fire-burner"></i> Bếp</p>
-                    <p class="col-6"><i class="fa-solid fa-tv"></i> Tivi có sẵn Netflix</p>
-                    <p class="col-6"><i class="fa-solid fa-square-parking"></i> Chỗ đậu xe</p>
-                    <p class="col-6"><i class="fa-solid fa-computer-mouse"></i> Không gian làm việc riêng</p>
+                    {# Sẽ thêm icon sau báo cáo gk #}
+                    {#                    <p class="col-6"><i class="fa-solid fa-water-ladder"></i> Hồ bơi riêng</p>#}
+                    {#                    <p class="col-6"><i class="fa-solid fa-wifi"></i> Wi-fi</p>#}
+                    {#                    <p class="col-6"><i class="fa-solid fa-worm"></i> Sân vườn riêng</p>#}
+                    {#                    <p class="col-6"><i class="fa-solid fa-hot-tub-person"></i> Bồn tắm nước nóng</p>#}
+                    {#                    <p class="col-6"><i class="fa-solid fa-fire-burner"></i> Bếp</p>#}
+                    {#                    <p class="col-6"><i class="fa-solid fa-tv"></i> Tivi có sẵn Netflix</p>#}
+                    {#                    <p class="col-6"><i class="fa-solid fa-square-parking"></i> Chỗ đậu xe</p>#}
+                    {#                    <p class="col-6"><i class="fa-solid fa-computer-mouse"></i> Không gian làm việc riêng</p>#}
+                    <div id="service-bnb"></div>
                 </div>
             </div>
             <hr/>
@@ -143,30 +150,29 @@
                 <h5>Gặp gỡ chủ nhà </h5>
                 <div class="my-4 col-4 " style="width: 30% !important;">
                     <div class="rounded-4 row p-4 " id="owner-bnb-info">
-                        <div class="col-9 d-flex flex-column justify-content-center">
-                            <i class="text-center display-1 bi bi-person-circle"></i>
-                            <h4 class="text-center">NguyenVanD</h4>
+                        <div class="col-9 d-flex flex-column justify-content-center align-items-center">
+{#                            <i class="text-center display-1 bi bi-person-circle"></i>#}
+                            <img class="text-center display-4 rounded-circle" src="{{ owner.account.avatar }}" alt=""
+                                 width="80px" height="80px">
+                            <h4 class="my-2 text-center">{{ owner.account.fullname }}</h4>
                         </div>
                         <div class="col">
-                            <h5 class=" m-0">189</h5>
+                            <h5 class=" m-0">0</h5>
                             <p style="font-size: 14px" class="">Đánh giá</p>
                             <hr>
-                            <h5 class=" m-0">4.8 ☆</h5>
+                            <h5 class=" m-0">0 ☆</h5>
                             <p style="font-size: 14px" class=" m-0">Xếp hạng</p>
                         </div>
                     </div>
                     <div class="mt-5">
                         <h5>Thông tin của chủ nhà</h5>
-                        <p class="my-1">Đã học tại Ba Lan</p>
-                        <p class="my-1">Công việc: Du lịch</p>
-                        <p class="mt-3">Tốt bụng, rất nice với mọi người =)) Đôi lúc thích joke với khách về những thứ
-                            sẽ khiến họ buồn cười về cuộc sống</p>
+                        <div id="owner-description"></div>
                     </div>
                 </div>
                 <div class="col"></div>
                 <div class="col-7 p-4">
                     <div class="mb-5">
-                        <h5>NguyenVanD là một chủ nhà rất xịn xò đó!</h5>
+                        <h5>{{ owner.account.fullname }} là một chủ nhà rất xịn xò đó!</h5>
                         <p>Được mọi người đánh giá cao về chất lượng dịch vụ, là điểm đến lý tưởng của nhiều người</p>
                     </div>
                     <div class="mb-5">
@@ -180,7 +186,7 @@
             <hr/>
             {# Chỗ này dành cho comment #}
             <div class="my-4">
-                <h4 class="mb-4"><i class="fa-solid fa-star"></i> 4.75/5 · 15 lượt đánh giá</h4>
+                <h4 class="mb-4"><i class="fa-solid fa-star"></i> 4.75/5 · {{ reviews|length }} lượt đánh giá</h4>
                 <div class="row">
                     <div class="col-3 border-1 border-end">
                         <p class="fw-semibold">Xếp hạng tổng thể</p>
@@ -275,225 +281,102 @@
                 </div>
                 <hr/>
                 <div class="row">
-                    <div class="col-6 comment-component">
-                        <div class="rounded-4 row p-1">
-                            <div class="col-2 d-flex flex-column justify-content-center">
-                                <i class="text-center display-4 bi bi-person-circle"></i>
+                    {% for review in reviews %}
+                        <div class="col-6 comment-component">
+                            <div class="rounded-4 row p-1">
+                                <div class="col-2 d-flex flex-column justify-content-center">
+                                    <img class="text-center display-4 rounded-circle" src="{{ review.account.avatar }}"
+                                         alt="" width="80px" height="80px">
+                                </div>
+                                <div class="col d-flex align-items-center">
+                                    <p style="font-size: 18px" class="fw-semibold m-0">{{ review.account.fullname }}</p>
+                                </div>
                             </div>
-                            <div class="col d-flex align-items-center">
-                                <p style="font-size: 18px" class="fw-semibold m-0">Nguyễn Thị Hoa Hồng</p>
+                            <div class="row">
+                                <div>
+                                    <i class="comment-rating__star fa-solid fa-star"></i>
+                                    <i class="comment-rating__star fa-solid fa-star"></i>
+                                    <i class="comment-rating__star fa-solid fa-star"></i>
+                                    <i class="comment-rating__star fa-solid fa-star"></i>
+                                    <i class="comment-rating__star fa-solid fa-star"></i>
+                                    <span class="ms-2 h6 fw-semibold">3 tuần trước</span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div>
-                                <i class="comment-rating__star fa-solid fa-star"></i>
-                                <i class="comment-rating__star fa-solid fa-star"></i>
-                                <i class="comment-rating__star fa-solid fa-star"></i>
-                                <i class="comment-rating__star fa-solid fa-star"></i>
-                                <i class="comment-rating__star fa-solid fa-star"></i>
-                                <span class="ms-2 h6 fw-semibold">3 tuần trước</span>
-                            </div>
-                        </div>
-                        <div class="row comment-component__content">
-                            <p>
-                                Nhà này có dịch vụ rất đỉnh, chất lượng vô cùng tốt cùng bãi biển Cần Giờ xinh đẹp. Chắc
-                                chắn sẽ quay lại lần sau nếu có dịp đến đây
-                            </p>
-                        </div>
-                    </div>
-                    <div class="col-6 comment-component">
-                        <div class="rounded-4 row p-1">
-                            <div class="col-2 d-flex flex-column justify-content-center">
-                                <i class="text-center display-4 bi bi-person-circle"></i>
-                            </div>
-                            <div class="col d-flex align-items-center">
-                                <p style="font-size: 18px" class="fw-semibold m-0">Nguyễn Thị Hoa Hồng</p>
+                            <div class="row comment-component__content">
+                                <p>
+                                    {{ review.content }}
+                                </p>
                             </div>
                         </div>
-                        <div class="row">
-                            <div>
-                                <i class="comment-rating__star fa-solid fa-star"></i>
-                                <i class="comment-rating__star fa-solid fa-star"></i>
-                                <i class="comment-rating__star fa-solid fa-star"></i>
-                                <i class="comment-rating__star fa-solid fa-star"></i>
-                                <i class="comment-rating__star fa-solid fa-star"></i>
-                                <span class="ms-2 h6 fw-semibold">3 tuần trước</span>
-                            </div>
-                        </div>
-                        <div class="row comment-component__content">
-                            <p>
-                                Nhà này có dịch vụ rất đỉnh, chất lượng vô cùng tốt cùng bãi biển Cần Giờ xinh đẹp. Chắc
-                                chắn sẽ quay lại lần sau nếu có dịp đến đây
-                            </p>
-                        </div>
-                    </div>
-                    <div class="col-6 comment-component">
-                        <div class="rounded-4 row p-1">
-                            <div class="col-2 d-flex flex-column justify-content-center">
-                                <i class="text-center display-4 bi bi-person-circle"></i>
-                            </div>
-                            <div class="col d-flex align-items-center">
-                                <p style="font-size: 18px" class="fw-semibold m-0">Nguyễn Thị Hoa Hồng</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div>
-                                <i class="comment-rating__star fa-solid fa-star"></i>
-                                <i class="comment-rating__star fa-solid fa-star"></i>
-                                <i class="comment-rating__star fa-solid fa-star"></i>
-                                <i class="comment-rating__star fa-solid fa-star"></i>
-                                <i class="comment-rating__star fa-solid fa-star"></i>
-                                <span class="ms-2 h6 fw-semibold">3 tuần trước</span>
-                            </div>
-                        </div>
-                        <div class="row comment-component__content">
-                            <p>
-                                Nhà này có dịch vụ rất đỉnh, chất lượng vô cùng tốt cùng bãi biển Cần Giờ xinh đẹp. Chắc
-                                chắn sẽ quay lại lần sau nếu có dịp đến đây
-                            </p>
-                        </div>
-                    </div>
-                    <div class="col-6 comment-component">
-                        <div class="rounded-4 row p-1">
-                            <div class="col-2 d-flex flex-column justify-content-center">
-                                <i class="text-center display-4 bi bi-person-circle"></i>
-                            </div>
-                            <div class="col d-flex align-items-center">
-                                <p style="font-size: 18px" class="fw-semibold m-0">Nguyễn Thị Hoa Hồng</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div>
-                                <i class="comment-rating__star fa-solid fa-star"></i>
-                                <i class="comment-rating__star fa-solid fa-star"></i>
-                                <i class="comment-rating__star fa-solid fa-star"></i>
-                                <i class="comment-rating__star fa-solid fa-star"></i>
-                                <i class="comment-rating__star fa-solid fa-star"></i>
-                                <span class="ms-2 h6 fw-semibold">3 tuần trước</span>
-                            </div>
-                        </div>
-                        <div class="row comment-component__content">
-                            <p>
-                                Nhà này có dịch vụ rất đỉnh, chất lượng vô cùng tốt cùng bãi biển Cần Giờ xinh đẹp. Chắc
-                                chắn sẽ quay lại lần sau nếu có dịp đến đây
-                            </p>
-                        </div>
-                    </div>
-                    <div class="col-6 comment-component">
-                        <div class="rounded-4 row p-1">
-                            <div class="col-2 d-flex flex-column justify-content-center">
-                                <i class="text-center display-4 bi bi-person-circle"></i>
-                            </div>
-                            <div class="col d-flex align-items-center">
-                                <p style="font-size: 18px" class="fw-semibold m-0">Nguyễn Thị Hoa Hồng</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div>
-                                <i class="comment-rating__star fa-solid fa-star"></i>
-                                <i class="comment-rating__star fa-solid fa-star"></i>
-                                <i class="comment-rating__star fa-solid fa-star"></i>
-                                <i class="comment-rating__star fa-solid fa-star"></i>
-                                <i class="comment-rating__star fa-solid fa-star"></i>
-                                <span class="ms-2 h6 fw-semibold">3 tuần trước</span>
-                            </div>
-                        </div>
-                        <div class="row comment-component__content">
-                            <p>
-                                Nhà này có dịch vụ rất đỉnh, chất lượng vô cùng tốt cùng bãi biển Cần Giờ xinh đẹp. Chắc
-                                chắn sẽ quay lại lần sau nếu có dịp đến đây
-                            </p>
-                        </div>
-                    </div>
-                    <div class="col-6 comment-component">
-                        <div class="rounded-4 row p-1">
-                            <div class="col-2 d-flex flex-column justify-content-center">
-                                <i class="text-center display-4 bi bi-person-circle"></i>
-                            </div>
-                            <div class="col d-flex align-items-center">
-                                <p style="font-size: 18px" class="fw-semibold m-0">Nguyễn Thị Hoa Hồng</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div>
-                                <i class="comment-rating__star fa-solid fa-star"></i>
-                                <i class="comment-rating__star fa-solid fa-star"></i>
-                                <i class="comment-rating__star fa-solid fa-star"></i>
-                                <i class="comment-rating__star fa-solid fa-star"></i>
-                                <i class="comment-rating__star fa-solid fa-star"></i>
-                                <span class="ms-2 h6 fw-semibold">3 tuần trước</span>
-                            </div>
-                        </div>
-                        <div class="row comment-component__content">
-                            <p>
-                                Nhà này có dịch vụ rất đỉnh, chất lượng vô cùng tốt cùng bãi biển Cần Giờ xinh đẹp. Chắc
-                                chắn sẽ quay lại lần sau nếu có dịp đến đây
-                            </p>
-                        </div>
-                    </div>
-                    <div class="mt-5 col d-flex justify-content-center">
-                        <button class="border-0 rounded h5 p-3 button main-cta-button">Hiển thị thêm đánh giá</button>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
             <hr/>
             <div>
                 <h5>Nội quy chỗ ở</h5>
-                <div class="row mt-3">
+                <p style="font-size: 14px">(Liên hệ chủ nhà để biết thêm chi tiết)</p>
+                <div class="row mt-5">
                     <div class="col">
-                        <h6 class="mb-4">Nội quy nhà</h6>
-                        <p>Check-in trước 12h trưa</p>
-                        <p>Check-out trước 15h chiều</p>
-                        <h6><u>Hiển thị thêm ></u></h6>
+                        <h6 class="mb-2">Nội quy nhà</h6>
+                        <p class="my-1">{{ rule.0 }}</p>
+                        <p class="my-1">{{ rule.1 }}</p>
                     </div>
                     <div class="col">
-                        <h6 class="mb-4">An toàn</h6>
-                        <p>Hồ bơi và sân vườn có cổng</p>
-                        <p>Cách đồn công an gần nhất 200m</p>
-                        <h6><u>Hiển thị thêm ></u></h6>
+                        <h6 class="mb-2">An toàn</h6>
+                        <p class="my-1">{{ rule.2 }}</p>
+                        <p class="my-1">{{ rule.3 }}</p>
                     </div>
                     <div class="col">
-                        <h6 class="mb-4">Chính sách hoàn trả</h6>
-                        <p>Được hoàn tiền 100% nếu hủy trước ngày check-in 1 tuần</p>
-                        <p>Được hoàn 50% nếu hủy trước ngày check-in 3 ngày</p>
-                        <h6><u>Hiển thị thêm ></u></h6>
+                        <h6 class="mb-2">Chính sách hoàn trả</h6>
+                        <p class="my-1">{{ rule.4 }}</p>
+                        <p class=my-1"> {{ rule.5 }}</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <div class="popup-container">
-        <div class="description-popup p-4 rounded">
-            <div class="d-flex justify-content-end">
-                <button id="close-popup-btn" type="button" class="btn-close d-flex justify-content-end"></button>
-            </div>
-            <h5>Mô tả về chỗ ở này:</h5>
-            <p>
-                Biệt thự riêng tinh tế với hồ bơi với các đồ trang trí mà bạn mong đợi tại một khu nghỉ dưỡng phong
-                cách Thụy Điển. Được thiết kế hoàn hảo với đồ nội thất hiện đại trong suốt, biệt thự được bao quanh
-                bởi các cánh cửa kính nhiều lớp để cho ánh sáng và gió tràn ngập ngôi nhà. Một khu vực ăn uống ngoài
-                trời rộng lớn.
-            </p>
-            <p>
-                Biệt thự được thiết kế để trở thành một nơi nghỉ dưỡng riêng. Ẩn mình trong một con đường nhỏ. Nhà
-                hàng gần nhất cách 50m và bãi biển cách mười phút đi bộ.
-            </p>
-            <h6>Về chỗ ở</h6>
-            <p>
-                Studio riêng rộng 32 m2 nằm ở tầng 3 của một tòa nhà nằm trong khu vực an toàn của biển Cần Giờ
-                Nó được trang trí độc đáo với:
-            </p>
-            <ul>
-                <li>Hồ bơi riêng</li>
-                <li>Sân vườn cùng nơi tổ chức tiệc BBQ</li>
-                <li>Các tiện ích khác như spa,.. chỉ cách 2 phút đi bộ</li>
-                <li>Bãi đậu xe riêng có thể chứa được 2 chiếc xe 7 chỗ</li>
-            </ul>
-        </div>
-    </div>
+    {#    <div class="popup-container">#}
+    {#        <div class="description-popup p-4 rounded">#}
+    {#            <div class="d-flex justify-content-end">#}
+    {#                <button id="close-popup-btn" type="button" class="btn-close d-flex justify-content-end"></button>#}
+    {#            </div>#}
+    {#            <h5>Mô tả về chỗ ở này:</h5>#}
+    {#            <p>#}
+    {#                Biệt thự riêng tinh tế với hồ bơi với các đồ trang trí mà bạn mong đợi tại một khu nghỉ dưỡng phong#}
+    {#                cách Thụy Điển. Được thiết kế hoàn hảo với đồ nội thất hiện đại trong suốt, biệt thự được bao quanh#}
+    {#                bởi các cánh cửa kính nhiều lớp để cho ánh sáng và gió tràn ngập ngôi nhà. Một khu vực ăn uống ngoài#}
+    {#                trời rộng lớn.#}
+    {#            </p>#}
+    {#            <p>#}
+    {#                Biệt thự được thiết kế để trở thành một nơi nghỉ dưỡng riêng. Ẩn mình trong một con đường nhỏ. Nhà#}
+    {#                hàng gần nhất cách 50m và bãi biển cách mười phút đi bộ.#}
+    {#            </p>#}
+    {#            <h6>Về chỗ ở</h6>#}
+    {#            <p>#}
+    {#                Studio riêng rộng 32 m2 nằm ở tầng 3 của một tòa nhà nằm trong khu vực an toàn của biển Cần Giờ#}
+    {#                Nó được trang trí độc đáo với:#}
+    {#            </p>#}
+    {#            <ul>#}
+    {#                <li>Hồ bơi riêng</li>#}
+    {#                <li>Sân vườn cùng nơi tổ chức tiệc BBQ</li>#}
+    {#                <li>Các tiện ích khác như spa,.. chỉ cách 2 phút đi bộ</li>#}
+    {#                <li>Bãi đậu xe riêng có thể chứa được 2 chiếc xe 7 chỗ</li>#}
+    {#            </ul>#}
+    {#        </div>#}
+    {#    </div>#}
 
 {% endblock content %}
 {% block scripts %}
     <script src="{% static 'scripts/product.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/15.0.4/marked.min.js"
+            integrity="sha512-VmLxPVdDGeR+F0DzUHVqzHwaR4ZSSh1g/7aYXwKT1PAGVxunOEcysta+4H5Utvmpr2xExEPybZ8q+iM9F1tGdw=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script type="module">
+        $(document).ready(() => {
+            $("#description-display").html(marked.parse(`{{ description|escapejs }}`))
+            $("#service-bnb").html(marked.parse(`{{ service|escapejs }}`))
+            $("#owner-description").html(marked.parse(`{{ owner.account.description|escapejs }}`))
+        })
+    </script>
 {% endblock scripts %}
