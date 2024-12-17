@@ -1,0 +1,73 @@
+.checkbox {
+    width: 17px;
+    height: 17px;
+}
+
+.info-owner {
+    background-color: var(--main-cta-color);
+    padding: 17px 10px;
+    border-radius: 20px;
+}
+
+.style-text-area {
+    resize: none;
+    height: 100px;
+}
+
+.btn-success {
+    background-color: var(--main-cta-color);
+    border: none;
+}
+
+.btn-success:hover {
+    background-color: var(--main-cta-color-hover);
+}
+
+.overlay {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.style-modal {
+    width: 400px;
+    height: 200px;
+    background-color: whitesmoke;
+    z-index: 100;
+}
+
+.img-container {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+}
+
+.img-container>img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.cancel-btn {
+    background-color: var(--sub-cta-color);
+    color: white;
+}
+
+.avatar-container {
+    width: 70px;
+    height: 70px;
+    overflow: hidden;
+}
+
+.avatar-container>img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}

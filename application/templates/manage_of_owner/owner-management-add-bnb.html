@@ -1,0 +1,133 @@
+{% extends 'manage_of_owner/base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Trang quản lý của chủ nhà - VietHomeAir</title>
+{% endblock title %}
+{% block sidebar_stylesheet %}
+{% endblock sidebar_stylesheet %}
+
+{% block sidebar_content %}
+    <header class="pb-3">
+        <h1 class="h2 text-center">Thêm phòng mới</h1>
+    </header>
+    <!-- Add Room Form -->
+    <section class="mb-4">
+        <form id="add-room-form" class="row g-3">
+            <div class="col-12">
+                <label for="img-room" class="form-label">Hình ảnh:</label>
+                <input type="file" id="img-room" accept="image/*" name="img-room" class="form-control" multiple
+                       required>
+            </div>
+            <div class="col-6">
+                <label for="roomName" class="form-label">Tên phòng:</label>
+                <input type="text" id="roomName" name="roomName" class="form-control" required>
+            </div>
+            <div class="col-6">
+                <label for="roomAddress" class="form-label">Địa chỉ:</label>
+                <input type="text" id="roomAddress" name="roomAddress" class="form-control" required>
+            </div>
+            <div class="col-6">
+                <label for="roomPrice" class="form-label">Giá (VNĐ/đêm):</label>
+                <input type="number" id="roomPrice" min="0" name="roomPrice" class="form-control" required>
+            </div>
+            <div class="col-6">
+                <label for="capacity" class="form-label">Sức chứa:</label>
+                <input type="number" id="capacity" min="1" name="capacity" class="form-control" required>
+            </div>
+            <div class="col-12">
+            <label for="category" class="form-label">Danh mục:</label>
+            <button type="button" class="d-inline add-category-btn text-center"
+                    style="border: none; background-color: var(--web-background-color)">
+                <i class="fas fa-plus-circle"></i></button>
+            <div class="row">
+                <div class="col-2 text-end align-content-center">Danh mục 1: </div>
+                <div class="col"><select class="form-control" name="category" required>
+                    <option>Danh mục 1</option>
+                    <option>Danh mục 2</option>
+                    <option>Danh mục 3</option>
+                    <option>Danh mục 4</option>
+                    <option>Danh mục 4</option>
+                    <option>Danh mục 4</option>
+                    <option>Danh mục 4</option>
+                    <option>Danh mục 4</option>
+                    <option>Danh mục 4</option>
+                    <option>Danh mục 4</option>
+
+
+                </select></div>
+                <div class="col-1">
+                    <button type="button" class="btn btn-danger">Xóa</button>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-2 text-end align-content-center">Danh mục 1: </div>
+                <div class="col"><select class="form-control" name="category" required>
+                    <option>Danh mục 1</option>
+                    <option>Danh mục 2</option>
+                    <option>Danh mục 3</option>
+                    <option>Danh mục 4</option>
+                    <option>Danh mục 4</option>
+                    <option>Danh mục 4</option>
+                    <option>Danh mục 4</option>
+                    <option>Danh mục 4</option>
+                    <option>Danh mục 4</option>
+                    <option>Danh mục 4</option>
+
+
+                </select></div>
+                <div class="col-1">
+                    <button type="button" class="btn btn-danger">Xóa</button>
+                </div>
+            </div>
+        </div>
+            <div class="col-12">
+                <label for="service" class="form-label">Tiện ích:</label>
+                <div class="row text-center">
+                    <div class="col-3">
+                        <input type="checkbox" name="service_1">
+                        <label for="service_1">Tiện ích 1</label>
+                    </div>
+                    <div class="col-3">
+                        <input type="checkbox" name="service_1">
+                        <label for="service_1">Tiện ích 1</label>
+                    </div>
+                    <div class="col-3">
+                        <input type="checkbox" name="service_1">
+                        <label for="service_1">Tiện ích 1</label>
+                    </div>
+                    <div class="col-3">
+                        <input type="checkbox" name="service_1">
+                        <label for="service_1">Tiện ích 1</label>
+                    </div>
+                </div>
+                <div class="row mt-2 text-center">
+                    <div class="col-3">
+                        <input type="checkbox" name="service_1">
+                        <label for="service_1">Tiện ích 1</label>
+                    </div>
+                    <div class="col-3">
+                        <input type="checkbox" name="service_1">
+                        <label for="service_1">Tiện ích 1</label>
+                    </div>
+                    <div class="col-3">
+                        <input type="checkbox" name="service_1">
+                        <label for="service_1">Tiện ích 1</label>
+                    </div>
+                    <div class="col-3">
+                        <input type="checkbox" name="service_1">
+                        <label for="service_1">Tiện ích 1</label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <label for="description" class="form-label">Mô tả:</label>
+                <textarea type="text" name="description" placeholder="Nhập mô tả..."
+                          class="form-control style-text-area" required></textarea>
+            </div>
+            <div class="col-12 text-center pt-3">
+                <button type="submit" class="btn btn-success">Thêm phòng</button>
+            </div>
+        </form>
+    </section>
+{% endblock sidebar_content %}
