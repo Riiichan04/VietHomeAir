@@ -7,12 +7,17 @@
 
 {% block stylesheet %}
     <link rel="stylesheet" type="text/css" href="{% static 'style/bnb-information.css' %}">
+    {#  Thư viện daterangepickerjs  #}
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"/>
 {% endblock stylesheet %}
 {% block header_scripts %}
-
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/15.0.4/marked.min.js"
+            integrity="sha512-VmLxPVdDGeR+F0DzUHVqzHwaR4ZSSh1g/7aYXwKT1PAGVxunOEcysta+4H5Utvmpr2xExEPybZ8q+iM9F1tGdw=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 {% endblock header_scripts %}
 {% block content %}
-
     <section class="container p-4">
         <div class="row">
             <h2 class="col-10 ps-4 mb-2">{{ bnb.name }}</h2>
@@ -48,21 +53,6 @@
 
         <div class="row">
             <div class="col-8">
-                {#                <div>#}
-                {#                    <div>#}
-                {#                        <h5><i class="bi bi-building-check"></i> Tự nhận phòng</h5>#}
-                {#                        <p>Có thể gặp người trực để nhận phòng</p>#}
-                {#                    </div>#}
-                {#                    <div>#}
-                {#                        <h5><i class="bi bi-thermometer-snow"></i> Có máy lạnh</h5>#}
-                {#                        <p>Thổi bay cái nóng với máy lạnh :3</p>#}
-                {#                    </div>#}
-                {#                    <div>#}
-                {#                        <h5><i class="fa-solid fa-umbrella-beach"></i> Cách bãi biển 10 phút đi bộ</h5>#}
-                {#                        <p>Cách biển Cần Giờ 10 phút đi bộ</p>#}
-                {#                    </div>#}
-                {#                </div>#}
-                {#                <hr/>#}
                 <div class="mt-4">
                     <h5>Mô tả về chỗ ở:</h5>
                     <div id="description-display"></div>
@@ -78,14 +68,16 @@
                             <div class="col-6 px-0">
                                 <div class="p-1 mx-1 border border-1 border-black rounded">
                                     <label style="font-size: 12px">Nhận phòng
-                                        <input class="px-1 w-100 border-0 h6 fw-normal" type="date" name="" id="">
+                                        <input class="px-1 w-100 border-0 h6 fw-normal" type="text" name="checkin-date"
+                                               id="checkin-date" placeholder="dd/mm/yyyy">
                                     </label>
                                 </div>
                             </div>
                             <div class="col-6 px-0">
                                 <div class="p-1 mx-1 border border-1 border-black rounded">
                                     <label style="font-size: 12px">Trả phòng
-                                        <input class="px-1 w-100 border-0 h6 fw-normal" type="date" name="" id="">
+                                        <input class="px-1 w-100 border-0 h6 fw-normal" type="text" name="checkout-date"
+                                               id="checkout-date" placeholder="dd/mm/yyyy">
                                     </label>
                                 </div>
                             </div>
@@ -374,9 +366,30 @@
 {% endblock content %}
 {% block scripts %}
     <script src="{% static 'scripts/product.js' %}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/15.0.4/marked.min.js"
-            integrity="sha512-VmLxPVdDGeR+F0DzUHVqzHwaR4ZSSh1g/7aYXwKT1PAGVxunOEcysta+4H5Utvmpr2xExEPybZ8q+iM9F1tGdw=="
-            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script type="module">
+        $(function () {
+            $('#checkin-date, #checkout-date').daterangepicker({
+                opens: 'left',
+                autoUpdateInput: false,
+                locale: {
+                    format: 'DD-MM-YYYY',
+                }
+            });
+
+            $('#checkin-date').on('apply.daterangepicker', function (ev, picker) {
+                $(this).val(picker.startDate.format('DD-MM-YYYY'));
+                $('#checkout-date').val(picker.endDate.format('DD-MM-YYYY'));
+            });
+
+            $('#checkout-date').on('apply.daterangepicker', function (ev, picker) {
+                $(this).val(picker.endDate.format('DD-MM-YYYY'));
+                $('#checkin-date').val(picker.startDate.format('DD-MM-YYYY'));
+
+            });
+        });
+    </script>
+
     <script type="module">
         $(document).ready(() => {
             $("#description-display").html(marked.parse(`{{ bnb.description|escapejs }}`))

@@ -97,18 +97,18 @@ def display_time(time):
 def get_booking_available_dates(bnb_id):
     bnb = BnbInformation.objects.get(id=bnb_id)
     list_booked = Booking.objects.filter(bnb=bnb).all()
-    # booking_checkin_date = [booking.from_date for booking in list_booked if
-    #                         booking.from_date.date() >= datetime.now().date()]
-    # booking_checkout_date = [booking.to_date for booking in list_booked if
-    #                          booking.to_date.date() >= datetime.now().date()]
 
     # Tạm dùng vét cạn cho 1 tháng (khoảng 31 ngày) gần nhất
     now_date = datetime.now().date()
     target_date = now_date + timedelta(days=31)
     list_available_dates = []
     while now_date <= target_date:
-        if is_booking_date_available(bnb, now_date):
-            list_available_dates.append(now_date.strftime("%Y-%m-%d"))
+        booking_result = is_booking_date_available(bnb, now_date)
+        if booking_result['status']:
+            list_available_dates.append({
+                'date': now_date,
+                'available_capacity': booking_result['available_capacity'],
+            })
         now_date += timedelta(days=1)
     return list_available_dates
 
@@ -120,12 +120,14 @@ def is_booking_date_available(bnb, date=datetime.now().date()):
     # Kiểm tra xem có booking nào đang được đặt không
     current_booking = [booking for booking in list_booked if booking.from_date.date() <= date <= booking.to_date.date()]
 
-    if len(current_booking) == 0:
-        return True  # Ngày này có thể book được
+    if len(current_booking) == 0:  # Ngày này chưa có ai đặt
+        return True
 
     current_capacity = sum([booking.capacity for booking in current_booking])
-    return current_capacity < bnb.capacity
-
+    return {
+        'status': current_capacity < bnb.capacity, # Nếu đã có người đặt thì kiểm tra xem còn chứa được ai không
+        'available_capacity': bnb.capacity - current_capacity # Còn lại bao nhiêu chỗ
+    }
 
 # Dùng cho web filter
 def statistic_review_by_id(bnb_id):
