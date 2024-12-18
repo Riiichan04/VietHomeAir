@@ -1,0 +1,34 @@
+.selectable-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.selectable-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.selectable-card .icon {
+    color: #007bff;
+}
+
+.selectable-card.border-primary {
+    border: 2px solid #007bff;
+}
+
+.selectable-card .card-body {
+    height: 150px;
+}
+
+.selectable-card p {
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+
+
+
+
+
