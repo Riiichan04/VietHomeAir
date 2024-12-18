@@ -19,6 +19,9 @@ def get_bnb_info(bnb_id):
         'services': ''.join(list(["- " + service.name + '\n' for service in bnb.service.all()])),
         'prices': calculate_price(bnb.price),
         'owner': bnb.owner.account,
+        # Sửa sau
+        'owner_general_review': {'title': ' một chủ nhà rất xịn xò đó!',
+                                 'description': 'Được mọi người đánh giá cao về chất lượng dịch vụ, là điểm đến lý tưởng của nhiều người'},
         'categories': [category.name for category in bnb.category.all()],
         'capacity': bnb.capacity,
         # Đánh giá của owner

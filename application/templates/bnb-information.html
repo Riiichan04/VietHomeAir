@@ -101,7 +101,9 @@
                             </div>
                         </div>
                     </div>
-                    <button class="button mt-3 p-3 w-100 rounded h5 border-0 main-cta-button" onclick="window.location = '/book'">Đặt phòng</button>
+                    <button class="button mt-3 p-3 w-100 rounded h5 border-0 main-cta-button"
+                            onclick="window.location = '/book'">Đặt phòng
+                    </button>
                     <hr/>
                     <div>
                         <p class="d-flex my-1 justify-content-between">{{ bnb.prices.default_price }} VNĐ x 5 đêm:<span
@@ -160,8 +162,8 @@
                 <div class="col"></div>
                 <div class="col-7 p-4">
                     <div class="mb-5">
-                        <h5>{{ bnb.owner.fullname }} là một chủ nhà rất xịn xò đó!</h5> {# Cây quyết định #}
-                        <p>Được mọi người đánh giá cao về chất lượng dịch vụ, là điểm đến lý tưởng của nhiều người</p>
+                        <h5>{{ bnb.owner.fullname }} là {{ bnb.owner_general_review.title }}!</h5> {# Cây quyết định #}
+                        <p>{{ bnb.owner_general_review.description }}</p>
                     </div>
                     <div class="mb-5">
                         <h5>Liên hệ với chủ nhà</h5>
@@ -169,6 +171,23 @@
                         <p class="my-1">Thông qua email</p>
                         <p class="mt-3" style="font-size: 12px">Bạn cần đăng nhập để có thể thấy thông tin liên hệ</p>
                     </div>
+                </div>
+            </div>
+            <hr/>
+            <div class="row" id="comment-component">
+                <h5>Đánh giá của bạn</h5>
+                <div class="col-10 p-4 pt-3">
+                    <label class="w-100">
+                        <textarea style="resize: none" class="form-control rounded p-3 w-100"
+                                  placeholder="Đánh giá của bạn về nhà cho thuê này" name="your-review" id=""
+                                  rows="5"></textarea>
+                    </label>
+                    <p class="text-center mt-1 mb-0" style="font-size: 12px">(Bạn cần đăng nhập và checkout nhà cho thuê
+                        này để có thể bình
+                        luận)</p>
+                </div>
+                <div class="col d-flex align-items-center">
+                    <button class="border-0 py-3 px-4 h6 main-cta-button rounded">Gửi</button>
                 </div>
             </div>
             <hr/>
@@ -248,15 +267,15 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col ps-5">
-                        <p class="fw-semibold">Phân loại bình luận</p>
+                    <div class="col">
+                        <p class="fw-semibold ps-3">Phân loại bình luận</p>
                         <div class="row">
-                            <div class="col border-1 border-end ps-4 py-4">
+                            <div class="col border-1 border-end ps-5 py-4">
                                 <p class="my-1">Tích cực</p>
                                 <h5 class="fw-semibold">{{ bnb.sentiment_reviews.pos_reviews.amount }} bình luận</h5>
                                 <button id="filter-positive-review" class="button rounded mt-3">Xem bình luận</button>
                             </div>
-                            <div class="col ps-4 py-4">
+                            <div class="col ps-5 py-4">
                                 <p class="my-1">Tiêu cực</p>
                                 <h5 class="fw-semibold">{{ bnb.sentiment_reviews.neg_reviews.amount }} bình luận</h5>
                                 <button id="filter-negative-review" class="button rounded mt-3">Xem bình luận</button>
