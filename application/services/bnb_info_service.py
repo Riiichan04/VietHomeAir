@@ -1,5 +1,9 @@
-from datetime import datetime
+from datetime import datetime, timedelta
+
+from django.db.models import Q
+
 from application.models import BnbInformation
+from application.models.accounts import Booking
 
 
 # Lấy bnb còn active với id được chỉ định. Nếu không tìm thấy hoặc bnb có status = False sẽ trả về None
@@ -33,11 +37,6 @@ def calculate_price(price, date=5, service_fee=70000):
         'base_bnb_price': '{0:,}'.format(price * date).replace('.00', '').replace(',', '.'),
         'final_bnb_price': '{0:,}'.format(price * date + service_fee).replace('.00', '').replace(',', '.')
     }
-
-
-# Viết sau
-def get_owner_info():
-    return None
 
 
 # Thống kê review của bnb theo sentiment
@@ -76,6 +75,7 @@ def display_review(review):
     return html_result
 
 
+# Hiển thị thời gian bình luận
 def display_time(time):
     format_time = '%Y-%m-%d %H:%M:%S.%f'
     time_sec = datetime.strptime(datetime.strftime(time, format_time), format_time).timestamp()
@@ -88,6 +88,40 @@ def display_time(time):
     converted_time = list(map(lambda x: int(round(second_diff / x, 0)), time_in_milisec))
     value_index = converted_time.index(list(filter(lambda x: x > 0, converted_time))[0])
     return str(converted_time[value_index]) + label[value_index]
+
+
+# Tìm ngày có thể đặt phòng tính từ hôm nay
+def get_booking_available_dates(bnb_id):
+    bnb = BnbInformation.objects.get(id=bnb_id)
+    list_booked = Booking.objects.filter(bnb=bnb).all()
+    # booking_checkin_date = [booking.from_date for booking in list_booked if
+    #                         booking.from_date.date() >= datetime.now().date()]
+    # booking_checkout_date = [booking.to_date for booking in list_booked if
+    #                          booking.to_date.date() >= datetime.now().date()]
+
+    # Tạm dùng vét cạn cho 1 tháng (khoảng 31 ngày) gần nhất
+    now_date = datetime.now().date()
+    target_date = now_date + timedelta(days=31)
+    list_available_dates = []
+    while now_date <= target_date:
+        if is_booking_date_available(bnb, now_date):
+            list_available_dates.append(now_date.strftime("%Y-%m-%d"))
+        now_date += timedelta(days=1)
+    return list_available_dates
+
+
+# Kiểm tra 1 ngày có thể đặt phòng không (Đang dùng phương pháp vét cạn)
+def is_booking_date_available(bnb, date=datetime.now().date()):
+    # Lấy ra tất cả booking mà có trạng thái không phải bị từ chối theo bnb đã truyền vào
+    list_booked = Booking.objects.filter(bnb=bnb).filter(~Q(status='decline')).all()
+    # Kiểm tra xem có booking nào đang được đặt không
+    current_booking = [booking for booking in list_booked if booking.from_date.date() <= date <= booking.to_date.date()]
+
+    if len(current_booking) == 0:
+        return True  # Ngày này có thể book được
+
+    current_capacity = sum([booking.capacity for booking in current_booking])
+    return current_capacity < bnb.capacity
 
 
 # Dùng cho web filter
