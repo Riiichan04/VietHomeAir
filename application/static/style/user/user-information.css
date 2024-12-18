@@ -1,0 +1,12 @@
+
+.row>input{
+    border:solid 1px var(--sub-text-color);
+    border-radius: 5px;
+}
+.edit-confirm{
+    border-radius: 5px;
+    border:none;
+    height: 40px;
+    background-color: var(--main-cta-color);
+    color: #ffffff;
+}

@@ -1,0 +1,431 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Cỏ May - VietHomeAir</title>
+{% endblock title %}
+
+{% block stylesheet %}
+    <link rel="stylesheet" type="text/css" href="{% static 'style/bnb-information.css' %}">
+{% endblock stylesheet %}
+{% block header_scripts %}
+
+{% endblock header_scripts %}
+{% block content %}
+
+    <section class="container p-4">
+        <div class="row">
+            <h2 class="col-10 ps-4 mb-2">{{ bnb.name }}</h2>
+            <div class="col-2 row">
+                <div class="col">
+                    <div class="cursor-pointer" id="share-btn"><i class="fa-solid fa-arrow-up-from-bracket"></i> Chia sẻ
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="cursor-pointer" id="wishlist-btn"><i class="fa-regular fa-bookmark"></i> Lưu</div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6 product-images" style="height: calc(30rem + .5rem)">
+                <img style="width: 100%; height: 100%" src="{{ bnb.images.0 }}" alt="">
+            </div>
+            <div class="col-6 d-flex flex-column justify-content-between product-other-images" style="height: 30rem">
+                <div class="row mb-1" style="height: 50%">
+                    <img class="col-6 px-1" src="{{ bnb.images.1 }}" alt="">
+                    <img class="col-6 px-1 product-other-images__top-right" src="{{ bnb.images.2 }}"
+                         alt="">
+                </div>
+                <div class="row mt-1" style="height: 50%">
+                    <img class="col-6 px-1" src="{{ bnb.images.3 }}" alt="">
+                    <img class="col-6 px-1 product-other-images__bottom-right"
+                         src="{{ bnb.images.4 }}" alt="">
+                </div>
+            </div>
+
+        </div>
+        <hr/>
+
+        <div class="row">
+            <div class="col-8">
+                {#                <div>#}
+                {#                    <div>#}
+                {#                        <h5><i class="bi bi-building-check"></i> Tự nhận phòng</h5>#}
+                {#                        <p>Có thể gặp người trực để nhận phòng</p>#}
+                {#                    </div>#}
+                {#                    <div>#}
+                {#                        <h5><i class="bi bi-thermometer-snow"></i> Có máy lạnh</h5>#}
+                {#                        <p>Thổi bay cái nóng với máy lạnh :3</p>#}
+                {#                    </div>#}
+                {#                    <div>#}
+                {#                        <h5><i class="fa-solid fa-umbrella-beach"></i> Cách bãi biển 10 phút đi bộ</h5>#}
+                {#                        <p>Cách biển Cần Giờ 10 phút đi bộ</p>#}
+                {#                    </div>#}
+                {#                </div>#}
+                {#                <hr/>#}
+                <div class="mt-4">
+                    <h5>Mô tả về chỗ ở:</h5>
+                    <div id="description-display"></div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="rounded p-4 border border-black border-1">
+                    <p class="mb-1">Giá thuê nhà:</p>
+                    <h4>{{ bnb.prices.default_price }} VNĐ/ đêm</h4>
+                    <hr/>
+                    <div id="booking-info">
+                        <div class="row px-2 my-2">
+                            <div class="col-6 px-0">
+                                <div class="p-1 mx-1 border border-1 border-black rounded">
+                                    <label style="font-size: 12px">Nhận phòng
+                                        <input class="px-1 w-100 border-0 h6 fw-normal" type="date" name="" id="">
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-6 px-0">
+                                <div class="p-1 mx-1 border border-1 border-black rounded">
+                                    <label style="font-size: 12px">Trả phòng
+                                        <input class="px-1 w-100 border-0 h6 fw-normal" type="date" name="" id="">
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row px-2 my-2">
+                            <div class="col-12 p-0">
+                                <div class="p-1 mx-1 border border-1 border-black rounded ">
+                                    <label class="w-100" style="font-size: 12px">Số lượng khách
+                                        <input class="px-1 w-100 border-0 h6 fw-normal" type="number" name="" id=""
+                                               min="1" max="{{ bnb.capacity }}" value="1">
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="button mt-3 p-3 w-100 rounded h5 border-0 main-cta-button" onclick="window.location = '/book'">Đặt phòng</button>
+                    <hr/>
+                    <div>
+                        <p class="d-flex my-1 justify-content-between">{{ bnb.prices.default_price }} VNĐ x 5 đêm:<span
+                                class="fw-semibold"
+                                id="bnb-price">{{ bnb.prices.base_bnb_price }} VNĐ</span>
+                        </p>
+                        <p class="d-flex my-1 justify-content-between">Phí dịch vụ:<span class="fw-semibold"
+                                                                                         id="bnb-price">70.000 VNĐ</span>
+                        </p>
+                        <hr/>
+                        <p class="my-1 h5 fw-normal d-flex justify-content-between">Tổng tiền: <span
+                                class="h4 fw-semibold" id="bnb-price">{{ bnb.prices.final_bnb_price }} VNĐ</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="my-4">
+                <hr/>
+                <h5>Ngoài ra, chỗ ở vẫn còn ...</h5>
+                <div class="row mt-4">
+                    {# Sẽ thêm icon sau báo cáo gk #}
+                    {#                    <p class="col-6"><i class="fa-solid fa-water-ladder"></i> Hồ bơi riêng</p>#}
+                    {#                    <p class="col-6"><i class="fa-solid fa-wifi"></i> Wi-fi</p>#}
+                    {#                    <p class="col-6"><i class="fa-solid fa-worm"></i> Sân vườn riêng</p>#}
+                    {#                    <p class="col-6"><i class="fa-solid fa-hot-tub-person"></i> Bồn tắm nước nóng</p>#}
+                    {#                    <p class="col-6"><i class="fa-solid fa-fire-burner"></i> Bếp</p>#}
+                    {#                    <p class="col-6"><i class="fa-solid fa-tv"></i> Tivi có sẵn Netflix</p>#}
+                    {#                    <p class="col-6"><i class="fa-solid fa-square-parking"></i> Chỗ đậu xe</p>#}
+                    {#                    <p class="col-6"><i class="fa-solid fa-computer-mouse"></i> Không gian làm việc riêng</p>#}
+                    <div id="service-bnb"></div>
+                </div>
+            </div>
+            <hr/>
+            <div class="row">
+                <h5>Gặp gỡ chủ nhà </h5>
+                <div class="my-4 col-4 " style="width: 30% !important;">
+                    <div class="rounded-4 row p-4 " id="owner-bnb-info">
+                        <div class="col-9 d-flex flex-column justify-content-center align-items-center">
+                            {#                            <i class="text-center display-1 bi bi-person-circle"></i>#}
+                            <img class="text-center display-4 rounded-circle" src="{{ bnb.owner.avatar }}" alt=""
+                                 width="80px" height="80px">
+                            <h4 class="my-2 text-center">{{ bnb.owner.fullname }}</h4>
+                        </div>
+                        <div class="col">
+                            <h5 class=" m-0">0</h5>
+                            <p style="font-size: 14px" class="">Đánh giá</p>
+                            <hr>
+                            <h5 class=" m-0">0 ☆</h5>
+                            <p style="font-size: 14px" class=" m-0">Xếp hạng</p>
+                        </div>
+                    </div>
+                    <div class="mt-5">
+                        <h5>Thông tin của chủ nhà</h5>
+                        <div id="owner-description"></div>
+                    </div>
+                </div>
+                <div class="col"></div>
+                <div class="col-7 p-4">
+                    <div class="mb-5">
+                        <h5>{{ bnb.owner.fullname }} là một chủ nhà rất xịn xò đó!</h5> {# Cây quyết định #}
+                        <p>Được mọi người đánh giá cao về chất lượng dịch vụ, là điểm đến lý tưởng của nhiều người</p>
+                    </div>
+                    <div class="mb-5">
+                        <h5>Liên hệ với chủ nhà</h5>
+                        <p class="my-1">Thông qua số điện thoại</p>
+                        <p class="my-1">Thông qua email</p>
+                        <p class="mt-3" style="font-size: 12px">Bạn cần đăng nhập để có thể thấy thông tin liên hệ</p>
+                    </div>
+                </div>
+            </div>
+            <hr/>
+            {# Chỗ này dành cho comment #}
+            <div class="my-4">
+                <h4 class="mb-4"><i class="fa-solid fa-star"></i> {{ bnb.rating_reviews.avg_rating }}/5
+                    · {{ bnb.reviews|length }} lượt đánh giá</h4>
+                <div class="row">
+                    <div class="col-3 border-1 border-end">
+                        <p class="fw-semibold">Xếp hạng tổng thể</p>
+                        <div class="me-3">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <i class="ms-1 fa-solid fa-star"></i>
+                                    <i class="ms-1 fa-solid fa-star"></i>
+                                    <i class="ms-1 fa-solid fa-star"></i>
+                                    <i class="ms-1 fa-solid fa-star"></i>
+                                    <i class="ms-1 fa-solid fa-star"></i>
+                                    :
+                                </div>
+                                <div>
+                                    {# Tạm thời #}
+                                    <span>{{ bnb.rating_reviews.count_rating.4 }} đánh giá</span>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <i class="ms-1 fa-solid fa-star"></i>
+                                    <i class="ms-1 fa-solid fa-star"></i>
+                                    <i class="ms-1 fa-solid fa-star"></i>
+                                    <i class="ms-1 fa-solid fa-star"></i>
+                                    <i class="ms-1 fa-regular fa-star"></i>
+                                    :
+                                </div>
+                                <div>
+                                    <span>{{ bnb.rating_reviews.count_rating.3 }} đánh giá</span>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <i class="ms-1 fa-solid fa-star"></i>
+                                    <i class="ms-1 fa-solid fa-star"></i>
+                                    <i class="ms-1 fa-solid fa-star"></i>
+                                    <i class="ms-1 fa-regular fa-star"></i>
+                                    <i class="ms-1 fa-regular fa-star"></i>
+                                    :
+                                </div>
+                                <div>
+                                    <span>{{ bnb.rating_reviews.count_rating.2 }} đánh giá</span>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <i class="ms-1 fa-solid fa-star"></i>
+                                    <i class="ms-1 fa-solid fa-star"></i>
+                                    <i class="ms-1 fa-regular fa-star"></i>
+                                    <i class="ms-1 fa-regular fa-star"></i>
+                                    <i class="ms-1 fa-regular fa-star"></i>
+                                    :
+                                </div>
+                                <div>
+                                    <span>{{ bnb.rating_reviews.count_rating.1 }} đánh giá</span>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <i class="ms-1 fa-solid fa-star"></i>
+                                    <i class="ms-1 fa-regular fa-star"></i>
+                                    <i class="ms-1 fa-regular fa-star"></i>
+                                    <i class="ms-1 fa-regular fa-star"></i>
+                                    <i class="ms-1 fa-regular fa-star"></i>
+                                    :
+                                </div>
+                                <div>
+                                    <span>{{ bnb.rating_reviews.count_rating.0 }} đánh giá</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col ps-5">
+                        <p class="fw-semibold">Phân loại bình luận</p>
+                        <div class="row">
+                            <div class="col border-1 border-end ps-4 py-4">
+                                <p class="my-1">Tích cực</p>
+                                <h5 class="fw-semibold">{{ bnb.sentiment_reviews.pos_reviews.amount }} bình luận</h5>
+                                <button id="filter-positive-review" class="button rounded mt-3">Xem bình luận</button>
+                            </div>
+                            <div class="col ps-4 py-4">
+                                <p class="my-1">Tiêu cực</p>
+                                <h5 class="fw-semibold">{{ bnb.sentiment_reviews.neg_reviews.amount }} bình luận</h5>
+                                <button id="filter-negative-review" class="button rounded mt-3">Xem bình luận</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr/>
+                <p id="filter-text" class="d-none">Bạn đang xem các bình luận
+                    <span id="filter-label" class="fw-semibold"></span>.
+                    <span id="unfilter-review" style="cursor: pointer" class="text-decoration-underline">
+                            Hiển thị tất cả
+                        </span>
+                </p>
+                <div class="row" id="review-display">
+                    {% for review in bnb.reviews %}
+                        <div class="col-6 comment-component">
+                            <div class="rounded-4 row p-1">
+                                <div class="col-2 d-flex flex-column justify-content-center">
+                                    <img class="text-center display-4 rounded-circle"
+                                         src="{{ review.review_obj.account.avatar }}"
+                                         alt="" width="80px" height="80px">
+                                </div>
+                                <div class="col d-flex align-items-center">
+                                    <p style="font-size: 18px"
+                                       class="fw-semibold m-0">{{ review.review_obj.account.fullname }}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                {{ review.display_content|safe }}
+                            </div>
+                            <div class="row comment-component__content my-2">
+                                <p>
+                                    {{ review.review_obj.content }}
+                                </p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <hr/>
+            <div>
+                <h5>Nội quy chỗ ở</h5>
+                <p style="font-size: 14px">(Liên hệ chủ nhà để biết thêm chi tiết)</p>
+                <div class="row mt-5">
+                    <div class="col">
+                        <h6 class="mb-2">Nội quy nhà</h6>
+                        <p class="my-1">{{ bnb.rules.0 }}</p>
+                        <p class="my-1">{{ bnb.rules.1 }}</p>
+                    </div>
+                    <div class="col">
+                        <h6 class="mb-2">An toàn</h6>
+                        <p class="my-1">{{ bnb.rules.2 }}</p>
+                        <p class="my-1">{{ bnb.rules.3 }}</p>
+                    </div>
+                    <div class="col">
+                        <h6 class="mb-2">Chính sách hoàn trả</h6>
+                        <p class="my-1">{{ bnb.rules.4 }}</p>
+                        <p class=my-1"> {{ bnb.rules.5 }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {#    <div class="popup-container">#}
+    {#        <div class="description-popup p-4 rounded">#}
+    {#            <div class="d-flex justify-content-end">#}
+    {#                <button id="close-popup-btn" type="button" class="btn-close d-flex justify-content-end"></button>#}
+    {#            </div>#}
+    {#            <h5>Mô tả về chỗ ở này:</h5>#}
+    {#            <p>#}
+    {#                Biệt thự riêng tinh tế với hồ bơi với các đồ trang trí mà bạn mong đợi tại một khu nghỉ dưỡng phong#}
+    {#                cách Thụy Điển. Được thiết kế hoàn hảo với đồ nội thất hiện đại trong suốt, biệt thự được bao quanh#}
+    {#                bởi các cánh cửa kính nhiều lớp để cho ánh sáng và gió tràn ngập ngôi nhà. Một khu vực ăn uống ngoài#}
+    {#                trời rộng lớn.#}
+    {#            </p>#}
+    {#            <p>#}
+    {#                Biệt thự được thiết kế để trở thành một nơi nghỉ dưỡng riêng. Ẩn mình trong một con đường nhỏ. Nhà#}
+    {#                hàng gần nhất cách 50m và bãi biển cách mười phút đi bộ.#}
+    {#            </p>#}
+    {#            <h6>Về chỗ ở</h6>#}
+    {#            <p>#}
+    {#                Studio riêng rộng 32 m2 nằm ở tầng 3 của một tòa nhà nằm trong khu vực an toàn của biển Cần Giờ#}
+    {#                Nó được trang trí độc đáo với:#}
+    {#            </p>#}
+    {#            <ul>#}
+    {#                <li>Hồ bơi riêng</li>#}
+    {#                <li>Sân vườn cùng nơi tổ chức tiệc BBQ</li>#}
+    {#                <li>Các tiện ích khác như spa,.. chỉ cách 2 phút đi bộ</li>#}
+    {#                <li>Bãi đậu xe riêng có thể chứa được 2 chiếc xe 7 chỗ</li>#}
+    {#            </ul>#}
+    {#        </div>#}
+    {#    </div>#}
+
+{% endblock content %}
+{% block scripts %}
+    <script src="{% static 'scripts/product.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/15.0.4/marked.min.js"
+            integrity="sha512-VmLxPVdDGeR+F0DzUHVqzHwaR4ZSSh1g/7aYXwKT1PAGVxunOEcysta+4H5Utvmpr2xExEPybZ8q+iM9F1tGdw=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script type="module">
+        $(document).ready(() => {
+            $("#description-display").html(marked.parse(`{{ bnb.description|escapejs }}`))
+            $("#service-bnb").html(marked.parse(`{{ bnb.services|escapejs }}`))
+            $("#owner-description").html(marked.parse(`{{ bnb.owner.description|escapejs }}`))
+        })
+
+        function filterReview(sentiment_type) {
+            let filterLabel = ""
+            switch (sentiment_type) {
+                case "positive":
+                    filterLabel = "Tích cực";
+                    break;
+                case "negative":
+                    filterLabel = "Tiêu cực";
+                    break;
+                default:
+                    filterLabel = ""
+            }
+
+            $.ajax({
+                url: '{{ request.path }}',
+                data: {
+                    'sentiment_type': sentiment_type
+                },
+                success: function (response) {
+                    let reviewContents = '';
+                    if (sentiment_type !== "all") {
+                        $("#filter-text").removeClass("d-none");
+                        $("#filter-label").text(filterLabel);
+                    } else $("#filter-text").addClass("d-none");
+                    $.each(response.reviews, function (index, review) {
+                        reviewContents += `
+                            <div class="col-6 comment-component">
+                            <div class="rounded-4 row p-1">
+                                <div class="col-2 d-flex flex-column justify-content-center">
+                                    <img class="text-center display-4 rounded-circle"
+                                         src="${review.avatar}"
+                                         alt="" width="80px" height="80px">
+                                </div>
+                                <div class="col d-flex align-items-center">
+                                    <p style="font-size: 18px"
+                                       class="fw-semibold m-0">${review.fullname}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                ${review.rating_content}
+                            </div>
+                            <div class="row comment-component__content my-2">
+                                <p>
+                                    ${review.content}
+                                </p>
+                            </div>
+                        </div>`
+                    });
+                    $('#review-display').html(reviewContents);  // Cập nhật lại danh sách bình luận
+                }
+            })
+        }
+
+        $("#filter-positive-review").click(function () {
+            filterReview('positive')
+        })
+        $("#filter-negative-review").click(function () {
+            filterReview('negative')
+        })
+        $("#unfilter-review").click(function () {
+            filterReview('all')
+        })
+    </script>
+{% endblock scripts %}

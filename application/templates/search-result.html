@@ -8,24 +8,12 @@
 {% block stylesheet %}
     <link rel="stylesheet" type="text/css" href={% static "style/search-result.css" %}>
 {% endblock stylesheet %}
-
-
+{% block breadcrumb %}
+    <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+    <li class="breadcrumb-item active">Kết quả</li>
+{% endblock breadcrumb %}
 {% block content %}
     <div class="container ps-4">
-        <!--Breadcrumb-->
-        <div class="row">
-            <div class="col-9">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Kết quả</li>
-                    </ol>
-                </nav>
-            </div>
-            <div class="col-3">
-                <i class="bi bi-lightbulb"></i> Kết quả tìm kiếm theo <strong> "Bích Loan"</strong>
-            </div>
-        </div>
         <!--Content-->
         <div class="row py-2 m-0">
             <div class="col-10">

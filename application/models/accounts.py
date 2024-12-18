@@ -6,15 +6,17 @@ from django.forms import DecimalField, IntegerField, DateTimeField
 
 class Account(models.Model):
     username = models.CharField(unique=True, max_length=100)
-    password = models.CharField(max_length=32)
+    password = models.CharField(max_length=500)
     email = models.CharField(max_length=200)
-    description = models.TextField()
+    phone = models.CharField(max_length=11, null=True, blank=True)
+    description = models.TextField(null=True, blank=True)
     fullname = models.CharField(max_length=200)
     gender = models.CharField(max_length=6, choices=(('male', 'Male'), ('female', 'Female'), ('other', 'Other')))
     role = models.IntegerField()
     register_time = DateTimeField()
+    is_verified = models.BooleanField(default=False)
     status = models.BooleanField(default=True)
-
+    avatar = models.TextField(default='https://res.cloudinary.com/dh90ponfw/image/upload/v1725050290/default_avatar.webp')
 
 class Owner(models.Model):
     account = models.OneToOneField(Account, on_delete=models.CASCADE)

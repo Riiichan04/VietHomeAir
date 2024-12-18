@@ -1,0 +1,15 @@
+.service-item{
+    width: 100px;
+    height: 265px;
+}
+.card-title{
+    color: var(--main-cta-color);
+    font-weight: bold;
+}
+.bi-star-fill{
+    color: var(--main-cta-color);
+}
+.order-list{
+    height: 700px ;
+    overflow: scroll auto;
+}
