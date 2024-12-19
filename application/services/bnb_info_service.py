@@ -157,7 +157,7 @@ def get_booking_available_dates(bnb_id):
 # Kiểm tra 1 ngày có thể đặt phòng không (Đang dùng phương pháp vét cạn)
 def is_booking_date_available(bnb, date=datetime.now().date()):
     # Lấy ra tất cả booking mà có trạng thái không phải bị từ chối theo bnb đã truyền vào
-    list_booked = Booking.objects.filter(bnb=bnb).filter(~Q(status='decline')).all()
+    list_booked = Booking.objects.filter(bnb=bnb).filter(~Q(status='decline')).filter(~Q(status='served')).all()
     # Kiểm tra xem có booking nào đang được đặt không
     current_booking = [booking for booking in list_booked if booking.from_date.date() <= date <= booking.to_date.date()]
 

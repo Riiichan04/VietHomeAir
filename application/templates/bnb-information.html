@@ -99,9 +99,9 @@
                     </button>
                     <hr/>
                     <div>
-                        <div class="d-flex my-1 justify-content-between">
-                            <p>
-                                {{ bnb.prices.default_price }} VNĐ x
+                        <div class="d-flex justify-content-between">
+                            <p class="my-1">
+                                <span id="bnb-base-price">{{ bnb.prices.default_price }}</span> VNĐ x
                                 <span id="booking-length"></span> đêm:
                             </p>
                             <span class="fw-semibold" id="bnb-price">
@@ -109,11 +109,12 @@
                             </span>
                         </div>
                         <p class="d-flex my-1 justify-content-between">Phí dịch vụ:<span class="fw-semibold"
-                                                                                         id="bnb-price">70.000 VNĐ</span>
+                                                                                         id="bnb-service-fee">70.000 VNĐ</span>
                         </p>
                         <hr/>
                         <p class="my-1 h5 fw-normal d-flex justify-content-between">Tổng tiền: <span
-                                class="h4 fw-semibold" id="bnb-price">{{ bnb.prices.final_bnb_price }} VNĐ</span></p>
+                                class="h4 fw-semibold" id="bnb-total-price">{{ bnb.prices.final_bnb_price }} VNĐ</span>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -379,8 +380,8 @@
         $("#checkin-date").attr("placeholder", default_range.check_in)
         $("#checkout-date").attr("placeholder", default_range.check_out)
         $("#booking-length").text(default_range.range_length)
-        
-        
+
+
         function isInValidRanges(date) {
             for (let i = 0; i < list_available_range.length; i++) {
                 const start = moment(list_available_range[i].check_in);
@@ -410,14 +411,41 @@
             $('#checkin-date').on('apply.daterangepicker', function (ev, picker) {
                 $(this).val(picker.startDate.format('YYYY-MM-DD'));
                 $('#checkout-date').val(picker.endDate.format('YYYY-MM-DD'));
+                recalculatePrice($("#bnb-base-price").text(), picker.endDate.diff(picker.startDate, "days"))
             });
 
             $('#checkout-date').on('apply.daterangepicker', function (ev, picker) {
                 $(this).val(picker.endDate.format('YYYY-MM-DD'));
                 $('#checkin-date').val(picker.startDate.format('YYYY-MM-DD'));
+                recalculatePrice($("#bnb-base-price").text(), picker.endDate.diff(picker.startDate, "days"))
 
             });
         });
+
+        function recalculatePrice(priceStr, dateDiff) {
+            const formattedPrice = parseInt(priceStr.trim().replaceAll("VNĐ", "").replaceAll(".", ""))
+            const bookingPrice = formattedPrice * dateDiff
+            const finalPrice = bookingPrice + 70000
+            $("#booking-length").text(dateDiff)
+            $("#bnb-price").text(modifyPriceValue(bookingPrice))
+            $("#bnb-total-price").text(modifyPriceValue(finalPrice))
+        }
+
+        function modifyPriceValue(price) {
+            const priceString = price + ""
+            let result = ""
+            if (price < 1000) return priceString + " VNĐ"
+            else {
+                let cursor = priceString.length
+                while (Math.trunc(price / 1000) > 0) {
+                    result = "." + priceString.substring(cursor - 3, cursor) + result
+                    cursor -= 3
+                    price /= 1000
+                }
+                result = priceString.substring(cursor - 3, cursor) + result
+                return result + " VNĐ"
+            }
+        }
     </script>
 
     {{ bnb.booking|json_script:'booking-data' }}
