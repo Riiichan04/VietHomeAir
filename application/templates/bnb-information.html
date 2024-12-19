@@ -186,7 +186,7 @@
                         luận)</p>
                 </div>
                 <div class="col d-flex align-items-center">
-                    <button class="border-0 py-3 px-4 h6 main-cta-button rounded">Gửi</button>
+                    <button class="border-0 py-3 px-4 h6 main-cta-button rounded" disabled>Gửi</button>
                 </div>
             </div>
             <hr/>
@@ -372,8 +372,9 @@
 
 {% endblock content %}
 {% block scripts %}
+    {{ bnb.booking|json_script:'booking-data' }}
     <script src="{% static 'scripts/product.js' %}"></script>
-
+    
     <script type="module">
         const list_available_range = JSON.parse($("#booking-data").text())
         const default_range = list_available_range[0]
@@ -411,13 +412,13 @@
             $('#checkin-date').on('apply.daterangepicker', function (ev, picker) {
                 $(this).val(picker.startDate.format('YYYY-MM-DD'));
                 $('#checkout-date').val(picker.endDate.format('YYYY-MM-DD'));
-                recalculatePrice($("#bnb-base-price").text(), picker.endDate.diff(picker.startDate, "days"))
+                recalculatePrice($("#bnb-base-price").text(), picker.endDate.diff(picker.startDate, "days") + 1)
             });
 
             $('#checkout-date').on('apply.daterangepicker', function (ev, picker) {
                 $(this).val(picker.endDate.format('YYYY-MM-DD'));
                 $('#checkin-date').val(picker.startDate.format('YYYY-MM-DD'));
-                recalculatePrice($("#bnb-base-price").text(), picker.endDate.diff(picker.startDate, "days"))
+                recalculatePrice($("#bnb-base-price").text(), picker.endDate.diff(picker.startDate, "days") + 1)
 
             });
         });
@@ -448,7 +449,6 @@
         }
     </script>
 
-    {{ bnb.booking|json_script:'booking-data' }}
     <script type="module">
         $(document).ready(() => {
             $("#description-display").html(marked.parse(`{{ bnb.description|escapejs }}`))
