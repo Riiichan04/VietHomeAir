@@ -7,11 +7,12 @@
 
 {% block stylesheet %}
     <link rel="stylesheet" type="text/css" href="{% static 'style/bnb-information.css' %}">
-    {#  Thư viện daterangepickerjs  #}
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"/>
 {% endblock stylesheet %}
 {% block header_scripts %}
+    {#  Thư viện momentjs để dùng daterangepickerjs  #}
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    {#  Thư viện daterangepickerjs  #}
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/15.0.4/marked.min.js"
             integrity="sha512-VmLxPVdDGeR+F0DzUHVqzHwaR4ZSSh1g/7aYXwKT1PAGVxunOEcysta+4H5Utvmpr2xExEPybZ8q+iM9F1tGdw=="
@@ -69,7 +70,7 @@
                                 <div class="p-1 mx-1 border border-1 border-black rounded">
                                     <label style="font-size: 12px">Nhận phòng
                                         <input class="px-1 w-100 border-0 h6 fw-normal" type="text" name="checkin-date"
-                                               id="checkin-date" placeholder="dd/mm/yyyy">
+                                               id="checkin-date">
                                     </label>
                                 </div>
                             </div>
@@ -77,7 +78,7 @@
                                 <div class="p-1 mx-1 border border-1 border-black rounded">
                                     <label style="font-size: 12px">Trả phòng
                                         <input class="px-1 w-100 border-0 h6 fw-normal" type="text" name="checkout-date"
-                                               id="checkout-date" placeholder="dd/mm/yyyy">
+                                               id="checkout-date">
                                     </label>
                                 </div>
                             </div>
@@ -98,10 +99,15 @@
                     </button>
                     <hr/>
                     <div>
-                        <p class="d-flex my-1 justify-content-between">{{ bnb.prices.default_price }} VNĐ x 5 đêm:<span
-                                class="fw-semibold"
-                                id="bnb-price">{{ bnb.prices.base_bnb_price }} VNĐ</span>
-                        </p>
+                        <div class="d-flex my-1 justify-content-between">
+                            <p>
+                                {{ bnb.prices.default_price }} VNĐ x
+                                <span id="booking-length"></span> đêm:
+                            </p>
+                            <span class="fw-semibold" id="bnb-price">
+                                {{ bnb.prices.base_bnb_price }} VNĐ
+                            </span>
+                        </div>
                         <p class="d-flex my-1 justify-content-between">Phí dịch vụ:<span class="fw-semibold"
                                                                                          id="bnb-price">70.000 VNĐ</span>
                         </p>
@@ -368,28 +374,53 @@
     <script src="{% static 'scripts/product.js' %}"></script>
 
     <script type="module">
+        const list_available_range = JSON.parse($("#booking-data").text())
+        const default_range = list_available_range[0]
+        $("#checkin-date").attr("placeholder", default_range.check_in)
+        $("#checkout-date").attr("placeholder", default_range.check_out)
+        $("#booking-length").text(default_range.range_length)
+        
+        
+        function isInValidRanges(date) {
+            for (let i = 0; i < list_available_range.length; i++) {
+                const start = moment(list_available_range[i].check_in);
+                const end = moment(list_available_range[i].check_out);
+                if (date.isBetween(start, end, null, '[]')) {
+                    return false; // Nếu ngày nằm trong một khoảng thời gian hợp lệ
+                }
+            }
+            return true; // Ngày không hợp lệ nếu không nằm trong bất kỳ khoảng nào
+        }
+
         $(function () {
             $('#checkin-date, #checkout-date').daterangepicker({
+                startDate: moment(list_available_range[0].check_in),
+                endDate: moment(list_available_range[0].check_out),
+                minDate: moment().startOf('day'),
                 opens: 'left',
                 autoUpdateInput: false,
                 locale: {
-                    format: 'DD-MM-YYYY',
+                    format: 'YYYY-MM-DD',
+                },
+                isInvalidDate: function (date) {
+                    return isInValidRanges(date)
                 }
             });
 
             $('#checkin-date').on('apply.daterangepicker', function (ev, picker) {
-                $(this).val(picker.startDate.format('DD-MM-YYYY'));
-                $('#checkout-date').val(picker.endDate.format('DD-MM-YYYY'));
+                $(this).val(picker.startDate.format('YYYY-MM-DD'));
+                $('#checkout-date').val(picker.endDate.format('YYYY-MM-DD'));
             });
 
             $('#checkout-date').on('apply.daterangepicker', function (ev, picker) {
-                $(this).val(picker.endDate.format('DD-MM-YYYY'));
-                $('#checkin-date').val(picker.startDate.format('DD-MM-YYYY'));
+                $(this).val(picker.endDate.format('YYYY-MM-DD'));
+                $('#checkin-date').val(picker.startDate.format('YYYY-MM-DD'));
 
             });
         });
     </script>
 
+    {{ bnb.booking|json_script:'booking-data' }}
     <script type="module">
         $(document).ready(() => {
             $("#description-display").html(marked.parse(`{{ bnb.description|escapejs }}`))
@@ -459,5 +490,8 @@
         $("#unfilter-review").click(function () {
             filterReview('all')
         })
+
+
     </script>
+
 {% endblock scripts %}

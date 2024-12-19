@@ -1,3 +1,4 @@
+import copy
 from datetime import datetime, timedelta
 
 from django.db.models import Q
@@ -10,6 +11,7 @@ from application.models.accounts import Booking
 def get_bnb_info(bnb_id):
     bnb = BnbInformation.objects.filter(status=True).filter(id=bnb_id).first()
     if bnb is None: return None
+    booking_info = get_booking_date_range(get_booking_available_dates(bnb.id))
     return {
         'id': bnb.id,
         'name': bnb.name,
@@ -17,13 +19,14 @@ def get_bnb_info(bnb_id):
         'images': [image.url for image in bnb.image_set.all()],
         'rules': [rule.description for rule in bnb.rule.all()],
         'services': ''.join(list(["- " + service.name + '\n' for service in bnb.service.all()])),
-        'prices': calculate_price(bnb.price),
+        'prices': calculate_price(bnb.price, booking_info[0]['range_length']),
         'owner': bnb.owner.account,
         # Sửa sau
         'owner_general_review': {'title': ' một chủ nhà rất xịn xò đó!',
                                  'description': 'Được mọi người đánh giá cao về chất lượng dịch vụ, là điểm đến lý tưởng của nhiều người'},
         'categories': [category.name for category in bnb.category.all()],
         'capacity': bnb.capacity,
+        'booking': booking_info,
         # Đánh giá của owner
         # Số lượng đánh giá của owner
         'reviews': [{'review_obj': review, 'display_content': display_review(review)} for review in
@@ -93,14 +96,52 @@ def display_time(time):
     return str(converted_time[value_index]) + label[value_index]
 
 
+# Tìm những khoảng ngày có thể booking được
+def get_booking_date_range(list_available_date):
+    start_date = list_available_date[0]
+    iterate_date = start_date['date']
+    result = []  # Kết quả là một mảng chứa các range_obj
+    range_obj = {  # Chứa ngày bắt đầu, ngày kết thúc và capacity
+        'check_in': iterate_date.isoformat(),
+        'check_out': iterate_date.isoformat(),
+        'capacity': start_date['available_capacity'],
+        'range_length': 1
+    }
+    flag = False
+    for index in range(1, len(list_available_date)):
+        iterate_date += timedelta(days=1)
+
+        if iterate_date > list_available_date[index]['date']:
+            return None  # Lỗi
+
+        if iterate_date == list_available_date[index]['date']:  # Cập nhật lại ngày checkout và lấy min capacity
+            if flag:
+                range_obj['check_in'] = iterate_date.isoformat()
+                range_obj['range_length'] = 1
+                flag = False
+            range_obj['check_out'] = iterate_date.isoformat()
+            range_obj['capacity'] = min(range_obj['capacity'], list_available_date[index]['available_capacity'])
+            range_obj['range_length'] += 1
+            # Thêm một phần xử lý để hiển thị mặc định
+            if index == 4 and len(result) == 0:
+                default_obj = copy.deepcopy(range_obj)
+                result.append(default_obj)
+        if iterate_date < list_available_date[index]['date']:  # Nếu như ngày không hợp lệ chốt range_obj
+            flag = True  # Flag = True để reset lại range_obj
+            result.append(range_obj)
+
+    result.append(range_obj)  # Thêm range_obj của index -1 vào
+    return result
+
+
 # Tìm ngày có thể đặt phòng tính từ hôm nay
 def get_booking_available_dates(bnb_id):
     bnb = BnbInformation.objects.get(id=bnb_id)
     list_booked = Booking.objects.filter(bnb=bnb).all()
 
-    # Tạm dùng vét cạn cho 1 tháng (khoảng 31 ngày) gần nhất
+    # Tạm dùng vét cạn cho 1 tháng (khoảng 60 ngày) gần nhất
     now_date = datetime.now().date()
-    target_date = now_date + timedelta(days=31)
+    target_date = now_date + timedelta(days=60)
     list_available_dates = []
     while now_date <= target_date:
         booking_result = is_booking_date_available(bnb, now_date)
@@ -121,13 +162,17 @@ def is_booking_date_available(bnb, date=datetime.now().date()):
     current_booking = [booking for booking in list_booked if booking.from_date.date() <= date <= booking.to_date.date()]
 
     if len(current_booking) == 0:  # Ngày này chưa có ai đặt
-        return True
+        return {
+            'status': True,  # Nếu đã có người đặt thì kiểm tra xem còn chứa được ai không
+            'available_capacity': bnb.capacity  # Còn lại bao nhiêu chỗ
+        }
 
     current_capacity = sum([booking.capacity for booking in current_booking])
     return {
-        'status': current_capacity < bnb.capacity, # Nếu đã có người đặt thì kiểm tra xem còn chứa được ai không
-        'available_capacity': bnb.capacity - current_capacity # Còn lại bao nhiêu chỗ
+        'status': current_capacity < bnb.capacity,  # Nếu đã có người đặt thì kiểm tra xem còn chứa được ai không
+        'available_capacity': bnb.capacity - current_capacity  # Còn lại bao nhiêu chỗ
     }
+
 
 # Dùng cho web filter
 def statistic_review_by_id(bnb_id):
