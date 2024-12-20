@@ -166,36 +166,41 @@
                 </div>
             </div>
             <hr/>
-            <div class="row" id="comment-component">
-                <h5>Đánh giá của bạn</h5>
-                <p id="review-notice"></p>
-                <div class="col-2">
-                    <p class="text-center mt-3 my-1">Hạy chọn số sao bạn muốn đánh giá</p>
-                    <div class="text-center my-3">
-                        <span id="review-current-star" class="h3">0.0</span>/<span class="h5 fw-normal">5.0</span>
+            <div id="comment-component">
+                <form method="post" id="upload-comment-form" class="row">
+                    {% csrf_token %}
+                    <h5>Đánh giá của bạn</h5>
+                    <p id="review-notice"></p>
+                    <div class="col-2">
+                        <p class="text-center mt-3 my-1">Hạy chọn số sao bạn muốn đánh giá</p>
+                        <div class="text-center my-3">
+                            <span id="review-current-star" class="h3">0.0</span>/<span class="h5 fw-normal">5.0</span>
+                        </div>
+                        <div class="d-flex justify-content-center align-items-center">
+                            <i class="ms-1 h5 fa-regular fa-star comment-star-icon"></i>
+                            <i class="ms-1 h5 fa-regular fa-star comment-star-icon"></i>
+                            <i class="ms-1 h5 fa-regular fa-star comment-star-icon"></i>
+                            <i class="ms-1 h5 fa-regular fa-star comment-star-icon"></i>
+                            <i class="ms-1 h5 fa-regular fa-star comment-star-icon"></i>
+                        </div>
                     </div>
-                    <div class="d-flex justify-content-center align-items-center">
-                        <i class="ms-1 h5 fa-regular fa-star comment-star-icon"></i>
-                        <i class="ms-1 h5 fa-regular fa-star comment-star-icon"></i>
-                        <i class="ms-1 h5 fa-regular fa-star comment-star-icon"></i>
-                        <i class="ms-1 h5 fa-regular fa-star comment-star-icon"></i>
-                        <i class="ms-1 h5 fa-regular fa-star comment-star-icon"></i>
-                    </div>
-                </div>
-                <div class="col-8 p-4 pt-3">
-                    <label class="w-100">
+                    <div class="col-8 p-4 pt-3">
+                        <label class="w-100">
                         <textarea style="resize: none" class="form-control rounded p-3 w-100"
                                   placeholder="Đánh giá của bạn về nhà cho thuê này" name="your-review"
                                   id="review-content"
                                   rows="5"></textarea>
-                    </label>
-                    <p class="text-center mt-1 mb-0" style="font-size: 12px">
-                        (Bạn cần đăng nhập và checkout nhà cho thuê này để có thể bình luận)
-                    </p>
-                </div>
-                <div class="col d-flex align-items-center">
-                    <button class="border-0 py-3 px-4 h6 main-cta-button rounded" disabled>Gửi</button>
-                </div>
+                        </label>
+                        <p class="text-center mt-1 mb-0" style="font-size: 12px">
+                            (Bạn cần đăng nhập và checkout nhà cho thuê này để có thể bình luận)
+                        </p>
+                    </div>
+                    <div class="col d-flex align-items-center">
+                        <button id="submit-comment-form"
+                                class="border-0 py-3 px-4 h6 main-cta-button rounded">Gửi
+                        </button>
+                    </div>
+                </form>
             </div>
             <hr/>
             {# Chỗ này dành cho comment #}
@@ -458,10 +463,13 @@
     </script>
 
     <script type="module">
+
         $(document).ready(() => {
             $("#description-display").html(marked.parse(`{{ bnb.description|escapejs }}`))
             $("#service-bnb").html(marked.parse(`{{ bnb.services|escapejs }}`))
             $("#owner-description").html(marked.parse(`{{ bnb.owner.description|escapejs }}`))
+
+
         })
 
         function filterReview(sentiment_type) {
@@ -534,30 +542,57 @@
             window.location = `/book?bnbid={{ bnb.id }}&checkin=${checkinDate.trim()}&checkout=${checkoutDate.trim()}&capacity=${$('#booking-capacity').val()}`
         })
 
-        function submitReview() {
+        $("#submit-comment-form").click(function (e) {
+            e.preventDefault();
             //Validate các thành phần
+            console.log(parseFloat($("#review-current-star")) === 0.0 || $("#review-content").val() === "")
             if (parseFloat($("#review-current-star")) === 0.0 || $("#review-content").val() === "") {
                 $("#review-notice").text("Bạn cần nhập đủ thông tin để có thể gửi bình luận")
             } else {
+                const userId = '{{ userid|current_user:request.session }}'
+
                 //Gửi ajax
                 $.ajax({
                     url: '{{ request.path }}',
-                    method: 'POST',
+                    type: 'POST',
+                    headers: {
+                        'X-CSRFToken': getCSRFToken()
+                    },
                     data: {
                         rating: parseFloat($("#review-current-star")),
                         content: $("#review-content").val(),
-                        accountId: {{ userid|current_user:request.session }}, //Sửa sau,
-                        bnbId: {{ bnb.id }}
+                        accountId: userId === 'None' ? null : parseInt(userId),
+                        bnbId: '{{ bnb.id }}'
                     },
                     success: function (response) {
-                        if (response.result) {
+                        if (response.success) {
                             $("#review-notice").text("Đã gửi bình luận của bạn thành công! Bình luận cần thời gian phê duyệt để có thể hiển thị.")
                         } else {
                             $("#review-notice").text("Có lỗi khi gửi bình luận của bạn, hãy gửi lại sau")
                         }
+                        return false
+                    },
+                    error: function (response) {
+                        $("#review-notice").text("Có lỗi khi gửi bình luận của bạn, hãy gửi lại sau")
+                        return false
                     }
                 })
             }
+        })
+
+        function getCSRFToken() {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                let cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    let cookie = cookies[i].trim();
+                    if (cookie.substring(0, 10) === 'csrftoken=') {
+                        cookieValue = decodeURIComponent(cookie.substring(10));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
         }
     </script>
 

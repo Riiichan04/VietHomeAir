@@ -15,7 +15,6 @@ $("#share-btn").click(function () {
 $(".comment-star-icon").click(function () {
     const currentElement = $(this).index() + 1  //Lấy số sao muốn đánh giá
     const listElement = $(".comment-star-icon")
-    console.log(currentRating)
     //Xử lý trường hợp click lại số sao vừa đánh giá để clear số sao đánh giá
     if ($(this).hasClass("fa-solid") && currentElement === currentRating) {
         listElement.removeClass("fa-solid")
