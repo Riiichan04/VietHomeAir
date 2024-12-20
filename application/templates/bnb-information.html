@@ -123,15 +123,6 @@
                 <hr/>
                 <h5>Ngoài ra, chỗ ở vẫn còn ...</h5>
                 <div class="row mt-4">
-                    {# Sẽ thêm icon sau báo cáo gk #}
-                    {#                    <p class="col-6"><i class="fa-solid fa-water-ladder"></i> Hồ bơi riêng</p>#}
-                    {#                    <p class="col-6"><i class="fa-solid fa-wifi"></i> Wi-fi</p>#}
-                    {#                    <p class="col-6"><i class="fa-solid fa-worm"></i> Sân vườn riêng</p>#}
-                    {#                    <p class="col-6"><i class="fa-solid fa-hot-tub-person"></i> Bồn tắm nước nóng</p>#}
-                    {#                    <p class="col-6"><i class="fa-solid fa-fire-burner"></i> Bếp</p>#}
-                    {#                    <p class="col-6"><i class="fa-solid fa-tv"></i> Tivi có sẵn Netflix</p>#}
-                    {#                    <p class="col-6"><i class="fa-solid fa-square-parking"></i> Chỗ đậu xe</p>#}
-                    {#                    <p class="col-6"><i class="fa-solid fa-computer-mouse"></i> Không gian làm việc riêng</p>#}
                     <div id="service-bnb"></div>
                 </div>
             </div>
@@ -176,28 +167,30 @@
             <hr/>
             <div class="row" id="comment-component">
                 <h5>Đánh giá của bạn</h5>
+                <p id="review-notice"></p>
                 <div class="col-2">
                     <p class="text-center mt-3 my-1">Hạy chọn số sao bạn muốn đánh giá</p>
                     <div class="text-center my-3">
-                        <span class="h3">0.0</span>/<span class="h5 fw-normal">5.0</span>
+                        <span id="review-current-star" class="h3">0.0</span>/<span class="h5 fw-normal">5.0</span>
                     </div>
                     <div class="d-flex justify-content-center align-items-center">
-                        <i class="ms-1 h5 fa-regular fa-star"></i>
-                        <i class="ms-1 h5 fa-regular fa-star"></i>
-                        <i class="ms-1 h5 fa-regular fa-star"></i>
-                        <i class="ms-1 h5 fa-regular fa-star"></i>
-                        <i class="ms-1 h5 fa-regular fa-star"></i>
+                        <i class="ms-1 h5 fa-regular fa-star comment-star-icon"></i>
+                        <i class="ms-1 h5 fa-regular fa-star comment-star-icon"></i>
+                        <i class="ms-1 h5 fa-regular fa-star comment-star-icon"></i>
+                        <i class="ms-1 h5 fa-regular fa-star comment-star-icon"></i>
+                        <i class="ms-1 h5 fa-regular fa-star comment-star-icon"></i>
                     </div>
                 </div>
                 <div class="col-8 p-4 pt-3">
                     <label class="w-100">
                         <textarea style="resize: none" class="form-control rounded p-3 w-100"
-                                  placeholder="Đánh giá của bạn về nhà cho thuê này" name="your-review" id=""
+                                  placeholder="Đánh giá của bạn về nhà cho thuê này" name="your-review"
+                                  id="review-content"
                                   rows="5"></textarea>
                     </label>
-                    <p class="text-center mt-1 mb-0" style="font-size: 12px">(Bạn cần đăng nhập và checkout nhà cho thuê
-                        này để có thể bình
-                        luận)</p>
+                    <p class="text-center mt-1 mb-0" style="font-size: 12px">
+                        (Bạn cần đăng nhập và checkout nhà cho thuê này để có thể bình luận)
+                    </p>
                 </div>
                 <div class="col d-flex align-items-center">
                     <button class="border-0 py-3 px-4 h6 main-cta-button rounded" disabled>Gửi</button>
@@ -485,6 +478,7 @@
 
             $.ajax({
                 url: '{{ request.path }}',
+                method: 'GET',
                 data: {
                     'sentiment_type': sentiment_type
                 },
@@ -538,6 +532,32 @@
             const checkoutDate = $("#checkout-date").val() ? $("#checkout-date").val() : $('#checkout-date').attr('placeholder')
             window.location = `/book?bnbid={{ bnb.id }}&checkin=${checkinDate.trim()}&checkout=${checkoutDate.trim()}&capacity=${$('#booking-capacity').val()}`
         })
+
+        function submitReview() {
+            //Validate các thành phần
+            if (parseFloat($("#review-current-star")) === 0.0 || $("#review-content").val() === "") {
+                $("#review-notice").text("Bạn cần nhập đủ thông tin để có thể gửi bình luận")
+            } else {
+                //Gửi ajax
+                $.ajax({
+                    url: '{{ request.path }}',
+                    method: 'POST',
+                    data: {
+                        rating: parseFloat($("#review-current-star")),
+                        content: $("#review-content").val(),
+                        accountId: null, //Sửa sau,
+                        bnbId: {{ bnb.id }}
+                    },
+                    success: function (response) {
+                        if (response.result) {
+                            $("#review-notice").text("Đã gửi bình luận của bạn thành công! Bình luận cần thời gian phê duyệt để có thể hiển thị.")
+                        } else {
+                            $("#review-notice").text("Có lỗi khi gửi bình luận của bạn, hãy gửi lại sau")
+                        }
+                    }
+                })
+            }
+        }
     </script>
 
 {% endblock scripts %}

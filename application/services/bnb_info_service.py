@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 from django.db.models import Q
 
 from application.models import BnbInformation
-from application.models.accounts import Booking
+from application.models.accounts import Booking, OwnerReview
 
 
 # Lấy bnb còn active với id được chỉ định. Nếu không tìm thấy hoặc bnb có status = False sẽ trả về None
@@ -21,6 +21,7 @@ def get_bnb_info(bnb_id):
         'services': ''.join(list(["- " + service.name + '\n' for service in bnb.service.all()])),
         'prices': calculate_price(bnb.price, booking_info[0]['range_length']),
         'owner': bnb.owner.account,
+        'owner_review': [review for review in OwnerReview.objects.filter(owner=bnb.owner).all()],
         # Sửa sau
         'owner_general_review': {'title': ' một chủ nhà rất xịn xò đó!',
                                  'description': 'Được mọi người đánh giá cao về chất lượng dịch vụ, là điểm đến lý tưởng của nhiều người'},
