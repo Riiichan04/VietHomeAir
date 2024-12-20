@@ -14,7 +14,6 @@ class BnbInfoView(TemplateView):
         if bnb is None: raise Http404("Eooooo, tìm nhầm chỗ rồi")
         context = super().get_context_data(**kwargs)
         context['bnb'] = bnb
-        print(bnb['booking'])
         return context
 
     def get(self, request, *args, **kwargs):
@@ -40,8 +39,6 @@ class BnbInfoView(TemplateView):
                 }
                 for review in filtered_reviews['reviews']
             ]
-            print(sentiment_type)
-            print(json_result)
             return JsonResponse({'reviews': json_result})
 
         # Không phải ajax thì trả về trang bình thường

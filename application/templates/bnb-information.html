@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
+{% load bnb_info_filter %} {# Load webfilter sử dụng #}
 {% load static %}
 
 {% block title %}
-    <title>Cỏ May - VietHomeAir</title>
+    <title>{{ bnb.name }} - VietHomeAir</title>
 {% endblock title %}
 
 {% block stylesheet %}
@@ -55,7 +56,7 @@
         <div class="row">
             <div class="col-8">
                 <div class="mt-4">
-                    <h5>Mô tả về chỗ ở:</h5>
+                    <h4 class="mb-4">Mô tả về chỗ ở:</h4>
                     <div id="description-display"></div>
                 </div>
             </div>
@@ -545,7 +546,7 @@
                     data: {
                         rating: parseFloat($("#review-current-star")),
                         content: $("#review-content").val(),
-                        accountId: null, //Sửa sau,
+                        accountId: {{ userid|current_user:request.session }}, //Sửa sau,
                         bnbId: {{ bnb.id }}
                     },
                     success: function (response) {
