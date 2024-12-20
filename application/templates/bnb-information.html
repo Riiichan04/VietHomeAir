@@ -87,15 +87,16 @@
                             <div class="col-12 p-0">
                                 <div class="p-1 mx-1 border border-1 border-black rounded ">
                                     <label class="w-100" style="font-size: 12px">Số lượng khách
-                                        <input class="px-1 w-100 border-0 h6 fw-normal" type="number" name="" id=""
+                                        <input class="px-1 w-100 border-0 h6 fw-normal" type="number" name=""
+                                               id="booking-capacity"
                                                min="1" max="{{ bnb.capacity }}" value="1">
                                     </label>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <button class="button mt-3 p-3 w-100 rounded h5 border-0 main-cta-button"
-                            onclick="window.location = '/book'">Đặt phòng
+                    <button class="button mt-3 p-3 w-100 rounded h5 border-0 main-cta-button" id="booking-btn">
+                        Đặt phòng
                     </button>
                     <hr/>
                     <div>
@@ -175,7 +176,20 @@
             <hr/>
             <div class="row" id="comment-component">
                 <h5>Đánh giá của bạn</h5>
-                <div class="col-10 p-4 pt-3">
+                <div class="col-2">
+                    <p class="text-center mt-3 my-1">Hạy chọn số sao bạn muốn đánh giá</p>
+                    <div class="text-center my-3">
+                        <span class="h3">0.0</span>/<span class="h5 fw-normal">5.0</span>
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center">
+                        <i class="ms-1 h5 fa-regular fa-star"></i>
+                        <i class="ms-1 h5 fa-regular fa-star"></i>
+                        <i class="ms-1 h5 fa-regular fa-star"></i>
+                        <i class="ms-1 h5 fa-regular fa-star"></i>
+                        <i class="ms-1 h5 fa-regular fa-star"></i>
+                    </div>
+                </div>
+                <div class="col-8 p-4 pt-3">
                     <label class="w-100">
                         <textarea style="resize: none" class="form-control rounded p-3 w-100"
                                   placeholder="Đánh giá của bạn về nhà cho thuê này" name="your-review" id=""
@@ -374,7 +388,7 @@
 {% block scripts %}
     {{ bnb.booking|json_script:'booking-data' }}
     <script src="{% static 'scripts/product.js' %}"></script>
-    
+
     <script type="module">
         const list_available_range = JSON.parse($("#booking-data").text())
         const default_range = list_available_range[0]
@@ -519,7 +533,11 @@
             filterReview('all')
         })
 
-
+        $("#booking-btn").click(function () {
+            const checkinDate = $("#checkin-date").val() ? $("#checkin-date").val() : $('#checkin-date').attr('placeholder')
+            const checkoutDate = $("#checkout-date").val() ? $("#checkout-date").val() : $('#checkout-date').attr('placeholder')
+            window.location = `/book?bnbid={{ bnb.id }}&checkin=${checkinDate.trim()}&checkout=${checkoutDate.trim()}&capacity=${$('#booking-capacity').val()}`
+        })
     </script>
 
 {% endblock scripts %}
