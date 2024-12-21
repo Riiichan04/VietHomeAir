@@ -1,0 +1,149 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Xác thực - VietHomeAir</title>
+{% endblock title %}
+
+{% block stylesheet %}
+    <style>
+        .verify-container {
+            height: calc(100vh - 441px);
+            align-content: center;
+        }
+
+        .title {
+            color: var(--text-color);
+        }
+
+        .input-verify {
+            width: 500px;
+            height: 50px;
+            padding-left: 20px;
+            border-radius: 8px;
+        }
+
+        .btn-verify {
+            width: 100px;
+            height: 50px;
+            border-radius: 8px;
+            background-color: var(--main-cta-color);
+            color: whitesmoke;
+            border: none;
+        }
+
+        .overlay {
+            position: fixed;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .popup-container {
+            padding: 60px 100px 40px 100px;
+            border: none;
+            background-color: whitesmoke;
+            border-radius: 10px;
+        }
+
+        .verify-cancel-button {
+            padding: 5px 15px;
+            border: solid 2px var(--sub-cta-color);
+            background-color: var(--web-background-color);
+            color: var(--highlight-button-color);
+            font-weight: 500;
+            margin-top: 20px;
+            border-radius: 8px;
+        }
+
+        .after-verify-button {
+            padding: 6px 15px;
+            border: none;
+            background-color: var(--highlight-button-color);
+            color: white;
+            margin-top: 20px;
+            border-radius: 8px;
+        }
+    </style>
+{% endblock stylesheet %}
+
+{% block content %}
+
+
+    <div class="container verify-container text-center">
+        <form method="post" id="verify-form">
+            <% csrf_token %>
+            <h2 class="title mb-4">Xác thực tài khoản</h2>
+            <input type="text" class="input-verify d-inline" id="verify" placeholder="Nhập mã xác thực" maxlength="10"
+                   required>
+            <button class="d-inline btn-verify ms-2" type="button">Xác thực</button>
+        </form>
+    </div>
+
+    <div class="overlay success-verify">
+        <div class="popup-container text-center">
+            <h4 class="title"><i class="fa-solid fa-circle-check me-2" style="color: var(--main-cta-color)"></i>Xác thực
+                thành công</h4>
+            <button class="verify-cancel-button" style="color: var(--main-cta-color)">Hủy</button>
+            <button class="after-verify-button" style="background-color: var(--main-cta-color)">Quay về trang chủ
+            </button>
+        </div>
+    </div>
+
+    <div class="overlay d-none fail-verify">
+        <div class="popup-container text-center">
+            <h4 class="title"><i class="fa-solid fa-circle-xmark me-2" style="color: var(--highlight-button-color)"></i>Xác
+                thực thất bại</h4>
+            <button class="verify-cancel-button me-1">Hủy</button>
+            <button class="after-verify-button">Xác thực lại</button>
+        </div>
+    </div>
+{% endblock content %}
+{% block scripts %}
+    <script>
+        $('.overlay').click(function () {
+                $('.overlay').addClass('d-none')
+            }
+        )
+
+        function getCSRFToken() {
+            return document.querySelector('[name=csrfmiddlewaretoken]').value;
+        }
+
+        $('#verify-form').click(function (e) {
+            e.preventDefault();
+            const userId = '{{userId|current_user:request.session}}'
+            const code = $('#verify').val()
+            //kiểm tra mã code có trùng khớp không
+            $.ajax({
+                url: '{{ request.path }}',
+                type: 'POST',
+                headers: {
+                    'X-CSRFToken': getCSRFToken()
+                },
+                data: {
+                    code: code,
+                    account: userId
+                },
+                success: function (response) {
+                    if (response.success) {
+                        $('.success-verify').removeClass('d-none')
+                    } else {
+                        $('.fail-verify').removeClass('d-none')
+                    }
+                    return false
+                },
+                error: function (response) {
+                    $('.fail-verify').removeClass('d-none')
+                }
+
+            })
+
+        })
+    </script>
+{% endblock scripts %}
