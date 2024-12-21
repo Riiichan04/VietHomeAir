@@ -33,11 +33,11 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-6 product-images" style="height: calc(30rem + .5rem)">
-                <img style="width: 100%; height: 100%" src="{{ bnb.images.0 }}" alt="">
+        <div class="row" style="height: 30rem">
+            <div class="col-6 product-images" style="height: 100%">
+                <img style="width: 100%; height: 100%; object-fit: cover" src="{{ bnb.images.0 }}" alt="">
             </div>
-            <div class="col-6 d-flex flex-column justify-content-between product-other-images" style="height: 30rem">
+            <div class="col-6 d-flex flex-column justify-content-between product-other-images" style="height: 100%">
                 <div class="row mb-1" style="height: 50%">
                     <img class="col-6 px-1" src="{{ bnb.images.1 }}" alt="">
                     <img class="col-6 px-1 product-other-images__top-right" src="{{ bnb.images.2 }}"
@@ -364,38 +364,13 @@
                 </div>
             </div>
         </div>
+
+{#        <hr/>#}
+{#        <div class="row">#}
+{#            <h4>Các nhà cho thuê tuyệt vời khác</h4>#}
+{#            #}
+{#        </div>#}
     </section>
-
-    {#    <div class="popup-container">#}
-    {#        <div class="description-popup p-4 rounded">#}
-    {#            <div class="d-flex justify-content-end">#}
-    {#                <button id="close-popup-btn" type="button" class="btn-close d-flex justify-content-end"></button>#}
-    {#            </div>#}
-    {#            <h5>Mô tả về chỗ ở này:</h5>#}
-    {#            <p>#}
-    {#                Biệt thự riêng tinh tế với hồ bơi với các đồ trang trí mà bạn mong đợi tại một khu nghỉ dưỡng phong#}
-    {#                cách Thụy Điển. Được thiết kế hoàn hảo với đồ nội thất hiện đại trong suốt, biệt thự được bao quanh#}
-    {#                bởi các cánh cửa kính nhiều lớp để cho ánh sáng và gió tràn ngập ngôi nhà. Một khu vực ăn uống ngoài#}
-    {#                trời rộng lớn.#}
-    {#            </p>#}
-    {#            <p>#}
-    {#                Biệt thự được thiết kế để trở thành một nơi nghỉ dưỡng riêng. Ẩn mình trong một con đường nhỏ. Nhà#}
-    {#                hàng gần nhất cách 50m và bãi biển cách mười phút đi bộ.#}
-    {#            </p>#}
-    {#            <h6>Về chỗ ở</h6>#}
-    {#            <p>#}
-    {#                Studio riêng rộng 32 m2 nằm ở tầng 3 của một tòa nhà nằm trong khu vực an toàn của biển Cần Giờ#}
-    {#                Nó được trang trí độc đáo với:#}
-    {#            </p>#}
-    {#            <ul>#}
-    {#                <li>Hồ bơi riêng</li>#}
-    {#                <li>Sân vườn cùng nơi tổ chức tiệc BBQ</li>#}
-    {#                <li>Các tiện ích khác như spa,.. chỉ cách 2 phút đi bộ</li>#}
-    {#                <li>Bãi đậu xe riêng có thể chứa được 2 chiếc xe 7 chỗ</li>#}
-    {#            </ul>#}
-    {#        </div>#}
-    {#    </div>#}
-
 {% endblock content %}
 {% block scripts %}
     {{ bnb.booking|json_script:'booking-data' }}

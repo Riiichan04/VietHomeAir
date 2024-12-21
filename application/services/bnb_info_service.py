@@ -36,6 +36,10 @@ def get_bnb_info(bnb_id):
         'rating_reviews': statistic_bnb_reviews_by_rating([review for review in bnb.review_set.all()]),
     }
 
+
+# Lấy các bnb tương tự (dựa vào category)
+
+
 # Phân loại nội quy của nhà
 def rules_classify(rules):
     labels = ['checkin', 'checkout', 'refund', 'secure', 'other']
@@ -44,6 +48,7 @@ def rules_classify(rules):
         result[label] = [rule.description for rule in rules.filter(rule_type=label).all()]
     if len(result['other']) == 0: result['other'] = ['Nhà cho thuê này không còn nội quy nào khác']
     return result
+
 
 # Tính toán và hiển thị giá thuê bnb
 def calculate_price(price, date=5, service_fee=70000):
