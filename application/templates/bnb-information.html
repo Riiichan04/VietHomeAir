@@ -122,14 +122,14 @@
             </div>
             <div class="my-4">
                 <hr/>
-                <h5>Ngoài ra, chỗ ở vẫn còn ...</h5>
+                <h4>Ngoài ra, chỗ ở vẫn còn ...</h4>
                 <div class="row mt-4">
                     <div id="service-bnb"></div>
                 </div>
             </div>
             <hr/>
             <div class="row">
-                <h5>Gặp gỡ chủ nhà </h5>
+                <h4>Gặp gỡ chủ nhà </h4>
                 <div class="my-4 col-4 " style="width: 30% !important;">
                     <div class="rounded-4 row p-4 " id="owner-bnb-info">
                         <div class="col-9 d-flex flex-column justify-content-center align-items-center">
@@ -169,7 +169,7 @@
                 <form method="post" id="upload-comment-form" class="row">
                     <hr/>
                     {% csrf_token %}
-                    <h5>Đánh giá của bạn</h5>
+                    <h4>Đánh giá của bạn</h4>
                     <div class="col-2">
                         <p class="text-center mt-3 my-1">Hạy chọn số sao bạn muốn đánh giá</p>
                         <div class="text-center my-3">
@@ -331,24 +331,36 @@
             </div>
             <hr/>
             <div>
-                <h5>Nội quy chỗ ở</h5>
+                <h4>Nội quy chỗ ở</h4>
                 <p style="font-size: 14px">(Liên hệ chủ nhà để biết thêm chi tiết)</p>
                 <div class="row mt-5">
                     <div class="col">
-                        <h6 class="mb-2">Nội quy nhà</h6>
-                        <p class="my-1">{{ bnb.rules.0 }}</p>
-                        <p class="my-1">{{ bnb.rules.1 }}</p>
+                        <h5 class="mb-2">Thời gian check-in và check-out</h5>
+                        {% for rule in bnb.rules.checkin %}
+                            <p class="my-1">{{ rule }}</p>
+                        {% endfor %}
+                        {% for rule in bnb.rules.checkout %}
+                            <p class="my-1">{{ rule }}</p>
+                        {% endfor %}
                     </div>
                     <div class="col">
-                        <h6 class="mb-2">An toàn</h6>
-                        <p class="my-1">{{ bnb.rules.2 }}</p>
-                        <p class="my-1">{{ bnb.rules.3 }}</p>
+                        <h5 class="mb-2">Trong lúc thuê nhà</h5>
+                        {% for rule in bnb.rules.secure %}
+                            <p class="my-1">{{ rule }}</p>
+                        {% endfor %}
                     </div>
                     <div class="col">
-                        <h6 class="mb-2">Chính sách hoàn trả</h6>
-                        <p class="my-1">{{ bnb.rules.4 }}</p>
-                        <p class=my-1"> {{ bnb.rules.5 }}</p>
+                        <h5 class="mb-2">Chính sách hoàn trả</h5>
+                        {% for rule in bnb.rules.refund %}
+                            <p class="my-1">{{ rule }}</p>
+                        {% endfor %}
                     </div>
+                </div>
+                <div class="row mt-4 mb-2">
+                    <h5 class="mb-2">Nội quy khác (nếu có)</h5>
+                    {% for rule in bnb.rules.other %}
+                        <p class="my-1">{{ rule }}</p>
+                    {% endfor %}
                 </div>
             </div>
         </div>

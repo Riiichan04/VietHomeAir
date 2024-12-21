@@ -15,6 +15,8 @@ class Service(models.Model):
 class Rule(models.Model):
     title = models.CharField(max_length=200, unique=True)
     description = models.TextField()
+    rule_type = models.CharField(max_length=9, choices=(
+    ('checkin', 'Check-in'), ('checkout', 'Check-out'), ('refund', 'Refund'), ('secure', 'Secure'), ('other', 'Other')), default='other')
 
 
 class Location(models.Model):
@@ -36,6 +38,7 @@ class BnbInformation(models.Model):
     owner = models.ForeignKey(Owner, on_delete=models.CASCADE)
     status = models.BooleanField(default=True)
 
+
 # OneToMany -> Cần foreign key tới BnbInformation
 class Image(models.Model):
     url = models.TextField(unique=True)
@@ -53,6 +56,7 @@ class Review(models.Model):
 
     class Meta:
         unique_together = ('bnb', 'account')
+
 
 class ReviewClassification(models.Model):
     review = models.OneToOneField(Review, on_delete=models.CASCADE)
