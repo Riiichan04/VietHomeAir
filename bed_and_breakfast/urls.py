@@ -59,5 +59,7 @@ urlpatterns = [
     path('user/review-history', UserReviewHistoryView.as_view(template_name='user/user-reviewed-history.html'),
          name='user-review-history'),
     path('user/wishlist', UserWishListView.as_view(template_name='user/user-wishlist.html'), name='user-wishlist'),
+
+    # Các URL dưới đây chỉ được dùng cho POST AJAX
     path('verify', VerifyView.as_view(), name='verify'),
 ]
