@@ -5,6 +5,17 @@
     <title>Đặt phòng - VietHomeAir</title>
 {% endblock title %}
 
+{% block header_scripts %}
+
+    {#  Thư viện momentjs để dùng daterangepickerjs  #}
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    {#  Thư viện daterangepickerjs  #}
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/15.0.4/marked.min.js"
+            integrity="sha512-VmLxPVdDGeR+F0DzUHVqzHwaR4ZSSh1g/7aYXwKT1PAGVxunOEcysta+4H5Utvmpr2xExEPybZ8q+iM9F1tGdw=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+{% endblock header_scripts %}
+
 {% block stylesheet %}
     <style>
         body {
@@ -66,7 +77,7 @@
             <div class="product-card col-lg-6">
                 <div class="custom-form">
                     <h4 class="fw-bold mb-3">Đặt phòng</h4>
-                    <form method="post" action="">
+                    <form method="get" action="">
                         {% csrf_token %}
                        
                         <!-- Ngày nhận và trả phòng -->
@@ -81,21 +92,15 @@
                             </div>
                         </div>
                         <!-- Số người lớn và trẻ em -->
-                        <div class="row g-2 mb-3">
-                            <div class="col">
-                                <label for="adults" class="form-label" >Người lớn  <span class="required" style="color: red">*</span></label>
-                                <input type="number" class="form-control" id="adults" name="adults" required>
-                            </div>
-                            <div class="col">
-                                <label for="children" class="form-label">Trẻ em <span class="required" style="color: red">*</span></label>
-                                <input type="number" class="form-control" id="children" name="childeren" required>
-                            </div>
+                        <div class="mb-3">
+                                <label for="capacity" class="form-label" >Số người<span class="required" style="color: red">*</span></label>
+                                <input type="number" class="form-control" id="capacity" name="capacity" required>
                         </div>
-                        
+
                          <!-- CCCD -->
                         <div class="mb-3">
                             <label for="validate" class="form-label">CCCD<span class="required" style="color: red">*</span></label>
-                            <input type="text" class="form-control" id="location" name="location" placeholder="Nhập CCCD..." required>
+                            <input type="text" class="form-control" id="cccd" name="cccd" placeholder="Nhập CCCD..." required>
                         </div>
 
                         <!-- ghi chú  -->
@@ -110,6 +115,8 @@
                         <div class="d-grid">
                             <button type="submit" class="btn btn-primary">Đặt phòng</button> <!-- Nút đã thay đổi thành Đặt phòng -->
                         </div>
+
+
                     </form>
                 </div>
 </div>
@@ -140,9 +147,9 @@
                                     <div class="border-bottom my-3"></div>
 
                                     <!-- Tổng tiền -->
-                                    <div class="row">
-                                        <div class="col-md-6"><strong>Tổng tiền:</strong></div>
-                                        <div class="col-md-6 text-end"><strong>₫1.026.000</strong></div>
+                                    <div class="d-grid mt-3 d-flex">
+                                        <p class="text-left">Tổng tiền: <p id="total_price" class="fw-bold">0</p> ₫</p>
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -152,4 +159,50 @@
             </div>
         </div>
     </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Disable các ngày đã qua
+        const today = new Date().toISOString().split('T')[0];
+        const checkinDateInput = document.getElementById('checkin_date');
+        const checkoutDateInput = document.getElementById('checkout_date');
+
+        checkinDateInput.setAttribute('min', today);
+        checkoutDateInput.setAttribute('min', today);
+
+        // Tính tiền dựa trên số ngày
+        const pricePerNight = 1026000; // Giá mỗi đêm
+
+        function calculateTotal() {
+            const checkinDate = new Date(checkinDateInput.value);
+            const checkoutDate = new Date(checkoutDateInput.value);
+
+            // Kiểm tra nếu cả hai ngày đã được chọn
+            if (checkinDateInput.value && checkoutDateInput.value) {
+                // Tính số ngày
+                const diffTime = checkoutDate - checkinDate;
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+                // Nếu ngày trả phòng nhỏ hơn ngày nhận phòng, đặt giá trị mặc định
+                if (diffDays <= 0) {
+                    alert('Ngày trả phòng phải lớn hơn ngày nhận phòng.');
+                    checkoutDateInput.value = '';
+                    return;
+                }
+
+                // Tính tổng tiền
+                const totalPrice = diffDays * pricePerNight;
+
+                // Hiển thị tổng tiền
+                document.getElementById('total_price').textContent = `${totalPrice.toLocaleString()}`;
+            } else {
+                document.getElementById('total_price').textContent = '';
+            }
+        }
+
+        // Lắng nghe sự kiện thay đổi
+        checkinDateInput.addEventListener('change', calculateTotal);
+        checkoutDateInput.addEventListener('change', calculateTotal);
+    });
+</script>
 {% endblock content %}

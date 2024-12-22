@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',  # Kích hoạt Session
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    "corsheaders",  # Kích hoạt CORS
+    #"corsheaders",  # Kích hoạt CORS
     # Add config của application vào
     'application.apps.MainAppConfig',
 ]
@@ -56,7 +56,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',  # Kích hoạt Session
-    "corsheaders.middleware.CorsMiddleware",
+    #"corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
 ]
 
@@ -136,6 +136,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 SESSION_COOKIE_HTTPONLY = True
 
 # Allow url nào được cho phép dùng CORS
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3110",
-]
+# CORS_ALLOWED_ORIGINS = [
+#     "http://localhost:3110",
+# ]

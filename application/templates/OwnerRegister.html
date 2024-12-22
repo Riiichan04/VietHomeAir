@@ -11,6 +11,22 @@
         margin-left: 42px;
            margin-right: 42px;
     }
+       /* Căn chỉnh layout trung tâm */
+      .add-image-card {
+        max-width: 400px;
+        margin: auto;
+        border: 2px dashed #ddd;
+        border-radius: 10px;
+        padding: 30px;
+        text-align: center;
+        background-color: #fafafa;
+      }
+
+      .add-image-card img {
+        width: 120px;
+        height: 120px;
+        margin-bottom: 20px;
+      }
     </style>
 
     <link rel="stylesheet" type="text/css" href="{% static 'style/home.css' %}">
@@ -501,53 +517,16 @@
 
         <!-- Section 4 -->
         <div class="section" id="section-4" style="display: none;">
+            
             <div class="row mb-4">
                 <div class="col text-center">
                     <h1 class="mb-4">Bổ sung một số bức ảnh chỗ ở thuộc danh của bạn </h1>
                     <p class="mb-4">Bạn sẽ cần 5 bức ảnh để bắt đầu. Về sau, bạn có thể đăng thêm hoặc thay đổi ảnh.</p>
                 </div>
             </div>
-            <!DOCTYPE html>
-<html lang="vi">
-  <head>
-    <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0"
-    />
-    <title>Thêm ảnh</title>
-    <!-- Thêm CSS Bootstrap -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <!-- Thêm Icon Bootstrap -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
-      rel="stylesheet"
-    />
-    <style>
-      /* Căn chỉnh layout trung tâm */
-      .add-image-card {
-        max-width: 400px;
-        margin: auto;
-        border: 2px dashed #ddd;
-        border-radius: 10px;
-        padding: 30px;
-        text-align: center;
-        background-color: #fafafa;
-      }
-
-      .add-image-card img {
-        width: 120px;
-        height: 120px;
-        margin-bottom: 20px;
-      }
-    </style>
-  </head>
-  <body>
-    <!-- Container chính -->
-    <div class="container vh-100 d-flex align-items-center justify-content-center">
+            
+            <!-- Container chính -->
+            <div class="container vh-100 d-flex align-items-center justify-content-center">
       <div class="add-image-card">
         <!-- Hình ảnh biểu tượng máy ảnh -->
         <img
@@ -566,8 +545,8 @@
       </div>
     </div>
 
-    <!-- Modal Thêm ảnh -->
-    <div class="modal fade" id="addImageModal" tabindex="-1" aria-labelledby="addImageModalLabel" aria-hidden="true">
+            <!-- Modal Thêm ảnh -->
+            <div class="modal fade" id="addImageModal" tabindex="-1" aria-labelledby="addImageModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
@@ -593,25 +572,180 @@
         </div>
       </div>
     </div>
-
-    <!-- Thêm JS Bootstrap -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-  </body>
-</html>
  
             <div class="row mt-4">
                 <div class="col d-flex justify-content-between">
                     <button class="btn btn-outline-secondary px-4 py-2" onclick="showNextSection(3)">Quay lại</button>
-                    <button class="btn btn-primary px-4 py-2" onclick="showNextSection(4)">Tiếp theo</button>
+                    <button class="btn btn-primary px-4 py-2" onclick="showNextSection(5)">Tiếp theo</button>
                 </div>
             </div>
         </div>
+        
+        <!-- Section 5 -->
+       <div class="section" id="section-5" style="display: none;">
+    <!-- Section Title -->
+    <div class="row mb-4">
+        <div class="col text-center">
+            <h1 class="mb-4">Nhập thông tin chỗ ở của bạn</h1>
+            <p class="mb-4 text-muted">
+                Hãy điền đầy đủ thông tin để giúp khách hàng hiểu rõ hơn về chỗ ở của bạn.
+            </p>
+        </div>
     </div>
 
-    <!-- Progress Bar -->
-    <div class="progress fixed-bottom" style="height: 8px;">
-        <div id="progress-bar" class="progress-bar bg-primary" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-    </div>
+    <!-- Form Container -->
+    <form method="post" action="" class="needs-validation" novalidate>
+        {% csrf_token %}
+        <div class="container">
+            <!-- Name -->
+            <div class="mb-4">
+                <label for="name" class="form-label fw-bold">
+                    <i class="bi bi-house-door"></i> Tên chỗ ở
+                </label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Nhập tên chỗ ở" maxlength="300" required>
+                <div class="invalid-feedback">Vui lòng nhập tên chỗ ở.</div>
+            </div>
+
+            <!-- Description -->
+            <div class="mb-4">
+                <label for="description" class="form-label fw-bold">
+                    <i class="bi bi-pencil-square"></i> Mô tả
+                </label>
+                <textarea class="form-control" id="description" name="description" rows="4" placeholder="Nhập mô tả..." required></textarea>
+                <div class="invalid-feedback">
+                    Vui lòng nhập mô tả.
+                </div>
+            </div>
+
+            <!-- Location -->
+            <div class="mb-4">
+                <label for="location" class="form-label fw-bold">
+                    <i class="bi bi-geo-alt"></i> Địa điểm
+                </label>
+                <select class="form-select" id="location" name="location" required>
+                    <option selected disabled value="">Chọn địa điểm</option>
+                    {% for location in locations %}
+                        <option value="{{ location.id }}">{{ location.name }}</option>
+                    {% endfor %}
+                </select>
+                <div class="invalid-feedback">
+                    Vui lòng chọn địa điểm.
+                </div>
+            </div>
+
+            <!-- Price -->
+            <div class="mb-4">
+                <label for="price" class="form-label fw-bold">
+                    <i class="bi bi-currency-dollar"></i> Giá
+                </label>
+                <input type="number" class="form-control" id="price" name="price" step="0.01" placeholder="Nhập giá" required>
+                <div class="invalid-feedback">
+                    Vui lòng nhập giá.
+                </div>
+            </div>
+
+            <!-- Capacity -->
+{#            <div class="mb-4">#}
+{#                <label for="capacity" class="form-label fw-bold">#}
+{#                    <i class="bi bi-people"></i> Số lượng khách#}
+{#                </label>#}
+{#                <input #}
+{#                    type="number" #}
+{#                    class="form-control" #}
+{#                    id="capacity" #}
+{#                    name="capacity" #}
+{#                    placeholder="Nhập số lượng khách" #}
+{#                    required>#}
+{#                <div class="invalid-feedback">#}
+{#                    Vui lòng nhập số lượng khách.#}
+{#                </div>#}
+{#            </div>#}
+
+            <!-- Categories -->
+            <div class="mb-4">
+                <label for="category" class="form-label fw-bold">
+                    <i class="bi bi-bookmarks"></i> Danh mục
+                </label>
+                <select class="form-select" id="category" name="category" multiple required>
+                    {% for category in categories %}
+                        <option value="{{ category.id }}">{{ category.name }}</option>
+                    {% endfor %}
+                </select>
+                <div class="form-text">Giữ phím Ctrl để chọn nhiều danh mục.</div>
+                <div class="invalid-feedback">
+                    Vui lòng chọn ít nhất một danh mục.
+                </div>
+            </div>
+
+            <!-- Rules -->
+            <div class="mb-4">
+                <label for="rule" class="form-label fw-bold">
+                    <i class="bi bi-list-check"></i> Quy tắc
+                </label>
+                <select class="form-select" id="rule" name="rule" multiple>
+                    {% for rule in rules %}
+                        <option value="{{ rule.id }}">{{ rule.name }}</option>
+                    {% endfor %}
+                </select>
+                <div class="form-text">Chọn các quy tắc áp dụng.</div>
+            </div>
+
+            <!-- Services -->
+{#            <div class="mb-4">#}
+{#                <label for="service" class="form-label fw-bold">#}
+{#                    <i class="bi bi-wrench-adjustable-circle"></i> Dịch vụ#}
+{#                </label>#}
+{#                <select class="form-select" id="service" name="service" multiple>#}
+{#                    {% for service in services %}#}
+{#                        <option value="{{ service.id }}">{{ service.name }}</option>#}
+{#                    {% endfor %}#}
+{#                </select>#}
+{#                <div class="form-text">Chọn các dịch vụ kèm theo.</div>#}
+{#            </div>#}
+
+            <!-- Owner -->
+            <div class="mb-4">
+                <label for="owner" class="form-label fw-bold">
+                    <i class="bi bi-person-circle"></i> Chủ sở hữu
+                </label>
+                <select class="form-select" id="owner" name="owner" required>
+                    <option selected disabled value="">Chọn chủ sở hữu</option>
+                    {% for owner in owners %}
+                        <option value="{{ owner.id }}">{{ owner.name }}</option>
+                    {% endfor %}
+                </select>
+                <div class="invalid-feedback">
+                    Vui lòng chọn chủ sở hữu.
+                </div>
+            </div>
+
+            <!-- Status -->
+            <div class="form-check form-switch mb-4">
+                <input class="form-check-input" type="checkbox" id="status" name="status" checked>
+                <label class="form-check-label fw-bold" for="status">
+                    <i class="bi bi-check-circle"></i> Kích hoạt
+                </label>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="d-flex justify-content-between">
+                <button type="button" class="btn btn-outline-secondary px-4 py-2" onclick="showNextSection(4)">
+                    <i class="bi bi-arrow-left"></i> Quay lại
+                </button>
+                <button type="submit" class="btn btn-primary px-4 py-2">
+                    <i class="bi bi-save"></i> Lưu và tiếp tục
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+        <!-- Progress Bar -->
+        <div class="progress fixed-bottom" style="height: 8px;">
+            <div id="progress-bar" class="progress-bar bg-primary" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
 
 
 
@@ -636,15 +770,18 @@
         let progressValue = 0;
         switch (sectionId) {
             case 1:
-                progressValue = 25;
+                progressValue = 20;
                 break;
             case 2:
-                progressValue = 50;
+                progressValue = 40;
                 break;
             case 3:
-                 progressValue = 75;
+                 progressValue = 60;
                 break;
             case 4:
+                 progressValue = 80;
+                break;
+            case 5:
                  progressValue = 100;
                 break;
             default:
@@ -784,7 +921,19 @@ function submitImages() {
   addImageModal.hide();
   alert("Ảnh đã được lưu thành công!");
 }
-
-
 </script>
+
+
+<script>
+  const textarea = document.getElementById("placeTitle");
+  const characterCount = document.getElementById("characterCount");
+
+  textarea.addEventListener("input", () => {
+    const length = textarea.value.length;
+    characterCount.textContent = `${length}/100 ký tự`;
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
 {% endblock content %}
