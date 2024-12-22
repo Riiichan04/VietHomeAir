@@ -39,9 +39,14 @@ class BnbInfoView(TemplateView):
                 }
                 for review in filtered_reviews['reviews']
             ]
-            print(sentiment_type)
-            print(json_result)
             return JsonResponse({'reviews': json_result})
 
         # Không phải ajax thì trả về trang bình thường
         else: return super().get(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        # Gọi model AI lên xử lý
+        # Xử lý và trả về result
+        if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            return JsonResponse({'result': False}, status=200) #Đã fix
+        return JsonResponse({'result': False}, status=400)
