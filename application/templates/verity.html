@@ -73,38 +73,46 @@
 {% endblock stylesheet %}
 
 {% block content %}
-
-
-    <div class="container verify-container text-center">
-        <form method="post" id="verify-form">
-            <% csrf_token %>
-            <h2 class="title mb-4">Xác thực tài khoản</h2>
-            <input type="text" class="input-verify d-inline" id="verify" placeholder="Nhập mã xác thực" maxlength="10"
-                   required>
-            <button class="d-inline btn-verify ms-2" type="button">Xác thực</button>
-        </form>
-    </div>
-
-    <div class="overlay success-verify">
-        <div class="popup-container text-center">
-            <h4 class="title"><i class="fa-solid fa-circle-check me-2" style="color: var(--main-cta-color)"></i>Xác thực
-                thành công</h4>
-            <button class="verify-cancel-button" style="color: var(--main-cta-color)">Hủy</button>
-            <button class="after-verify-button" style="background-color: var(--main-cta-color)">Quay về trang chủ
-            </button>
+    {% if not user.is_authenticated %}
+        <script>
+            window.location.href = '/login';  // Chuyển hướng sang trang chủ nếu chưa đăng nhập
+        </script>
+    {% else %}
+        <div class="container verify-container text-center">
+            <form method="post" id="verify-form">
+                {% csrf_token %}
+                <h2 class="title mb-4">Xác thực tài khoản</h2>
+                <input type="text" class="input-verify d-inline" id="verify" placeholder="Nhập mã xác thực"
+                       maxlength="10"
+                       required>
+                <button class="d-inline btn-verify ms-2" type="button" id="verify-button">Xác thực</button>
+            </form>
         </div>
-    </div>
 
-    <div class="overlay d-none fail-verify">
-        <div class="popup-container text-center">
-            <h4 class="title"><i class="fa-solid fa-circle-xmark me-2" style="color: var(--highlight-button-color)"></i>Xác
-                thực thất bại</h4>
-            <button class="verify-cancel-button me-1">Hủy</button>
-            <button class="after-verify-button">Xác thực lại</button>
+        <div class="overlay d-none success-verify">
+            <div class="popup-container text-center">
+                <h4 class="title"><i class="fa-solid fa-circle-check me-2" style="color: var(--main-cta-color)"></i>Xác
+                    thực
+                    thành công</h4>
+                <button class="verify-cancel-button" style="color: var(--main-cta-color)">Hủy</button>
+                <button class="after-verify-button" style="background-color: var(--main-cta-color)">Quay về trang chủ
+                </button>
+            </div>
         </div>
-    </div>
+
+        <div class="overlay d-none fail-verify">
+            <div class="popup-container text-center">
+                <h4 class="title"><i class="fa-solid fa-circle-xmark me-2"
+                                     style="color: var(--highlight-button-color)"></i>Xác
+                    thực thất bại</h4>
+                <button class="verify-cancel-button me-1">Hủy</button>
+                <button class="after-verify-button">Xác thực lại</button>
+            </div>
+        </div>
+    {% endif %}
 {% endblock content %}
 {% block scripts %}
+    {% load bnb_info_filter %}
     <script>
         $('.overlay').click(function () {
                 $('.overlay').addClass('d-none')
@@ -115,9 +123,9 @@
             return document.querySelector('[name=csrfmiddlewaretoken]').value;
         }
 
-        $('#verify-form').click(function (e) {
+        $('#verify-button').click(function (e) {
             e.preventDefault();
-            const userId = '{{userId|current_user:request.session}}'
+            const userId = '{{ userId|current_user:request.session }}'
             const code = $('#verify').val()
             //kiểm tra mã code có trùng khớp không
             $.ajax({

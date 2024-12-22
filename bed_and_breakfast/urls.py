@@ -61,5 +61,5 @@ urlpatterns = [
     path('user/wishlist', UserWishListView.as_view(template_name='user/user-wishlist.html'), name='user-wishlist'),
 
     # Các URL dưới đây chỉ được dùng cho POST AJAX
-    path('verify', VerifyView.as_view(), name='verify'),
+    path('verify/', VerifyView.as_view(), name='verify'),
 ]
