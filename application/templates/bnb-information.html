@@ -22,15 +22,11 @@
 {% block content %}
     <section class="container p-4">
         <div class="row">
-            <h2 class="col-10 ps-4 mb-2">{{ bnb.name }}</h2>
-            <div class="col-2 row">
-                <div class="col">
-                    <div class="cursor-pointer" id="share-btn"><i class="fa-solid fa-arrow-up-from-bracket"></i> Chia sẻ
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="cursor-pointer" id="wishlist-btn"><i class="fa-regular fa-bookmark"></i> Lưu</div>
-                </div>
+            <h2 class="col-9 ps-4 mb-2">{{ bnb.name }}</h2>
+            <div class="col-3 d-flex justify-content-end px-3">
+                <span class="mx-3 cursor-pointer" id="share-btn"><i class="fa-solid fa-arrow-up-from-bracket"></i> Chia sẻ
+                </span>
+                <span class="mx-3 cursor-pointer" id="wishlist-btn"><i class="fa-regular fa-bookmark"></i> Lưu</span>
             </div>
         </div>
         <div class="row" style="height: 30rem">
@@ -131,9 +127,9 @@
             <div class="row">
                 <h4>Gặp gỡ chủ nhà </h4>
                 <div class="my-4 col-4 " style="width: 30% !important;">
-                    <div class="rounded-4 row p-4 " id="owner-bnb-info">
+                    <div class="rounded-4 row p-4 cursor-pointer" id="owner-bnb-info"
+                         onclick="window.location = '/owner/{{ bnb.owner.id }}'">
                         <div class="col-9 d-flex flex-column justify-content-center align-items-center">
-                            {#                            <i class="text-center display-1 bi bi-person-circle"></i>#}
                             <img class="text-center display-4 rounded-circle" src="{{ bnb.owner.avatar }}" alt=""
                                  width="80px" height="80px">
                             <h4 class="my-2 text-center">{{ bnb.owner.fullname }}</h4>
@@ -364,16 +360,15 @@
                 </div>
             </div>
         </div>
-
-{#        <hr/>#}
-{#        <div class="row">#}
-{#            <h4>Các nhà cho thuê tuyệt vời khác</h4>#}
-{#            #}
-{#        </div>#}
     </section>
 {% endblock content %}
 {% block scripts %}
     {{ bnb.booking|json_script:'booking-data' }}
+    <script>
+        $("#wishlist-btn").click(function () {
+            {% save_bnb_to_wishlists request.session bnb.id as wishlist %}
+        })
+    </script>
     <script src="{% static 'scripts/product.js' %}"></script>
 
     <script type="module">
