@@ -1,0 +1,64 @@
+{% extends 'manage_of_owner/base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Trang quản lý của chủ nhà - VietHomeAir</title>
+{% endblock title %}
+
+{% block sidebar_stylesheet %}
+{% endblock sidebar_stylesheet %}
+
+{% block sidebar_content %}
+    <header class="pb-3">
+        <h1 class="h2 text-center">Quản lý BnB</h1>
+    </header>
+
+    <!-- Host Information -->
+    <section class="mb-4">
+        <h2 class="h4">Thông tin chủ nhà</h2>
+        <div class="bg-light p-3 rounded">
+            <p><strong>Họ và tên:</strong> Nguyễn Văn A</p>
+            <p><strong>Email:</strong> nguyenvana@example.com</p>
+            <p><strong>Số điện thoại:</strong> 0123 456 789</p>
+        </div>
+    </section>
+
+    <!-- Room Management -->
+    <section class="mb-4">
+        <h2 class="h4">Danh sách các phòng</h2>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>ID Phòng</th>
+                <th>Tên Phòng</th>
+                <th style="max-width: 300px">Địa Chỉ</th>
+                <th>Giá (VNĐ/đêm)</th>
+                <th>Hành Động</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>1</td>
+                <td>Phòng Deluxe</td>
+                <td style="max-width: 300px">Hà Nội</td>
+                <td>800,000</td>
+                <td>
+                    <a class="btn btn-success" href="/owner-management-form-bnb/">Chi tiết</a>
+                    <button class="btn btn-danger del-btn">Xóa</button>
+                </td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Phòng Family</td>
+                <td style="max-width: 300px">Đà Nẵng</td>
+                <td>1,200,000</td>
+                <td>
+                    <a class="btn btn-success" href="/owner-management-form-bnb/">Chi tiết</a>
+                    <button class="btn btn-danger del-btn">Xóa</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+
+{% endblock sidebar_content %}
