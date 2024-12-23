@@ -9,8 +9,11 @@ register = template.Library()
 
 @register.filter(name='current_user')
 def current_user(user, session):
-    return session.user if session.get('user') is not None else None
+    return session.get('user') if session.get('user') is not None else None
 
+@register.filter
+def get_current_avatar(avatar_url, session):
+    return Account.objects.filter(id = int(session.get('user'))).first().avatar if session.get('user') is not None else None
 
 @register.simple_tag(name='save_bnb_to_wishlists')
 def save_bnb_to_wishlists(session, bnb_id):

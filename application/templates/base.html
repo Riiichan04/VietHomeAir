@@ -1,3 +1,4 @@
+{% load bnb_info_filter %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -49,11 +50,12 @@
                 </div>
                 <p class="">Bản đồ</p>
             </div>
-            <div class="header-function mx-2 cursor-pointer default-btn-style" onclick="window.location = '/login'">
-                <div class="d-flex justify-content-center">
-                    <i class=" fa-solid fa-arrow-right-to-bracket"></i>
-                </div>
-                <p class="">Đăng nhập</p>
+            <div id="user-icon" class="header-function mx-2 cursor-pointer default-btn-style">
+                {#                 onclick="window.location = '/login'">#}
+                {#                <div class="d-flex justify-content-center">#}
+                {#                    <i class=" fa-solid fa-arrow-right-to-bracket"></i>#}
+                {#                </div>#}
+                {#                <p class="">Đăng nhập</p>#}
             </div>
         </div>
     </div>
@@ -97,5 +99,28 @@
 </footer>
 <script src="{% static 'scripts/base.js' %}"></script>
 {% block scripts %}{% endblock scripts %} {# Thêm customize js #}
+<script>
+    const userId = '{{ userid|current_user:request.session }}'
+    const userIcon = $("#user-icon")
+    console.log(userId)
+    if (userId !== 'None') {
+        let url = '{{ avatar|get_current_avatar:request.session }}'
+        userIcon.html(`
+            <div class="d-flex justify-content-center">
+                <img src="${url}" class="rounded-circle" alt="Avatar" height="70px" width="70px"/>
+            </div>`)
+        userIcon.removeClass("mx-2")
+        userIcon.addClass("mx-4")
+        userIcon.click(() => window.location.href = '/user/')
+    } else {
+        userIcon.html(`
+            <div class="d-flex justify-content-center">
+                    <i class=" fa-solid fa-arrow-right-to-bracket"></i>
+            </div>
+            <p class="">Đăng nhập</p>
+        `)
+        userIcon.click(() => window.location.href = '/login/')
+    }
+</script>
 </body>
 </html>

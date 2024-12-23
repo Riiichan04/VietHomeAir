@@ -18,7 +18,7 @@ class AuthView(TemplateView):
         if form_type == 'login':
             auth_user = user_login(request.POST.get('username'), request.POST.get('password'))
             if auth_user is not None:
-                request.session['username'] = auth_user['id']
+                request.session['user'] = auth_user['id']
                 return JsonResponse({'result': True}, status=200)
             else:
                 return JsonResponse({'result': False}, status=200)

@@ -80,10 +80,9 @@
                        placeholder="Nhập email của bạn">
                 <input id="password" required class="my-2 p-2 rounded border-1 d-block w-100" type="password"
                        placeholder="Nhập mật khẩu">
+                <p class="text-danger my-1 d-none" id="form-error">Bạn đã nhập sai email hoặc mật khẩu!</p>
                 <div class="my-1 text-end">
-                    <a style="font-size: 14px" class="text-decoration-none text-black " href="/forgot-password/">Quên
-                        mật
-                        khẩu?</a>
+                    <a style="font-size: 14px" class="text-decoration-none text-black " href="/forgot-password/">Quên mật khẩu?</a>
                 </div>
                 <p class="mt-4 mb-1 text-center">Hoặc đăng nhập bằng</p>
                 <div class="mb-4 d-flex justify-content-center gap-2">
@@ -100,7 +99,7 @@
                     </div>
                 </div>
                 <div class="d-flex justify-content-center">
-                    <button id="submit-login" class="border-0 px-4 py-2 text-white rounded h5"
+                    <button id="submit-login" class="main-cta-button border-0 px-4 py-2 text-white rounded h5"
                             style="background-color: var(--main-cta-color)">
                         Đăng nhập
                     </button>
@@ -124,6 +123,7 @@
     <script>
         $("#submit-login").click(function (e) {
             e.preventDefault();
+            $("#form-error").addClass("d-none")
             $.ajax({
                 url: "{{ request.path }}",
                 type: "POST",
@@ -135,10 +135,14 @@
                     password: $("#password").val()
                 },
                 success: function (response) {
-                    if (response.result) {
-                        alert("Thành công")
-                    } else {
-                        alert("Thất bại")
+                    if (!response.result) {
+                        $("#form-error").removeClass("d-none")
+                    }
+                    else {
+                        const btn = $("#submit-login")
+                        btn.attr("disabled", true)
+                        btn.html('<i class="me-2 fa-solid fa-spinner fa-spin"></i> Đăng nhập')
+                        setTimeout(() => window.location = "/", 1000)
                     }
                     return false
                 }
