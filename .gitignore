@@ -3,6 +3,5 @@
 .venv
 .venv/*
 .env
-db.sqlite3
 application/data/cache_data.json
 midtermdata.json
