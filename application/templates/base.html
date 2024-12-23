@@ -30,7 +30,7 @@
         </div>
         <div class="col-1"></div>
         <div class="col-7 text-white d-flex align-items-center">
-            <div class="input-group">
+            <div class="input-group" onsubmit="performSearch(event)">
                 <span class="input-group-text fas d-flex align-items-center" style="color: #56595C">&#xf002 </span>
                 <input type="search" name="search" id="searchQuery" class="form-control"
                        placeholder="Tìm kiếm địa điểm, tên nhà, ...">
@@ -96,6 +96,15 @@
     </div>
 </footer>
 <script src="{% static 'scripts/base.js' %}"></script>
-{% block scripts %}{% endblock scripts %} {# Thêm customize js #}
+{% block scripts %}
+    <script>
+        $("#searchQuery").on("keyup", function (e) {
+            if (e.key === 'Enter' || e.keyCode === 13) {
+                const searchkey= document.getElementById('searchQuery').value
+                window.location = `/result/${searchkey}`
+            }
+        })
+    </script>
+{% endblock scripts %} {# Thêm customize js #}
 </body>
 </html>
