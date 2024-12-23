@@ -13,23 +13,19 @@ class VerifyView(TemplateView):
             code = request.POST.get('code')
             is_verify = accounts.objects.get(user_id=user_id).is_verify
             if is_verify:
-                response_data = {'success': False,
-                                 'message': 'Mã đã được xác thực'}
+                response_data = {'success': False}
             else:
                 try:
                     verify = verification.objects.get(code=code, account=user_id)
                     if verify.is_expired:
-                        response_data = {'success': False,
-                                        'message': 'Xác thực thất bại'}
+                        response_data = {'success': False}
                     else:
                         accounts.is_verify = True
                         accounts.save()
 
-                        response_data = {'success': True,
-                                           'message': 'Xác thực thành công'}
+                        response_data = {'success': True}
                 except verify.DoesNotExist:
-                    response_data = {'success': False,
-                                     'message': 'Xác thực thất bại'}
+                    response_data = {'success': False}
         return HttpResponse(json.dumps({
             'success': False
         }), content_type ='application/json', status=405)
