@@ -82,7 +82,8 @@
                        placeholder="Nhập mật khẩu">
                 <p class="text-danger my-1 d-none" id="form-error">Bạn đã nhập sai email hoặc mật khẩu!</p>
                 <div class="my-1 text-end">
-                    <a style="font-size: 14px" class="text-decoration-none text-black " href="/forgot-password/">Quên mật khẩu?</a>
+                    <a style="font-size: 14px" class="text-decoration-none text-black " href="/forgot-password/">Quên
+                        mật khẩu?</a>
                 </div>
                 <p class="mt-4 mb-1 text-center">Hoặc đăng nhập bằng</p>
                 <div class="mb-4 d-flex justify-content-center gap-2">
@@ -137,8 +138,7 @@
                 success: function (response) {
                     if (!response.result) {
                         $("#form-error").removeClass("d-none")
-                    }
-                    else {
+                    } else {
                         const btn = $("#submit-login")
                         btn.attr("disabled", true)
                         btn.html('<i class="me-2 fa-solid fa-spinner fa-spin"></i> Đăng nhập')
