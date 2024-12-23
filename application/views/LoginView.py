@@ -1,5 +1,8 @@
+from django.http import JsonResponse
 from django.shortcuts import render
 from django.views.generic import TemplateView
+
+from application.services.auth_service import user_login
 
 
 class LoginView(TemplateView):
@@ -9,25 +12,15 @@ class LoginView(TemplateView):
 class AuthView(TemplateView):
     template_name = 'application/templates/auth_template/base.html'
 
-    # def get(self, request, *args, **kwargs):
-    #     # Gọi các form
-    #     login_form = None
-    #     register_form = None
-    #     forget_password_form = None
-    #     active_form = None
-    #
-    #     # Lấy form đang được chọn
-    #     form_type = self.kwargs.get('form_type')
-    #
-    #     # Truyền form vào
-    #     if form_type == 'login':
-    #         active_form = login_form
-    #     elif form_type == 'register':
-    #         active_form = register_form
-    #     elif form_type == 'forget_password':
-    #         active_form = forget_password_form
-    #
-    #     return render(request, 'auth_template/login.html', {'active_form': active_form})
-    #
-    # def post(self, request, *args, **kwargs):
-    #     return None
+    def post(self, request, *args, **kwargs):
+        form_type = self.kwargs['type']
+        # if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        if form_type == 'login':
+            auth_user = user_login(request.POST.get('username'), request.POST.get('password'))
+            if auth_user is not None:
+                request.session['username'] = auth_user['id']
+                return JsonResponse({'result': True}, status=200)
+            else:
+                return JsonResponse({'result': False}, status=200)
+        else:
+            return JsonResponse({'result': False}, status=404)

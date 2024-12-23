@@ -44,7 +44,9 @@ urlpatterns = [
     path('privacy/', PolicyViews.as_view(template_name='other_template/privacy-policy.html'), name='privacy-policy'),
     path('terms-of-use/', PolicyViews.as_view(template_name='other_template/terms.html'), name='terms-of-use'),
     path('policy/', PolicyViews.as_view(template_name='other_template/other-policy.html'), name='terms-of-use'),
-    re_path(r'^(login|register|forgot-password)/$', AuthView.as_view(), name='auth'),
+    # re_path(r'^(login|register|forgot-password)/$', AuthView.as_view(), name='auth'),
+
+    re_path(r'^(?P<type>login|register|forgot-password)/$', AuthView.as_view(), name='auth'),
     path('about-us/', ContactViews.as_view(template_name='other_template/about-us.html'), name='about-us'),
     path('contact/', ContactViews.as_view(template_name='other_template/contact-us.html'), name='contact-us'),
     path('result/', ResultView.as_view(), name='result'),
