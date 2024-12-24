@@ -8,11 +8,12 @@ def get_bnb_result_info(bnb_id):
 # Lấy bnb theo kết quả tìm kiếm
 def get_bnb_result(searchkey):
     query="""
-       SELECT id
-    FROM application_bnbinformation as bnb
-    WHERE bnb.status = TRUE
-    AND (bnb.name LIKE ?)
-    LIMIT 5
+        SELECT bnb.id
+        FROM application_bnbinformation as bnb
+        WHERE bnb.status = TRUE
+        AND (bnb.name LIKE ?)
+        LIMIT 5
     """
-    list_id = [bnb.id for bnb in BnbInformation.objects.raw(query, ['%' + searchkey + '%', True])]
+    list_id= [bnb.id for bnb in BnbInformation.objects.raw(query, ['%' + searchkey + '%', True])]
+    print(list_id)
     return [bnb.id for bnb in BnbInformation.objects.filter(id__in=list_id).all()]
