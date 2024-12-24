@@ -1,6 +1,6 @@
 from django import template
 
-from application.models import Account
+from application.models import Account, BnbInformation
 from application.models.accounts import Booking
 from application.models.bnb import Review
 
@@ -9,8 +9,11 @@ register = template.Library()
 
 @register.filter(name='current_user')
 def current_user(user, session):
-    return session.user if session.get('user') is not None else None
+    return session.get('user') if session.get('user') is not None else None
 
+@register.filter
+def get_current_avatar(avatar_url, session):
+    return Account.objects.filter(id = int(session.get('user'))).first().avatar if session.get('user') is not None else None
 
 @register.simple_tag(name='save_bnb_to_wishlists')
 def save_bnb_to_wishlists(session, bnb_id):
@@ -22,8 +25,8 @@ def save_bnb_to_wishlists(session, bnb_id):
 
 
 @register.simple_tag
-def user_review_status(session, bnb):
-    if session.get('user') is None or bnb is None: return False
-    booking_data = Booking.objects.filter(account=Account.objects.get(id=int(session.get('user'))), bnb=bnb).all()
-    review_data = Review.objects.filter(account=Account.objects.get(id=int(session.get('user'))), bnb=bnb).all()
+def user_review_status(session, bnbid):
+    if session.get('user') is None or bnbid is None: return False
+    booking_data = Booking.objects.filter(account=Account.objects.filter(id=int(session.get('user'))).first(), bnb=BnbInformation.objects.filter(id=bnbid).first()).all()
+    review_data = Review.objects.filter(account=Account.objects.filter(id=int(session.get('user'))).first(), bnb=BnbInformation.objects.filter(id=bnbid).first()).all()
     return len(booking_data) > len(review_data)

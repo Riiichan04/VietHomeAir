@@ -45,3 +45,7 @@
 .main-cta-button:hover {
     background-color: var(--main-cta-color-hover);
 }
+
+.main-cta-button:disabled, .main-cta-button[disabled=disabled] {
+    background-color: #79aec8 !important;
+}
