@@ -11,9 +11,8 @@ def get_bnb_result(searchkey):
        SELECT id
     FROM application_bnbinformation as bnb
     WHERE bnb.status = TRUE
-    AND (bnb.name LIKE '%s%)
+    AND (bnb.name LIKE ?)
     LIMIT 5
     """
-    list_id = [bnb.id for bnb in BnbInformation.objects.raw(query, [f"%{searchkey}%"])]
-    print([bnb.id for bnb in BnbInformation.objects.filter(name__contains=searchkey).all()])
-    return [bnb.id for bnb in BnbInformation.objects.filter(name__contains=searchkey).all()]
+    list_id = [bnb.id for bnb in BnbInformation.objects.raw(query, ['%' + searchkey + '%', True])]
+    return [bnb.id for bnb in BnbInformation.objects.filter(id__in=list_id).all()]
