@@ -7,7 +7,7 @@ from django.forms import DecimalField, IntegerField, DateTimeField
 class Account(models.Model):
     username = models.CharField(unique=True, max_length=100)
     password = models.CharField(max_length=500)
-    email = models.CharField(max_length=200)
+    email = models.CharField(unique=True, max_length=200)
     phone = models.CharField(max_length=11, null=True, blank=True)
     description = models.TextField(null=True, blank=True)
     fullname = models.CharField(max_length=200)
