@@ -1,6 +1,6 @@
 from django import template
 
-from application.models import Account
+from application.models import Account, BnbInformation
 from application.models.accounts import Booking
 from application.models.bnb import Review
 
@@ -25,8 +25,8 @@ def save_bnb_to_wishlists(session, bnb_id):
 
 
 @register.simple_tag
-def user_review_status(session, bnb):
-    if session.get('user') is None or bnb is None: return False
-    booking_data = Booking.objects.filter(account=Account.objects.get(id=int(session.get('user'))), bnb=bnb).all()
-    review_data = Review.objects.filter(account=Account.objects.get(id=int(session.get('user'))), bnb=bnb).all()
+def user_review_status(session, bnbid):
+    if session.get('user') is None or bnbid is None: return False
+    booking_data = Booking.objects.filter(account=Account.objects.filter(id=int(session.get('user'))).first(), bnb=BnbInformation.objects.filter(id=bnbid).first()).all()
+    review_data = Review.objects.filter(account=Account.objects.filter(id=int(session.get('user'))).first(), bnb=BnbInformation.objects.filter(id=bnbid).first()).all()
     return len(booking_data) > len(review_data)

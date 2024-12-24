@@ -452,7 +452,7 @@
             $("#service-bnb").html(marked.parse(`{{ bnb.services|escapejs }}`))
             $("#owner-description").html(marked.parse(`{{ bnb.owner.description|escapejs }}`))
             {#'{{ userid|current_user:request.session }}' === 'None' || #}
-            {% user_review_status request.session bnb as review_status %}
+            {% user_review_status request.session bnb.id as review_status %}
             {% if review_status %}
                 $("#upload-comment-form").removeClass('d-none')
                 $("#upload-comment-form button").attr("disabled", false)
