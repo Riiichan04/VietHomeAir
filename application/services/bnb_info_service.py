@@ -1,10 +1,12 @@
 import copy
 from datetime import datetime, timedelta
 
+import requests
 from django.db.models import Q
 
 from application.models import BnbInformation
-from application.models.accounts import Booking, OwnerReview
+from application.models.accounts import Booking, OwnerReview, Account
+from application.models.bnb import Review, ReviewClassification
 
 
 # Lấy bnb còn active với id được chỉ định. Nếu không tìm thấy hoặc bnb có status = False sẽ trả về None
@@ -199,3 +201,29 @@ def statistic_review_by_id(bnb_id):
         'neg_reviews': {'amount': len(neg_reviews), 'reviews': neg_reviews},
         'all_reviews': {'amount': len(reviews), 'reviews': [review for review in reviews]}
     }
+
+
+# Dùng cho phần kiểm duyệt bình luận
+def validate_review(review):
+    input_review = {'sentence': review.content, 'sentiment': 'None'}
+    validate_result = requests.post('http://localhost:3110/review-validate/', json=input_review)
+    if validate_result.status_code == 200:
+        if validate_result.json()['result'] == 'true':
+            # Gọi hàm insert review vào bảng
+            new_review = Review(bnb=BnbInformation.objects.filter(id=review.bnbId).first(),
+                                account=Account.objects.filter(id=review.accountId), content=review.content,
+                                sentiment=validate_result.json()['content']['sentiment'],
+                                rating=review.rating)
+            new_review.save()
+        else:
+            # Insert vào spam review
+            new_review = Review(bnb=BnbInformation.objects.filter(id=review.bnbId).first(),
+                                account=Account.objects.filter(id=review.accountId), content=review.content,
+                                sentiment='none',
+                                rating=review.rating)
+            spam_review = ReviewClassification(review=new_review, classification=True)
+            new_review.save()
+            spam_review.save()
+        return True
+    if validate_result.status_code == 400:
+        return False
