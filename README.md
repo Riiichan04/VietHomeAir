@@ -30,8 +30,7 @@
 4. Cài thêm các thư viện hỗ trợ:
     - **requests**: `pip install requests`
     - **python-dotenv**: `pip install python-dotenv`
-    - **mysqlclient**: `pip install mysqlclient`
-
+    - **django-cors-headers**: `pip install django-cors-headers`
 ---
 
 ### Các library cần cài để dùng:
@@ -39,9 +38,9 @@
 1. **Django**: `pip install Django`
 2. **requests**: `pip install requests`
 3. **python-dotenv**: `pip install python-dotenv`
+4. **django-cors-headers**: `pip install django-cors-headers`
 
 ---
-![img.png](img.png)
 ### Cách config Django:
 
 1. Gõ: `python -m venv .venv` để tạo Virtual Environment
@@ -54,9 +53,9 @@
 7. Add dòng `tên_app.apps.TênAppConfig` vào file `setting.py` trong project
 8. Tạo 1 directory tên là `templates` để chứa các file html/Jinja2, tạo các file html tùy ý
 9. Mở `views.py` trong app tạo class View với `template_name = tênfile.html`
-10. Mở `urls.py` trong project, trong `urlpatterns` thêm:
-    `path('tên_sub_page, TênClassView.as_views(), name='tên_sub_page')`
-11. Gõ `python manage.py runserer` để chạy server
+10. Gõ `python manage.py makemigrations` và `python manage.py migrate` để update csdl
+11. Gõ `python manage.py loaddata <tên-file-data-csdl>` để load csdl vào
+12. Gõ `python manage.py runserer` để chạy server
 
 ---
 
@@ -65,7 +64,6 @@
 - Version Python là: 3.10
 - Version Django là: 5.1.2
 - Version requests là 2.32.3 (Dùng để fetch api của bên thứ 3)
-- Version mysqlclient là 2.2.6
 - Version python-dotenv là 1.0.1
 - Version pip (bộ cài đặt thư viện,...) là: 24.2
 
