@@ -48,5 +48,6 @@ class BnbInfoView(TemplateView):
         # Gọi model AI lên xử lý
         # Xử lý và trả về result
         if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-            return JsonResponse({'result': False}, status=200) #Đã fix
+            bnb_service.validate_review({'rating': request.POST.get('rating'), 'content' : request.POST.get('content'), 'accountId': request.POST.get('accountId'), 'bnbId': request.POST.get('bnbId')})
+            return JsonResponse({'result': True}, status=200) #Đã fix
         return JsonResponse({'result': False}, status=400)

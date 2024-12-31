@@ -550,7 +550,7 @@
                         'X-CSRFToken': getCSRFToken()
                     },
                     data: {
-                        rating: parseFloat($("#review-current-star")),
+                        rating: parseFloat($("#review-current-star").text()),
                         content: $("#review-content").val(),
                         accountId: userId === 'None' ? null : parseInt(userId),
                         bnbId: '{{ bnb.id }}'
