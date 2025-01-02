@@ -108,7 +108,7 @@ def display_time(time):
     if second_diff < 0: return ''
     if second_diff < 60: return 'Bây giờ'
     time_in_milisec = [60 * 60 * 24 * 365, 60 * 60 * 24 * 31, 60 * 60 * 24 * 7, 60 * 60 * 24, 60 * 60, 60]
-    label = [" năm trước", "tháng trước", " tuần trước", " ngày trước", " giờ trước", " phút trước"]
+    label = [" năm trước", " tháng trước", " tuần trước", " ngày trước", " giờ trước", " phút trước"]
     converted_time = list(map(lambda x: int(round(second_diff / x, 0)), time_in_milisec))
     value_index = converted_time.index(list(filter(lambda x: x > 0, converted_time))[0])
     return str(converted_time[value_index]) + label[value_index]
@@ -210,12 +210,12 @@ def validate_review(review):
     input_review = {'sentence': review['content'], 'sentiment': 'None'}
     validate_result = requests.post('http://localhost:3110/review-validate/', json=input_review)
     if validate_result.status_code == 200:
-        if validate_result.json()['result'] == 'true':
+        if validate_result.json()['result']:
             # Gọi hàm insert review vào bảng
             new_review = Review(bnb=BnbInformation.objects.filter(id=review['bnbId']).first(),
                                 account=Account.objects.filter(id=review['accountId']).first(),
                                 content=review['content'],
-                                sentiment=validate_result.json()['content']['sentiment'],
+                                sentiment=validate_result.json()['content']['label'],
                                 rating=int(review['rating']))
             new_review.save()
         else:

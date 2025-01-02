@@ -361,8 +361,9 @@
             </div>
         </div>
     </section>
-
+    
     <section class="container p-4">
+        <hr/>
         <h4 class="mb-4">Và đây là các nhà cho thuê tương tự!</h4>
         <div class="row gap-4 justify-content-center">
             {% for bnb in other_bnb %}
@@ -570,7 +571,6 @@
                 $("#review-notice").text("Bạn cần nhập đủ thông tin để có thể gửi bình luận")
             } else {
                 const userId = '{{ userid|current_user:request.session }}'
-
                 //Gửi ajax
                 $.ajax({
                     url: '{{ request.path }}',
@@ -585,9 +585,9 @@
                         bnbId: '{{ bnb.id }}'
                     },
                     success: function (response) {
-                        if (response.success) {
+                        if (response.result) {
                             const notice = $("#review-notice").css('color', 'var(--text-color)')
-                            notice.text("Đã gửi bình luận của bạn thành công! Bình luận cần thời gian phê duyệt để có thể hiển thị.")
+                            notice.text("Bình luận của bạn đã gửi thành công! Bình luận cần thời gian phê duyệt để có thể hiển thị.")
                         } else {
                             $("#review-notice").text("Có lỗi khi gửi bình luận của bạn, hãy gửi lại sau")
                         }
