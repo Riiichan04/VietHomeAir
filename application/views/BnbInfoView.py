@@ -14,6 +14,7 @@ class BnbInfoView(TemplateView):
         if bnb is None: raise Http404("Eooooo, tìm nhầm chỗ rồi")
         context = super().get_context_data(**kwargs)
         context['bnb'] = bnb
+        context['other_bnb'] = bnb_service.get_similar_bnb(bnb['id'])
         return context
 
     def get(self, request, *args, **kwargs):

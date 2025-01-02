@@ -1,5 +1,6 @@
 import copy
 from datetime import datetime, timedelta
+import random
 
 import requests
 from django.db.models import Q
@@ -212,14 +213,16 @@ def validate_review(review):
         if validate_result.json()['result'] == 'true':
             # Gọi hàm insert review vào bảng
             new_review = Review(bnb=BnbInformation.objects.filter(id=review['bnbId']).first(),
-                                account=Account.objects.filter(id=review['accountId']).first(), content=review['content'],
+                                account=Account.objects.filter(id=review['accountId']).first(),
+                                content=review['content'],
                                 sentiment=validate_result.json()['content']['sentiment'],
                                 rating=int(review['rating']))
             new_review.save()
         else:
             # Insert vào spam review
             new_review = Review(bnb=BnbInformation.objects.filter(id=review['bnbId']).first(),
-                                account=Account.objects.filter(id=review['accountId']).first(), content=review['content'],
+                                account=Account.objects.filter(id=review['accountId']).first(),
+                                content=review['content'],
                                 sentiment='none',
                                 rating=int(review['rating']))
             spam_review = ReviewClassification(review=new_review, spam_status=True)
@@ -229,7 +232,11 @@ def validate_review(review):
     if validate_result.status_code == 400:
         return False
 
+
 # Lấy các bnb tương tự
-def get_similar_bnb(categories):
-    list_similar_bnb = [bnb.id for bnb in BnbInformation.objects.filter(categories__in=categories).order_by('?')[0:5]]
-    return get_bnb_display_element(list_similar_bnb)
+def get_similar_bnb(bnb_id):
+    list_category = BnbInformation.objects.filter(status=True).filter(id=bnb_id).first().category.all()
+    list_similar_bnb = BnbInformation.objects.filter(status=True).filter(category__in=list_category).exclude(id=bnb_id)
+    list_similar_bnb_id = random.sample([bnb.id for bnb in list_similar_bnb],
+                                        5 if list_similar_bnb.count() >= 5 else list_similar_bnb.count()) if list_similar_bnb else []
+    return [get_bnb_display_element(similar_id) for similar_id in list_similar_bnb_id]
