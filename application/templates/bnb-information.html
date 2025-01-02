@@ -361,6 +361,35 @@
             </div>
         </div>
     </section>
+
+    <section class="container p-4">
+        <h4 class="mb-4">Và đây là các nhà cho thuê tương tự!</h4>
+        <div class="row gap-4 justify-content-center">
+            {% for bnb in other_bnb %}
+                <div class="p-0 card-item rounded" onclick="window.location.href='/rooms/{{ bnb.id }}'">
+                    <div>
+                        <img class="col-12 rounded"
+                             src="{{ bnb.thumbnail }}"
+                             alt="...">
+                    </div>
+                    <div class="p-2">
+                        <h5 class="mb-0 text-truncate ol-12">{{ bnb.name }}</h5>
+                        <div class="mt-1">
+                            <span style="font-size: 14px"><i
+                                    class="fa-solid fa-star main-color"></i> {{ bnb.avg_rating }}/5</span>
+                        </div>
+                        <p class="mt-1 mb-2">Chủ nhà: {{ bnb.owner }}</p>
+                        {#                        <p style="font-size: 14px" class=" ol-12 card-text__description text-truncate">Một biệt thự sang#}
+                        {#                            chảnh cùng với những tiện#}
+                        {#                            ích tuyệt vời nằm giữa lòng Hội An. Chỉ cách biển 5 phút đi bộ. Cùng với đó là hồ bơi riêng,#}
+                        {#                            bể bơi riêng và 3 phòng ngủ với đầy đủ tiện nghi hiện đại.#}
+                        {#                        </p>#}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+
 {% endblock content %}
 {% block scripts %}
     {{ bnb.booking|json_script:'booking-data' }}

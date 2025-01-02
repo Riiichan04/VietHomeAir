@@ -7,6 +7,7 @@ from django.db.models import Q
 from application.models import BnbInformation
 from application.models.accounts import Booking, OwnerReview, Account
 from application.models.bnb import Review, ReviewClassification
+from application.services.home_service import get_bnb_display_element
 
 
 # Lấy bnb còn active với id được chỉ định. Nếu không tìm thấy hoặc bnb có status = False sẽ trả về None
@@ -227,3 +228,8 @@ def validate_review(review):
         return True
     if validate_result.status_code == 400:
         return False
+
+# Lấy các bnb tương tự
+def get_similar_bnb(categories):
+    list_similar_bnb = [bnb.id for bnb in BnbInformation.objects.filter(categories__in=categories).order_by('?')[0:5]]
+    return get_bnb_display_element(list_similar_bnb)
