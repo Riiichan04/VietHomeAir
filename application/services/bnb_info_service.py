@@ -26,6 +26,7 @@ def get_bnb_info(bnb_id):
         'prices': calculate_price(bnb.price, booking_info[0]['range_length']),
         'owner': bnb.owner.account,
         'owner_review': [review for review in OwnerReview.objects.filter(owner=bnb.owner).all()],
+        'location': bnb.location,
         # Sửa sau
         'owner_general_review': {'title': ' một chủ nhà rất xịn xò đó!',
                                  'description': 'Được mọi người đánh giá cao về chất lượng dịch vụ, là điểm đến lý tưởng của nhiều người'},

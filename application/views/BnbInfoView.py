@@ -1,3 +1,4 @@
+import os
 import threading
 
 from django import template
@@ -16,6 +17,7 @@ class BnbInfoView(TemplateView):
         if bnb is None: raise Http404("Eooooo, tìm nhầm chỗ rồi")
         context = super().get_context_data(**kwargs)
         context['bnb'] = bnb
+        context['google_map_key'] = os.getenv('GOOGLE_MAP_API_KEY')
         context['other_bnb'] = bnb_service.get_similar_bnb(bnb['id'])
         return context
 
