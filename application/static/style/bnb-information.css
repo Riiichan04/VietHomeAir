@@ -54,12 +54,8 @@
 }
 
 .card-item {
-    /*background-color: #fff;*/
-    /*border: solid var(--sub-cta-color-hover) 1px;*/
     width: calc(20% - 1.5rem);
-    height: 25rem;
     cursor: pointer;
-    /*box-shadow: 1px 1px 3px 2px rgba(0,0,0,0.1);*/
 }
 .card-item img {
     height: 70%;

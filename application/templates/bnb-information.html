@@ -380,17 +380,11 @@
                                     class="fa-solid fa-star main-color"></i> {{ bnb.avg_rating }}/5</span>
                         </div>
                         <p class="mt-1 mb-2">Chủ nhà: {{ bnb.owner }}</p>
-                        {#                        <p style="font-size: 14px" class=" ol-12 card-text__description text-truncate">Một biệt thự sang#}
-                        {#                            chảnh cùng với những tiện#}
-                        {#                            ích tuyệt vời nằm giữa lòng Hội An. Chỉ cách biển 5 phút đi bộ. Cùng với đó là hồ bơi riêng,#}
-                        {#                            bể bơi riêng và 3 phòng ngủ với đầy đủ tiện nghi hiện đại.#}
-                        {#                        </p>#}
                     </div>
                 </div>
             {% endfor %}
         </div>
         <div class="row" id="maps-content">
-
         </div>
     </section>
 
@@ -485,6 +479,7 @@
             $("#service-bnb").html(marked.parse(`{{ bnb.services|escapejs }}`))
             $("#owner-description").html(marked.parse(`{{ bnb.owner.description|escapejs }}`))
             {#'{{ userid|current_user:request.session }}' === 'None' || #}
+            {# Cần đẩy lên html để bảo mật #}
             {% user_review_status request.session bnb.id as review_status %}
             {% if review_status %}
                 $("#upload-comment-form").removeClass('d-none')

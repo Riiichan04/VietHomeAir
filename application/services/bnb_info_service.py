@@ -237,7 +237,7 @@ def validate_review(review):
 # Lấy các bnb tương tự
 def get_similar_bnb(bnb_id):
     list_category = BnbInformation.objects.filter(status=True).filter(id=bnb_id).first().category.all()
-    list_similar_bnb = BnbInformation.objects.filter(status=True).filter(category__in=list_category).exclude(id=bnb_id)
+    list_similar_bnb = BnbInformation.objects.filter(status=True).filter(category__in=list_category).exclude(id=bnb_id).distinct()
     list_similar_bnb_id = random.sample([bnb.id for bnb in list_similar_bnb],
                                         5 if list_similar_bnb.count() >= 5 else list_similar_bnb.count()) if list_similar_bnb else []
     return [get_bnb_display_element(similar_id) for similar_id in list_similar_bnb_id]
