@@ -191,6 +191,11 @@ def is_booking_date_available(bnb, date=datetime.now().date()):
         'status': current_capacity < bnb.capacity,  # Nếu đã có người đặt thì kiểm tra xem còn chứa được ai không
         'available_capacity': bnb.capacity - current_capacity  # Còn lại bao nhiêu chỗ
     }
+    # Quy định cách cách nào thực hiện ???
+    # else: return {
+    #     'status': False,  # Nếu đã có người đặt thì kiểm tra xem còn chứa được ai không
+    #     'available_capacity': 0  # Còn lại bao nhiêu chỗ
+    # }
 
 
 # Dùng cho web filter

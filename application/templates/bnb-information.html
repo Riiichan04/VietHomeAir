@@ -8,7 +8,12 @@
 
 {% block stylesheet %}
     <link rel="stylesheet" type="text/css" href="{% static 'style/bnb-information.css' %}">
+    <link rel="stylesheet" href="{% static 'style/leaflet-osm.css' %}">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+          crossorigin=""/>
+
 {% endblock stylesheet %}
 {% block header_scripts %}
     {#  Thư viện momentjs để dùng daterangepickerjs  #}
@@ -18,6 +23,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/15.0.4/marked.min.js"
             integrity="sha512-VmLxPVdDGeR+F0DzUHVqzHwaR4ZSSh1g/7aYXwKT1PAGVxunOEcysta+4H5Utvmpr2xExEPybZ8q+iM9F1tGdw=="
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin=""></script>
 {% endblock header_scripts %}
 {% block content %}
     <section class="container p-4">
@@ -615,67 +623,92 @@
         }
     </script>
 
-{#    <script async#}
-{#            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAGHGpgbIxz5vx-WwpHd6Vh7X11k3AKUK4&loading=async&callback=initMap">#}
-{#    </script>#}
-    
-{#    <script>(g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})#}
-{#        ({key: "", v: "weekly"});</script>#}
-{#    <script>#}
-{#        const baseLat = '{{ bnb.location.lat }}'#}
-{#        const baseLon = '{{ bnb.location.lon }}'#}
-{#        let bnbMaps#}
-{##}
-        {#async function initMap() {#}
-        {#    bnbMaps = new google.maps.Map($("#maps-content"), {#}
-        {#        center: {lat: parseFloat(baseLat), lng: parseFloat(baseLon)},#}
-        {#        zoom: 12,#}
-        {#    })#}
-        {##}
-        {#    const listInfo = getSimilarBnbMapInfo()#}
-        {#    for (const info of listInfo) {#}
-        {##}
-        {#    }#}
-        {# } #}
-{##}
-{#        async function initMap() {#}
-{#            // Request needed libraries.#}
-{#            const {Map} = await google.maps.importLibrary("maps");#}
-{#            const {AdvancedMarkerElement} = await google.maps.importLibrary("marker");#}
-{#            const map = new Map(document.getElementById("maps-content"), {#}
-{#                center: {lat: parseFloat(baseLat), lng: parseFloat(baseLon)},#}
-{#                zoom: 14,#}
-{#                mapId: "22fd4769f0ef2d7d",#}
-{#            })#}
-{#            const priceTag = document.createElement("div");#}
-{##}
-{#            priceTag.className = "price-tag";#}
-{#            priceTag.textContent = "$2.5M";#}
-{##}
-{#            const marker = new AdvancedMarkerElement({#}
-{#                map,#}
-{#                position: {lat: 37.42, lng: -122.1},#}
-{#                content: priceTag,#}
-{#            });#}
-{#        }#}
-{##}
-{#        initMap();#}
-{##}
-{##}
-{#        function getSimilarBnbMapInfo() {#}
-{#            const result = [#}
-{#                {% for bnb in other_bnb %}#}
-{#                    {#}
-{#                        price: '{{ bnb.price }} VNĐ',#}
-{#                        lat: parseFloat('{{ bnb.location.lat }}'),#}
-{#                        lon: parseFloat('{{ bnb.location.lon }}')#}
-{#                    },#}
-{#                {% endfor %}]#}
-{#            return result#}
-{#        }#}
-{##}
-{#        initMap()#}
-{#        const info = getSimilarBnbMapInfo()#}
-        {#console.log(info)#}
-{#    </script>#}
+    <script>
+        const baseLat = parseFloat('{{ bnb.location.lat }}'.replaceAll(',', '.'))
+        const baseLon = parseFloat('{{ bnb.location.lon }}'.replaceAll(',', '.'))
+
+        function getSimilarBnbMapInfo() {
+            return [
+                {% for bnb in other_bnb %}
+                    {
+                        price: '{{ bnb.price }} VNĐ',
+                        lat: parseFloat('{{ bnb.location.lat }}'.replaceAll(',', '.')),
+                        lon: parseFloat('{{ bnb.location.lon }}'.replaceAll(',', '.'))
+                    },
+                {% endfor %}]
+        }
+
+        let map = L.map('maps-content').setView([baseLat, baseLon], 16)
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 20,
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
+        
+        //Base Marker
+        let currentLocationMarker = new L.marker([baseLat, baseLon]).addTo(map);
+    </script>
+
+    {#    <script async#}
+    {#            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAGHGpgbIxz5vx-WwpHd6Vh7X11k3AKUK4&loading=async&callback=initMap">#}
+    {#    </script>#}
+
+    {#    <script>(g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})#}
+    {#        ({key: "", v: "weekly"});</script>#}
+    {#    <script>#}
+    {#        const baseLat = '{{ bnb.location.lat }}'#}
+    {#        const baseLon = '{{ bnb.location.lon }}'#}
+    {#        let bnbMaps#}
+    {##}
+    {#async function initMap() {#}
+    {#    bnbMaps = new google.maps.Map($("#maps-content"), {#}
+    {#        center: {lat: parseFloat(baseLat), lng: parseFloat(baseLon)},#}
+    {#        zoom: 12,#}
+    {#    })#}
+    {##}
+    {#    const listInfo = getSimilarBnbMapInfo()#}
+    {#    for (const info of listInfo) {#}
+    {##}
+    {#    }#}
+    {# } #}
+    {##}
+    {#        async function initMap() {#}
+    {#            // Request needed libraries.#}
+    {#            const {Map} = await google.maps.importLibrary("maps");#}
+    {#            const {AdvancedMarkerElement} = await google.maps.importLibrary("marker");#}
+    {#            const map = new Map(document.getElementById("maps-content"), {#}
+    {#                center: {lat: parseFloat(baseLat), lng: parseFloat(baseLon)},#}
+    {#                zoom: 14,#}
+    {#                mapId: "22fd4769f0ef2d7d",#}
+    {#            })#}
+    {#            const priceTag = document.createElement("div");#}
+    {##}
+    {#            priceTag.className = "price-tag";#}
+    {#            priceTag.textContent = "$2.5M";#}
+    {##}
+    {#            const marker = new AdvancedMarkerElement({#}
+    {#                map,#}
+    {#                position: {lat: 37.42, lng: -122.1},#}
+    {#                content: priceTag,#}
+    {#            });#}
+    {#        }#}
+    {##}
+    {#        initMap();#}
+    {##}
+    {##}
+    {#        function getSimilarBnbMapInfo() {#}
+    {#            const result = [#}
+    {#                {% for bnb in other_bnb %}#}
+    {#                    {#}
+    {#                        price: '{{ bnb.price }} VNĐ',#}
+    {#                        lat: parseFloat('{{ bnb.location.lat }}'),#}
+    {#                        lon: parseFloat('{{ bnb.location.lon }}')#}
+    {#                    },#}
+    {#                {% endfor %}]#}
+    {#            return result#}
+    {#        }#}
+    {##}
+    {#        initMap()#}
+    {#        const info = getSimilarBnbMapInfo()#}
+    {#console.log(info)#}
+    {#    </script>#}
 {% endblock scripts %}

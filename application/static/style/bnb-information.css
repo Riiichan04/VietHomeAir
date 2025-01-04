@@ -56,6 +56,7 @@
 .card-item {
     width: calc(20% - 1.5rem);
     cursor: pointer;
+    height: 25%
 }
 .card-item img {
     height: 70%;
