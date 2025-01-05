@@ -26,6 +26,7 @@ from application.views.ResultView import ResultView
 from application.views.BookView import BookView
 from application.views.UserView import UserView, UserInfoView, UserOrderHistoryView, UserViewedHistoryView, \
     UserReviewHistoryView, UserWishListView
+from application.views.OwnerRegister import OwnerRegisterView
 
 # Lưu ý: Nếu muốn hiển thị các trang lỗi custom thì phải set DEBUG = False và phải set ALLOWED_HOSTS
 # (Trong môi trường dev thì hãy đặt ALLOWED_HOSTS = ["localhost"])
@@ -61,5 +62,5 @@ urlpatterns = [
          name='user-review-history'),
     path('user/wishlist', UserWishListView.as_view(template_name='user/user-wishlist.html'), name='user-wishlist'),
 
-    # Các URL dưới đây chỉ được dùng cho POST AJAX
+    path('onwner-add-home/',OwnerRegisterView.as_view(), name='owner-register' ),
 ]
