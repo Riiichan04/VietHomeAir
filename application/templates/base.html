@@ -99,8 +99,7 @@
     $("#searchQuery").on("keyup", function (e) {
         if (e.key === 'Enter' || e.keyCode === 13) {
             const searchkey= $(this).val().trim()
-            console.log(searchkey)
-            window.location = `result/` + searchkey
+            window.location = `/result/` + searchkey
         }
     })
 </script>

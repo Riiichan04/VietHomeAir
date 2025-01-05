@@ -132,352 +132,116 @@
         </div>
         <hr/>
         <div class="container py-2 list-services">
-            <div class="row p-0 my-2">
-                {% for bnb in get_bnb_result %}
-                <div class="col p-0 service-item border-0 m-2" onclick="window.location.href='/rooms/{{ bnb.id }}'">
-                    <img src="{{ bnb.thumbnail }}" class="card-img" alt="...">
-                    <div class="card-body px-1">
-                        <h5 class="card-title py-2">{{ bnb.name }}</h5>
-                        <p class="card-text text-truncate">{{ bnb.description}}</p>
-                        <div class="d-flex pb-2">
-                            <div class="text-warning ">
-                                <i class="bi bi-star-fill"></i>
+            <div class="row gap-4">
+                {% for bnb in list_bnb %}
+                    <div class="p-0 service-item rounded" onclick="window.location.href='/rooms/{{ bnb.id }}'">
+                        <div>
+                            <img class="col-12 rounded"
+                                 src="{{ bnb.thumbnail }}"
+                                 alt="...">
+                        </div>
+                        <div class="p-2">
+                            <h5 class="mb-0 text-truncate ol-12">{{ bnb.name }}</h5>
+                            <div class="mt-1">
+                            <span style="font-size: 14px"><i
+                                    class="fa-solid fa-star main-color"></i> {{ bnb.avg_rating }}/5</span>
                             </div>
-                            <div class=" ps-2 count-star">{{ bnb.avg_rating }}/5</div>
                         </div>
                     </div>
-                </div>
                 {% endfor %}
-{#                <div class="col p-0 service-item border-0 m-2">#}
-{#                    <img src="{% static 'image/product_img5.jpg' %}" class="card-img" alt="...">#}
-{#                    <div class="card-body px-1">#}
-{#                        <h5 class="card-title py-2">Cỏ May</h5>#}
-{#                        <p class="card-text text-truncate">Căn hộ tọa lạc ở Phú Quốc, riêng tư, ấm cúng.</p>#}
-{#                        <div class="d-flex pb-2">#}
-{#                            <div class="text-warning ">#}
-{#                                <i class="bi bi-star-fill"></i>#}
-{#                            </div>#}
-{#                            <div class=" ps-2 count-star">(4.0/5)</div>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                </div>#}
-{#                <div class="col p-0 service-item border-0 m-2">#}
-{#                    <img src="{% static 'image/product_img5.jpg' %}" class="card-img" alt="...">#}
-{#                    <div class="card-body px-1">#}
-{#                        <h5 class="card-title py-2">Cỏ May</h5>#}
-{#                        <p class="card-text text-truncate">Căn hộ tọa lạc ở Phú Quốc, riêng tư, ấm cúng.</p>#}
-{#                        <div class="d-flex pb-2">#}
-{#                            <div class="text-warning ">#}
-{#                                <i class="bi bi-star-fill"></i>#}
-{#                            </div>#}
-{#                            <div class=" ps-2 count-star">(4.0/5)</div>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                </div>#}
-{#                <div class="col p-0 service-item border-0 m-2">#}
-{#                    <img src="{% static 'image/product_img5.jpg' %}" class="card-img" alt="...">#}
-{#                    <div class="card-body px-1">#}
-{#                        <h5 class="card-title py-2">Cỏ May</h5>#}
-{#                        <p class="card-text text-truncate">Căn hộ tọa lạc ở Phú Quốc, riêng tư, ấm cúng.</p>#}
-{#                        <div class="d-flex pb-2">#}
-{#                            <div class="text-warning ">#}
-{#                                <i class="bi bi-star-fill"></i>#}
-{#                            </div>#}
-{#                            <div class=" ps-2 count-star">(4.0/5)</div>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                </div>#}
-{#                <div class="col p-0 service-item border-0 m-2">#}
-{#                    <img src="{% static 'image/product_img5.jpg' %}" class="card-img" alt="...">#}
-{#                    <div class="card-body px-1">#}
-{#                        <h5 class="card-title py-2">Cỏ May</h5>#}
-{#                        <p class="card-text text-truncate">Căn hộ tọa lạc ở Phú Quốc, riêng tư, ấm cúng.</p>#}
-{#                        <div class="d-flex pb-2">#}
-{#                            <div class="text-warning ">#}
-{#                                <i class="bi bi-star-fill"></i>#}
-{#                            </div>#}
-{#                            <div class=" ps-2 count-star">(4.0/5)</div>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                </div>#}
             </div>
-            <div class="row p-0 my-2">
-                <div class="col p-0 service-item border-0 m-2">
-                    <img src="{% static 'image/product_img5.jpg' %}" class="card-img" alt="...">
-                    <div class="card-body px-1">
-                        <h5 class="card-title py-2">Cỏ May</h5>
-                        <p class="card-text text-truncate">Căn hộ tọa lạc ở Phú Quốc, riêng tư, ấm cúng.</p>
-                        <div class="d-flex pb-2">
-                            <div class="text-warning ">
-                                <i class="bi bi-star-fill"></i>
-                            </div>
-                            <div class=" ps-2 count-star">(4.0/5)</div>
-                        </div>
-                    </div>
+         <div id="filter-container"
+             class="rounded position-absolute p-3 d-none">
+            <div class="d-flex justify-content-end">
+                <button type="button" class="btn-close header-popup__close-btn"
+                        aria-label="Close"></button>
+            </div>
+            <div class="price-amount">
+                <div class="h4">Khoảng giá</div>
+                <hr/>
+                <div class="h6">Giá theo đêm chưa gồm phí và thuế</div>
+                <!--Bieu do ket qua-->
+                <div class="chart-result"></div>
+                <div class="arrow-interact">
+                    <input class="left-price border-white justify-content-start me-20" placeholder="from..."
+                           style="float: left">
+                    <input class="right-price border-white justify-content-end" placeholder="to..."
+                           style="float: right">
                 </div>
-                <div class="col p-0 service-item border-0 m-2">
-                    <img src="{% static 'image/product_img5.jpg' %}" class="card-img" alt="...">
-                    <div class="card-body px-1">
-                        <h5 class="card-title py-2">Cỏ May</h5>
-                        <p class="card-text text-truncate">Căn hộ tọa lạc ở Phú Quốc, riêng tư, ấm cúng.</p>
-                        <div class="d-flex pb-2">
-                            <div class="text-warning ">
-                                <i class="bi bi-star-fill"></i>
-                            </div>
-                            <div class=" ps-2 count-star">(4.0/5)</div>
-                        </div>
+            </div>
+            <hr>
+            <div class="convenient-list">
+                <div class="h5">Tiện nghi</div>
+                <div class="group-properties  px-3">
+                    <div class="row mb-2">
+                        <button class="select-option col-3 me-2"><i class="fa-solid fa-wifi pe-2"></i>Wifi</button>
+                        <button class="select-option col-3 me-2"><i class="fa-solid fa-kitchen-set pe-2"></i>Bếp
+                        </button>
+                        <div class="col-6"></div>
                     </div>
-                </div>
-                <div class="col p-0 service-item border-0 m-2">
-                    <img src="{% static 'image/product_img5.jpg' %}" class="card-img" alt="...">
-                    <div class="card-body px-1">
-                        <h5 class="card-title py-2">Cỏ May</h5>
-                        <p class="card-text text-truncate">Căn hộ tọa lạc ở Phú Quốc, riêng tư, ấm cúng.</p>
-                        <div class="d-flex pb-2">
-                            <div class="text-warning ">
-                                <i class="bi bi-star-fill"></i>
-                            </div>
-                            <div class=" ps-2 count-star">(4.0/5)</div>
-                        </div>
+                    <div class="row mb-2">
+                        <button class="select-option col-4 me-2"><i class="bi bi-droplet-half pe-2"></i>Máy giặt
+                        </button>
+                        <button class="select-option col-4 me-2"><i class="bi bi-wind pe-2"></i>Máy sấy quần áo</button>
+                        <button class="select-option col-3 me-2"><i class="fa-solid fa-tv pe-2"></i>TV</button>
                     </div>
-                </div>
-                <div class="col p-0 service-item border-0 m-2">
-                    <img src="{% static 'image/product_img5.jpg' %}" class="card-img" alt="...">
-                    <div class="card-body px-1">
-                        <h5 class="card-title py-2">Cỏ May</h5>
-                        <p class="card-text text-truncate">Căn hộ tọa lạc ở Phú Quốc, riêng tư, ấm cúng.</p>
-                        <div class="d-flex pb-2">
-                            <div class="text-warning ">
-                                <i class="bi bi-star-fill"></i>
-                            </div>
-                            <div class=" ps-2 count-star">(4.0/5)</div>
-                        </div>
+                    <div class="row mb-2">
+                        <button class="select-option col-3 me-2"><i class="bi bi-snow3 pe-2"></i>Điều hòa</button>
+                        <button class="select-option col-3 me-2"><i class="bi bi-thermometer-half pe-2"></i>Hệ thống
+                            sưởi
+                        </button>
+                        <div class="col-6"></div>
                     </div>
-                </div>
-                <div class="col p-0 service-item border-0 m-2">
-                    <img src="{% static 'image/product_img5.jpg' %}" class="card-img" alt="...">
-                    <div class="card-body px-1">
-                        <h5 class="card-title py-2">Cỏ May</h5>
-                        <p class="card-text text-truncate">Căn hộ tọa lạc ở Phú Quốc, riêng tư, ấm cúng.</p>
-                        <div class="d-flex pb-2">
-                            <div class="text-warning ">
-                                <i class="bi bi-star-fill"></i>
-                            </div>
-                            <div class=" ps-2 count-star">(4.0/5)</div>
-                        </div>
+                    <div class="row mb-2">
+                        <button class="select-option col-5 me-2"><i class="fa-solid fa-desktop pe-2"></i>Không gian làm
+                            việc riêng
+                        </button>
                     </div>
                 </div>
             </div>
-            <div class="row p-0 my-2">
-                <div class="col p-0 service-item border-0 m-2">
-                    <img src="{% static 'image/product_img5.jpg' %}" class="card-img" alt="...">
-                    <div class="card-body px-1">
-                        <h5 class="card-title py-2">Cỏ May</h5>
-                        <p class="card-text text-truncate">Căn hộ tọa lạc ở Phú Quốc, riêng tư, ấm cúng.</p>
-                        <div class="d-flex pb-2">
-                            <div class="text-warning ">
-                                <i class="bi bi-star-fill"></i>
-                            </div>
-                            <div class=" ps-2 count-star">(4.0/5)</div>
-                        </div>
+            <div class="features-list mt-4">
+                <div class="h5">Đặc điểm</div>
+                <div class="group-properties px-3">
+                    <div class="row mb-2">
+                        <button class="select-option col-3 me-2"><i class="fa-solid fa-water-ladder pe-2"></i>Bể bơi
+                        </button>
+                        <button class="select-option col-4 me-2"><i class="fa-solid fa-hot-tub-person pe-2"></i>Bồn tắm
+                            nước nóng
+                        </button>
+                        <div class="col-5"></div>
                     </div>
-                </div>
-                <div class="col p-0 service-item border-0 m-2">
-                    <img src="{% static 'image/product_img5.jpg' %}" class="card-img" alt="...">
-                    <div class="card-body px-1">
-                        <h5 class="card-title py-2">Cỏ May</h5>
-                        <p class="card-text text-truncate">Căn hộ tọa lạc ở Phú Quốc, riêng tư, ấm cúng.</p>
-                        <div class="d-flex pb-2">
-                            <div class="text-warning ">
-                                <i class="bi bi-star-fill"></i>
-                            </div>
-                            <div class=" ps-2 count-star">(4.0/5)</div>
-                        </div>
+                    <div class="row mb-2">
+                        <button class="select-option col-4 me-2"><i class="fa-solid fa-square-parking pe-2"></i>Chỗ để
+                            xe miễn phí
+                        </button>
+                        <button class="select-option col-4 me-2"><i class="fa-solid fa-dumbbell pe-2"></i>Phòng tập thể
+                            hình
+                        </button>
                     </div>
-                </div>
-                <div class="col p-0 service-item border-0 m-2">
-                    <img src="{% static 'image/product_img5.jpg' %}" class="card-img" alt="...">
-                    <div class="card-body px-1">
-                        <h5 class="card-title py-2">Cỏ May</h5>
-                        <p class="card-text text-truncate">Căn hộ tọa lạc ở Phú Quốc, riêng tư, ấm cúng.</p>
-                        <div class="d-flex pb-2">
-                            <div class="text-warning ">
-                                <i class="bi bi-star-fill"></i>
-                            </div>
-                            <div class=" ps-2 count-star">(4.0/5)</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col p-0 service-item border-0 m-2">
-                    <img src="{% static 'image/product_img5.jpg' %}" class="card-img" alt="...">
-                    <div class="card-body px-1">
-                        <h5 class="card-title py-2">Cỏ May</h5>
-                        <p class="card-text text-truncate">Căn hộ tọa lạc ở Phú Quốc, riêng tư, ấm cúng.</p>
-                        <div class="d-flex pb-2">
-                            <div class="text-warning ">
-                                <i class="bi bi-star-fill"></i>
-                            </div>
-                            <div class=" ps-2 count-star">(4.0/5)</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col p-0 service-item border-0 m-2">
-                    <img src="{% static 'image/product_img5.jpg' %}" class="card-img" alt="...">
-                    <div class="card-body px-1">
-                        <h5 class="card-title py-2">Cỏ May</h5>
-                        <p class="card-text text-truncate">Căn hộ tọa lạc ở Phú Quốc, riêng tư, ấm cúng.</p>
-                        <div class="d-flex pb-2">
-                            <div class="text-warning ">
-                                <i class="bi bi-star-fill"></i>
-                            </div>
-                            <div class=" ps-2 count-star">(4.0/5)</div>
-                        </div>
+                    <div class="row mb-2">
+                        <button class="select-option col-4 "><i class="fa-solid fa-smoking pe-2"></i>Cho phép hút thuốc
+                        </button>
                     </div>
                 </div>
             </div>
-            <div class="row p-0 my-2">
-                <div class="col p-0 service-item border-0 m-2">
-                    <img src="{% static 'image/product_img5.jpg' %}" class="card-img" alt="...">
-                    <div class="card-body px-1">
-                        <h5 class="card-title py-2">Cỏ May</h5>
-                        <p class="card-text text-truncate">Căn hộ tọa lạc ở Phú Quốc, riêng tư, ấm cúng.</p>
-                        <div class="d-flex pb-2">
-                            <div class="text-warning ">
-                                <i class="bi bi-star-fill"></i>
-                            </div>
-                            <div class=" ps-2 count-star">(4.0/5)</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col p-0 service-item border-0 m-2">
-                    <img src="{% static 'image/product_img5.jpg' %}" class="card-img" alt="...">
-                    <div class="card-body px-1">
-                        <h5 class="card-title py-2">Cỏ May</h5>
-                        <p class="card-text text-truncate">Căn hộ tọa lạc ở Phú Quốc, riêng tư, ấm cúng.</p>
-                        <div class="d-flex pb-2">
-                            <div class="text-warning ">
-                                <i class="bi bi-star-fill"></i>
-                            </div>
-                            <div class=" ps-2 count-star">(4.0/5)</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col p-0 service-item border-0 m-2">
-                    <img src="{% static 'image/product_img5.jpg' %}" class="card-img" alt="...">
-                    <div class="card-body px-1">
-                        <h5 class="card-title py-2">Cỏ May</h5>
-                        <p class="card-text text-truncate">Căn hộ tọa lạc ở Phú Quốc, riêng tư, ấm cúng.</p>
-                        <div class="d-flex pb-2">
-                            <div class="text-warning ">
-                                <i class="bi bi-star-fill"></i>
-                            </div>
-                            <div class=" ps-2 count-star">(4.0/5)</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col p-0 service-item border-0 m-2">
-                    <img src="{% static 'image/product_img5.jpg' %}" class="card-img" alt="...">
-                    <div class="card-body px-1">
-                        <h5 class="card-title py-2">Cỏ May</h5>
-                        <p class="card-text text-truncate">Căn hộ tọa lạc ở Phú Quốc, riêng tư, ấm cúng.</p>
-                        <div class="d-flex pb-2">
-                            <div class="text-warning ">
-                                <i class="bi bi-star-fill"></i>
-                            </div>
-                            <div class=" ps-2 count-star">(4.0/5)</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col p-0 service-item border-0 m-2">
-                    <img src="{% static 'image/product_img5.jpg' %}" class="card-img" alt="...">
-                    <div class="card-body px-1">
-                        <h5 class="card-title py-2">Cỏ May</h5>
-                        <p class="card-text text-truncate">Căn hộ tọa lạc ở Phú Quốc, riêng tư, ấm cúng.</p>
-                        <div class="d-flex pb-2">
-                            <div class="text-warning ">
-                                <i class="bi bi-star-fill"></i>
-                            </div>
-                            <div class=" ps-2 count-star">(4.0/5)</div>
-                        </div>
+            <div class="locations mt-4">
+                <div class="h5">Vị trí</div>
+                <div class="group-properties px-3">
+                    <div class="row mb-2">
+                        <button class="select-option col-3 me-2"><i class="fa-solid fa-umbrella-beach pe-2"></i>Bờ biển
+                        </button>
+                        <button class="select-option col-4 me-2"><i class="fa-solid fa-water pe-2"></i>Ven hồ/sông/biển
+                        </button>
+                        <div class="col-5"></div>
                     </div>
                 </div>
             </div>
-            <div id="filter-container"
-                 class="rounded position-absolute p-3 d-none">
-                <div class="d-flex justify-content-end">
-                    <button type="button" class="btn-close header-popup__close-btn"
-                            aria-label="Close"></button>
-                </div>
-                <div class="price-amount">
-                    <div class="h4">Khoảng giá</div>
-                    <hr/>
-                    <div class="h6">Giá theo đêm chưa gồm phí và thuế</div>
-                    <!--Bieu do ket qua-->
-                    <div class="chart-result"></div>
-                    <div class="arrow-interact">
-                        <input class="left-price border-white justify-content-start me-20" placeholder="from..."
-                               style="float: left">
-                        <input class="right-price border-white justify-content-end" placeholder="to..."
-                               style="float: right">
-                    </div>
-                </div>
-                <hr>
-                <div class="convenient-list">
-                    <div class="h5">Tiện nghi</div>
-                    <div class="group-properties  px-3">
-                        <div class="row mb-2">
-                            <button class="select-option col-3 me-2"><i class="fa-solid fa-wifi pe-2"></i>Wifi</button>
-                            <button class="select-option col-3 me-2"><i class="fa-solid fa-kitchen-set pe-2"></i>Bếp</button>
-                            <div class="col-6"></div>
-                        </div>
-                        <div class="row mb-2">
-                            <button class="select-option col-4 me-2"><i class="bi bi-droplet-half pe-2"></i>Máy giặt</button>
-                            <button class="select-option col-4 me-2"><i class="bi bi-wind pe-2"></i>Máy sấy quần áo</button>
-                            <button class="select-option col-3 me-2"><i class="fa-solid fa-tv pe-2"></i>TV</button>
-                        </div>
-                        <div class="row mb-2">
-                            <button class="select-option col-3 me-2"><i class="bi bi-snow3 pe-2"></i>Điều hòa</button>
-                            <button class="select-option col-3 me-2"><i class="bi bi-thermometer-half pe-2"></i>Hệ thống sưởi</button>
-                            <div class="col-6"></div>
-                        </div>
-                        <div class="row mb-2">
-                            <button class="select-option col-5 me-2"><i class="fa-solid fa-desktop pe-2"></i>Không gian làm việc riêng
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="features-list mt-4">
-                    <div class="h5">Đặc điểm</div>
-                    <div class="group-properties px-3">
-                        <div class="row mb-2">
-                            <button class="select-option col-3 me-2"><i class="fa-solid fa-water-ladder pe-2"></i>Bể bơi</button>
-                            <button class="select-option col-4 me-2"><i class="fa-solid fa-hot-tub-person pe-2"></i>Bồn tắm nước nóng
-                            </button>
-                            <div class="col-5"></div>
-                        </div>
-                        <div class="row mb-2">
-                            <button class="select-option col-4 me-2"><i class="fa-solid fa-square-parking pe-2"></i>Chỗ để xe miễn phí
-                            </button>
-                            <button class="select-option col-4 me-2"><i class="fa-solid fa-dumbbell pe-2"></i>Phòng tập thể hình
-                            </button>
-                        </div>
-                        <div class="row mb-2">
-                            <button class="select-option col-4 "><i class="fa-solid fa-smoking pe-2"></i>Cho phép hút thuốc</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="locations mt-4">
-                    <div class="h5">Vị trí</div>
-                    <div class="group-properties  px-3">
-                        <div class="row mb-2">
-                            <button class="select-option col-3 me-2"><i class="fa-solid fa-umbrella-beach pe-2"></i>Bờ biển</button>
-                            <button class="select-option col-4 me-2"><i class="fa-solid fa-water pe-2"></i>Ven hồ/sông/biển
-                            </button>
-                            <div class="col-5"></div>
-                        </div>
-                    </div>
-                </div>
+            <div class="row btn-action mt-4">
+                <div class="col-2 me-5"></div>
+                <button class="remove-filter ms-4 me-2 col-4">Xóa toàn bộ lọc</button>
+                <button class="add-filter ms-2 me-4 col-4">Áp dụng</button>
             </div>
+        </div>
         </div>
     </div>
 {% endblock content %}
