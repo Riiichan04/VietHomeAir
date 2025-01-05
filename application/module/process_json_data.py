@@ -1,6 +1,6 @@
 import csv
 import json
-
+# Sẽ xóa
 with open('../static/data.json', 'r', encoding='utf-8') as file:
     list_data = json.load(file)
 
