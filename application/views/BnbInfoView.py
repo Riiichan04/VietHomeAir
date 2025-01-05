@@ -7,6 +7,7 @@ from django.http import Http404, JsonResponse
 from django.views.generic import TemplateView
 from application.models import BnbInformation
 import application.services.bnb_info_service as bnb_service
+from application.templatetags.bnb_info_filter import user_review_status
 
 
 class BnbInfoView(TemplateView):
@@ -51,17 +52,20 @@ class BnbInfoView(TemplateView):
             return super().get(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
-        # Gọi model AI lên xử lý
-        # Xử lý và trả về result
-        if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-            threading.Thread(
-                target=bnb_service.validate_review,
-                args=({
-                    'rating': request.POST.get('rating'),
-                    'content': request.POST.get('content'),
-                    'accountId': request.POST.get('accountId'),
-                    'bnbId': request.POST.get('bnbId')
-                },)
-            ).start()
-            return JsonResponse({'result': True}, status=200)  # Đã fix
-        return JsonResponse({'result': False}, status=400)
+        try:
+            if (request.headers.get('X-Requested-With') == 'XMLHttpRequest'
+                    and user_review_status(request.session, int(self.kwargs['bnbid']))):
+                threading.Thread(
+                    target=bnb_service.validate_review,
+                    args=({
+                              'rating': request.POST.get('rating'),
+                              'content': request.POST.get('content'),
+                              'accountId': request.POST.get('accountId'),
+                              'bnbId': request.POST.get('bnbId')
+                          },)
+                ).start()
+                return JsonResponse({'result': True}, status=200)
+            else:
+                return JsonResponse({'result': False}, status=400)
+        except (ValueError, KeyError) as e:
+            return JsonResponse({'result': False}, status=400)
