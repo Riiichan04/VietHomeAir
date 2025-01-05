@@ -12,7 +12,10 @@ def get_bnb_display_element(bnb_id):
         'description': bnb.description,  # Xử lý sau
         'thumbnail': bnb.image_set.first().url,
         'owner': bnb.owner.account.fullname,
-        'avg_rating': str(calculate_avg_bnb_rating([review for review in bnb.review_set.all()]))
+        'avg_rating': str(calculate_avg_bnb_rating([review for review in bnb.review_set.all()])),
+        # Tách method sau
+        'price': '{0:,}'.format(bnb.price).replace('.00', '').replace(',', '.'),
+        'location': bnb.location
     }
 
 

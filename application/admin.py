@@ -18,5 +18,6 @@ admin.site.register(bnb_models.Location)
 admin.site.register(bnb_models.Rule)
 admin.site.register(bnb_models.Review)
 admin.site.register(bnb_models.Service)
+admin.site.register(bnb_models.ReviewClassification)
 
 admin.site.register(verification_models.Verification)
