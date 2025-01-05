@@ -9,7 +9,11 @@ def user_login(email, password):
 
 
 
-# def user_register(input_object):
+def user_register(usernmame, email, password, **kwargs):
+    if validate_new_user(usernmame, password):
+        new_user = Account.objects.create(name=usernmame, email=email, password=password, **kwargs)
+        return new_user
+    return None
 
 
 
