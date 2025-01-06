@@ -212,17 +212,15 @@
         let mapControl = L.control.layers(mapLayer).addTo(map);
         //Base Marker
         for (let bnbInfo of getSimilarBnbMapInfo()) {
+            generateMarker(bnbInfo)
+        }
+
+        function generateMarker(bnbInfo) {
             let currentLocationMarker = new L.marker([bnbInfo.lat, bnbInfo.lon], {
-                //Custom marker
-                //icon: L.icon({
-                //    iconUrl: 'https://res.cloudinary.com/dh90ponfw/image/upload/v1736021970/homepin_ptwfke.png',
-                //    iconSize: [75, 75]
-                //})
                 icon: L.divIcon({
                     html: `<div class='price-marker rounded'><p class='text-white m-0 p-1 rounded fw-semibold h6'>${bnbInfo.price}</p></div>`
                 })
             })
-
             const generateCarousel = () => {
                 let result = ` <div class="carousel-item active"><img src="${bnbInfo.thumbnail}" class="d-block w-100" alt="..."></div>`
                 for (let img of bnbInfo.listImage) {
@@ -230,8 +228,7 @@
                 }
                 return result
             }
-            currentLocationMarker.addTo(map)
-                .bindPopup(`
+            currentLocationMarker.addTo(map).bindPopup(`
 <div style="width: 301px; cursor: pointer" onclick="window.location.href='/rooms/${bnbInfo.id}'">
 <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel" style="height: 100%">
   <div class="carousel-inner">
@@ -252,6 +249,50 @@
 <span><i class="fa-solid fa-star main-color"></i>${bnbInfo.avgRating}</span>
 <p class="mt-1 mb-2">Chủ nhà: ${bnbInfo.owner}</p></div>
 </div>
-                `)}
+                `)
+            return currentLocationMarker
+        }
+
+    </script>
+
+    <script>
+        let currentOffset = {{ list_bnb_data|length }}
+
+        $.ajax({
+            url: '/categories/load-bnb',
+            method: 'GET',
+            data: {
+                currentOffset: currentOffset
+            },
+            success: function (response) {
+                if (response.result) {
+                    currentOffset += response.otherBnb.length
+                    response.otherBnb.forEach(bnb => {
+                        $("#category-display").append(`
+                        <div class="p-0 card-item rounded" onclick="window.location.href='/rooms/${bnb.id}'">
+                            <div>
+                                <img class="col-12 rounded"
+                                    src="${bnb.thumbnail}"
+                                    alt="...">
+                            </div>
+                            <div class="p-2">
+                                <h5 class="mb-0 text-truncate ol-12">${bnb.name}</h5>
+                                <div class="mt-1">
+                                    <span style="font-size: 14px">
+                                        <i class="fa-solid fa-star main-color"></i>${bnb.avgRating}/5
+                                    </span>
+                                </div>
+                                <p class="mt-1 mb-2">Chủ nhà: ${bnb.owner}</p>
+                            </div>
+                        </div>
+                        `)
+                        
+                        generateMarker(bnb)
+                    })
+                } else {
+
+                }
+            }
+        })
     </script>
 {% endblock scripts %}
