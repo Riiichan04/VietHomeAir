@@ -2,23 +2,118 @@
 {% load static %}
 
 {% block title %}
-    <title></title>
+    <title>Bnb {{ category_name }} - VietHomeAir</title>
 {% endblock title %}
 
 {% block stylesheet %}
-
+    <link rel="stylesheet" type="text/css" href="{% static 'style/category.css' %}">
+    <link rel="stylesheet" href="{% static 'style/leaflet-osm.css' %}">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+          crossorigin=""/>
 {% endblock stylesheet %}
-
+{% block header_scripts %}
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin=""></script>
+{% endblock header_scripts %}
 {% block content %}
     <section class="container p-4">
         <div class="row">
+            <h5 class="my-2">Đây là các nhà cho thuê thuộc loại {{ category_name }}</h5>
+        </div>
+        <div class="row position-relative">
             {# Hiển thị bnb (infinity loading) #}
-            <div class="col-8">
-                
+            <div class="col-8 row gap-4 justify-content-center" id="category-display">
+                {% for bnb in list_bnb_data %}
+                    <div class="p-0 card-item rounded" onclick="window.location.href='/rooms/{{ bnb.id }}'">
+                        <div>
+                            <img class="col-12 rounded"
+                                 src="{{ bnb.thumbnail }}"
+                                 alt="...">
+                        </div>
+                        <div class="p-2">
+                            <h5 class="mb-0 text-truncate ol-12">{{ bnb.name }}</h5>
+                            <div class="mt-1">
+                            <span style="font-size: 14px"><i
+                                    class="fa-solid fa-star main-color"></i> {{ bnb.avg_rating }}/5</span>
+                            </div>
+                            <p class="mt-1 mb-2">Chủ nhà: {{ bnb.owner }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+                {% for bnb in list_bnb_data %}
+                    <div class="p-0 card-item rounded" onclick="window.location.href='/rooms/{{ bnb.id }}'">
+                        <div>
+                            <img class="col-12 rounded"
+                                 src="{{ bnb.thumbnail }}"
+                                 alt="...">
+                        </div>
+                        <div class="p-2">
+                            <h5 class="mb-0 text-truncate ol-12">{{ bnb.name }}</h5>
+                            <div class="mt-1">
+                            <span style="font-size: 14px"><i
+                                    class="fa-solid fa-star main-color"></i> {{ bnb.avg_rating }}/5</span>
+                            </div>
+                            <p class="mt-1 mb-2">Chủ nhà: {{ bnb.owner }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+                {% for bnb in list_bnb_data %}
+                    <div class="p-0 card-item rounded" onclick="window.location.href='/rooms/{{ bnb.id }}'">
+                        <div>
+                            <img class="col-12 rounded"
+                                 src="{{ bnb.thumbnail }}"
+                                 alt="...">
+                        </div>
+                        <div class="p-2">
+                            <h5 class="mb-0 text-truncate ol-12">{{ bnb.name }}</h5>
+                            <div class="mt-1">
+                            <span style="font-size: 14px"><i
+                                    class="fa-solid fa-star main-color"></i> {{ bnb.avg_rating }}/5</span>
+                            </div>
+                            <p class="mt-1 mb-2">Chủ nhà: {{ bnb.owner }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+                {% for bnb in list_bnb_data %}
+                    <div class="p-0 card-item rounded" onclick="window.location.href='/rooms/{{ bnb.id }}'">
+                        <div>
+                            <img class="col-12 rounded"
+                                 src="{{ bnb.thumbnail }}"
+                                 alt="...">
+                        </div>
+                        <div class="p-2">
+                            <h5 class="mb-0 text-truncate ol-12">{{ bnb.name }}</h5>
+                            <div class="mt-1">
+                            <span style="font-size: 14px"><i
+                                    class="fa-solid fa-star main-color"></i> {{ bnb.avg_rating }}/5</span>
+                            </div>
+                            <p class="mt-1 mb-2">Chủ nhà: {{ bnb.owner }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+                {% for bnb in list_bnb_data %}
+                    <div class="p-0 card-item rounded" onclick="window.location.href='/rooms/{{ bnb.id }}'">
+                        <div>
+                            <img class="col-12 rounded"
+                                 src="{{ bnb.thumbnail }}"
+                                 alt="...">
+                        </div>
+                        <div class="p-2">
+                            <h5 class="mb-0 text-truncate ol-12">{{ bnb.name }}</h5>
+                            <div class="mt-1">
+                            <span style="font-size: 14px"><i
+                                    class="fa-solid fa-star main-color"></i> {{ bnb.avg_rating }}/5</span>
+                            </div>
+                            <p class="mt-1 mb-2">Chủ nhà: {{ bnb.owner }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
             </div>
             {# Bản đồ #}
-            <div class="col-4">
-                
+            <div class="col row">
+                <div class="col" style="height: 100%" id="large-maps-content"></div>
             </div>
         </div>
     </section>
@@ -28,4 +123,63 @@
             integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
             crossorigin="anonymous"></script>
     <script src="{% static 'scripts/home.js' %}"></script>
+
+    <script>
+        const baseLat = 16.472647407029378
+        const baseLon = 107.58346350014108
+
+        function getSimilarBnbMapInfo() {
+            return [
+                {% for bnb in list_bnb_data %}
+                    {
+                        price: '{{ bnb.price }} VNĐ',
+                        lat: parseFloat('{{ bnb.location.lat }}'.replaceAll(',', '.')),
+                        lon: parseFloat('{{ bnb.location.lon }}'.replaceAll(',', '.'))
+                    },
+                {% endfor %}]
+        }
+
+        //const openStreetMapLayer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        //    maxZoom: 20,
+        //    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        //})
+
+        const googleSatelliteLayer = L.tileLayer('https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+            maxZoom: 20,
+            subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
+            attribution: 'Dữ liệu bản đồ ©2025 Google'
+        })
+
+        const googleMapLayer = L.tileLayer('https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
+            maxZoom: 20,
+            subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
+            attribution: 'Dữ liệu bản đồ ©2025 Google'
+
+        })
+
+        const mapLayer = {
+            {#'Bản đồ OpenStreetMap': openStreetMapLayer,#}
+            'Bản đồ': googleMapLayer,
+            'Vệ tinh': googleSatelliteLayer,
+        }
+
+        let map = L.map('large-maps-content', {layers: [googleMapLayer]}).setView([baseLat, baseLon], 6)
+        let mapControl = L.control.layers(mapLayer).addTo(map);
+        //Base Marker
+        for (let bnbInfo of getSimilarBnbMapInfo()) {
+            let currentLocationMarker = new L.marker([bnbInfo.lat, bnbInfo.lon], {
+                //Custom marker
+                //icon: L.icon({
+                //    iconUrl: 'https://res.cloudinary.com/dh90ponfw/image/upload/v1736021970/homepin_ptwfke.png',
+                //    iconSize: [75, 75]
+                //})
+                icon: L.divIcon({
+                    html:`<div class='price-marker rounded'><p class='text-white m-0 p-1 rounded fw-semibold h6'>${bnbInfo.price}</p></div>`
+                })
+                
+            }).addTo(map);
+        }
+
+
+    </script>
 {% endblock scripts %}
