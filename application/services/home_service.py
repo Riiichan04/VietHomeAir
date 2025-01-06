@@ -11,6 +11,7 @@ def get_bnb_display_element(bnb_id):
         'name': bnb.name,
         'description': bnb.description,  # Xử lý sau
         'thumbnail': bnb.image_set.first().url,
+        'list_image': [image.url for image in bnb.image_set.all() if image.url != bnb.image_set.first().url],
         'owner': bnb.owner.account.fullname,
         'avg_rating': str(calculate_avg_bnb_rating([review for review in bnb.review_set.all()])),
         # Tách method sau
