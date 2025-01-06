@@ -167,6 +167,7 @@
             return [
                 {% for bnb in list_bnb_data %}
                     {
+                        id: '{{ bnb.id }}',
                         price: '{{ bnb.price }} VNĐ',
                         lat: parseFloat('{{ bnb.location.lat }}'.replaceAll(',', '.')),
                         lon: parseFloat('{{ bnb.location.lon }}'.replaceAll(',', '.')),
@@ -231,7 +232,7 @@
             }
             currentLocationMarker.addTo(map)
                 .bindPopup(`
-<div style="width: 301px">
+<div style="width: 301px; cursor: pointer" onclick="window.location.href='/rooms/${bnbInfo.id}'">
 <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel" style="height: 100%">
   <div class="carousel-inner">
     ${generateCarousel()}
