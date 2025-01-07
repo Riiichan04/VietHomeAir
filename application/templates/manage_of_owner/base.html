@@ -23,15 +23,15 @@
                                 <div class="row">
                                     <div class="col text-center align-content-center">
                                         <div class="avatar-container">
-                                            <img src="https://via.placeholder.com/100" alt="Avatar">
+                                            <img src="{{owner.avatar}}" alt="Avatar">
                                         </div>
-                                        <p class="text-light m-0 mt-1">Nguyễn Văn A</p>
+                                        <p class="text-light m-0 mt-1">{{owner.username}}</p>
                                     </div>
                                     <div class="col align-content-center">
-                                        <h5 class="m-0">189</h5>
+                                        <h5 class="m-0">{{owner.review_count}}</h5>
                                         <p style="font-size: 14px" class="text-light">Đánh giá</p>
                                         <hr>
-                                        <h5 class="m-0">4.8 ☆</h5>
+                                        <h5 class="m-0">{{ owner.rating|floatformat:2 }} ☆</h5>
                                         <p style="font-size: 14px" class="text-light m-0">Xếp hạng</p>
                                     </div>
                                 </div>
@@ -41,15 +41,15 @@
                         </li>
                         <hr>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" href="/owner-management-dashboard/">
+                            <a class="nav-link text-dark" href="/owner-management/dashboard">
                                 <i class="fas fa-home me-2"></i> Quản lý phòng</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" href="/owner-management-add-bnb/">
+                            <a class="nav-link text-dark" href="#">
                                 <i class="fas fa-plus-circle me-2"></i> Thêm phòng mới</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark pe-0" href="/info-owner/">
+                            <a class="nav-link text-dark pe-0" href="/owner-management/info-owner">
                                 <i class="fa-solid fa-circle-info me-2"></i> Xem thông tin của bạn</a>
                         </li>
                     </ul>
@@ -91,3 +91,4 @@
         });
     </script>
 {% endblock scripts %}
+{% block sidebar_scripts %}{% endblock sidebar_scripts %}
