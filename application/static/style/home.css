@@ -6,6 +6,7 @@
     cursor: pointer;
     /*box-shadow: 1px 1px 3px 2px rgba(0,0,0,0.1);*/
 }
+
 .card-item img {
     height: 70%;
     object-fit: cover;
@@ -28,10 +29,15 @@
     font-size: 1rem;
 }
 
+.category-container .default-btn-style:hover * {
+    color: var(--text-color-hover);
+}
+
+
 #landing-section {
-    box-shadow: 10px 10px 36px 0px rgba(0,0,0,0.75);
-    -webkit-box-shadow: 10px 10px 36px 0px rgba(0,0,0,0.75);
-    -moz-box-shadow: 10px 10px 36px 0px rgba(0,0,0,0.75);
+    box-shadow: 10px 10px 36px 0px rgba(0, 0, 0, 0.75);
+    -webkit-box-shadow: 10px 10px 36px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 10px 10px 36px 0px rgba(0, 0, 0, 0.75);
     margin-bottom: 5rem !important;
 }
 
@@ -48,3 +54,4 @@
     object-fit: cover;
     height: 40rem;
 }
+

@@ -1,13 +1,27 @@
 .card-item {
-    width: calc(100%/3 - 1.5rem);
+    width: calc(100% / 3 - 1.5rem);
     cursor: pointer;
     height: 60%
 }
+
 .card-item img {
     height: 70%;
     object-fit: cover;
     aspect-ratio: 15/ 16;
 }
+
+.landing-logo i {
+    font-size: 100px;
+}
+
+.category-item {
+    font-size: 1rem;
+}
+
+.category-container .default-btn-style:hover * {
+    color: var(--text-color-hover);
+}
+
 
 #category-display {
     overflow-x: hidden;

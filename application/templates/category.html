@@ -20,7 +20,65 @@
 {% endblock header_scripts %}
 {% block content %}
     <section class="container p-4">
+        <div class="row category-container">
+            <div class="default-btn-style category-item col text-center me-3 cursor-pointer"
+                 onclick="window.location.href='/categories/nhatrongthanhpho'">
+                <i class="h4 bi bi-building"></i>
+                <p>Nhà trong thành phố</p>
+            </div>
+            <div class="default-btn-style category-item col text-center me-3 cursor-pointer"
+                 onclick="window.location.href='/categories/nhanho'">
+                <i class="h4 bi bi-house-door"></i>
+                <p>Nhà nhỏ</p>
+            </div>
+            <div class="default-btn-style category-item col text-center me-3 cursor-pointer"
+                 onclick="window.location.href='/categories/bietthu'">
+                <i class="h4 bi bi-buildings"></i>
+                <p>Biệt thự</p>
+            </div>
+            <div class="default-btn-style category-item col text-center me-3 cursor-pointer"
+                 onclick="window.location.href='/categories/huongbien'">
+                <i class="h4 bi bi-tsunami"></i>
+                <p>Hướng biển</p>
+            </div>
+            <div class="default-btn-style category-item col text-center me-3 cursor-pointer"
+                 onclick="window.location.href='/categories/ganbenhvien'">
+                <i class="h4 bi bi-hospital"></i>
+                <p>Gần bệnh viện</p>
+            </div>
+            <div class="default-btn-style category-item col text-center me-3 cursor-pointer"
+                 onclick="window.location.href='/categories/nhatrencaycothu'">
+                <i class="h4 bi bi-tree"></i>
+                <p>Nhà trên cây cổ thụ </p>
+            </div>
+            <div class="default-btn-style category-item col text-center me-3 cursor-pointer"
+                 onclick="window.location.href='/categories/container'">
+                <i class="h4 bi bi-box"></i>
+                <p>Container</p>
+            </div>
+            <div class="default-btn-style category-item col text-center me-3 cursor-pointer"
+                 onclick="window.location.href='/categories/nhagansieuthi'">
+                <i class="h4 bi bi-shop"></i>
+                <p>Nhà gần siêu thị</p>
+            </div>
+            <div class="default-btn-style category-item col text-center me-3 cursor-pointer"
+                 onclick="window.location.href='/categories/nhaganhoboi'">
+                <i class="h4 bi bi-water"></i>
+                <p>Nhà gần hồ bơi</p>
+            </div>
+            <div class="default-btn-style category-item col text-center me-3 cursor-pointer"
+                 onclick="window.location.href='/categories/mienque'">
+                <i class="fa-solid fa-wheat-awn"></i>
+                <p>Miền quê</p>
+            </div>
+            <div class="default-btn-style category-item col text-center me-3 cursor-pointer"
+                 onclick="window.location.href='/categories/huongranuihoacthunglung'">
+                <i class="fa-solid fa-mountain-sun"></i>
+                <p>Hướng ra núi hoặc thung lũng</p>
+            </div>
+        </div>
         <div class="row">
+            <hr/>
             <h5 class="my-2">Đây là các nhà cho thuê thuộc loại {{ category_name }}</h5>
         </div>
         <div class="row position-relative">
@@ -43,102 +101,7 @@
                         </div>
                     </div>
                 {% endfor %}
-                {#                <div class="card">#}
-                {#                    <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">#}
-                {#                        <div class="carousel-inner">#}
-                {#                            <div class="carousel-item active">#}
-                {#                                <img src="" class="d-block w-100" alt="...">#}
-                {#                            </div>#}
-                {#                            <div class="carousel-item">#}
-                {#                                <img src="" class="d-block w-100" alt="...">#}
-                {#                            </div>#}
-                {#                            <div class="carousel-item">#}
-                {#                                <img src="" class="d-block w-100" alt="...">#}
-                {#                            </div>#}
-                {#                        </div>#}
-                {#                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"#}
-                {#                                data-bs-slide="prev">#}
-                {#                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>#}
-                {#                            <span class="visually-hidden">Previous</span>#}
-                {#                        </button>#}
-                {#                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying"#}
-                {#                                data-bs-slide="next">#}
-                {#                            <span class="carousel-control-next-icon" aria-hidden="true"></span>#}
-                {#                            <span class="visually-hidden">Next</span>#}
-                {#                        </button>#}
-                {#                    </div>#}
-                {#                </div>#}
             </div>
-            {#                {% for bnb in list_bnb_data %}#}
-            {#                    <div class="p-0 card-item rounded" onclick="window.location.href='/rooms/{{ bnb.id }}'">#}
-            {#                        <div>#}
-            {#                            <img class="col-12 rounded"#}
-            {#                                 src="{{ bnb.thumbnail }}"#}
-            {#                                 alt="...">#}
-            {#                        </div>#}
-            {#                        <div class="p-2">#}
-            {#                            <h5 class="mb-0 text-truncate ol-12">{{ bnb.name }}</h5>#}
-            {#                            <div class="mt-1">#}
-            {#                            <span style="font-size: 14px"><i#}
-            {#                                    class="fa-solid fa-star main-color"></i> {{ bnb.avg_rating }}/5</span>#}
-            {#                            </div>#}
-            {#                            <p class="mt-1 mb-2">Chủ nhà: {{ bnb.owner }}</p>#}
-            {#                        </div>#}
-            {#                    </div>#}
-            {#                {% endfor %}#}
-            {#                {% for bnb in list_bnb_data %}#}
-            {#                    <div class="p-0 card-item rounded" onclick="window.location.href='/rooms/{{ bnb.id }}'">#}
-            {#                        <div>#}
-            {#                            <img class="col-12 rounded"#}
-            {#                                 src="{{ bnb.thumbnail }}"#}
-            {#                                 alt="...">#}
-            {#                        </div>#}
-            {#                        <div class="p-2">#}
-            {#                            <h5 class="mb-0 text-truncate ol-12">{{ bnb.name }}</h5>#}
-            {#                            <div class="mt-1">#}
-            {#                            <span style="font-size: 14px"><i#}
-            {#                                    class="fa-solid fa-star main-color"></i> {{ bnb.avg_rating }}/5</span>#}
-            {#                            </div>#}
-            {#                            <p class="mt-1 mb-2">Chủ nhà: {{ bnb.owner }}</p>#}
-            {#                        </div>#}
-            {#                    </div>#}
-            {#                {% endfor %}#}
-            {#                {% for bnb in list_bnb_data %}#}
-            {#                    <div class="p-0 card-item rounded" onclick="window.location.href='/rooms/{{ bnb.id }}'">#}
-            {#                        <div>#}
-            {#                            <img class="col-12 rounded"#}
-            {#                                 src="{{ bnb.thumbnail }}"#}
-            {#                                 alt="...">#}
-            {#                        </div>#}
-            {#                        <div class="p-2">#}
-            {#                            <h5 class="mb-0 text-truncate ol-12">{{ bnb.name }}</h5>#}
-            {#                            <div class="mt-1">#}
-            {#                            <span style="font-size: 14px"><i#}
-            {#                                    class="fa-solid fa-star main-color"></i> {{ bnb.avg_rating }}/5</span>#}
-            {#                            </div>#}
-            {#                            <p class="mt-1 mb-2">Chủ nhà: {{ bnb.owner }}</p>#}
-            {#                        </div>#}
-            {#                    </div>#}
-            {#                {% endfor %}#}
-            {#                {% for bnb in list_bnb_data %}#}
-            {#                    <div class="p-0 card-item rounded" onclick="window.location.href='/rooms/{{ bnb.id }}'">#}
-            {#                        <div>#}
-            {#                            <img class="col-12 rounded"#}
-            {#                                 src="{{ bnb.thumbnail }}"#}
-            {#                                 alt="...">#}
-            {#                        </div>#}
-            {#                        <div class="p-2">#}
-            {#                            <h5 class="mb-0 text-truncate ol-12">{{ bnb.name }}</h5>#}
-            {#                            <div class="mt-1">#}
-            {#                            <span style="font-size: 14px"><i#}
-            {#                                    class="fa-solid fa-star main-color"></i> {{ bnb.avg_rating }}/5</span>#}
-            {#                            </div>#}
-            {#                            <p class="mt-1 mb-2">Chủ nhà: {{ bnb.owner }}</p>#}
-            {#                        </div>#}
-            {#                    </div>#}
-            {#                {% endfor %}#}
-            {#            </div>#}
-            {# Bản đồ #}
             <div class="col-4 row">
                 <div class="col" style="height: 100%" id="large-maps-content"></div>
             </div>
@@ -222,15 +185,15 @@
                 })
             })
             const generateCarousel = () => {
-                let result = ` <div class="carousel-item active"><img src="${bnbInfo.thumbnail}" class="d-block w-100" alt="..."></div>`
+                let result = ` <div class="carousel-item active"><img style="width: 100%; height: 225.75px; object-fit: cover" src="${bnbInfo.thumbnail}" class="d-block w-100" alt="..."></div>`
                 for (let img of bnbInfo.listImage) {
-                    result += `<div class="carousel-item"><img src="${img}" class="d-block w-100" alt="..."></div>`
+                    result += `<div class="carousel-item"><img src="${img}" style="width: 100%; height: 225.75px; object-fit: cover" class="d-block w-100" alt="..."></div>`
                 }
                 return result
             }
             currentLocationMarker.addTo(map).bindPopup(`
-<div style="width: 301px; cursor: pointer" onclick="window.location.href='/rooms/${bnbInfo.id}'">
-<div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel" style="height: 100%">
+<div style="width: 301px; cursor: pointer">
+<div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel" style="height: 225.75px">
   <div class="carousel-inner">
     ${generateCarousel()}
   </div>
@@ -244,7 +207,7 @@
   </button>
 </div>
 
-<div class='p-2 mt-2 marker-popup-content'>
+<div class='p-2 mt-2 marker-popup-content' onclick="window.location.href='/rooms/${bnbInfo.id}'">
 <h5>${bnbInfo.name}</h5>
 <span><i class="fa-solid fa-star main-color"></i>${bnbInfo.avgRating}</span>
 <p class="mt-1 mb-2">Chủ nhà: ${bnbInfo.owner}</p></div>
@@ -257,18 +220,24 @@
 
     <script>
         let currentOffset = {{ list_bnb_data|length }}
-
-        $.ajax({
-            url: '/categories/load-bnb',
-            method: 'GET',
-            data: {
-                currentOffset: currentOffset
-            },
-            success: function (response) {
-                if (response.result) {
-                    currentOffset += response.otherBnb.length
-                    response.otherBnb.forEach(bnb => {
-                        $("#category-display").append(`
+    
+        $("#category-display").on('scroll', function () {
+            const container = $(this)
+            if (currentOffset === 'MAX') return
+            // Kiểm tra nếu cuộn gần đến cuối vùng
+            if (container.scrollTop() + container.innerHeight() >= container[0].scrollHeight - 50) {
+                $.ajax({
+                    url: '{{ request.path }}',
+                    method: 'GET',
+                    data: {
+                        currentOffset: currentOffset
+                    },
+                    success: function (response) {
+                        if (response.result) {
+                            currentOffset += response.otherBnb != null ? response.otherBnb.length : 0
+                            $.each(response.otherBnb, function (index, bnb) {
+                                    generateMarker(bnb)
+                                    $("#category-display").append(`
                         <div class="p-0 card-item rounded" onclick="window.location.href='/rooms/${bnb.id}'">
                             <div>
                                 <img class="col-12 rounded"
@@ -286,13 +255,19 @@
                             </div>
                         </div>
                         `)
-                        
-                        generateMarker(bnb)
-                    })
-                } else {
-
-                }
+                                }
+                            )
+                        } else if (response.otherBnb.length === 0) {
+                            currentOffset = "MAX"
+                            $("#category-display").off('scroll')
+                        }
+                    },
+                    error: function (response) {
+                    }
+                })
             }
         })
+
+
     </script>
 {% endblock scripts %}
