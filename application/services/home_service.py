@@ -22,6 +22,7 @@ def get_bnb_display_element(bnb_id):
 
 # Tính toán rating trung bình của bnb
 def calculate_avg_bnb_rating(bnb_reviews):
+    if len(bnb_reviews) == 0: return 0
     return round(sum(map(lambda x: x.rating, bnb_reviews)) / len(bnb_reviews), 2)
 
 
