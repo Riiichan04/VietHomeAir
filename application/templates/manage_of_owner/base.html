@@ -14,7 +14,7 @@
     <div class="container">
         <div class="row">
             <!-- Sidebar -->
-            <nav class="col-md-3 col-lg-2 d-md-block text-dark sidebar p-0">
+            <nav class="col-2 d-md-block text-dark sidebar p-0">
                 <div class="position-sticky">
                     <ul class="nav flex-column">
                         <li class="nav-item info-owner">
@@ -23,15 +23,15 @@
                                 <div class="row">
                                     <div class="col text-center align-content-center">
                                         <div class="avatar-container">
-                                            <img src="{{owner.avatar}}" alt="Avatar">
+                                            <img src="{{ owner.avatar }}" alt="Avatar">
                                         </div>
-                                        <p class="text-light m-0 mt-1">{{owner.username}}</p>
+                                        <p class="text-light m-0 mt-1">{{ owner.username }}</p>
                                     </div>
                                     <div class="col align-content-center">
-                                        <h5 class="m-0">{{owner.review_count}}</h5>
+                                        <h5 class="m-0">{{ owner.review_count }}</h5>
                                         <p style="font-size: 14px" class="text-light">Đánh giá</p>
                                         <hr>
-                                        <h5 class="m-0">{{ owner.rating|floatformat:2 }} ☆</h5>
+                                        <h5 class="m-0">{{ owner.rating }} ☆</h5>
                                         <p style="font-size: 14px" class="text-light m-0">Xếp hạng</p>
                                     </div>
                                 </div>
@@ -54,9 +54,10 @@
                         </li>
                     </ul>
                 </div>
+                {% block verify_info %}{% endblock verify_info %}
             </nav>
             <!-- Main Content -->
-            <main class="col-9 ms-sm-auto col-10 ps-5">
+            <main class="col-10 ps-5">
                 {% block sidebar_content %}
                     <!-- Nội dung cụ thể từng trang -->
                 {% endblock sidebar_content %}

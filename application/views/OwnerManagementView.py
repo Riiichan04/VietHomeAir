@@ -1,12 +1,11 @@
 from cloudinary.uploader import upload
 from django.http.response import Http404, JsonResponse
 from django.views.generic import TemplateView
-
-from application.models import bnb, BnbInformation
 from application.models.bnb import Image, Category, Service, Rule
 from application.services.owner_management_service import (get_info_owner, get_list_info_bnb,
                                                            get_bnb_by_id, get_list_category,
-                                                           get_list_service, get_list_rule, get_bnb)
+                                                           get_list_service, get_list_rule,
+                                                           get_bnb, get_owner_reviews, get_list_info_bnb_avg_rating)
 
 class OwnerManagementView(TemplateView):
     template_name = 'manage_of_owner/base.html'
@@ -37,6 +36,8 @@ class OwnerManagementView(TemplateView):
         context['categories'] = get_list_category()
         context['services'] = get_list_service()
         context['rules'] = get_list_rule()
+        context['owner_reviews'] = get_owner_reviews(owner.get("id"))
+        context['list_bnb_avg'] = get_list_info_bnb_avg_rating(owner.get("id"))
         return context
 
     def get_info_owner_data(self, userid):
@@ -46,7 +47,6 @@ class OwnerManagementView(TemplateView):
             raise Http404("Eooooo, tìm nhầm chỗ rồi.")  # Không tìm thấy chủ nhà
         list_bnb = get_list_info_bnb(owner.get("id"))
         return owner, list_bnb
-
 
 class UpdateBnBView(TemplateView):
     template_name = "manage_of_owner/form-bnb.html"
@@ -124,3 +124,4 @@ class UpdateBnBView(TemplateView):
             return JsonResponse({'success': True})
         except Exception as e:
             return JsonResponse({'success': False, 'error': str(e)})
+

@@ -67,7 +67,7 @@ urlpatterns = [
          OwnerManagementView.as_view(template_name='manage_of_owner/owner-management-dashboard.html'),
          name='owner-management-dashboard'),
     path('owner-management/info-owner',
-         InfoOwnerBnBView.as_view(template_name='info-owner-bnb.html'),
+         OwnerManagementView.as_view(template_name='manage_of_owner/info-owner-bnb.html'),
          name='owner-management-info-owner'),
     path('owner-management/edit-bnb/id=<int:bnbid>',
          OwnerManagementView.as_view(template_name='manage_of_owner/form-bnb.html'),

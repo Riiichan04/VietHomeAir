@@ -1,0 +1,121 @@
+{% extends 'manage_of_owner/base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Trang thông tin chủ nhà - VietHomeAir</title>
+{% endblock title %}
+{% block stylesheet %}
+    <link rel="stylesheet" type="text/css" href="{% static 'style/home.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'style/owner-management.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'style/bnb-information.css' %}">
+    <style>
+        .text-info-owner {
+            font-size: 18px;
+        }
+
+        .cmt-container {
+            background-color: rgb(248, 249, 250);
+            border-radius: 10px;
+        }
+
+        .cmt-avt-container {
+            width: 50px;
+            height: 50px;
+        }
+
+        .cmt-avt-container > img {
+            object-fit: cover;
+            border-radius: 60px;
+            width: 100%;
+            height: 100%;
+        }
+
+        .style-date {
+            font-size: 14px;
+            color: darkgray;
+        }
+    </style>
+{% endblock stylesheet %}
+
+{% block verify_info %}
+    <hr>
+    <div class="p-0">
+        {% if owner.is_verified == True %}
+            <h5 class="title-verify-owner pb-3">Thông tin đã xác thực của chủ nhà</h5>
+            <p class="text-verify-owner"><i class="fa-solid fa-check me-2"></i> Danh tính</p>
+            <p><i class="fa-solid fa-check me-2"></i> Địa chỉ email</p>
+            <p><i class="fa-solid fa-check me-2"></i> Số điện thoại</p>
+        {% endif %}
+        {% if owner.is_verified == False %}
+            <h5 class="title-verify-owner pb-3">Thông tin của chủ nhà chưa xác thực</h5>
+            <p class="text-verify-owner"><i class="fa-solid fa-x me-2"></i> Danh tính</p>
+            <p><i class="fa-solid fa-x me-2"></i> Địa chỉ email</p>
+            <p><i class="fa-solid fa-x me-2"></i> Số điện thoại</p>
+        {% endif %}
+    </div>
+{% endblock verify_info %}
+{% block sidebar_content %}
+    <h3 class="mb-4" style="color: var(--main-cta-color)">Thông tin về Chủ nhà</h3>
+    <div class="row bg-light p-3 rounded mb-3">
+        <div class="col text-info-owner text-center"><i class="fa-solid fa-user me-2"></i> {{ owner.fullname }}
+        </div>
+        <div class="col text-info-owner text-center"><i class="fa-solid fa-envelope me-2"></i>
+            {{ owner.email }}
+        </div>
+        <div class="col text-info-owner text-center"><i class="fa-solid fa-phone me-2"></i> {{ owner.phone }}
+        </div>
+    </div>
+    <div class="mb-4" id="description">{{ owner.description | safe }}</div>
+    <hr>
+    <h3 class="mb-4" style="color: var(--main-cta-color)">Đánh giá về Chủ nhà</h3>
+    <div class="row">
+        {% for review in owner_reviews %}
+            <div class="col-6 px-2 mb-3">
+                <div class="cmt-container p-3">
+                    <p>"...{{ review.content }}..."</p>
+                    <div class="row mt-4">
+                        <div class="col-2 ps-4">
+                            <div class="cmt-avt-container">
+                                <img src="{{ review.account.avatar }}">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <p class="mb-1">{{ review.account.fullname }}</p>
+                            <p class="style-date m-0">{{ review.created_at.day }}/{{ review.created_at.month }}/{{ review.created_at.year }}</p>
+                        </div>
+                        <div class="col-2 text-end">
+                            <div class="pe-2"><span style="font-size: 14px"><i
+                                    class="fa-solid fa-star main-color"></i> {{ review.rating }}/5</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <hr>
+    <h3 class="mb-4" style="color: var(--main-cta-color)">Các BnB của Chủ nhà</h3>
+    <div class="row gap-4">
+        {% for bnb in list_bnb_avg %}
+            <div class="p-0 card-item rounded" onclick="window.location.href = '/rooms/{{ bnb.id }}';">
+                <div>
+                    <img class="col-12 rounded"
+                         src="{{ bnb.url }}"
+                         alt="...">
+                </div>
+                <div class="p-2">
+                    <h5 class="mb-0">{{ bnb.name }}</h5>
+                    <div class="mt-1">
+                        <span style="font-size: 14px"><i class="fa-solid fa-star main-color"></i> {{ bnb.avg_rating }}/5</span>
+                    </div>
+                    <p class="mt-3 mb-2">Chủ nhà: {{ bnb.owner_name }}</p>
+                    <p style="font-size: 14px" class=" ol-12 card-text__description text-truncate">
+                        {{ bnb.description | safe }}
+                    </p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock sidebar_content %}
+
+{% block scripts %}
+{% endblock scripts %}
