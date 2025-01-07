@@ -3,3 +3,21 @@
     height: 500px;
     position: relative;
 }
+
+.price-marker {
+    background-color: var(--web-background-color);
+    width: max-content;
+    padding: 1%;
+    box-shadow: 3px 3px 10px 0px rgba(0, 0, 0, 0.75);
+    -webkit-box-shadow: 3px 3px 10px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 3px 3px 10px 0px rgba(0, 0, 0, 0.75);
+}
+
+.price-marker *  {
+    color: var(--text-color) !important;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+.marker-popup-content * {
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
