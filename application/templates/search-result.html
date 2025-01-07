@@ -142,10 +142,12 @@
                         </div>
                         <div class="p-2">
                             <h5 class="mb-0 text-truncate ol-12">{{ bnb.name }}</h5>
+                            <p class="mb-0 text-truncate ol-12">{{ bnb.description }}</p>
                             <div class="mt-1">
                             <span style="font-size: 14px"><i
                                     class="fa-solid fa-star main-color"></i> {{ bnb.avg_rating }}/5</span>
                             </div>
+                            <p class="mt-1 mb-2">Chủ nhà: {{ bnb.owner }}</p>
                         </div>
                     </div>
                 {% endfor %}
