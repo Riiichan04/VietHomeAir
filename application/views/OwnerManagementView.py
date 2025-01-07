@@ -63,7 +63,6 @@ class UpdateBnBView(TemplateView):
         rule_id = request.POST.getlist('rule-id', [])
         description = request.POST.get('description', '')
         bnbid = request.POST.get('bnbid', -1)
-        print("d,s", add_img)
 
         try:
             # Cập nhật thông tin BnB

@@ -72,6 +72,7 @@ urlpatterns = [
     path('owner-management/edit-bnb/id=<int:bnbid>',
          OwnerManagementView.as_view(template_name='manage_of_owner/form-bnb.html'),
          name='owner-management-edit-bnb'),
+    path('info-owner/<int:ownerid>', InfoOwnerBnBView.as_view(), name='info-owner' ),
 
     # Các URL dưới đây chỉ được dùng cho POST AJAX
     path('owner-management/edit-bnb/update-bnb', UpdateBnBView.as_view(), name='owner-management-update-bnb'),

@@ -192,28 +192,6 @@
             var csrftoken = $('input[name="csrfmiddlewaretoken"]').val();
 
             const bnbId = {{bnb.id}}
-            // Lấy tất cả các input file có name="add-image"
-            const inputs = document.querySelectorAll('input[name="add-image"]');
-
-            // Duyệt qua tất cả các input file và lấy URL của file đã chọn
-            inputs.forEach(input => {
-                input.addEventListener('change', function () {
-                    // Kiểm tra xem người dùng đã chọn file chưa
-                    if (input.files && input.files[0]) {
-                        // Lấy file đầu tiên từ input
-                        const file = input.files[0];
-
-                        // Tạo URL tạm thời cho file
-                        const fileUrl = URL.createObjectURL(file);
-
-                        // Cập nhật giá trị của input thành URL tạm thời của file
-                        input.value = fileUrl;
-
-                        console.log("URL của file: ", fileUrl);
-                    }
-                });
-            });
-            console.log()
             var formData = new FormData(this);  // tạo dữ liệu form
             formData.append('bnbid', bnbId);  // Thêm bnbid vào chuỗi query string
             $.ajax({
@@ -230,7 +208,7 @@
                         alert('Cập nhật BnB thành công!');
                         window.location.href = '/owner-management/dashboard';
                     } else {
-                        alert('Update failed: ' + response.error);
+                        alert('Lỗi: ' + response.error);
                     }
                 },
                 error: function (xhr, status, error) {

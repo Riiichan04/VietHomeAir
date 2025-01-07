@@ -15,7 +15,7 @@ def get_info_owner(user_id):
     review_count = OwnerReview.objects.filter(owner=owner).count()
     # Filter reviews for the specific owner and compute the average rating
     avg_rating = OwnerReview.objects.filter(owner=owner).aggregate(Avg('rating'))
-    avg_rating = '' if avg_rating is None else round(avg_rating['rating__avg'], 2)
+    avg_rating = '' if avg_rating['rating__avg'] is None else round(avg_rating['rating__avg'], 2)
     return {
         'id': owner.id,
         'username': owner.account.username,
