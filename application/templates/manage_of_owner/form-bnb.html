@@ -63,9 +63,9 @@
             {% for category in bnb.categories %}
                 <div class="row mb-2">
                     <div class="col-2 text-end align-content-center">Danh mục</div>
-                    <div class="col"><select class="form-control" name="category" required>
+                    <div class="col"><select name="category-id" class="form-control" name="category" required>
                         {% for c in categories %}
-                            <option name="category-id" value="{{ c.id }}"
+                            <option value="{{ c.id }}"
                                     {% if category.id == c.id %}selected{% endif %}>{{ c.name }}</option>
                         {% endfor %}
                     </select></div>
@@ -83,9 +83,9 @@
             {% for service in bnb.services %}
                 <div class="row mb-2">
                     <div class="col-2 text-end align-content-center">Tiện ích</div>
-                    <div class="col"><select class="form-control" name="service" required>
+                    <div class="col"><select name="service-id" class="form-control" name="service" required>
                         {% for s in services %}
-                            <option name="service-id" value="{{ s.id }}"
+                            <option value="{{ s.id }}"
                                     {% if service.id == s.id %}selected{% endif %}>{{ s.name }}</option>
                         {% endfor %}
                     </select></div>
@@ -103,9 +103,9 @@
             {% for rule in bnb.rules %}
                 <div class="row mb-2">
                     <div class="col-2 text-end align-content-center">Quy tắc</div>
-                    <div class="col"><select class="form-control" name="rule" required>
+                    <div class="col"><select name="rule-id" class="form-control" name="rule" required>
                         {% for r in rules %}
-                            <option name="rule-id" value="{{ r.id }}"
+                            <option value="{{ r.id }}"
                                     {% if rule.id == r.id %}selected{% endif %}>{{ r.title }}</option>
                         {% endfor %}
                     </select></div>
@@ -136,9 +136,9 @@
             newRow.className = "row mb-2";
             newRow.innerHTML = `
                     <div class="col-2 text-end align-content-center">Danh mục</div>
-                    <div class="col"><select class="form-control" name="category" required>
+                    <div class="col"><select name="category-id" class="form-control" name="category" required>
                         {% for c in categories %}
-                            <option name="category-id" value="{{ c.id }}">{{ c.name }}</option>
+                            <option value="{{ c.id }}">{{ c.name }}</option>
                         {% endfor %}
                     </select></div>
                     <div class="col-1">
@@ -153,9 +153,9 @@
             newRow.className = "row mb-2";
             newRow.innerHTML = `
                     <div class="col-2 text-end align-content-center">Tiện ích</div>
-                    <div class="col"><select class="form-control" name="service" required>
+                    <div class="col"><select name="service-id" class="form-control" name="service" required>
                         {% for s in services %}
-                            <option name="service-id" value="{{ s.id }}"
+                            <option value="{{ s.id }}"
                                     {% if service.id == s.id %}selected{% endif %}>{{ s.name }}</option>
                         {% endfor %}
                     </select></div>
@@ -170,9 +170,9 @@
             newRow.className = "row mb-2";
             newRow.innerHTML = `
                     <div class="col-2 text-end align-content-center">Quy tắc</div>
-                    <div class="col"><select class="form-control" name="rule" required>
+                    <div class="col"><select name="rule-id" class="form-control" name="rule" required>
                         {% for r in rules %}
-                            <option name="rule-id" value="{{ r.id }}"
+                            <option value="{{ r.id }}"
                                     {% if rule.id == r.id %}selected{% endif %}>{{ r.title }}</option>
                         {% endfor %}
                     </select></div>
@@ -190,13 +190,38 @@
         $('#edit-room-form').on('submit', function (event) {
             event.preventDefault();
             var csrftoken = $('input[name="csrfmiddlewaretoken"]').val();
+
             const bnbId = {{bnb.id}}
-            var formData = $(this).serialize();  // Serialize dữ liệu form
-            formData += '&bnbid=' + encodeURIComponent(bnbId);  // Thêm bnbid vào chuỗi query string
+            // Lấy tất cả các input file có name="add-image"
+            const inputs = document.querySelectorAll('input[name="add-image"]');
+
+            // Duyệt qua tất cả các input file và lấy URL của file đã chọn
+            inputs.forEach(input => {
+                input.addEventListener('change', function () {
+                    // Kiểm tra xem người dùng đã chọn file chưa
+                    if (input.files && input.files[0]) {
+                        // Lấy file đầu tiên từ input
+                        const file = input.files[0];
+
+                        // Tạo URL tạm thời cho file
+                        const fileUrl = URL.createObjectURL(file);
+
+                        // Cập nhật giá trị của input thành URL tạm thời của file
+                        input.value = fileUrl;
+
+                        console.log("URL của file: ", fileUrl);
+                    }
+                });
+            });
+            console.log()
+            var formData = new FormData(this);  // tạo dữ liệu form
+            formData.append('bnbid', bnbId);  // Thêm bnbid vào chuỗi query string
             $.ajax({
                 url: 'update-bnb',
                 type: 'POST', // Gửi yêu cầu POST
                 data: formData, // Dữ liệu từ form
+                contentType: false, // Đảm bảo không set content-type
+                processData: false, // Đảm bảo jQuery không xử lý dữ liệu
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader("X-CSRFToken", csrftoken);
                 },
