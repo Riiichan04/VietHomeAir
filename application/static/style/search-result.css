@@ -7,6 +7,17 @@ button{
 .h1,.h2,.h3,.h4,.h5{
     color: var(--logo-icon-color);
 }
+#overlay{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Màu nền tối */
+    opacity: 0.75; /* Ẩn lớp overlay mặc định */
+    visibility: hidden;
+    transition: opacity 0.5s ease; /* Hiệu ứng chuyển đổi mượt */
+}
 #filter{
     width: 80%;
     height: 50px;
@@ -80,6 +91,7 @@ button{
     border-radius: 50%;
     height: 50%;
     width: 50px;
+    background-color: var(--web-background-color);
     color:var(--text-color-hover);
 }
 .categories i,.categories p{
