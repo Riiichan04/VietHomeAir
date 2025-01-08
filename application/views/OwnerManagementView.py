@@ -5,7 +5,8 @@ from application.models.bnb import Image, Category, Service, Rule
 from application.services.owner_management_service import (get_info_owner, get_list_info_bnb,
                                                            get_bnb_by_id, get_list_category,
                                                            get_list_service, get_list_rule,
-                                                           get_bnb, get_owner_reviews, get_list_info_bnb_avg_rating)
+                                                           get_bnb, get_bnb_reviews, get_list_info_bnb_avg_rating,
+                                                           )
 
 class OwnerManagementView(TemplateView):
     template_name = 'manage_of_owner/base.html'
@@ -36,7 +37,7 @@ class OwnerManagementView(TemplateView):
         context['categories'] = get_list_category()
         context['services'] = get_list_service()
         context['rules'] = get_list_rule()
-        context['owner_reviews'] = get_owner_reviews(owner.get("id"))
+        context['bnb_reviews'] = get_bnb_reviews(owner.get("id"))
         context['list_bnb_avg'] = get_list_info_bnb_avg_rating(owner.get("id"))
         return context
 

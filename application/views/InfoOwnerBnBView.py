@@ -1,6 +1,6 @@
 from django.http import Http404
 from django.views.generic import TemplateView
-from application.services.info_owner_service import (get_info_owner, get_owner_reviews, get_list_info_bnb_avg_rating)
+from application.services.info_owner_service import (get_info_owner, get_bnb_reviews, get_list_info_bnb_avg_rating)
 
 class InfoOwnerBnBView(TemplateView):
     template_name = "application/templates/info-owner-bnb.html"
@@ -16,7 +16,7 @@ class InfoOwnerBnBView(TemplateView):
             raise Http404("Eooooo, tìm nhầm chỗ rồi.")
         context['owner'] = owner  # Đưa dữ liệu vào context
         context['list_bnb_avg'] = get_list_info_bnb_avg_rating(owner.get("id"))
-        context['owner_reviews'] = get_owner_reviews(owner.get("id"))
+        context['bnb_reviews'] = get_bnb_reviews(owner.get("id"))
         return context
 
     def get_info_owner_data(self, userid):

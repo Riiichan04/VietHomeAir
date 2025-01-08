@@ -10,9 +10,9 @@ def get_info_owner(owner_id):
     if owner is None:
         return None
     # Đếm số lượng đánh giá
-    review_count = OwnerReview.objects.filter(owner=owner).count()
+    review_count = get_bnb_reviews(owner.id).count()
     # Filter reviews for the specific owner and compute the average rating
-    avg_rating = OwnerReview.objects.filter(owner=owner).aggregate(Avg('rating'))
+    avg_rating = get_bnb_reviews(owner.id).aggregate(Avg('rating'))
     avg_rating = '' if avg_rating['rating__avg'] is None else round(avg_rating['rating__avg'], 2)
     return {
         'id': owner.id,
@@ -26,6 +26,9 @@ def get_info_owner(owner_id):
         'description': owner.account.description,
         'is_verified': owner.account.is_verified,
     }
+
+def get_bnb_reviews(owner_id):
+    return Review.objects.filter(bnb__owner__id=owner_id)
 
 # lấy thông tin bnb của chủ nhà
 def get_list_info_bnb_avg_rating(owner_id):
@@ -48,8 +51,3 @@ def get_avg_rating_bnb(bnb_id):
     avg_rating = Review.objects.select_related('bnb').filter(bnb__id=bnb_id).aggregate(Avg('rating'))
     avg_rating = '' if avg_rating is None else round(avg_rating['rating__avg'], 2)
     return avg_rating
-
-def get_owner_reviews(owner_id):
-    owner_reviews = OwnerReview.objects.select_related('owner').filter(owner__id=owner_id).all()
-    if not owner_reviews: return []
-    return owner_reviews

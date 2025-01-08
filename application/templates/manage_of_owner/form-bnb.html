@@ -16,7 +16,7 @@
     <form id="edit-room-form" class="row g-3" enctype="multipart/form-data" method="post">
         {% csrf_token %}
         <div class="col-12">
-            <label for="img-room" class="form-label">Hình ảnh: (Tick chọn để xóa)</label>
+            <label for="img-room" class="form-label">Xoá hình ảnh</label>
             <div class="row">
                 {% for img in bnb.images %}
                     <div class="col-5">
@@ -30,26 +30,26 @@
             </div>
         </div>
         <div class="col-12">
-            <label for="img-room" class="form-label">Thêm hình ảnh:</label>
+            <label for="img-room" class="form-label">Thêm hình ảnh</label>
             <input type="file" id="img-room" accept="image/*" name="add-image" class="form-control" multiple>
         </div>
         <div class="col-6">
-            <label for="roomName" class="form-label">Tên phòng:</label>
+            <label for="roomName" class="form-label">Tên phòng</label>
             <input type="text" id="roomName" name="name" class="form-control" value="{{ bnb.name }}" required>
         </div>
         <div class="col-6">
-            <label for="roomAddress" class="form-label">Địa chỉ:</label>
+            <label for="roomAddress" class="form-label">Địa chỉ</label>
             <input type="text" id="roomAddress" class="form-control" value="{{ bnb.location.name }}"
                    disabled required>
         </div>
         <div class="col-6">
-            <label for="roomPrice" class="form-label">Giá (VNĐ/đêm):</label>
+            <label for="roomPrice" class="form-label">Giá (VNĐ/đêm)</label>
             <input type="number" id="roomPrice" min="0" name="price" class="form-control"
                    value="{{ bnb.prices|floatformat }}"
                    required>
         </div>
         <div class="col-6">
-            <label for="capacity" class="form-label">Sức chứa:</label>
+            <label for="capacity" class="form-label">Sức chứa</label>
             <input type="number" id="capacity" min="1" name="capacity" class="form-control" value="{{ bnb.capacity }}"
                    required>
         </div>
@@ -106,7 +106,7 @@
                     <div class="col"><select name="rule-id" class="form-control" name="rule" required>
                         {% for r in rules %}
                             <option value="{{ r.id }}"
-                                    {% if rule.id == r.id %}selected{% endif %}>{{ r.title }}</option>
+                                    {% if rule.id == r.id %}selected{% endif %}>{{ r.description }}</option>
                         {% endfor %}
                     </select></div>
                     <div class="col-1">
@@ -117,7 +117,7 @@
         </div>
 
         <div class="col-12">
-            <label for="description" class="form-label">Mô tả:</label>
+            <label for="description" class="form-label">Mô tả</label>
             <textarea type="text" name="description" placeholder="Nhập mô tả..."
                       class="form-control style-text-area" required>{{ bnb.description }}</textarea>
         </div>
