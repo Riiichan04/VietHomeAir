@@ -411,6 +411,7 @@
         $("#wishlist-btn").click(function () {
             {% save_bnb_to_wishlists request.session bnb.id as wishlist %}
         })
+        {% add_bnb_to_history request.session bnb.id as add_to_history_result %}
     </script>
     <script src="{% static 'scripts/product.js' %}"></script>
 
