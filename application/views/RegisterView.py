@@ -39,7 +39,7 @@ class RegisterView(View):
             try:
                 account = Account.objects.create(
                     username=username,
-                    password=make_password(password),
+                    password=password,
                     email=email,
                     phone=phone,
                     fullname=fullname,

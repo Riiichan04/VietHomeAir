@@ -18,6 +18,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, re_path, include
 
+from application.views.CategoryView import CategoryView
 from application.views.SubInfoView import PolicyViews, ContactViews
 from application.views.BnbInfoView import BnbInfoView
 from application.views.LoginView import AuthView
@@ -43,10 +44,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', HomeView.as_view(), name=''),
     path('rooms/<int:bnbid>', BnbInfoView.as_view(), name='product'),
+    path('categories/<str:category_name>', CategoryView.as_view(), name='category'),
     path('privacy/', PolicyViews.as_view(template_name='other_template/privacy-policy.html'), name='privacy-policy'),
     path('terms-of-use/', PolicyViews.as_view(template_name='other_template/terms.html'), name='terms-of-use'),
     path('policy/', PolicyViews.as_view(template_name='other_template/other-policy.html'), name='terms-of-use'),
-    # re_path(r'^(login|register|forgot-password)/$', AuthView.as_view(), name='auth'),
     re_path(r'^(?P<type>login|register|forgot-password)/$', AuthView.as_view(), name='auth'),
 
     path('validate-register/<str:type>', RegisterView.as_view(), name='validate-register'),
@@ -63,5 +64,6 @@ urlpatterns = [
     path('user/review-history', UserReviewHistoryView.as_view(template_name='user/user-reviewed-history.html'),
          name='user-review-history'),
     path('user/wishlist', UserWishListView.as_view(template_name='user/user-wishlist.html'), name='user-wishlist'),
+
     path('onwner-add-home/',OwnerRegisterView.as_view(), name='owner-register' ),
 ]
