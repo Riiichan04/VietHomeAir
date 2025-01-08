@@ -72,6 +72,14 @@
             <p>Khám phá các căn hộ và phòng nghỉ lý tưởng cho chuyến đi của bạn!</p>
         </div>
 
+        <!-- Hien thi lo -->
+        {% if error %}
+        	<div class="alert alert-danger" role="alert">
+                {{ error }}
+            </div>
+        {% endif %}
+
+
         <div class="row g-4">
             <!-- Form bên trái -->
             <div class="product-card col-lg-6">
@@ -91,7 +99,7 @@
                                 <input type="date" class="form-control" id="checkout_date" name="checkout_date" required>
                             </div>
                         </div>
-                        <!-- Số người lớn và trẻ em -->
+                        <!-- Số người -->
                         <div class="mb-3">
                                 <label for="capacity" class="form-label" >Số người<span class="required" style="color: red">*</span></label>
                                 <input type="number" class="form-control" id="capacity" name="capacity" required>
@@ -113,7 +121,7 @@
 
                         <!-- Nút đặt phòng -->
                         <div class="d-grid">
-                            <button type="submit" class="btn btn-primary">Đặt phòng</button> <!-- Nút đã thay đổi thành Đặt phòng -->
+                            <button class="btn btn-primary">Đặt phòng</button>
                         </div>
 
 
@@ -129,19 +137,19 @@
                         <div class="col-md-12">
                             <div class="product-card">
                                 <img src="https://a0.muscache.com/im/pictures/miso/Hosting-955365427007928655/original/08897e4a-d660-4c44-a411-d9be507e16c0.jpeg?im_w=720&im_format=avif" alt="Phòng nghỉ hiện đại" class="img-fluid">
-                                <h5>Biệt thự 1 phòng ngủ tại Flamingo, Hilltop H226</h5>
-                                <p>Toàn bộ biệt thự 1 phòng ngủ, 1 tầng, rộng 70m2 trong khuôn viên 470m2 có lối vào riêng.</p>
-                                <p><strong>₫1.026.000 / đêm</strong></p>
+                                <h5>{{ bnb.name }}</h5>
+                                <p>{{ bnb.description }}</p>
+                                <p><strong>{{ bnb.price|floatformat:0 }} đ/ đêm</strong></p>
 
                                 <!-- Thông tin chủ nhà -->
                                 <div class="host-info mt-4">
-                                    <h6><strong>Chủ nhà: Andy Nguyen</strong></h6>
+                                    <h6><strong>Chủ nhà: {{ owner_name }}</strong></h6>
                                     <div class="row">
                                         <div class="col-md-2">
-                                            <img src="https://a0.muscache.com/im/Portrait/Avatars/messaging/b3e03835-ade9-4eb7-a0bb-2466ab9a534d.jpg?im_policy=medq_w_text&im_t=N&im_w=720&im_f=airbnb-cereal-medium.ttf&im_c=ffffff&im_format=avif" alt="Chủ nhà" class="img-fluid rounded-circle">
+                                            <img src="{{ owner_avatar }}" alt="Chủ nhà" class="img-fluid rounded-circle">
                                         </div>
                                         <div class="col-md-10">
-                                            <p><strong>Andy Nguyen:</strong><br> Chủ nhà siêu cấp là những người có kinh nghiệm, được đánh giá cao và cam kết mang lại kỳ nghỉ tuyệt vời cho khách.</p>
+                                            <p><strong>{{ owner_name }}:</strong><br> Chủ nhà siêu cấp là những người có kinh nghiệm, được đánh giá cao và cam kết mang lại kỳ nghỉ tuyệt vời cho khách.</p>
                                         </div>
                                     </div>
                                     <div class="border-bottom my-3"></div>
@@ -159,8 +167,10 @@
             </div>
         </div>
     </div>
+{% endblock content %}
 
-    <script>
+{% block scripts %}
+<script>
     document.addEventListener('DOMContentLoaded', function () {
         // Disable các ngày đã qua
         const today = new Date().toISOString().split('T')[0];
@@ -170,8 +180,8 @@
         checkinDateInput.setAttribute('min', today);
         checkoutDateInput.setAttribute('min', today);
 
-        // Tính tiền dựa trên số ngày
-        const pricePerNight = 1026000; // Giá mỗi đêm
+        // Lấy giá từ context
+        const pricePerNight = parseFloat("{{ price_per_night }}"); // Giá từ server
 
         function calculateTotal() {
             const checkinDate = new Date(checkinDateInput.value);
@@ -194,15 +204,29 @@
                 const totalPrice = diffDays * pricePerNight;
 
                 // Hiển thị tổng tiền
-                document.getElementById('total_price').textContent = `${totalPrice.toLocaleString()}`;
+                document.getElementById('total_price').textContent = `${totalPrice.toLocaleString()} ₫`;
             } else {
-                document.getElementById('total_price').textContent = '';
+                document.getElementById('total_price').textContent = '0 ₫';
             }
         }
 
         // Lắng nghe sự kiện thay đổi
         checkinDateInput.addEventListener('change', calculateTotal);
         checkoutDateInput.addEventListener('change', calculateTotal);
+
+        // Gán các giá trị vào form nếu có
+        const urlParams = new URLSearchParams(window.location.search);
+        const checkin = urlParams.get('checkin');
+        const checkout = urlParams.get('checkout');
+        const capacity = urlParams.get('capacity');
+        const cccd = urlParams.get('cccd'); // Nếu bạn muốn lấy CCCD từ URL
+
+        if (checkin) checkinDateInput.value = checkin;
+        if (checkout) checkoutDateInput.value = checkout;
+        if (capacity) document.getElementById('capacity').value = capacity;
+        if (cccd) document.getElementById('cccd').value = cccd;
     });
 </script>
-{% endblock content %}
+
+{% endblock scripts %}
+
