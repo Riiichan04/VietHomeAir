@@ -9,13 +9,9 @@ vietnamese_characters= str.maketrans("ÁÀẢÃẠĂẮẰẲẴẶÂẤẦẨ�
 def get_search(query:str):
     search_results= [bnb for bnb in BnbInformation.objects.all()
                      if remove_vietnamese_characters(bnb.name).replace(' ','').lower().__contains__(remove_vietnamese_characters(query).replace(' ','').lower())]
-    return search_results[0] if search_results!=[] else None
+    return [get_bnb_display_element(bnb.id) for bnb in search_results]
 
 
-def get_bnb_by_result(query):
-    searchKey= get_search(query)
-    if searchKey is None: return None
-    return [get_bnb_display_element(bnb.id) for bnb in BnbInformation.objects.filter(name__icontains=searchKey)] #ham rong
 
 def remove_vietnamese_characters(query:str):
     if not unicodedata.is_normalized("NFC",query):
