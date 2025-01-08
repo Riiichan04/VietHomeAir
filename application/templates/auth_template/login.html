@@ -71,37 +71,41 @@
     {#        </div>#}
     {#    </section>#}
     <div class="main-form col-8 rounded row px-0">
-        <div class="col-7 p-5 ">
-            <h3>Đăng nhập</h3>
-            <p class="mt-0 mb-4">Đăng nhập để tham gia cùng với chúng tôi</p>
-            <input required class="my-2 p-2 rounded border-1 d-block w-100" type="email"
-                   placeholder="Nhập email của bạn">
-            <input required class="my-2 p-2 rounded border-1 d-block w-100" type="password"
-                   placeholder="Nhập mật khẩu">
-            <div class="my-1 text-end">
-                <a style="font-size: 14px" class="text-decoration-none text-black " href="/forgot-password/">Quên mật
-                    khẩu?</a>
-            </div>
-            <p class="mt-4 mb-1 text-center">Hoặc đăng nhập bằng</p>
-            <div class="mb-4 d-flex justify-content-center gap-2">
-                <div style="width: 2.25rem; height: 2.25rem"
-                     class="d-flex justify-content-center align-items-center border border-2 rounded-circle text-decoration-none">
-                    <a href="#" class="text-black text-decoration-none">
-                        <i class="h6 fa-brands fa-google-plus-g"></i></a>
+        <div class="col-7 p-5" id="login-form">
+            <form method="post">
+                {% csrf_token %}
+                <h3>Đăng nhập</h3>
+                <p class="mt-0 mb-4">Đăng nhập để tham gia cùng với chúng tôi</p>
+                <input id="username" required class="my-2 p-2 rounded border-1 d-block w-100" type="email"
+                       placeholder="Nhập email của bạn">
+                <input id="password" required class="my-2 p-2 rounded border-1 d-block w-100" type="password"
+                       placeholder="Nhập mật khẩu">
+                <p class="text-danger my-1 d-none" id="form-error">Bạn đã nhập sai email hoặc mật khẩu!</p>
+                <div class="my-1 text-end">
+                    <a style="font-size: 14px" class="text-decoration-none text-black " href="/forgot-password/">Quên
+                        mật khẩu?</a>
                 </div>
-                <div style="width: 2.25rem; height: 2.25rem"
-                     class="d-flex justify-content-center align-items-center border border-2 rounded-circle text-decoration-none">
-                    <a href="#" class="text-black text-decoration-none">
-                        <i class="h6 fa-brands fa-facebook-f"></i>
-                    </a>
+                <p class="mt-4 mb-1 text-center">Hoặc đăng nhập bằng</p>
+                <div class="mb-4 d-flex justify-content-center gap-2">
+                    <div style="width: 2.25rem; height: 2.25rem"
+                         class="d-flex justify-content-center align-items-center border border-2 rounded-circle text-decoration-none">
+                        <a href="#" class="text-black text-decoration-none">
+                            <i class="h6 fa-brands fa-google-plus-g"></i></a>
+                    </div>
+                    <div style="width: 2.25rem; height: 2.25rem"
+                         class="d-flex justify-content-center align-items-center border border-2 rounded-circle text-decoration-none">
+                        <a href="#" class="text-black text-decoration-none">
+                            <i class="h6 fa-brands fa-facebook-f"></i>
+                        </a>
+                    </div>
                 </div>
-            </div>
-            <div class="d-flex justify-content-center">
-                <button type="submit" class="border-0 px-4 py-2 text-white rounded h5"
-                        style="background-color: var(--main-cta-color)">
-                    Đăng nhập
-                </button>
-            </div>
+                <div class="d-flex justify-content-center">
+                    <button id="submit-login" class="main-cta-button border-0 px-4 py-2 text-white rounded h5"
+                            style="background-color: var(--main-cta-color)">
+                        Đăng nhập
+                    </button>
+                </div>
+            </form>
         </div>
         <div class="col toggle-container rounded-end d-flex flex-column justify-content-center">
             <h3 class="text-center">Này bạn mới ơiii!!!</h3>
@@ -116,3 +120,48 @@
 
 
 {% endblock content %}
+{% block scripts %}
+    <script>
+        $("#submit-login").click(function (e) {
+            e.preventDefault();
+            $("#form-error").addClass("d-none")
+            $.ajax({
+                url: "{{ request.path }}",
+                type: "POST",
+                headers: {
+                    'X-CSRFToken': getCSRFToken()
+                },
+                data: {
+                    username: $("#username").val(),
+                    password: $("#password").val()
+                },
+                success: function (response) {
+                    if (!response.result) {
+                        $("#form-error").removeClass("d-none")
+                    } else {
+                        const btn = $("#submit-login")
+                        btn.attr("disabled", true)
+                        btn.html('<i class="me-2 fa-solid fa-spinner fa-spin"></i> Đăng nhập')
+                        setTimeout(() => window.location = "/", 1000)
+                    }
+                    return false
+                }
+            })
+        })
+
+        function getCSRFToken() {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                let cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    let cookie = cookies[i].trim();
+                    if (cookie.substring(0, 10) === 'csrftoken=') {
+                        cookieValue = decodeURIComponent(cookie.substring(10));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+    </script>
+{% endblock scripts %}

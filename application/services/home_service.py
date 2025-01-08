@@ -11,13 +11,18 @@ def get_bnb_display_element(bnb_id):
         'name': bnb.name,
         'description': bnb.description,  # Xử lý sau
         'thumbnail': bnb.image_set.first().url,
+        'list_image': [image.url for image in bnb.image_set.all() if image.url != bnb.image_set.first().url],
         'owner': bnb.owner.account.fullname,
-        'avg_rating': str(calculate_avg_bnb_rating([review for review in bnb.review_set.all()]))
+        'avg_rating': str(calculate_avg_bnb_rating([review for review in bnb.review_set.all()])),
+        # Tách method sau
+        'price': '{0:,}'.format(bnb.price).replace('.00', '').replace(',', '.'),
+        'location': bnb.location
     }
 
 
 # Tính toán rating trung bình của bnb
 def calculate_avg_bnb_rating(bnb_reviews):
+    if len(bnb_reviews) == 0: return 0
     return round(sum(map(lambda x: x.rating, bnb_reviews)) / len(bnb_reviews), 2)
 
 

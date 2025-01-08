@@ -1,10 +1,14 @@
 import copy
 from datetime import datetime, timedelta
+import random
 
+import requests
 from django.db.models import Q
 
 from application.models import BnbInformation
-from application.models.accounts import Booking, OwnerReview
+from application.models.accounts import Booking, OwnerReview, Account
+from application.models.bnb import Review, ReviewClassification
+from application.services.home_service import get_bnb_display_element
 
 
 # Lấy bnb còn active với id được chỉ định. Nếu không tìm thấy hoặc bnb có status = False sẽ trả về None
@@ -22,6 +26,7 @@ def get_bnb_info(bnb_id):
         'prices': calculate_price(bnb.price, booking_info[0]['range_length']),
         'owner': bnb.owner.account,
         'owner_review': [review for review in OwnerReview.objects.filter(owner=bnb.owner).all()],
+        'location': bnb.location,
         # Sửa sau
         'owner_general_review': {'title': ' một chủ nhà rất xịn xò đó!',
                                  'description': 'Được mọi người đánh giá cao về chất lượng dịch vụ, là điểm đến lý tưởng của nhiều người'},
@@ -104,7 +109,7 @@ def display_time(time):
     if second_diff < 0: return ''
     if second_diff < 60: return 'Bây giờ'
     time_in_milisec = [60 * 60 * 24 * 365, 60 * 60 * 24 * 31, 60 * 60 * 24 * 7, 60 * 60 * 24, 60 * 60, 60]
-    label = [" năm trước", "tháng trước", " tuần trước", " ngày trước", " giờ trước", " phút trước"]
+    label = [" năm trước", " tháng trước", " tuần trước", " ngày trước", " giờ trước", " phút trước"]
     converted_time = list(map(lambda x: int(round(second_diff / x, 0)), time_in_milisec))
     value_index = converted_time.index(list(filter(lambda x: x > 0, converted_time))[0])
     return str(converted_time[value_index]) + label[value_index]
@@ -180,11 +185,10 @@ def is_booking_date_available(bnb, date=datetime.now().date()):
             'status': True,  # Nếu đã có người đặt thì kiểm tra xem còn chứa được ai không
             'available_capacity': bnb.capacity  # Còn lại bao nhiêu chỗ
         }
-
-    current_capacity = sum([booking.capacity for booking in current_booking])
-    return {
-        'status': current_capacity < bnb.capacity,  # Nếu đã có người đặt thì kiểm tra xem còn chứa được ai không
-        'available_capacity': bnb.capacity - current_capacity  # Còn lại bao nhiêu chỗ
+    # current_capacity = sum([booking.capacity for booking in current_booking])
+    else: return {
+        'status': False,  # Nếu đã có người đặt thì kiểm tra xem còn chứa được ai không
+        'available_capacity': 0  # Còn lại bao nhiêu chỗ
     }
 
 
@@ -199,3 +203,40 @@ def statistic_review_by_id(bnb_id):
         'neg_reviews': {'amount': len(neg_reviews), 'reviews': neg_reviews},
         'all_reviews': {'amount': len(reviews), 'reviews': [review for review in reviews]}
     }
+
+
+# Dùng cho phần kiểm duyệt bình luận
+def validate_review(review):
+    input_review = {'sentence': review['content'], 'sentiment': 'None'}
+    validate_result = requests.post('http://localhost:3110/review-validate/', json=input_review)
+    if validate_result.status_code == 200:
+        if validate_result.json()['result']:
+            # Gọi hàm insert review vào bảng
+            new_review = Review(bnb=BnbInformation.objects.filter(id=review['bnbId']).first(),
+                                account=Account.objects.filter(id=review['accountId']).first(),
+                                content=review['content'],
+                                sentiment=validate_result.json()['content']['label'],
+                                rating=int(review['rating']))
+            new_review.save()
+        else:
+            # Insert vào spam review
+            new_review = Review(bnb=BnbInformation.objects.filter(id=review['bnbId']).first(),
+                                account=Account.objects.filter(id=review['accountId']).first(),
+                                content=review['content'],
+                                sentiment='none',
+                                rating=int(review['rating']))
+            spam_review = ReviewClassification(review=new_review, spam_status=True)
+            new_review.save()
+            spam_review.save()
+        return True
+    if validate_result.status_code == 400:
+        return False
+
+
+# Lấy các bnb tương tự
+def get_similar_bnb(bnb_id):
+    list_category = BnbInformation.objects.filter(status=True).filter(id=bnb_id).first().category.all()
+    list_similar_bnb = BnbInformation.objects.filter(status=True).filter(category__in=list_category).exclude(id=bnb_id).distinct()
+    list_similar_bnb_id = random.sample([bnb.id for bnb in list_similar_bnb],
+                                        5 if list_similar_bnb.count() >= 5 else list_similar_bnb.count()) if list_similar_bnb else []
+    return [get_bnb_display_element(similar_id) for similar_id in list_similar_bnb_id]
