@@ -8,7 +8,7 @@ button{
     color: var(--logo-icon-color);
 }
 #overlay{
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
@@ -17,6 +17,7 @@ button{
     visibility: hidden;
     opacity: 0.75; /* Ẩn lớp overlay mặc định */
     transition: opacity 0.5s ease; /* Hiệu ứng chuyển đổi mượt */
+    z-index: 10000;
 }
 #filter{
     width: 80%;
@@ -29,12 +30,13 @@ button{
     font-weight: bold;
 }
 #filter-container{
+    position: absolute;
     background-color: var(--web-background-color);
     border: solid 1px var(--logo-icon-color);
     width:750px;
     left: 25%;
     top: 12px;
-    z-index: 1;
+    z-index: 10000;
 }
 #filter-container .group-properties .select-option{
     background-color: var(--web-background-color);

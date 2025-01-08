@@ -22,7 +22,7 @@
     <li class="breadcrumb-item active">Kết quả</li>
 {% endblock breadcrumb %}
 {% block content %}
-    <div id="overlay" class=""></div>
+    <div id="overlay"></div>
     <div class="container ps-4">
         <!--Content-->
         <div class="row py-2 m-0">
@@ -167,113 +167,113 @@
                 <div class="col" style="height: 100%" id="large-maps-content"></div>
             </div>
         </div>
-     <div id="filter-container"
-                     class="rounded position-absolute p-3 d-none">
-                    <div class="d-flex justify-content-end">
-                        <button type="button" class="btn-close header-popup__close-btn"
-                                aria-label="Close"></button>
-                    </div>
-                    <div class="price-amount">
-                        <div class="h4">Khoảng giá</div>
-                        <hr/>
-                        <div class="h6">Giá theo đêm chưa gồm phí và thuế</div>
-                        <!--Bieu do ket qua-->
-                        <div class="chart-result"></div>
-                        <div class="arrow-interact">
-                            <input class="left-price border-white justify-content-start me-20" placeholder="from..."
-                                   style="float: left">
-                            <input class="right-price border-white justify-content-end" placeholder="to..."
-                                   style="float: right">
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="convenient-list">
-                        <div class="h5">Tiện nghi</div>
-                        <div class="group-properties  px-3">
-                            <div class="row mb-2">
-                                <button class="select-option col-3 me-2"><i class="fa-solid fa-wifi pe-2"></i>Wifi
-                                </button>
-                                <button class="select-option col-3 me-2"><i class="fa-solid fa-kitchen-set pe-2"></i>Bếp
-                                </button>
-                                <div class="col-6"></div>
-                            </div>
-                            <div class="row mb-2">
-                                <button class="select-option col-4 me-2"><i class="bi bi-droplet-half pe-2"></i>Máy giặt
-                                </button>
-                                <button class="select-option col-4 me-2"><i class="bi bi-wind pe-2"></i>Máy sấy quần áo
-                                </button>
-                                <button class="select-option col-3 me-2"><i class="fa-solid fa-tv pe-2"></i>TV</button>
-                            </div>
-                            <div class="row mb-2">
-                                <button class="select-option col-3 me-2"><i class="bi bi-snow3 pe-2"></i>Điều hòa
-                                </button>
-                                <button class="select-option col-3 me-2"><i class="bi bi-thermometer-half pe-2"></i>Hệ
-                                    thống
-                                    sưởi
-                                </button>
-                                <div class="col-6"></div>
-                            </div>
-                            <div class="row mb-2">
-                                <button class="select-option col-5 me-2"><i class="fa-solid fa-desktop pe-2"></i>Không
-                                    gian
-                                    làm
-                                    việc riêng
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="features-list mt-4">
-                        <div class="h5">Đặc điểm</div>
-                        <div class="group-properties px-3">
-                            <div class="row mb-2">
-                                <button class="select-option col-3 me-2"><i class="fa-solid fa-water-ladder pe-2"></i>Bể
-                                    bơi
-                                </button>
-                                <button class="select-option col-4 me-2"><i class="fa-solid fa-hot-tub-person pe-2"></i>Bồn
-                                    tắm
-                                    nước nóng
-                                </button>
-                                <div class="col-5"></div>
-                            </div>
-                            <div class="row mb-2">
-                                <button class="select-option col-4 me-2"><i class="fa-solid fa-square-parking pe-2"></i>Chỗ
-                                    để
-                                    xe miễn phí
-                                </button>
-                                <button class="select-option col-4 me-2"><i class="fa-solid fa-dumbbell pe-2"></i>Phòng
-                                    tập
-                                    thể
-                                    hình
-                                </button>
-                            </div>
-                            <div class="row mb-2">
-                                <button class="select-option col-4 "><i class="fa-solid fa-smoking pe-2"></i>Cho phép
-                                    hút
-                                    thuốc
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="locations mt-4">
-                        <div class="h5">Vị trí</div>
-                        <div class="group-properties px-3">
-                            <div class="row mb-2">
-                                <button class="select-option col-3 me-2"><i class="fa-solid fa-umbrella-beach pe-2"></i>Bờ
-                                    biển
-                                </button>
-                                <button class="select-option col-4 me-2"><i class="fa-solid fa-water pe-2"></i>Ven
-                                    hồ/sông/biển
-                                </button>
-                                <div class="col-5"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row btn-action mt-4">
-                        <div class="col-2 me-5"></div>
-                        <button class="remove-filter ms-4 me-2 col-4">Xóa toàn bộ lọc</button>
-                        <button class="add-filter ms-2 me-4 col-4">Áp dụng</button>
-                    </div>
+    </div>
+    <div id="filter-container"
+         class="rounded position-absolute p-3 d-none">
+        <div class="d-flex justify-content-end">
+            <button type="button" class="btn-close header-popup__close-btn"
+                    aria-label="Close"></button>
+        </div>
+        <div class="price-amount">
+            <div class="h4">Khoảng giá</div>
+            <hr/>
+            <div class="h6">Giá theo đêm chưa gồm phí và thuế</div>
+            <!--Bieu do ket qua-->
+            <div class="chart-result"></div>
+            <div class="arrow-interact">
+                <input class="left-price border-white justify-content-start me-20" placeholder="from..."
+                       style="float: left">
+                <input class="right-price border-white justify-content-end" placeholder="to..."
+                       style="float: right">
+            </div>
+        </div>
+        <hr>
+        <div class="convenient-list">
+            <div class="h5">Tiện nghi</div>
+            <div class="group-properties  px-3">
+                <div class="row mb-2">
+                    <button class="select-option col-3 me-2"><i class="fa-solid fa-wifi pe-2"></i>Wifi
+                    </button>
+                    <button class="select-option col-3 me-2"><i class="fa-solid fa-kitchen-set pe-2"></i>Bếp
+                    </button>
+                    <div class="col-6"></div>
                 </div>
+                <div class="row mb-2">
+                    <button class="select-option col-4 me-2"><i class="bi bi-droplet-half pe-2"></i>Máy giặt
+                    </button>
+                    <button class="select-option col-4 me-2"><i class="bi bi-wind pe-2"></i>Máy sấy quần áo
+                    </button>
+                    <button class="select-option col-3 me-2"><i class="fa-solid fa-tv pe-2"></i>TV</button>
+                </div>
+                <div class="row mb-2">
+                    <button class="select-option col-3 me-2"><i class="bi bi-snow3 pe-2"></i>Điều hòa
+                    </button>
+                    <button class="select-option col-3 me-2"><i class="bi bi-thermometer-half pe-2"></i>Hệ
+                        thống
+                        sưởi
+                    </button>
+                    <div class="col-6"></div>
+                </div>
+                <div class="row mb-2">
+                    <button class="select-option col-5 me-2"><i class="fa-solid fa-desktop pe-2"></i>Không
+                        gian
+                        làm
+                        việc riêng
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="features-list mt-4">
+            <div class="h5">Đặc điểm</div>
+            <div class="group-properties px-3">
+                <div class="row mb-2">
+                    <button class="select-option col-3 me-2"><i class="fa-solid fa-water-ladder pe-2"></i>Bể
+                        bơi
+                    </button>
+                    <button class="select-option col-4 me-2"><i class="fa-solid fa-hot-tub-person pe-2"></i>Bồn
+                        tắm
+                        nước nóng
+                    </button>
+                    <div class="col-5"></div>
+                </div>
+                <div class="row mb-2">
+                    <button class="select-option col-4 me-2"><i class="fa-solid fa-square-parking pe-2"></i>Chỗ
+                        để
+                        xe miễn phí
+                    </button>
+                    <button class="select-option col-4 me-2"><i class="fa-solid fa-dumbbell pe-2"></i>Phòng
+                        tập
+                        thể
+                        hình
+                    </button>
+                </div>
+                <div class="row mb-2">
+                    <button class="select-option col-4 "><i class="fa-solid fa-smoking pe-2"></i>Cho phép
+                        hút
+                        thuốc
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="locations mt-4">
+            <div class="h5">Vị trí</div>
+            <div class="group-properties px-3">
+                <div class="row mb-2">
+                    <button class="select-option col-3 me-2"><i class="fa-solid fa-umbrella-beach pe-2"></i>Bờ
+                        biển
+                    </button>
+                    <button class="select-option col-4 me-2"><i class="fa-solid fa-water pe-2"></i>Ven
+                        hồ/sông/biển
+                    </button>
+                    <div class="col-5"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row btn-action mt-4">
+            <div class="col-2 me-5"></div>
+            <button class="remove-filter ms-4 me-2 col-4">Xóa toàn bộ lọc</button>
+            <button class="add-filter ms-2 me-4 col-4">Áp dụng</button>
+        </div>
     </div>
 {% endblock content %}
 {% block scripts %}
