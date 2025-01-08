@@ -52,3 +52,14 @@
 #owner-bnb-info {
     box-shadow: 1px 1px 15px 2px rgba(0, 0, 0, 0.75);
 }
+
+.card-item {
+    width: calc(20% - 1.5rem);
+    cursor: pointer;
+    height: 25%
+}
+.card-item img {
+    height: 70%;
+    object-fit: cover;
+    aspect-ratio: 15/ 16;
+}

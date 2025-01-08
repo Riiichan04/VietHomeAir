@@ -5,3 +5,4 @@
 .env
 application/data/cache_data.json
 midtermdata.json
+application/static/data/
