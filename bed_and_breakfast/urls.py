@@ -27,6 +27,7 @@ from application.views.BookView import BookView
 from application.views.UserView import UserView, UserInfoView, UserOrderHistoryView, UserViewedHistoryView, \
     UserReviewHistoryView, UserWishListView
 from application.views.OwnerRegister import OwnerRegisterView
+from application.views.RegisterView import RegisterView
 
 # Lưu ý: Nếu muốn hiển thị các trang lỗi custom thì phải set DEBUG = False và phải set ALLOWED_HOSTS
 # (Trong môi trường dev thì hãy đặt ALLOWED_HOSTS = ["localhost"])
@@ -46,8 +47,9 @@ urlpatterns = [
     path('terms-of-use/', PolicyViews.as_view(template_name='other_template/terms.html'), name='terms-of-use'),
     path('policy/', PolicyViews.as_view(template_name='other_template/other-policy.html'), name='terms-of-use'),
     # re_path(r'^(login|register|forgot-password)/$', AuthView.as_view(), name='auth'),
-
     re_path(r'^(?P<type>login|register|forgot-password)/$', AuthView.as_view(), name='auth'),
+
+    path('validate-register/<str:type>', RegisterView.as_view(), name='validate-register'),
     path('about-us/', ContactViews.as_view(template_name='other_template/about-us.html'), name='about-us'),
     path('contact/', ContactViews.as_view(template_name='other_template/contact-us.html'), name='contact-us'),
     path('result/', ResultView.as_view(), name='result'),
@@ -61,6 +63,5 @@ urlpatterns = [
     path('user/review-history', UserReviewHistoryView.as_view(template_name='user/user-reviewed-history.html'),
          name='user-review-history'),
     path('user/wishlist', UserWishListView.as_view(template_name='user/user-wishlist.html'), name='user-wishlist'),
-
     path('onwner-add-home/',OwnerRegisterView.as_view(), name='owner-register' ),
 ]
