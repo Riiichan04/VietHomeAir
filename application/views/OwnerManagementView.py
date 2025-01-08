@@ -1,3 +1,5 @@
+import json
+
 from cloudinary.uploader import upload
 from django.http.response import Http404, JsonResponse
 from django.views.generic import TemplateView
@@ -6,7 +8,7 @@ from application.services.owner_management_service import (get_info_owner, get_l
                                                            get_bnb_by_id, get_list_category,
                                                            get_list_service, get_list_rule,
                                                            get_bnb, get_bnb_reviews, get_list_info_bnb_avg_rating,
-                                                           )
+                                                           get_booking_bnb, get_booking_by_id)
 
 class OwnerManagementView(TemplateView):
     template_name = 'manage_of_owner/base.html'
@@ -31,9 +33,10 @@ class OwnerManagementView(TemplateView):
             raise Http404("Không tìm thấy thông tin người dùng.")
 
         # Lấy thông tin chủ nhà từ userid
-        owner, list_bnb = self.get_info_owner_data(userid)
+        owner, list_bnb, list_booking = self.get_info_owner_data(userid)
         context['owner'] = owner  # Đưa dữ liệu vào context
         context['list_bnb'] = list_bnb
+        context['list_booking'] = list_booking
         context['categories'] = get_list_category()
         context['services'] = get_list_service()
         context['rules'] = get_list_rule()
@@ -47,12 +50,23 @@ class OwnerManagementView(TemplateView):
         if owner is None:
             raise Http404("Eooooo, tìm nhầm chỗ rồi.")  # Không tìm thấy chủ nhà
         list_bnb = get_list_info_bnb(owner.get("id"))
-        return owner, list_bnb
+        list_booking = get_booking_bnb(list_bnb)
+        return owner, list_bnb, list_booking
+
+
 
 class UpdateBnBView(TemplateView):
     template_name = "manage_of_owner/form-bnb.html"
 
     def post(self, request, *args, **kwargs):
+
+        # Lấy userid từ session
+        userid = self.request.session.get('user')
+
+        # Kiểm tra nếu không có userid trong session
+        if not userid:
+            raise Http404("Không tìm thấy thông tin người dùng.")
+
         # Lấy dữ liệu từ form
         name = request.POST.get('name', '')
         delete_img = request.POST.getlist('delete-image', [])
@@ -125,3 +139,25 @@ class UpdateBnBView(TemplateView):
         except Exception as e:
             return JsonResponse({'success': False, 'error': str(e)})
 
+class AcceptBookingView(TemplateView):
+    template_name = "manage_of_owner/owner-management-dashboard.html"
+    def post(self, request, *args, **kwargs):
+        # Parse dữ liệu JSON từ request body
+        data = json.loads(request.body)
+        booking_id = data.get('bookingId')
+        status = data.get('status')
+        print(booking_id)
+        try:
+            booking = get_booking_by_id(booking_id)
+            if booking is None:
+                return JsonResponse({'success': False})
+            if status == 'accept':
+                booking.status = 'accept'
+            if status == 'decline':
+                booking.status = 'decline'
+            if status == 'served':
+                booking.status = 'served'
+            booking.save()
+            return JsonResponse({'success': True})
+        except Exception as e:
+            return JsonResponse({'success': False, 'error': str(e)})

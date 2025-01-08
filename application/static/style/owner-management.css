@@ -71,3 +71,8 @@
     object-fit: cover;
     border-radius: 50%;
 }
+
+.style-link-bnb {
+    text-decoration: none;
+    color: var(--main-cta-color);
+}

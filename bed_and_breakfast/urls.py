@@ -27,7 +27,7 @@ from application.views.ResultView import ResultView
 from application.views.BookView import BookView
 from application.views.UserView import UserView, UserInfoView, UserOrderHistoryView, UserViewedHistoryView, \
     UserReviewHistoryView, UserWishListView
-from application.views.OwnerManagementView import OwnerManagementView, UpdateBnBView
+from application.views.OwnerManagementView import OwnerManagementView, UpdateBnBView, AcceptBookingView
 from application.views.InfoOwnerBnBView import InfoOwnerBnBView
 
 # Lưu ý: Nếu muốn hiển thị các trang lỗi custom thì phải set DEBUG = False và phải set ALLOWED_HOSTS
@@ -76,4 +76,6 @@ urlpatterns = [
 
     # Các URL dưới đây chỉ được dùng cho POST AJAX
     path('owner-management/edit-bnb/update-bnb', UpdateBnBView.as_view(), name='owner-management-update-bnb'),
+    path('owner-management/accept-booking', AcceptBookingView.as_view(), name='owner-management-accept-booking'),
+
 ]

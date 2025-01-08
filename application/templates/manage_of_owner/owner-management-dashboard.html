@@ -5,26 +5,24 @@
     <title>Trang quản lý của chủ nhà - VietHomeAir</title>
 {% endblock title %}
 
-{% block sidebar_stylesheet %}{% endblock sidebar_stylesheet %}
-
 {% block sidebar_content %}
     <header class="pb-3">
-        <h1 class="h2 text-center">Quản lý BnB</h1>
+        <h1 class="h2 text-center" style="color: var(--main-cta-color)">Quản lý BnB</h1>
     </header>
 
     <!-- Host Information -->
     <section class="mb-4">
-        <h2 class="h4">Thông tin chủ nhà</h2>
+        <h2 class="h4" style="color: var(--main-cta-color)">Thông tin chủ nhà</h2>
         <div class="bg-light p-3 rounded">
-            <p><strong>Họ và tên:</strong> {{owner.fullname}}</p>
-            <p><strong>Email:</strong> {{owner.email}}</p>
-            <p><strong>Số điện thoại:</strong> {{owner.phone}}</p>
+            <p><strong>Họ và tên:</strong> {{ owner.fullname }}</p>
+            <p><strong>Email:</strong> {{ owner.email }}</p>
+            <p><strong>Số điện thoại:</strong> {{ owner.phone }}</p>
         </div>
     </section>
 
     <!-- Room Management -->
     <section class="mb-4">
-        <h2 class="h4">Danh sách các phòng</h2>
+        <h2 class="h4" style="color: var(--main-cta-color)">Danh sách các phòng</h2>
         <table class="table table-striped">
             <thead>
             <tr>
@@ -37,19 +35,110 @@
             </thead>
             <tbody>
             {% for bnb in list_bnb %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ bnb.name }}</td>
+                    <td style="max-width: 300px">{{ bnb.location.name }}</td>
+                    <td>{{ bnb.price }}</td>
+                    <td>
+                        <a class="btn btn-success mt-1" href="/owner-management/edit-bnb/id={{ bnb.id }}">Chi tiết</a>
+                        <button class="btn btn-danger del-btn mt-1">Xóa</button>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </section>
+
+    <section class="mb-4">
+        <h2 class="h4" style="color: var(--main-cta-color)">Danh sách khách đặt phòng cần duyệt</h2>
+        <table class="table table-striped">
+            <thead>
             <tr>
-                <td>{{forloop.counter}}</td>
-                <td>{{bnb.name}}</td>
-                <td style="max-width: 300px">{{bnb.location.name}}</td>
-                <td>{{bnb.price}}</td>
-                <td>
-                    <a class="btn btn-success" href="/owner-management/edit-bnb/id={{bnb.id}}">Chi tiết</a>
-                    <button class="btn btn-danger del-btn">Xóa</button>
-                </td>
+                <th>Họ tên</th>
+                <th>Tên đăng nhập</th>
+                <th>Tên BnB</th>
+                <th>Từ ngày</th>
+                <th>Đến ngày</th>
+                <th>Số lượng</th>
+                <th>Hành Động</th>
             </tr>
+            </thead>
+            <tbody>
+            {% for booking in list_booking %}
+                {% for b in booking %}
+                    <tr>
+                        <td>{{ b.account.fullname }}</td>
+                        <td>{{ b.account.username }}</td>
+                        <td><a class="style-link-bnb" href="/rooms/{{ b.bnb.id }}">{{ b.bnb.name }}</a></td>
+                        <th style="font-weight: normal">{{ b.from_date.day }}/{{ b.from_date.month }}/{{ b.from_date.year }}</th>
+                        <th style="font-weight: normal">{{ b.to_date.day }}/{{ b.to_date.month }}/{{ b.to_date.year }}</th>
+                        <th style="font-weight: normal">{{ b.capacity }}</th>
+                        <td>
+                            {% if b.status == 'pending' %}
+                                <button class="btn btn-success mt-1 status-booking" data-id="accept"
+                                        value="{{ b.id }}"
+                                        data-csrf="{{ csrf_token }}">
+                                    Duyệt
+                                </button>
+                                <button data-id="decline" class="btn btn-danger del-btn mt-1 status-booking"
+                                        value="{{ b.id }}"
+                                        data-csrf="{{ csrf_token }}">Xóa
+                                </button>
+                            {% endif %}
+                            {% if b.status == 'accept' %}
+                                <button class="btn btn-success mt-1 status-booking" data-id="served"
+                                        value="{{ b.id }}"
+                                        data-csrf="{{ csrf_token }}">
+                                    Đã checkin
+                                </button>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
             {% endfor %}
             </tbody>
         </table>
     </section>
 
 {% endblock sidebar_content %}
+
+{% block scripts %}
+    <script>
+        $('.status-booking').on('click', function (event) {
+            event.preventDefault();
+
+            const value = $(this).val(); // Lấy giá trị từ nút
+            console.log(value)
+            const csrfToken = $(this).data('csrf'); // Lấy CSRF token từ `data-*`
+            const status = $(this).data('id');
+            $.ajax({
+                url: 'accept-booking',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({bookingId: value, status: status}),
+                headers: {
+                    'X-CSRFToken': csrfToken // Truyền CSRF token
+                },
+                success: function (response) {
+                    if (response.success) {
+                        if (status === 'accept') {
+                            alert("Duyệt khách hàng đặt BnB thành công!");
+                        } else if (status === 'decline') {
+                            alert("Xóa booking BnB thành công!");
+                        } else if (status ===  'served') {
+                            alert("Khách hàng đã checkin BnB!")
+                        }
+                        window.location.href = '/owner-management/dashboard';
+                    } else {
+                        alert("Lỗi không thể thực hiện duyệt yêu cầu!");
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error:', error);
+                    alert("Lỗi không thể thực hiện duyệt yêu cầu!");
+                }
+            });
+        });
+    </script>
+{% endblock %}

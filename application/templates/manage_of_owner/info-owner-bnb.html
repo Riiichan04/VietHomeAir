@@ -34,10 +34,6 @@
             font-size: 14px;
             color: darkgray;
         }
-        .style-link-bnb {
-            text-decoration: none;
-            color: var(--main-cta-color);
-        }
     </style>
 {% endblock stylesheet %}
 
@@ -93,7 +89,7 @@
                         </div>
                     </div>
                     <div class="row mt-3">
-                        <a class="style-link-bnb" href="/rooms/{{review.bnb.id}}">{{review.bnb.name}}</a>
+                        <a class="style-link-bnb" href="/rooms/{{ review.bnb.id }}">{{ review.bnb.name }}</a>
                     </div>
                 </div>
             </div>
