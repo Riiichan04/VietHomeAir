@@ -36,7 +36,7 @@
     </style>
 
     <link rel="stylesheet" type="text/css" href="{% static 'style/home.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'style/Owner-Register.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'style/create-new-bnb.css' %}">
 
 {% endblock stylesheet %}
 {% block header_scripts %}
@@ -99,7 +99,7 @@
             </div>
         </section>
 
-        <section class="page-section d-" id="section-2">
+        <section class="page-section d-none" id="section-2">
             <h3 class="text-center my-3">Chỗ ở của bạn có những tiện nghi nào?</h3>
             <p class="text-center my-1">Hãy chọn ít nhất 4 tiện nghi nhé!!</p>
             <div class="row gap-4 gy-4 p-5">
@@ -117,7 +117,7 @@
             </div>
         </section>
 
-        <section class="page-section d-" id="section-3">
+        <section class="page-section d-none" id="section-3">
             <h3 class="text-center my-3">Nhà cho thuê của bạn trông như thế nào nhỉ?</h3>
             <p class="text-center my-1">Hãy upload 5 hình ảnh lên nhé!!</p>
             <div class="row gap-4 gy-4 p-5">
@@ -151,7 +151,7 @@
             </div>
         </section>
 
-        <section class="page-section d-" id="section-4">
+        <section class="page-section d-none" id="section-4">
             <h3 class="text-center my-3">Còn những thông tin khác thì sao?</h3>
             <form method="post" id="upload-new-bnb" class="row" enctype="multipart/form-data">
                 {% csrf_token %}
