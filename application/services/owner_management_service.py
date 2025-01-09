@@ -9,7 +9,7 @@ from application.models.bnb import Category, Service, Rule, Review
 
 #lấy thông tin hiển thị thông tin chủ nhà
 def get_info_owner(user_id):
-    owner = Owner.objects.select_related('account').get(account__id=user_id)
+    owner = Owner.objects.select_related('account').get(account__id=user_id, account__role = 1)
     if owner is None: return None
     # Đếm số lượng đánh giá
     review_count = get_bnb_reviews(owner.id).count()
