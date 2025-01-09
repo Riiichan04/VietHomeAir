@@ -1,12 +1,14 @@
 {% extends 'base.html' %}
+{% load bnb_info_filter %} {# Load webfilter sử dụng #}
+
 {% load static %}
 
 {% block title %}
     <title>Đặt phòng - VietHomeAir</title>
 {% endblock title %}
 
-{% block header_scripts %}
 
+{% block header_scripts %}
     {#  Thư viện momentjs để dùng daterangepickerjs  #}
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     {#  Thư viện daterangepickerjs  #}
@@ -14,9 +16,17 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/15.0.4/marked.min.js"
             integrity="sha512-VmLxPVdDGeR+F0DzUHVqzHwaR4ZSSh1g/7aYXwKT1PAGVxunOEcysta+4H5Utvmpr2xExEPybZ8q+iM9F1tGdw=="
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin=""></script>
 {% endblock header_scripts %}
 
 {% block stylesheet %}
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"/>
+    <link rel="stylesheet" href="{% static 'style/leaflet-osm.css' %}">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+          crossorigin=""/>
     <style>
         body {
             background-color: #f8f9fa;
@@ -136,9 +146,8 @@
                         <!-- Sản phẩm 1 -->
                         <div class="col-md-12">
                             <div class="product-card">
-                                <img src="https://a0.muscache.com/im/pictures/miso/Hosting-955365427007928655/original/08897e4a-d660-4c44-a411-d9be507e16c0.jpeg?im_w=720&im_format=avif" alt="Phòng nghỉ hiện đại" class="img-fluid">
+                                <img src="{{ bnb.image }}" alt="Phòng nghỉ hiện đại" class="img-fluid">
                                 <h5>{{ bnb.name }}</h5>
-                                <p>{{ bnb.description }}</p>
                                 <p><strong>{{ bnb.price|floatformat:0 }} đ/ đêm</strong></p>
 
                                 <!-- Thông tin chủ nhà -->
@@ -176,12 +185,14 @@
         const today = new Date().toISOString().split('T')[0];
         const checkinDateInput = document.getElementById('checkin_date');
         const checkoutDateInput = document.getElementById('checkout_date');
+        const capacityInput = document.getElementById('capacity');
+        const cccdInput = document.getElementById('cccd');
 
         checkinDateInput.setAttribute('min', today);
         checkoutDateInput.setAttribute('min', today);
 
         // Lấy giá từ context
-        const pricePerNight = parseFloat("{{ price_per_night }}"); // Giá từ server
+        const pricePerNight = parseFloat("{{ bnb.price }}"); // Giá từ server
 
         function calculateTotal() {
             const checkinDate = new Date(checkinDateInput.value);
@@ -204,9 +215,9 @@
                 const totalPrice = diffDays * pricePerNight;
 
                 // Hiển thị tổng tiền
-                document.getElementById('total_price').textContent = `${totalPrice.toLocaleString()} ₫`;
+                document.getElementById('total_price').textContent = `${totalPrice.toLocaleString()}`;
             } else {
-                document.getElementById('total_price').textContent = '0 ₫';
+                document.getElementById('total_price').textContent = '0';
             }
         }
 
@@ -214,7 +225,7 @@
         checkinDateInput.addEventListener('change', calculateTotal);
         checkoutDateInput.addEventListener('change', calculateTotal);
 
-        // Gán các giá trị vào form nếu có
+        // Gán các giá trị vào form từ URL nếu có
         const urlParams = new URLSearchParams(window.location.search);
         const checkin = urlParams.get('checkin');
         const checkout = urlParams.get('checkout');
@@ -223,10 +234,171 @@
 
         if (checkin) checkinDateInput.value = checkin;
         if (checkout) checkoutDateInput.value = checkout;
-        if (capacity) document.getElementById('capacity').value = capacity;
-        if (cccd) document.getElementById('cccd').value = cccd;
+        if (capacity) capacityInput.value = capacity;
+        if (cccd) cccdInput.value = cccd;
+
+        // Tính tổng tiền nếu đã có giá trị checkin/checkout từ URL
+        calculateTotal();
     });
 </script>
+     {{ bnb.booking|json_script:'booking-data' }}
+    <script>
+        // Wishlist button logic
+        $("#wishlist-btn").click(function () {
+            {% save_bnb_to_wishlists request.session bnb.id as wishlist %}
+        });
+    </script>
+    <script src="{% static 'scripts/product.js' %}"></script>
+    <script type="module">
+        const listAvailableRange = JSON.parse($("#booking-data").text());
+        const defaultRange = listAvailableRange[0];
 
+        // Set placeholders for the date fields
+        $("#checkin-date").attr("placeholder", defaultRange.check_in);
+        $("#checkout-date").attr("placeholder", defaultRange.check_out);
+        $("#booking-length").text(defaultRange.range_length);
+
+        // Helper to check if a date is in valid ranges
+        function isInValidRanges(date) {
+            return !listAvailableRange.some(range => {
+                const start = moment(range.check_in);
+                const end = moment(range.check_out);
+                return date.isBetween(start, end, null, '[]');
+            });
+        }
+
+        $(function () {
+            // Initialize date pickers
+            $('#checkin-date, #checkout-date').daterangepicker({
+                startDate: moment(listAvailableRange[0].check_in),
+                endDate: moment(listAvailableRange[0].check_out),
+                minDate: moment().startOf('day'),
+                opens: 'left',
+                autoUpdateInput: false,
+                locale: {
+                    format: 'YYYY-MM-DD',
+                },
+                isInvalidDate: function (date) {
+                    return isInValidRanges(date);
+                }
+            });
+
+            // Apply logic for check-in and check-out date changes
+            $('#checkin-date').on('apply.daterangepicker', function (ev, picker) {
+                $(this).val(picker.startDate.format('YYYY-MM-DD'));
+                $('#checkout-date').val(picker.endDate.format('YYYY-MM-DD'));
+                recalculatePrice($("#bnb-base-price").text(), picker.endDate.diff(picker.startDate, "days") + 1);
+            });
+
+            $('#checkout-date').on('apply.daterangepicker', function (ev, picker) {
+                $(this).val(picker.endDate.format('YYYY-MM-DD'));
+                $('#checkin-date').val(picker.startDate.format('YYYY-MM-DD'));
+                recalculatePrice($("#bnb-base-price").text(), picker.endDate.diff(picker.startDate, "days") + 1);
+            });
+        });
+
+        // Recalculate price based on date range
+        function recalculatePrice(priceStr, dateDiff) {
+            const basePrice = parseInt(priceStr.trim().replaceAll("VNĐ", "").replaceAll(".", ""));
+            const bookingPrice = basePrice * dateDiff;
+            const totalPrice = bookingPrice + 70000; // Fixed service fee of 70,000 VNĐ
+            $("#booking-length").text(dateDiff);
+            $("#bnb-price").text(modifyPriceValue(bookingPrice));
+            $("#bnb-total-price").text(modifyPriceValue(totalPrice));
+        }
+
+        // Format price for display
+        function modifyPriceValue(price) {
+            return price.toLocaleString("vi-VN") + " VNĐ";
+        }
+    </script>
+    <script type="module">
+        $(document).ready(() => {
+            // Display Markdown content
+            $("#description-display").html(marked.parse(`{{ bnb.description|escapejs }}`));
+            $("#service-bnb").html(marked.parse(`{{ bnb.services|escapejs }}`));
+            $("#owner-description").html(marked.parse(`{{ bnb.owner.description|escapejs }}`));
+
+            // Show or hide comment form based on review status
+            {% user_review_status request.session bnb.id as review_status %}
+            {% if review_status %}
+                $("#upload-comment-form").removeClass('d-none');
+                $("#upload-comment-form button").attr("disabled", false);
+            {% else %}
+                $("#upload-comment-form").addClass('d-none');
+                $("#upload-comment-form button").attr("disabled", true);
+            {% endif %}
+        });
+
+        // Filter reviews based on sentiment
+        function filterReview(sentimentType) {
+            let filterLabel = "";
+            switch (sentimentType) {
+                case "positive":
+                    filterLabel = "Tích cực";
+                    break;
+                case "negative":
+                    filterLabel = "Tiêu cực";
+                    break;
+                default:
+                    filterLabel = "";
+            }
+
+            $.ajax({
+                url: '{{ request.path }}',
+                method: 'GET',
+                data: {
+                    'sentiment_type': sentimentType
+                },
+                success: function (response) {
+                    let reviewContents = '';
+                    if (sentimentType !== "all") {
+                        $("#filter-text").removeClass("d-none");
+                        $("#filter-label").text(filterLabel);
+                    } else {
+                        $("#filter-text").addClass("d-none");
+                    }
+                    $.each(response.reviews, function (index, review) {
+                        reviewContents += `
+                            <div class="col-6 comment-component">
+                                <div class="rounded-4 row p-1">
+                                    <div class="col-2 d-flex flex-column justify-content-center">
+                                        <img class="text-center display-4 rounded-circle"
+                                             src="${review.avatar}"
+                                             alt="" width="80px" height="80px">
+                                    </div>
+                                    <div class="col d-flex align-items-center">
+                                        <p style="font-size: 18px"
+                                           class="fw-semibold m-0">${review.fullname}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    ${review.rating_content}
+                                </div>
+                                <div class="row comment-component__content my-2">
+                                    <p>${review.content}</p>
+                                </div>
+                            </div>`;
+                    });
+                    $('#review-display').html(reviewContents);
+                }
+            });
+        }
+
+        $("#filter-positive-review").click(() => filterReview('positive'));
+        $("#filter-negative-review").click(() => filterReview('negative'));
+        $("#unfilter-review").click(() => filterReview('all'));
+
+        // Booking button logic
+        $("#booking-btn").click(() => {
+            const checkinDate = $("#checkin-date").val() || $('#checkin-date').attr('placeholder');
+            const checkoutDate = $("#checkout-date").val() || $('#checkout-date').attr('placeholder');
+            window.location = `/book?bnbid={{ bnb.id }}&checkin=${checkinDate.trim()}&checkout=${checkoutDate.trim()}&capacity=${$('#booking-capacity').val()}`;
+        });
+    </script>
 {% endblock scripts %}
+
+
+
+
 

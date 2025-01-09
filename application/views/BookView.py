@@ -1,6 +1,8 @@
-from django.shortcuts import render, get_object_or_404
+import json
 from django.views.generic import TemplateView
+from django.shortcuts import render
 from application.models import BnbInformation
+from application.models.bnb import Image
 
 class BookView(TemplateView):
     template_name = 'application/templates/booking.html'
@@ -29,6 +31,7 @@ class BookView(TemplateView):
         owner = bnb.owner  # Lấy đối tượng Owner liên kết với BnbInformation
         owner_name = owner.account.fullname if owner else None
         owner_avatar = owner.account.avatar if owner else None
+        price_per_night = bnb.price  # Lấy giá từ BnbInformation
 
         # Chuẩn bị context
         context = {
@@ -39,7 +42,13 @@ class BookView(TemplateView):
             'images': images,
             'owner_name': owner_name,  # Truyền tên chủ nhà vào context
             'owner_avatar': owner_avatar,  # Truyền hình ảnh chủ nhà vào context
-            'price_per_night': bnb.price,  # Lấy giá sản phẩm
+            'price_per_night': price_per_night,  # Truyền giá vào context
         }
 
         return render(request, self.template_name, context)
+
+
+
+
+
+
