@@ -27,7 +27,7 @@ from application.views.ResultView import ResultView
 from application.views.BookView import BookView
 from application.views.UserView import UserView, UserInfoView, UserOrderHistoryView, UserViewedHistoryView, \
     UserReviewHistoryView, UserWishListView
-from application.views.OwnerRegister import OwnerRegisterView, TempRegisterView
+from application.views.OwnerRegister imports AddNewBnb
 from application.views.RegisterView import RegisterView
 
 # Lưu ý: Nếu muốn hiển thị các trang lỗi custom thì phải set DEBUG = False và phải set ALLOWED_HOSTS
@@ -64,7 +64,5 @@ urlpatterns = [
     path('user/review-history', UserReviewHistoryView.as_view(template_name='user/user-reviewed-history.html'),
          name='user-review-history'),
     path('user/wishlist', UserWishListView.as_view(template_name='user/user-wishlist.html'), name='user-wishlist'),
-
-    path('owner-add-bnb/',OwnerRegisterView.as_view(), name='owner-register' ),
-    path('temp-add-bnb/', TempRegisterView.as_view())
+    path('add-new-bnb/', AddNewBnb.as_view())
 ]

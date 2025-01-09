@@ -40,6 +40,22 @@ function setCategory(id) {
     updateLocalStorage()
 }
 
+function getAddressLocation(address) {
+    return fetch("https://nominatim.openstreetmap.org/search.php?q=${ADDRESS}&format=jsonv2")
+        .then(async result => {
+            if (result.ok) {
+                return result.json().then(data => {
+                    sessionObject.location.name = address
+                    sessionObject.location.lat = data[0].lat
+                    sessionObject.location.lon = data[0].lon
+                })
+            }
+            else {
+                return "Có lỗi!!!"
+            }
+        })
+}
+
 $("#section-1 .section-card").click(function () {
     const index = $(this).index()
     const categoryId = index + 1
@@ -59,6 +75,7 @@ $("#section-1 .section-card").click(function () {
         $("#section-1 .show-section").attr("disabled", true)
     }
 })
+
 $("#section-2 .section-card").click(function () {
     const index = $(this).index()
     const serviceIndex = index + 1
@@ -90,3 +107,11 @@ $("#section-3 input[type=file]").change(function () {
         $("#section-3 .show-section").attr("disabled", true)
     }
 })
+
+async function getPostInfo() {
+    sessionObject.name = $("form #bnb-name").val()
+    sessionObject.description = $("form #bnb-description").val()
+    sessionObject.ownerId = userId
+    sessionObject.location = await getAddressLocation($("form #bnb-location").val())
+    return sessionObject
+}
