@@ -7,6 +7,18 @@ button{
 .h1,.h2,.h3,.h4,.h5{
     color: var(--logo-icon-color);
 }
+#overlay{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Màu nền tối */
+    visibility: hidden;
+    opacity: 0.75; /* Ẩn lớp overlay mặc định */
+    transition: opacity 0.5s ease; /* Hiệu ứng chuyển đổi mượt */
+    z-index: 10000;
+}
 #filter{
     width: 80%;
     height: 50px;
@@ -18,11 +30,13 @@ button{
     font-weight: bold;
 }
 #filter-container{
+    position: absolute;
     background-color: var(--web-background-color);
     border: solid 1px var(--logo-icon-color);
     width:750px;
     left: 25%;
     top: 12px;
+    z-index: 10000;
 }
 #filter-container .group-properties .select-option{
     background-color: var(--web-background-color);
@@ -45,21 +59,33 @@ button{
     height: 40px;
     border-radius: 5px;
 }
-
-
-/*Card*/
-.service-item{
-    width: 100px;
-    height: 265px;
+.btn-action button{
+    height: 40px;
+    border-radius: 5px;
+    font-weight: bold;
 }
-.card-img{
-    height: 60%;
+.btn-action .remove-filter{
+    background-color: var(--web-background-color);
+    color: var(--main-cta-color);
+    border: solid 1px var(--main-cta-color);
+}
+.btn-action .add-filter{
+    background-color: var(--main-cta-color) ;
+    color: var(--web-background-color);
+}
+/*Card*/
+.service-item {
+    /*background-color: #fff;*/
+    /*border: solid var(--sub-cta-color-hover) 1px;*/
+    width: calc(20% - 1.5rem);
+    height: 25rem;
+    cursor: pointer;
+    /*box-shadow: 1px 1px 3px 2px rgba(0,0,0,0.1);*/
+}
+.service-item img {
+    height: 70%;
     object-fit: cover;
     aspect-ratio: 15/ 16;
-}
-.card-title{
-    color:var(--main-cta-color);
-    font-weight: bold;
 }
 .bi-star-fill{
     color: var(--logo-icon-color);

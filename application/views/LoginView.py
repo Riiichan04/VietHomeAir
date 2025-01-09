@@ -1,15 +1,23 @@
+from datetime import timezone
+from math import trunc
+from django.contrib.auth import login
+from django.contrib.auth.hashers import make_password
 from django.http import JsonResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.utils.termcolors import foreground
+from django.utils.timezone import now
 from django.views.generic import TemplateView
-from django.contrib.auth.hashers import check_password
-from application.models import accounts
-
-from application.services.auth_service import user_login
+from django.contrib import messages
+from application.models import Account
+from application.services.auth_service import user_login, validate_new_user
+from application.views.ErrorView import context
 
 
 class LoginView(TemplateView):
     template_name = 'application/templates/auth_template/login.html'
 
+class RegisterView(TemplateView):
+    template_name = 'application/templates/auth_template/register.html'
 
 class AuthView(TemplateView):
     template_name = 'application/templates/auth_template/base.html'
@@ -24,5 +32,42 @@ class AuthView(TemplateView):
                 return JsonResponse({'result': True}, status=200)
             else:
                 return JsonResponse({'result': False}, status=200)
-        else:
-            return JsonResponse({'result': False}, status=404)
+
+        # elif form_type == 'register':
+        #     if request.method == 'POST':
+        #         # Lấy dữ liệu từ request
+        #         username = request.POST.get('username')
+        #         email = request.POST.get('email')
+        #         fullname = request.POST.get('fullname')
+        #         password = request.POST.get('password')
+        #         repassword = request.POST.get('repassword')
+        #         gender = request.POST.get('gender')
+        #         phone = request.POST.get('phone')
+        #
+        #         print(f"Username: {username}, Email: {email}, Fullname: {fullname}, Password: {password}, Repassword: {repassword}, Gender: {gender}, Phone: {phone}")
+        #
+        #         if Account.objects.filter(username=username).exists():
+        #             return JsonResponse({'result': False, 'message': 'Tên người dùng đã tồn tại'}, status=400)
+        #
+        #         if Account.objects.filter(email=email).exists():
+        #             return JsonResponse({'result': False, 'message': 'Email đã tồn tại'}, status=400)
+        #
+        #         if password != repassword:
+        #             return JsonResponse({'result': False, 'message': 'Passwords do not match'}, status=400)
+        #
+        #         account = Account.objects.create(
+        #             username=username,
+        #             password=make_password(password),
+        #             email=email,
+        #             phone=phone,
+        #             fullname=fullname,
+        #             gender=gender,
+        #             role=0,
+        #             registered_time=timezone.now(),
+        #             is_verified=True,
+        #             status=True
+        #         )
+        #         account.save()
+        #
+        #     return JsonResponse({'result': True, 'message': 'Đăng ký thành công'}, status=200)
+        return JsonResponse({'result': False}, status=400)

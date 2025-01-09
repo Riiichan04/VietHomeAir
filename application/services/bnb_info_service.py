@@ -76,6 +76,7 @@ def statistic_bnb_reviews_by_sentiment(bnb_reviews):
 
 # Thống kê review của bnb theo số sao đánh giá
 def statistic_bnb_reviews_by_rating(bnb_reviews):
+    if len(bnb_reviews) == 0: return 0
     avg_rating = sum(map(lambda x: x.rating, bnb_reviews)) / len(bnb_reviews)
     count_rating = []
     for i in range(1, 6):
