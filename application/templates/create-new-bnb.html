@@ -240,7 +240,7 @@
                         <div class="row alert alert-primary"
                              role="alert">
                             <div>
-                                Thông tin của bạn đang được gửi đi...
+                                <span id="alert-content"></span>
                             </div>
                         </div>
                     </div>
@@ -263,7 +263,6 @@
             const newRow = document.createElement('div');
             const id = $(button).data('id');
             newRow.className = "row mb-2";
-            console.log(id)
             if (id === 'rule-checkin') {
                 newRow.innerHTML = `
                     <div class="col-2 text-end align-content-center">Quy tắc</div>
@@ -346,10 +345,9 @@
                 }
             })
 
-            $(".select-rules:selected").each(function (index, service) {
-                console.log("AAAAA")
-                console.log(service.val())
-                form_data.append('rules', service.val())
+            $(".select-rules").each(function () {
+                console.log($(this).val())
+                form_data.append('rules', $(this).val())
             })
 
             for (const service of sessionObject.listBnbService) {
@@ -360,8 +358,9 @@
                 form_data.append('categories', category)
             }
 
-            $("#alert").removeClass("d-none")
-
+            $("#alert").removeClass("d-none").removeClass("alert-danger").removeClass("alert-success")
+                .addClass("alert.primary")
+            $("#alert-content").text("Thông tin của bạn đang được gửi đi...")
             $.ajax({
                 url: '/add-new-bnb/',
                 method: 'POST',
@@ -372,11 +371,13 @@
                 processData: false,  // Không để jQuery xử lý dữ liệu
                 contentType: false,  // Không đặt Content-Type, vì FormData tự xử lý
                 success: function (response) {
-                    alert("Bạn đã tạo bnb thành công!!!");
+                    $("#alert").removeClass("d-none").removeClass("alert-primary").addClass("alert-success")
+                    $("#alert-content").text("Bạn đã thêm nhà cho thuê mới thành công!!!")
                     window.location.href = '/'
                 },
                 error: function (response) {
-                    alert("Có lỗi xảy ra, hãy thử tạo lại bnb nhé :<");
+                    $("#alert").removeClass("d-none").removeClass("alert-primary").addClass("alert-danger")
+                    $("#alert-content").text("Có lỗi ùi, hãy thử lại nhé!!! :<")
                     showSection(1)
                     $("#alert").addClass("d-none")
                 }

@@ -35,6 +35,8 @@ class AddNewBnb(TemplateView):
 
                 owner_account = Account.objects.filter(id=info['owner_id']).first()
                 owner = Owner.objects.filter(account=owner_account).first()
+
+
                 if owner is None:
                     new_owner = Owner(account=owner_account)
                     owner = new_owner
@@ -80,7 +82,7 @@ def get_bnb_info(request):
         'list_service_id': request.POST.getlist('services'),
         'rules': request.POST.getlist('rules'),
         'owner_id': int(request.POST.get('ownerId')),
-        'images': upload_image_using_cloudinary(request.FILES.getlist('images'), request.POST.get('name')),
+        'images': upload_image_using_cloudinary(request.FILES.getlist('images'), str(BnbInformation.objects.count())),
         'price': float(request.POST.get('price')),
     }
 
