@@ -27,7 +27,10 @@ from application.views.ResultView import ResultView
 from application.views.BookView import BookView
 from application.views.UserView import UserView, UserInfoView, UserOrderHistoryView, UserViewedHistoryView, \
     UserReviewHistoryView, UserWishListView
-from application.views.OwnerManagementView import OwnerManagementView, UpdateBnBView, AcceptBookingView, UpdateStatusBnBView
+from application.views.AddNewBnb import AddNewBnb
+from application.views.RegisterView import RegisterView
+from application.views.OwnerManagementView import OwnerManagementView, UpdateBnBView, AcceptBookingView, \
+    UpdateStatusBnBView
 from application.views.InfoOwnerBnBView import InfoOwnerBnBView
 
 # Lưu ý: Nếu muốn hiển thị các trang lỗi custom thì phải set DEBUG = False và phải set ALLOWED_HOSTS
@@ -72,11 +75,13 @@ urlpatterns = [
     path('owner-management/edit-bnb/id=<int:bnbid>',
          OwnerManagementView.as_view(template_name='manage_of_owner/form-bnb.html'),
          name='owner-management-edit-bnb'),
-    path('owner/<int:ownerid>', InfoOwnerBnBView.as_view(), name='info-owner' ),
+    path('owner/<int:ownerid>', InfoOwnerBnBView.as_view(), name='info-owner'),
 
     # Các URL dưới đây chỉ được dùng cho POST AJAX
     path('owner-management/edit-bnb/update-bnb', UpdateBnBView.as_view(), name='owner-management-update-bnb'),
     path('owner-management/accept-booking', AcceptBookingView.as_view(), name='owner-management-accept-booking'),
-    path('owner-management/update-status-bnn', UpdateStatusBnBView.as_view(), name='owner-management-update-status-bnn'),
-
+    path('owner-management/update-status-bnn', UpdateStatusBnBView.as_view(),
+         name='owner-management-update-status-bnn'),
+    path('add-new-bnb/', AddNewBnb.as_view(), name='add-new-bnb'),
+    path('validate-register/<str:type>', RegisterView.as_view(), name='validate-register'),
 ]
