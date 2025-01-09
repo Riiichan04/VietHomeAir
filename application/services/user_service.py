@@ -17,8 +17,8 @@ def get_user_info(user_id):
         'gender': user.gender,
         'is_verified': user.is_verified,
         'avatar': user.avatar,
-        'wishlist':WishList.objects.filter(account=user)
     }
+
 def get_wish_list(user_id:int):
     user= Account.objects.filter(id=user_id).first()
     if user is None: return None

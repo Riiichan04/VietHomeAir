@@ -35,6 +35,7 @@ class UserReviewHistoryView(TemplateView):
 
 class UserWishListView(TemplateView):
     template_name = 'application/templates/user/user-wishlist.html'
+
     def get_context_data(self, **kwargs):
         userId = self.request.session.get('user')
         print(userId)
