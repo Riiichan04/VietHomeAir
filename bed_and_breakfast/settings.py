@@ -143,7 +143,8 @@ CORS_ALLOWED_ORIGINS = [
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
-
+from dotenv import load_dotenv
+load_dotenv()
 # Thông tin Cloudinary từ dashboard
 cloudinary.config(
     cloud_name=os.getenv('CLOUDINARY_NAME'),

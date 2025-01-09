@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load bnb_info_filter %}
 {% load static %}
 
 {% block title %}
@@ -46,47 +47,60 @@
         <section class="page-section add-bnb-section" id="section-1">
             <h3 class="text-center my-3">Đặc điểm nào đúng với nhà cho thuê của bạn?</h3>
             <div class="row gap-4 gy-4 p-5">
-                <div class="rounded default-btn-style category-item text-center cursor-pointer section-card p-4 border border-1 border-black">
+                <div style
+                             ="background-color: rgba(0,0,0,0.1)" class="rounded default-btn-style category-item text-center
+                cursor-pointer section-card p-4 border border-1 border-black">
                     <i class="h3 bi bi-building"></i>
                     <p class="h5 fw-normal">Nhà trong thành phố</p>
                 </div>
-                <div class="rounded default-btn-style category-item text-center cursor-pointer section-card p-4 border border-1 border-black">
+                <div style
+                             ="background-color: rgba(0,0,0,0.1)" class="rounded default-btn-style category-item text-center
+            cursor-pointer section-card p-4 border border-1 border-black">
                     <i class="h3 bi bi-house-door"></i>
                     <p class="h5 fw-normal">Nhà nhỏ</p>
                 </div>
-                <div class="rounded default-btn-style category-item text-center cursor-pointer section-card p-4 border border-1 border-black">
+                <div style="background-color: rgba(0,0,0,0.1)" class="rounded default-btn-style category-item text-center
+    cursor-pointer section-card p-4 border border-1 border-black">
                     <i class="h3 bi bi-buildings"></i>
                     <p class="h5 fw-normal">Biệt thự</p>
                 </div>
-                <div class="rounded default-btn-style category-item text-center cursor-pointer section-card p-4 border border-1 border-black">
+                <div style="background-color: rgba(0,0,0,0.1)" class="rounded default-btn-style category-item text-center
+    cursor-pointer section-card p-4 border border-1 border-black">
                     <i class="h3 bi bi-tsunami"></i>
                     <p class="h5 fw-normal">Hướng biển</p>
                 </div>
-                <div class="rounded default-btn-style category-item text-center cursor-pointer section-card p-4 border border-1 border-black">
+                <div style="background-color: rgba(0,0,0,0.1)" class="rounded default-btn-style category-item text-center
+    cursor-pointer section-card p-4 border border-1 border-black">
                     <i class="h3 bi bi-hospital"></i>
                     <p class="h5 fw-normal">Gần bệnh viện</p>
                 </div>
-                <div class="rounded default-btn-style category-item text-center cursor-pointer section-card p-4 border border-1 border-black">
+                <div style="background-color: rgba(0,0,0,0.1)" class="rounded default-btn-style category-item text-center
+    cursor-pointer section-card p-4 border border-1 border-black">
                     <i class="h3 bi bi-tree"></i>
                     <p class="h5 fw-normal">Nhà trên cây cổ thụ </p>
                 </div>
-                <div class="rounded default-btn-style category-item text-center cursor-pointer section-card p-4 border border-1 border-black">
+                <div style="background-color: rgba(0,0,0,0.1)" class="rounded default-btn-style category-item text-center
+    cursor-pointer section-card p-4 border border-1 border-black">
                     <i class="h3 bi bi-box"></i>
                     <p class="h5 fw-normal">Container</p>
                 </div>
-                <div class="rounded default-btn-style category-item text-center cursor-pointer section-card p-4 border border-1 border-black">
+                <div style="background-color: rgba(0,0,0,0.1)" class="rounded default-btn-style category-item text-center
+    cursor-pointer section-card p-4 border border-1 border-black">
                     <i class="h3 bi bi-shop"></i>
                     <p class="h5 fw-normal">Nhà gần siêu thị</p>
                 </div>
-                <div class="rounded default-btn-style category-item text-center cursor-pointer section-card p-4 border border-1 border-black">
+                <div style="background-color: rgba(0,0,0,0.1)" class="rounded default-btn-style category-item text-center
+    cursor-pointer section-card p-4 border border-1 border-black">
                     <i class="h3 bi bi-water"></i>
                     <p class="h5 fw-normal">Nhà gần hồ bơi</p>
                 </div>
-                <div class="rounded default-btn-style category-item text-center cursor-pointer section-card p-4 border border-1 border-black">
+                <div style="background-color: rgba(0,0,0,0.1)" class="rounded default-btn-style category-item text-center
+    cursor-pointer section-card p-4 border border-1 border-black">
                     <i class="h3 fa-solid fa-wheat-awn"></i>
                     <p class="h5 fw-normal">Miền quê</p>
                 </div>
-                <div class="rounded default-btn-style category-item text-center cursor-pointer section-card p-4 border border-1 border-black">
+                <div style="background-color: rgba(0,0,0,0.1)" class="rounded default-btn-style category-item text-center
+    cursor-pointer section-card p-4 border border-1 border-black">
                     <i class="h3 fa-solid fa-mountain-sun"></i>
                     <p class="h5 fw-normal">Hướng ra núi hoặc thung lũng</p>
                 </div>
@@ -153,7 +167,7 @@
 
         <section class="page-section d-none" id="section-4">
             <h3 class="text-center my-3">Còn những thông tin khác thì sao?</h3>
-            <form method="post" id="upload-new-bnb" class="row" enctype="multipart/form-data">
+            <form id="upload-new-bnb" class="row">
                 {% csrf_token %}
                 <label class="my-3" for="">
                     Tên nhà cho thuê của bạn<span class="text-danger">*</span>:
@@ -220,6 +234,18 @@
                             <i class="fas fa-plus-circle"></i></button>
                     </div>
                 </div>
+
+                <div id="alert" class="d-flex justify-content-end my-3 d-none">
+                    <div class="col-3 d-flex align-items-center">
+                        <div class="row alert alert-primary"
+                             role="alert">
+                            <div>
+                                Thông tin của bạn đang được gửi đi...
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="d-flex justify-content-end">
                     <button class="btn btn-outline-secondary px-4 py-2 mx-5" onclick="showSection(3)">Quay lại</button>
                     <button class="btn btn-primary px-4 py-2" id="submit-new-bnb">Gửi</button>
@@ -227,6 +253,8 @@
             </form>
         </section>
     </div>
+
+
 {% endblock content %}
 {% block scripts %}
     <script src="{% static 'scripts/add-bnb.js' %}"></script>
@@ -293,24 +321,46 @@
     <script>
         $("#submit-new-bnb").click(async function (e) {
             e.preventDefault()
-            const obj = await getPostInfo()
+            if (userId === 'None') {
+                alert("Bạn chưa đăng nhập")
+                return
+            }
+            await getPostInfo(userId)
             let listImg = []
+
+            const form_data = new FormData();
+            form_data.append('name', sessionObject.name)
+            form_data.append('description', sessionObject.description)
+            form_data.append('ownerId', sessionObject.ownerId)
+            form_data.append('capacity', sessionObject.capacity)
+            form_data.append('location_name', sessionObject.location.name)
+            form_data.append('location_lat', sessionObject.location.lat)
+            form_data.append('location_lon', sessionObject.location.lon)
+            form_data.append('price', sessionObject.price)
+
             $("input[type=file]").each(function (index, input) {
-                if (this.files.length > 0) {
-                    $.each(this.files, function (i, file) {
-                        obj.append('images[]', file);
+                if (input.files.length > 0) {
+                    $.each(input.files, function (i, file) {
+                        form_data.append('images', file);
                     });
                 }
             })
 
-            $(".select-rules:selected").each(function () {
-                obj.append('rules[]', $(this).val())
+            $(".select-rules:selected").each(function (index, service) {
+                console.log("AAAAA")
+                console.log(service.val())
+                form_data.append('rules', service.val())
             })
 
-            const form_data = new FormData();
-            for (const key in obj) {
-                form_data.append(key, obj[key]);
+            for (const service of sessionObject.listBnbService) {
+                form_data.append('services', service)
             }
+
+            for (const category of sessionObject.categoryId) {
+                form_data.append('categories', category)
+            }
+
+            $("#alert").removeClass("d-none")
 
             $.ajax({
                 url: '/add-new-bnb/',
@@ -319,6 +369,8 @@
                     'X-CSRFToken': getCSRFToken()
                 },
                 data: form_data,
+                processData: false,  // Không để jQuery xử lý dữ liệu
+                contentType: false,  // Không đặt Content-Type, vì FormData tự xử lý
                 success: function (response) {
                     alert("Bạn đã tạo bnb thành công!!!");
                     window.location.href = '/'
@@ -326,6 +378,7 @@
                 error: function (response) {
                     alert("Có lỗi xảy ra, hãy thử tạo lại bnb nhé :<");
                     showSection(1)
+                    $("#alert").addClass("d-none")
                 }
             })
         })

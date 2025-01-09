@@ -1,9 +1,6 @@
-from itertools import product
-
 from cloudinary.uploader import upload
 from django.http import JsonResponse
 from django.views.generic import TemplateView
-from django.shortcuts import render
 
 from application.models import BnbInformation, Owner, Account
 from application.models.bnb import Service, Rule, Category, Location, Image
@@ -22,76 +19,77 @@ class AddNewBnb(TemplateView):
         return context
 
     def post(self, request, *args, **kwargs):
-        try:
-            if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        # try:
+        #     if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
                 info = get_bnb_info(request)
-                category = Category.objects.filter(name=info['bnb_category']).first()
+                print(info)
                 location = Location(
                     name=info['bnb_location']['name'],
                     lat=info['bnb_location']['lat'],
                     lon=info['bnb_location']['lon'],
                 )
-                service = [Service.objects.filter(id=service).first() for service in info['list_service_id']]
-                rules = [Rule.objects.filter(id=rule_id) for rule_id in info['rules']]
+                location.save()
+                category = [Category.objects.filter(id=int(category)).get() for category in info['bnb_categories']]
+                service = [Service.objects.filter(id=int(service)).get() for service in info['list_service_id']]
+                rules = [Rule.objects.filter(id=int(rule_id)).get() for rule_id in info['rules']]
 
-                owner_account = Account.objects.filter(id=int(info['owner_id'])).first()
+                owner_account = Account.objects.filter(id=info['owner_id']).first()
                 owner = Owner.objects.filter(account=owner_account).first()
                 if owner is None:
                     new_owner = Owner(account=owner_account)
+                    owner = new_owner
                     new_owner.save()
 
-                new_bnb = BnbInformation(
+                new_bnb = BnbInformation.objects.create(
                     name=info['bnb_name'],
                     description=info['bnb_description'],
-                    price=float(info['bnb_price']),
-                    capacity=int(info['bnb_capacity']),
-                    category=category,
+                    price=float(info['price']),
+                    capacity=info['bnb_capacity'],
                     location=location,
-                    services=service,
-                    rules=rules,
+                    owner=owner,
                 )
-
-                new_bnb.save()
+                new_bnb.category.add(*category)
+                new_bnb.service.add(*service)
+                new_bnb.rule.add(*rules)
                 for img in info['images']:
                     image = Image(
                         url=img,
                         product=new_bnb
                     )
-                    image.sa
-
+                    image.save()
+                location.save()
+                new_bnb.save()
                 return JsonResponse({'result': True}, status=200)
-            else:
-                return JsonResponse({'result': False}, status=400)
-        except (ValueError, KeyError) as e:
-            return JsonResponse({'result': False}, status=400)
+            # else:
+            #     return JsonResponse({'result': False}, status=400)
+        # except (ValueError, KeyError) as e:
+        #     return JsonResponse({'result': False}, status=400)
 
 
 def get_bnb_info(request):
-    # additional_info = {}
-    # for key, value in request.POST.items():
-    #     if key.startswith('additionalInfo['):
-    #         keys = key.replace('additionalInfo[', '').replace(']', '').split('[')
-    #         ref = additional_info
-    #         for k in keys[:-1]:
-    #             ref = ref.setdefault(k, {})
-    #         ref[keys[-1]] = value
-
     return {
         'bnb_name': request.POST.get('name'),
         'bnb_description': request.POST.get('description'),
-        'bnb_location': request.POST.get('location'),
-        'bnb_category': request.POST.get('categoryId'),
-        'list_service_id': request.POST.get('listBnbService'),
-        'rules': request.POST.getList('rules'),
-        'owner_id': request.POST.get('ownerId'),
+        'bnb_location': {
+            'name': request.POST.get('location_name'),
+            'lat': float(request.POST.get('location_lat')),
+            'lon': float(request.POST.get('location_lon')),
+        },
+        'bnb_capacity': int(request.POST.get('capacity')),
+        'bnb_categories': request.POST.getlist('categories'),
+        'list_service_id': request.POST.getlist('services'),
+        'rules': request.POST.getlist('rules'),
+        'owner_id': int(request.POST.get('ownerId')),
         'images': upload_image_using_cloudinary(request.FILES.getlist('images'), request.POST.get('name')),
+        'price': float(request.POST.get('price')),
     }
 
 
 def upload_image_using_cloudinary(images, bnb_name):
     list_url = []
+    folder_name = 'python-web-images/bnb-images/'
     for index, image in enumerate(images):
         public_id = f'bnb_images/{bnb_name.replace(" ", "_")}-image-{index + 1}'
-        result = upload(image, public_id=public_id, overwrite=True)  # overwrite=True để ghi đè nếu trùng
+        result = upload(image, folder=folder_name, public_id=public_id, overwrite=True)  # overwrite=True để ghi đè nếu trùng
         list_url.append(result['secure_url'])
     return list_url
