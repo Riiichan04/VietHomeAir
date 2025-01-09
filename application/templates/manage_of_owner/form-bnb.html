@@ -96,30 +96,102 @@
             {% endfor %}
         </div>
         <div class="col-12" id="rules">
-            <label for="rule" class="form-label">Quy tắc</label>
-            <button type="button" class="d-inline add-rule-btn text-center"
-                    style="border: none; background-color: var(--web-background-color)" onclick="addRule()">
-                <i class="fas fa-plus-circle"></i></button>
-            {% for rule in bnb.rules %}
-                <div class="row mb-2">
-                    <div class="col-2 text-end align-content-center">Quy tắc</div>
-                    <div class="col"><select name="rule-id" class="form-control" name="rule" required>
-                        {% for r in rules %}
-                            <option value="{{ r.id }}"
-                                    {% if rule.id == r.id %}selected{% endif %}>{{ r.description }}</option>
-                        {% endfor %}
-                    </select></div>
-                    <div class="col-1">
-                        <button type="button" class="btn btn-danger" onclick="remove(this)">Xóa</button>
-                    </div>
+            <div class="row">
+                <div class="col">
+                    <label class="form-label">Check in</label>
+                    <button type="button" class="d-inline add-rule-btn text-center"
+                            style="border: none; background-color: var(--web-background-color)" onclick="addRule(this)"
+                            data-id="rule-checkin">
+                        <i class="fas fa-plus-circle"></i></button>
                 </div>
+                <div class="col">
+                    <label class="form-label">Check out</label>
+                    <button type="button" class="d-inline add-rule-btn text-center"
+                            style="border: none; background-color: var(--web-background-color)" onclick="addRule(this)"
+                            data-id="rule-checkout">
+                        <i class="fas fa-plus-circle"></i></button>
+                </div>
+                <div class="col">
+                    <label class="form-label">Hoàn tiền</label>
+                    <button type="button" class="d-inline add-rule-btn text-center"
+                            style="border: none; background-color: var(--web-background-color)" onclick="addRule(this)"
+                            data-id="rule-refund">
+                        <i class="fas fa-plus-circle"></i></button>
+                </div>
+                <div class="col">
+                    <label class="form-label">An ninh</label>
+                    <button type="button" class="d-inline add-rule-btn text-center"
+                            style="border: none; background-color: var(--web-background-color)" onclick="addRule(this)"
+                            data-id="rule-secure">
+                        <i class="fas fa-plus-circle"></i></button>
+                </div>
+            </div>
+
+            {% for rule in bnb.rules %}
+                {% if rule.rule_type == 'checkin' %}
+                    <div class="row mb-2">
+                        <div class="col-2 text-end align-content-center">Quy tắc</div>
+                        <div class="col"><select name="rule-id" class="form-control" name="rule" required>
+                            {% for r in rules_checkin %}
+                                <option value="{{ r.id }}"
+                                        {% if rule.id == r.id %}selected{% endif %}>{{ r.description }}</option>
+                            {% endfor %}
+                        </select></div>
+                        <div class="col-1">
+                            <button type="button" class="btn btn-danger" onclick="remove(this)">Xóa</button>
+                        </div>
+                    </div>
+                {% endif %}
+                {% if rule.rule_type == 'checkout' %}
+                    <div class="row mb-2">
+                        <div class="col-2 text-end align-content-center">Quy tắc</div>
+                        <div class="col"><select name="rule-id" class="form-control" name="rule" required>
+                            {% for r in rules_checkout %}
+                                <option value="{{ r.id }}"
+                                        {% if rule.id == r.id %}selected{% endif %}>{{ r.description }}</option>
+                            {% endfor %}
+                        </select></div>
+                        <div class="col-1">
+                            <button type="button" class="btn btn-danger" onclick="remove(this)">Xóa</button>
+                        </div>
+                    </div>
+                {% endif %}
+                {% if rule.rule_type == 'refund' %}
+                    <div class="row mb-2">
+                        <div class="col-2 text-end align-content-center">Quy tắc</div>
+                        <div class="col"><select name="rule-id" class="form-control" name="rule" required>
+                            {% for r in rules_refund %}
+                                <option value="{{ r.id }}"
+                                        {% if rule.id == r.id %}selected{% endif %}>{{ r.description }}</option>
+                            {% endfor %}
+                        </select></div>
+                        <div class="col-1">
+                            <button type="button" class="btn btn-danger" onclick="remove(this)">Xóa</button>
+                        </div>
+                    </div>
+                {% endif %}
+                {% if rule.rule_type == 'secure' %}
+                    <div class="row mb-2">
+                        <div class="col-2 text-end align-content-center">Quy tắc</div>
+                        <div class="col"><select name="rule-id" class="form-control" name="rule" required>
+                            {% for r in rules_secure %}
+                                <option value="{{ r.id }}"
+                                        {% if rule.id == r.id %}selected{% endif %}>{{ r.description }}</option>
+                            {% endfor %}
+                        </select></div>
+                        <div class="col-1">
+                            <button type="button" class="btn btn-danger" onclick="remove(this)">Xóa</button>
+                        </div>
+                    </div>
+                {% endif %}
             {% endfor %}
+
         </div>
 
         <div class="col-12">
             <label for="description" class="form-label">Mô tả</label>
             <textarea type="text" name="description" placeholder="Nhập mô tả..."
-                      class="form-control style-text-area" required>{{ bnb.description }}</textarea>
+                      class="form-control style-text-area">{{ bnb.description }}</textarea>
         </div>
         <div class="col-6 pt-3">
             <a type="button" class="w-100 btn cancel-btn" href="/owner-management/dashboard">Hủy</a>
@@ -165,20 +237,56 @@
             document.getElementById('services').append(newRow);
         }
 
-        function addRule() {
+        function addRule(button) {
             const newRow = document.createElement('div');
+            const id = $(button).data('id');
             newRow.className = "row mb-2";
-            newRow.innerHTML = `
+            console.log(id)
+            if (id === 'rule-checkin') {
+                newRow.innerHTML = `
                     <div class="col-2 text-end align-content-center">Quy tắc</div>
                     <div class="col"><select name="rule-id" class="form-control" name="rule" required>
-                        {% for r in rules %}
-                            <option value="{{ r.id }}"
-                                    {% if rule.id == r.id %}selected{% endif %}>{{ r.title }}</option>
+                        {% for r in rules_checkin %}
+                            <option value="{{ r.id }}">{{ r.description }}</option>
                         {% endfor %}
                     </select></div>
                     <div class="col-1">
                         <button type="button" class="btn btn-danger" onclick="remove(this)">Xóa</button>
                     </div>`
+            } else if (id === 'rule-checkout') {
+                newRow.innerHTML = `
+                    <div class="col-2 text-end align-content-center">Quy tắc</div>
+                    <div class="col"><select name="rule-id" class="form-control" name="rule" required>
+                        {% for r in rules_checkout %}
+                            <option value="{{ r.id }}">{{ r.description }}</option>
+                        {% endfor %}
+                    </select></div>
+                    <div class="col-1">
+                        <button type="button" class="btn btn-danger" onclick="remove(this)">Xóa</button>
+                    </div>`
+            } else if (id === 'rule-refund') {
+                newRow.innerHTML = `
+                    <div class="col-2 text-end align-content-center">Quy tắc</div>
+                    <div class="col"><select name="rule-id" class="form-control" name="rule" required>
+                        {% for r in rules_refund %}
+                            <option value="{{ r.id }}">{{ r.description }}</option>
+                        {% endfor %}
+                    </select></div>
+                    <div class="col-1">
+                        <button type="button" class="btn btn-danger" onclick="remove(this)">Xóa</button>
+                    </div>`
+            } else if (id === 'rule-secure') {
+                newRow.innerHTML = `
+                    <div class="col-2 text-end align-content-center">Quy tắc</div>
+                    <div class="col"><select name="rule-id" class="form-control" name="rule" required>
+                        {% for r in rules_secure %}
+                            <option value="{{ r.id }}">{{ r.description }}</option>
+                        {% endfor %}
+                    </select></div>
+                    <div class="col-1">
+                        <button type="button" class="btn btn-danger" onclick="remove(this)">Xóa</button>
+                    </div>`
+            }
             document.getElementById('rules').append(newRow);
         }
 

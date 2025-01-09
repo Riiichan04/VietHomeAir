@@ -42,7 +42,10 @@ class OwnerManagementView(TemplateView):
         context['list_booking'] = list_booking
         context['categories'] = get_list_category()
         context['services'] = get_list_service()
-        context['rules'] = get_list_rule()
+        context['rules_checkin'] = get_list_rule().filter(rule_type__in=['checkin'])
+        context['rules_checkout'] = get_list_rule().filter(rule_type__in=['checkout'])
+        context['rules_refund'] = get_list_rule().filter(rule_type__in=['refund'])
+        context['rules_secure'] = get_list_rule().filter(rule_type__in=['secure'])
         context['bnb_reviews'] = get_bnb_reviews(owner.get("id"))
         context['list_bnb_avg'] = get_list_info_bnb_avg_rating(owner.get("id"))
 
