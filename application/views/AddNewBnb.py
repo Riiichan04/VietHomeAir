@@ -5,7 +5,7 @@ from django.http import JsonResponse
 from django.views.generic import TemplateView
 from django.shortcuts import render
 
-from application.models import BnbInformation
+from application.models import BnbInformation, Owner, Account
 from application.models.bnb import Service, Rule, Category, Location, Image
 
 
@@ -34,6 +34,12 @@ class AddNewBnb(TemplateView):
                 service = [Service.objects.filter(id=service).first() for service in info['list_service_id']]
                 rules = [Rule.objects.filter(id=rule_id) for rule_id in info['rules']]
 
+                owner_account = Account.objects.filter(id=int(info['owner_id'])).first()
+                owner = Owner.objects.filter(account=owner_account).first()
+                if owner is None:
+                    new_owner = Owner(account=owner_account)
+                    new_owner.save()
+
                 new_bnb = BnbInformation(
                     name=info['bnb_name'],
                     description=info['bnb_description'],
@@ -42,7 +48,7 @@ class AddNewBnb(TemplateView):
                     category=category,
                     location=location,
                     services=service,
-                    rules = rules,
+                    rules=rules,
                 )
 
                 new_bnb.save()
