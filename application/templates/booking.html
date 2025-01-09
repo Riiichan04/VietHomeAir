@@ -1,9 +1,12 @@
 {% extends 'base.html' %}
+{% load bnb_info_filter %} {# Load webfilter sử dụng #}
+
 {% load static %}
 
 {% block title %}
     <title>Đặt phòng - VietHomeAir</title>
 {% endblock title %}
+
 
 {% block header_scripts %}
     {#  Thư viện momentjs để dùng daterangepickerjs  #}
@@ -13,9 +16,17 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/15.0.4/marked.min.js"
             integrity="sha512-VmLxPVdDGeR+F0DzUHVqzHwaR4ZSSh1g/7aYXwKT1PAGVxunOEcysta+4H5Utvmpr2xExEPybZ8q+iM9F1tGdw=="
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin=""></script>
 {% endblock header_scripts %}
 
 {% block stylesheet %}
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"/>
+    <link rel="stylesheet" href="{% static 'style/leaflet-osm.css' %}">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+          crossorigin=""/>
     <style>
         body {
             background-color: #f8f9fa;
@@ -60,6 +71,10 @@
             margin-bottom: 0.5rem;
             color: #6c757d;
         }
+
+        input, input[type=text] {
+            border: 1px black solid !important;
+        }
     </style>
 {% endblock stylesheet %}
 
@@ -67,189 +82,302 @@
     <div class="container mt-5">
         <!-- Header -->
         <div class="booking-header">
-            <h1>Đặt phòng dễ dàng với VietHomeAir</h1>
-            <p>Khám phá các căn hộ và phòng nghỉ lý tưởng cho chuyến đi của bạn!</p>
+            <h3>Đặt phòng cho {{ bnb.name }}</h3>
         </div>
+
+        <!-- Hien thi lo -->
+        {% if error %}
+            <div class="alert alert-danger" role="alert">
+                {{ error }}
+            </div>
+        {% endif %}
+
 
         <div class="row g-4">
             <!-- Form bên trái -->
             <div class="product-card col-lg-6">
                 <div class="custom-form">
-                    <h4 class="fw-bold mb-3">Đặt phòng</h4>
-                    <form method="get" action="">
+                    <h4 class="mb-3">Đặt phòng</h4>
+                    <form id="booking-form" method="post">
                         {% csrf_token %}
-
                         <!-- Ngày nhận và trả phòng -->
                         <div class="row g-2 mb-3">
                             <div class="col">
-                                <label for="checkin_date" class="form-label">Ngày nhận phòng <span class="required" style="color: red">*</span></label>
-                                <input type="date" class="form-control" id="checkin_date" name="checkin_date" required>
+                                <label class="mb-0 form-label"> Ngày nhận phòng
+                                    <input class="mb-0 mt-1 form-control px-1 w-100 border-0 h6 fw-normal" type="text"
+                                           name="checkin-date"
+                                           id="checkin-date" required>
+                                </label>
                             </div>
                             <div class="col">
-                                <label for="checkout_date" class="form-label">Ngày trả phòng <span class="required" style="color: red">*</span></label>
-                                <input type="date" class="form-control" id="checkout_date" name="checkout_date" required>
+                                <label class="mb-0 form-label">Ngày trả phòng
+                                    <input class="mb-0 mt-1 form-control px-1 w-100 border-0 h6 fw-normal" type="text"
+                                           name="checkout-date"
+                                           id="checkout-date" required>
+                                </label>
                             </div>
                         </div>
-                        <!-- Số người lớn và trẻ em -->
+                        <!-- Số người -->
                         <div class="mb-3">
-                                <label for="capacity" class="form-label" >Số người<span class="required" style="color: red">*</span></label>
-                                <input type="number" class="form-control" id="capacity" name="capacity" required>
+                            <label for="capacity" class="form-label">Số người<span class="required"
+                                                                                   style="color: red">*</span></label>
+                            <input type="number" class="form-control" id="capacity" name="capacity" required>
                         </div>
-
-                         <!-- CCCD -->
+                        <!-- CCCD -->
                         <div class="mb-3">
-                            <label for="validate" class="form-label">CCCD<span class="required" style="color: red">*</span></label>
-                            <input type="text" class="form-control" id="cccd" name="cccd" placeholder="Nhập CCCD..." required>
+                            <label for="validate" class="form-label">CCCD<span class="required"
+                                                                               style="color: red">*</span></label>
+                            <input type="text" class="form-control" id="cccd" name="cccd" placeholder="Nhập CCCD..."
+                                   required>
                         </div>
-
                         <!-- ghi chú  -->
                         <div class="row g-2 mb-3">
                             <label for="note" class="form-label">Ghi chú </label>
-                            <textarea style="resize: none" name="" id="" cols="30" rows="10" placeholder="Bạn muốn thêm điều gì thú vị cho căn phòng..."></textarea>
+                            <textarea style="resize: none" name="" id="" cols="30" rows="10"
+                                      placeholder="Bạn muốn thêm điều gì thú vị cho căn phòng..."></textarea>
                         </div>
-
-
-
                         <!-- Nút đặt phòng -->
                         <div class="d-grid">
-                            <button type="submit" class="btn btn-primary">Đặt phòng</button> <!-- Nút đã thay đổi thành Đặt phòng -->
+                            <button id="booking-button" class="btn btn-primary">Đặt phòng</button>
                         </div>
                     </form>
                 </div>
             </div>
-
-
-            <!-- Danh sách sản phẩm bên phải -->
+            <!-- sản phẩm bên phải -->
             <div class="col-lg-6">
-                    <div class="row">
-                        <!-- Sản phẩm 1 -->
-                        <div class="col-md-12">
-                            <div class="product-card">
-                                <img src="https://a0.muscache.com/im/pictures/miso/Hosting-955365427007928655/original/08897e4a-d660-4c44-a411-d9be507e16c0.jpeg?im_w=720&im_format=avif" alt="Phòng nghỉ hiện đại" class="img-fluid">
-                                <h5>{{ products.title }}</h5>
-                                <p>{{ products.description }}</p>
-                                <p><strong id="product_price">0 ₫</strong>/ đêm</p>
+                <div class="row">
+                    <!-- Sản phẩm 1 -->
+                    <div class="col-md-12">
+                        <div class="product-card">
+                            <img src="{{ images.0 }}" alt="Phòng nghỉ hiện đại" class="img-fluid">
+                            <h5>{{ bnb.name }}</h5>
+                            <p><strong id="bnb-price">{{ bnb.prices.default_price }} VNĐ/ đêm</strong></p>
 
-                                <!-- Thông tin chủ nhà -->
-                                <div class="host-info mt-4">
-                                    <h6><strong>Chủ nhà: {{ onwers.name }}</strong></h6>
-                                    <div class="row">
-                                        <div class="col-md-2">
-                                            <img src="https://a0.muscache.com/im/Portrait/Avatars/messaging/b3e03835-ade9-4eb7-a0bb-2466ab9a534d.jpg?im_policy=medq_w_text&im_t=N&im_w=720&im_f=airbnb-cereal-medium.ttf&im_c=ffffff&im_format=avif" alt="Chủ nhà" class="img-fluid rounded-circle">
-                                        </div>
-                                        <div class="col-md-10">
-                                            <p><strong>{{ onwers.name }}:</strong><br> Chủ nhà siêu cấp là những người có kinh nghiệm, được đánh giá cao và cam kết mang lại kỳ nghỉ tuyệt vời cho khách.</p>
-                                        </div>
+                            <!-- Thông tin chủ nhà -->
+                            <div class="host-info mt-4">
+                                <h6><strong>Chủ nhà: {{ owner_name }}</strong></h6>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <img src="{{ owner_avatar }}" alt="Chủ nhà" class="img-fluid rounded-circle">
                                     </div>
-                                    <div class="border-bottom my-3"></div>
+                                    <div class="col-md-10">
+                                        <p><strong>{{ owner_name }}:</strong><br> Chủ nhà siêu cấp là những người có
+                                            kinh nghiệm, được đánh giá cao và cam kết mang lại kỳ nghỉ tuyệt vời cho
+                                            khách.</p>
+                                    </div>
+                                </div>
+                                <div class="border-bottom my-3"></div>
 
-                                    <!-- Tổng tiền -->
-                                    <div class="d-grid mt-3 d-flex">
-                                        <p class="text-left">Tổng tiền: <p id="total_price" class="fw-bold">0</p> ₫</p>
-                                        
-                                    </div>
+                                <!-- Tổng tiền -->
+                                <div class="d-grid mt-3 d-flex">
+                                    <p class="text-left">Tổng tiền:
+                                        <span id="total_price" class="fw-bold"> {{ bnb.prices.final_bnb_price }}</span>
+                                        VNĐ </p>
+
                                 </div>
                             </div>
                         </div>
-                        <!-- Các sản phẩm còn lại sẽ có cấu trúc tương tự -->
                     </div>
+                    <!-- Các sản phẩm còn lại sẽ có cấu trúc tương tự -->
+                </div>
             </div>
         </div>
     </div>
 {% endblock content %}
 
 {% block scripts %}
-   <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        // Disable các ngày đã qua
-        const today = new Date().toISOString().split('T')[0];
-        const checkinDateInput = document.getElementById('checkin_date');
-        const checkoutDateInput = document.getElementById('checkout_date');
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Disable các ngày đã qua
+            const today = new Date().toISOString().split('T')[0];
+            const checkinDateInput = document.getElementById('checkin-date');
+            const checkoutDateInput = document.getElementById('checkout-date');
+            const capacityInput = document.getElementById('capacity');
+            const cccdInput = document.getElementById('cccd');
 
-        checkinDateInput.setAttribute('min', today);
-        checkoutDateInput.setAttribute('min', today);
+            checkinDateInput.setAttribute('min', today);
+            checkoutDateInput.setAttribute('min', today);
 
-        // Tính tiền dựa trên số ngày
-        let pricePerNight = 0; // Giá mỗi đêm, sẽ được gán tùy theo sản phẩm
+            // Lấy giá từ context
+            const pricePerNight = parseFloat("{{ bnb.price }}"); // Giá từ server
 
-        function calculateTotal() {
-            const checkinDate = new Date(checkinDateInput.value);
-            const checkoutDate = new Date(checkoutDateInput.value);
+            function calculateTotal() {
+                const checkinDate = new Date(checkinDateInput.value);
+                const checkoutDate = new Date(checkoutDateInput.value);
 
-            // Kiểm tra nếu cả hai ngày đã được chọn
-            if (checkinDateInput.value && checkoutDateInput.value) {
-                // Tính số ngày
-                const diffTime = checkoutDate - checkinDate;
-                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                // Kiểm tra nếu cả hai ngày đã được chọn
+                if (checkinDateInput.value && checkoutDateInput.value) {
+                    // Tính số ngày
+                    const diffTime = checkoutDate - checkinDate;
+                    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
-                // Nếu ngày trả phòng nhỏ hơn ngày nhận phòng, đặt giá trị mặc định
-                if (diffDays <= 0) {
-                    alert('Ngày trả phòng phải lớn hơn ngày nhận phòng.');
-                    checkoutDateInput.value = '';
-                    return;
+                    // Nếu ngày trả phòng nhỏ hơn ngày nhận phòng, đặt giá trị mặc định
+                    if (diffDays <= 0) {
+                        alert('Ngày trả phòng phải lớn hơn ngày nhận phòng.');
+                        checkoutDateInput.value = '';
+                        return;
+                    }
+
+                    // Tính tổng tiền
+                    const totalPrice = diffDays * pricePerNight;
+
+                    // Hiển thị tổng tiền
+                } else {
                 }
-
-                // Tính tổng tiền
-                const totalPrice = diffDays * pricePerNight;
-
-                // Hiển thị tổng tiền
-                document.getElementById('total_price').textContent = `${totalPrice.toLocaleString()}`;
-            } else {
-                document.getElementById('total_price').textContent = '';
             }
+
+            // Lắng nghe sự kiện thay đổi
+            checkinDateInput.addEventListener('change', calculateTotal);
+            checkoutDateInput.addEventListener('change', calculateTotal);
+
+            // Gán các giá trị vào form từ URL nếu có
+            const urlParams = new URLSearchParams(window.location.search);
+            const checkin = urlParams.get('checkin');
+            const checkout = urlParams.get('checkout');
+            const capacity = urlParams.get('capacity');
+            const cccd = urlParams.get('cccd'); // Nếu bạn muốn lấy CCCD từ URL
+
+            if (checkin) checkinDateInput.value = checkin;
+            if (checkout) checkoutDateInput.value = checkout;
+            if (capacity) capacityInput.value = capacity;
+            if (cccd) cccdInput.value = cccd;
+
+            // Tính tổng tiền nếu đã có giá trị checkin/checkout từ URL
+            calculateTotal();
+        });
+    </script>
+
+    {{ bnb.booking|json_script:'booking-data' }}
+
+    <script type="module">
+        const listAvailableRange = JSON.parse($("#booking-data").text());
+        const defaultRange = listAvailableRange[0];
+
+        // Set placeholders for the date fields
+        $("#checkin-date").attr("placeholder", defaultRange.check_in);
+        $("#checkout-date").attr("placeholder", defaultRange.check_out);
+        $("#booking-length").text(defaultRange.range_length);
+
+        // Helper to check if a date is in valid ranges
+        function isInValidRanges(date) {
+            return !listAvailableRange.some(range => {
+                const start = moment(range.check_in);
+                const end = moment(range.check_out);
+                return date.isBetween(start, end, null, '[]');
+            });
         }
 
-        // Lắng nghe sự kiện thay đổi
-        checkinDateInput.addEventListener('change', calculateTotal);
-        checkoutDateInput.addEventListener('change', calculateTotal);
+        $(function () {
+            // Initialize date pickers
+            $('#checkin-date, #checkout-date').daterangepicker({
+                startDate: moment(listAvailableRange[0].check_in),
+                endDate: moment(listAvailableRange[0].check_out),
+                minDate: moment().startOf('day'),
+                opens: 'left',
+                autoUpdateInput: false,
+                locale: {
+                    format: 'YYYY-MM-DD',
+                },
+                isInvalidDate: function (date) {
+                    return isInValidRanges(date);
+                }
+            });
 
-        // Lấy giá trị từ URL
-        const urlParams = new URLSearchParams(window.location.search);
+            // Apply logic for check-in and check-out date changes
+            $('#checkin-date').on('apply.daterangepicker', function (ev, picker) {
+                $(this).val(picker.startDate.format('YYYY-MM-DD'));
+                $('#checkout-date').val(picker.endDate.format('YYYY-MM-DD'));
+                recalculatePrice($("#bnb-price").text(), picker.endDate.diff(picker.startDate, "days") + 1);
+            });
 
-        // Lấy bnbid, checkin, checkout, capacity, và cccd từ URL
-        const bnbid = urlParams.get('bnbid');
-        const checkin = urlParams.get('checkin');
-        const checkout = urlParams.get('checkout');
-        const capacity = urlParams.get('capacity');
-        const cccd = urlParams.get('cccd');
+            $('#checkout-date').on('apply.daterangepicker', function (ev, picker) {
+                $(this).val(picker.endDate.format('YYYY-MM-DD'));
+                $('#checkin-date').val(picker.startDate.format('YYYY-MM-DD'));
+                recalculatePrice($("#bnb-price").text(), picker.endDate.diff(picker.startDate, "days") + 1);
+            });
+        });
 
-        if (checkin) checkinDateInput.value = checkin;
-        if (checkout) checkoutDateInput.value = checkout;
-        if (capacity) document.getElementById('capacity').value = capacity;
-        if (cccd) document.getElementById('cccd').value = cccd;
-
-        // Bây giờ, gọi API hoặc truy vấn DB để lấy thông tin sản phẩm
-        // (Giả sử bạn có một hàm fetchProductPrice để lấy giá trị từ backend)
-        fetchProductPrice(bnbid);
-        
-        // Hàm gọi API để lấy giá sản phẩm
-        function fetchProductPrice(bnbid) {
-            // Giả sử bạn có một API hoặc cách nào đó để lấy giá trị từ ID sản phẩm
-            // Đây là ví dụ giả định, bạn cần thay thế với cách bạn thực hiện trong backend
-            const productInfo = getProductInfoFromDatabase(bnbid);
-
-            // Gán giá trị giá tiền vào biến pricePerNight
-            pricePerNight = productInfo.price; 
-
-            // Cập nhật giá tiền trên trang
-            document.getElementById('product_price').textContent = `${pricePerNight.toLocaleString()} ₫`;
+        // Recalculate price based on date range
+        function recalculatePrice(priceStr, dateDiff) {
+            const basePrice = parseInt(priceStr.trim().replaceAll("VNĐ", "").replaceAll(".", ""));
+            const bookingPrice = basePrice * dateDiff;
+            const totalPrice = bookingPrice + 70000; // Fixed service fee of 70,000 VNĐ
+            $("#booking-length").text(dateDiff);
+            {#$("#bnb-price").text(modifyPriceValue(bookingPrice));#}
+            $("#total_price").text(modifyPriceValue(totalPrice));
         }
 
-        // Đây là ví dụ giả định về cách truy vấn thông tin sản phẩm từ cơ sở dữ liệu
-        function getProductInfoFromDatabase(bnbid) {
-            // Bạn có thể gọi API hoặc truy vấn DB để lấy giá trị sản phẩm
-            // Ví dụ: giả sử bạn có một mảng dữ liệu như sau:
-            const products = [
-                { id: 1, title: 'Phòng nghỉ hiện đại', price: 1026000 },
-                { id: 2, title: 'Phòng nghỉ sang trọng', price: 2000000 },
-                // Các sản phẩm khác
-            ];
-
-            // Tìm sản phẩm theo bnbid
-            return products.find(product => product.id == bnbid);
+        // Format price for display
+        function modifyPriceValue(price) {
+            return price.toLocaleString("vi-VN") + " VNĐ";
         }
-    });
-</script>
+    </script>
 
+
+    <!-- Script AJAX -->
+    <script>
+        $('#booking-button').click(function (e) {
+            e.preventDefault(); // Prevent the default form submission
+
+            // Collect data from the form
+            const bnbId = {{ bnb.id }};
+            const checkinDate = $('#checkin-date').val();
+            const checkoutDate = $('#checkout-date').val();
+            const capacity = $('#capacity').val();
+            const cccd = $('#cccd').val(); // Capture the CCCD field value
+
+            // Validate the input data
+            if (!bnbId || !checkinDate || !checkoutDate || !capacity || !cccd) {
+                alert('Vui lòng điền đầy đủ thông tin!');
+                return; // Stop the submission if fields are missing
+            }
+            // Send AJAX request
+            $.ajax({
+                url: "/post-new-booking/", // Thay URL phù hợp
+                type: "POST",
+                headers: {
+                    'X-CSRFToken': getCSRFToken()
+                },
+                data: {
+                    user: userId,
+                    bnb_id: bnbId,
+                    checkin: checkinDate,
+                    checkout: checkoutDate,
+                    capacity: parseInt(capacity)
+                },
+                success: function (response) {
+                    if (response.result) {
+                        alert("Đặt phòng thành công!");
+                        window.location.href = "/"; // Redirect sau thành công
+                    } else {
+                        alert(response.message || "Có lỗi xảy ra, hãy thử lại sau.");
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("Lỗi:", xhr.responseText); // Log lỗi chi tiết
+                    alert("Đã xảy ra lỗi: " + error);
+                }
+            });
+        });
+
+        function getCSRFToken() {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                let cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    let cookie = cookies[i].trim();
+                    if (cookie.substring(0, 10) === 'csrftoken=') {
+                        cookieValue = decodeURIComponent(cookie.substring(10));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+    </script>
 {% endblock scripts %}
+
+
+
+
 
