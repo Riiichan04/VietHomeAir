@@ -1,0 +1,388 @@
+{% extends 'base.html' %}
+{% load bnb_info_filter %}
+{% load static %}
+
+{% block title %}
+    <title>Đăng ký một BnB mới - VietHomeAir</title>
+{% endblock title %}
+
+{% block stylesheet %}
+    <style>
+        .add-image-card img {
+            width: 120px;
+            height: 120px;
+            margin-bottom: 20px;
+        }
+
+        .section-card {
+            width: calc(100% / 3 - 1.5rem);
+        }
+
+    </style>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'style/home.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'style/create-new-bnb.css' %}">
+
+{% endblock stylesheet %}
+{% block header_scripts %}
+{% endblock header_scripts %}
+{% block content %}
+    <div class="container">
+        <section class="page-section add-bnb-section" id="section-1">
+            <h3 class="text-center my-3">Đặc điểm nào đúng với nhà cho thuê của bạn?</h3>
+            <div class="row gap-4 gy-4 p-5">
+                <div style
+                             ="background-color: rgba(0,0,0,0.1)" class="rounded default-btn-style category-item text-center
+                cursor-pointer section-card p-4 border border-1 border-black">
+                    <i class="h3 bi bi-building"></i>
+                    <p class="h5 fw-normal">Nhà trong thành phố</p>
+                </div>
+                <div style
+                             ="background-color: rgba(0,0,0,0.1)" class="rounded default-btn-style category-item text-center
+            cursor-pointer section-card p-4 border border-1 border-black">
+                    <i class="h3 bi bi-house-door"></i>
+                    <p class="h5 fw-normal">Nhà nhỏ</p>
+                </div>
+                <div style="background-color: rgba(0,0,0,0.1)" class="rounded default-btn-style category-item text-center
+    cursor-pointer section-card p-4 border border-1 border-black">
+                    <i class="h3 bi bi-buildings"></i>
+                    <p class="h5 fw-normal">Biệt thự</p>
+                </div>
+                <div style="background-color: rgba(0,0,0,0.1)" class="rounded default-btn-style category-item text-center
+    cursor-pointer section-card p-4 border border-1 border-black">
+                    <i class="h3 bi bi-tsunami"></i>
+                    <p class="h5 fw-normal">Hướng biển</p>
+                </div>
+                <div style="background-color: rgba(0,0,0,0.1)" class="rounded default-btn-style category-item text-center
+    cursor-pointer section-card p-4 border border-1 border-black">
+                    <i class="h3 bi bi-hospital"></i>
+                    <p class="h5 fw-normal">Gần bệnh viện</p>
+                </div>
+                <div style="background-color: rgba(0,0,0,0.1)" class="rounded default-btn-style category-item text-center
+    cursor-pointer section-card p-4 border border-1 border-black">
+                    <i class="h3 bi bi-tree"></i>
+                    <p class="h5 fw-normal">Nhà trên cây cổ thụ </p>
+                </div>
+                <div style="background-color: rgba(0,0,0,0.1)" class="rounded default-btn-style category-item text-center
+    cursor-pointer section-card p-4 border border-1 border-black">
+                    <i class="h3 bi bi-box"></i>
+                    <p class="h5 fw-normal">Container</p>
+                </div>
+                <div style="background-color: rgba(0,0,0,0.1)" class="rounded default-btn-style category-item text-center
+    cursor-pointer section-card p-4 border border-1 border-black">
+                    <i class="h3 bi bi-shop"></i>
+                    <p class="h5 fw-normal">Nhà gần siêu thị</p>
+                </div>
+                <div style="background-color: rgba(0,0,0,0.1)" class="rounded default-btn-style category-item text-center
+    cursor-pointer section-card p-4 border border-1 border-black">
+                    <i class="h3 bi bi-water"></i>
+                    <p class="h5 fw-normal">Nhà gần hồ bơi</p>
+                </div>
+                <div style="background-color: rgba(0,0,0,0.1)" class="rounded default-btn-style category-item text-center
+    cursor-pointer section-card p-4 border border-1 border-black">
+                    <i class="h3 fa-solid fa-wheat-awn"></i>
+                    <p class="h5 fw-normal">Miền quê</p>
+                </div>
+                <div style="background-color: rgba(0,0,0,0.1)" class="rounded default-btn-style category-item text-center
+    cursor-pointer section-card p-4 border border-1 border-black">
+                    <i class="h3 fa-solid fa-mountain-sun"></i>
+                    <p class="h5 fw-normal">Hướng ra núi hoặc thung lũng</p>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-end">
+                <button class="btn btn-outline-secondary px-4 py-2 mx-5" onclick="history.back()">Quay lại</button>
+                <button class="show-section btn btn-primary px-4 py-2" disabled onclick="showSection(2)">Tiếp theo
+                </button>
+            </div>
+        </section>
+
+        <section class="page-section d-none" id="section-2">
+            <h3 class="text-center my-3">Chỗ ở của bạn có những tiện nghi nào?</h3>
+            <p class="text-center my-1">Hãy chọn ít nhất 4 tiện nghi nhé!!</p>
+            <div class="row gap-4 gy-4 p-5">
+                {% for service in list_services %}
+                    <div style="background-color: rgba(0,0,0,0.1)"
+                         class="rounded default-btn-style category-item text-center cursor-pointer section-card p-4 border border-1 border-black">
+                        <p class="h5 fw-normal">{{ service }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="d-flex justify-content-end">
+                <button class="btn btn-outline-secondary px-4 py-2 mx-5" onclick="showSection(1)">Quay lại</button>
+                <button class="show-section btn btn-primary px-4 py-2" disabled onclick="showSection(3)">Tiếp theo
+                </button>
+            </div>
+        </section>
+
+        <section class="page-section d-none" id="section-3">
+            <h3 class="text-center my-3">Nhà cho thuê của bạn trông như thế nào nhỉ?</h3>
+            <p class="text-center my-1">Hãy upload 5 hình ảnh lên nhé!!</p>
+            <div class="row gap-4 gy-4 p-5">
+                <div class="mb-3 row py-3 px-5 gap-4">
+                    <label class="col-12 form-label">
+                        Hình ảnh 1:
+                        <input class="form-control" type="file" id="formFile" accept="image/*">
+                    </label>
+                    <label class="col-12 form-label">
+                        Hình ảnh 2:
+                        <input class="form-control" type="file" id="formFile" accept="image/*">
+                    </label>
+                    <label class="col-12 form-label">
+                        Hình ảnh 3:
+                        <input class="form-control" type="file" id="formFile" accept="image/*">
+                    </label>
+                    <label class="col-12 form-label">
+                        Hình ảnh 4:
+                        <input class="form-control" type="file" id="formFile" accept="image/*">
+                    </label>
+                    <label class="col-12 form-label">
+                        Hình ảnh 5:
+                        <input class="form-control" type="file" id="formFile" accept="image/*">
+                    </label>
+                </div>
+            </div>
+            <div class="d-flex justify-content-end">
+                <button class="btn btn-outline-secondary px-4 py-2 mx-5" onclick="showSection(2)">Quay lại</button>
+                <button class="show-section btn btn-primary px-4 py-2" disabled onclick="showSection(4)">Tiếp theo
+                </button>
+            </div>
+        </section>
+
+        <section class="page-section d-none" id="section-4">
+            <h3 class="text-center my-3">Còn những thông tin khác thì sao?</h3>
+            <form id="upload-new-bnb" class="row">
+                {% csrf_token %}
+                <label class="my-3" for="">
+                    Tên nhà cho thuê của bạn<span class="text-danger">*</span>:
+                    <input type="text" class="form-control" id="bnb-name" placeholder="Nhập tên nhà cho thuê của bạn"
+                           maxlength="300" required>
+                </label>
+                <label class="my-3" for="">
+                    Mô tả nhà cho thuê của bạn (nếu có):
+                    <textarea style="resize: none" type="text" class="form-control overflow-y" id="bnb-description"
+                              placeholder="Mô tả nhà cho thuê của bạn (nếu có)"
+                              rows="5"></textarea>
+                    <span style="font-size: 12px">Lưu ý: Có hỗ trợ markdown</span>
+                </label>
+                <label class="my-3" for="">
+                    Địa chỉ nhà cho thuê của bạn ở đâu?
+                    <input type="text" class="form-control" id="bnb-location"
+                           placeholder="Nhập địa chỉ nhà cho thuê của bạn"
+                           maxlength="300" required>
+                </label>
+                <div class="row">
+                    <label class="my-3 col-6" for="">
+                        Giá thuê mỗi đêm của nhà cho thuê của bạn<span class="text-danger">*</span>:
+                        <input type="number" class="form-control" id="bnb-price"
+                               placeholder="Nhập giá thuê mỗi đêm của nhà cho thuê của bạn" required>
+                    </label>
+                    <label class="my-3 col-6" for="">
+                        Nhà cho thuê của bạn chứa được bao nhiêu người<span class="text-danger">*</span>:
+                        <input type="number" class="form-control" id="bnb-capacity"
+                               placeholder="Nhập sức chứa của nhà cho thuê của bạn" required>
+                    </label>
+                </div>
+                <p class="mt-3">Bạn muốn nội quy như thế nào?</p>
+                <div class="row" id="rules">
+                    <div class="col">
+                        <label class="form-label">Check in</label>
+                        <button type="button" class="d-inline add-rule-btn text-center"
+                                style="border: none; background-color: var(--web-background-color)"
+                                onclick="addRule(this)"
+                                data-id="rule-checkin">
+                            <i class="fas fa-plus-circle"></i></button>
+                    </div>
+                    <div class="col">
+                        <label class="form-label">Check out</label>
+                        <button type="button" class="d-inline add-rule-btn text-center"
+                                style="border: none; background-color: var(--web-background-color)"
+                                onclick="addRule(this)"
+                                data-id="rule-checkout">
+                            <i class="fas fa-plus-circle"></i></button>
+                    </div>
+                    <div class="col">
+                        <label class="form-label">Hoàn tiền</label>
+                        <button type="button" class="d-inline add-rule-btn text-center"
+                                style="border: none; background-color: var(--web-background-color)"
+                                onclick="addRule(this)"
+                                data-id="rule-refund">
+                            <i class="fas fa-plus-circle"></i></button>
+                    </div>
+                    <div class="col">
+                        <label class="form-label">An ninh</label>
+                        <button type="button" class="d-inline add-rule-btn text-center"
+                                style="border: none; background-color: var(--web-background-color)"
+                                onclick="addRule(this)"
+                                data-id="rule-secure">
+                            <i class="fas fa-plus-circle"></i></button>
+                    </div>
+                </div>
+
+                <div id="alert" class="d-flex justify-content-end my-3 d-none">
+                    <div class="col-3 d-flex align-items-center">
+                        <div class="row alert alert-primary"
+                             role="alert">
+                            <div>
+                                <span id="alert-content"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-end">
+                    <button class="btn btn-outline-secondary px-4 py-2 mx-5" onclick="showSection(3)">Quay lại</button>
+                    <button class="btn btn-primary px-4 py-2" id="submit-new-bnb">Gửi</button>
+                </div>
+            </form>
+        </section>
+    </div>
+
+
+{% endblock content %}
+{% block scripts %}
+    <script src="{% static 'scripts/add-bnb.js' %}"></script>
+    <script>
+        function addRule(button) {
+            const newRow = document.createElement('div');
+            const id = $(button).data('id');
+            newRow.className = "row mb-2";
+            if (id === 'rule-checkin') {
+                newRow.innerHTML = `
+                    <div class="col-2 text-end align-content-center">Quy tắc</div>
+                    <div class="col"><select name="rule-id" class="form-control select-rules" name="rule" required>
+                        {% for r in rules_checkin %}
+                            <option value="{{ r.id }}">{{ r.description }}</option>
+                        {% endfor %}
+                    </select></div>
+                    <div class="col-1">
+                        <button type="button" class="btn btn-danger" onclick="remove(this)">Xóa</button>
+                    </div>`
+            } else if (id === 'rule-checkout') {
+                newRow.innerHTML = `
+                    <div class="col-2 text-end align-content-center">Quy tắc</div>
+                    <div class="col"><select name="rule-id" class="form-control select-rules" name="rule" required>
+                        {% for r in rules_checkout %}
+                            <option value="{{ r.id }}">{{ r.description }}</option>
+                        {% endfor %}
+                    </select></div>
+                    <div class="col-1">
+                        <button type="button" class="btn btn-danger" onclick="remove(this)">Xóa</button>
+                    </div>`
+            } else if (id === 'rule-refund') {
+                newRow.innerHTML = `
+                    <div class="col-2 text-end align-content-center">Quy tắc</div>
+                    <div class="col"><select name="rule-id" class="form-control select-rules" name="rule" required>
+                        {% for r in rules_refund %}
+                            <option value="{{ r.id }}">{{ r.description }}</option>
+                        {% endfor %}
+                    </select></div>
+                    <div class="col-1">
+                        <button type="button" class="btn btn-danger" onclick="remove(this)">Xóa</button>
+                    </div>`
+            } else if (id === 'rule-secure') {
+                newRow.innerHTML = `
+                    <div class="col-2 text-end align-content-center">Quy tắc</div>
+                    <div class="col"><select name="rule-id" class="form-control select-rules" name="rule" required>
+                        {% for r in rules_secure %}
+                            <option value="{{ r.id }}">{{ r.description }}</option>
+                        {% endfor %}
+                    </select></div>
+                    <div class="col-1">
+                        <button type="button" class="btn btn-danger" onclick="remove(this)">Xóa</button>
+                    </div>`
+            }
+            document.getElementById('rules').append(newRow);
+        }
+
+        function remove(button) {
+            const row = button.parentElement.parentElement;
+            row.remove();
+        }
+    </script>
+
+    <script>
+        $("#submit-new-bnb").click(async function (e) {
+            e.preventDefault()
+            if (userId === 'None') {
+                alert("Bạn chưa đăng nhập")
+                history.back()
+                return
+            }
+            await getPostInfo(userId)
+            let listImg = []
+
+            const form_data = new FormData();
+            form_data.append('name', sessionObject.name)
+            form_data.append('description', sessionObject.description)
+            form_data.append('ownerId', sessionObject.ownerId)
+            form_data.append('capacity', sessionObject.capacity)
+            form_data.append('location_name', sessionObject.location.name)
+            form_data.append('location_lat', sessionObject.location.lat)
+            form_data.append('location_lon', sessionObject.location.lon)
+            form_data.append('price', sessionObject.price)
+
+            $("input[type=file]").each(function (index, input) {
+                if (input.files.length > 0) {
+                    $.each(input.files, function (i, file) {
+                        form_data.append('images', file);
+                    });
+                }
+            })
+
+            $(".select-rules").each(function () {
+                console.log($(this).val())
+                form_data.append('rules', $(this).val())
+            })
+
+            for (const service of sessionObject.listBnbService) {
+                form_data.append('services', service)
+            }
+
+            for (const category of sessionObject.categoryId) {
+                form_data.append('categories', category)
+            }
+
+            $("#alert").removeClass("d-none").removeClass("alert-danger").removeClass("alert-success")
+                .addClass("alert.primary")
+            $("#alert-content").text("Thông tin của bạn đang được gửi đi...")
+            $.ajax({
+                url: '/add-new-bnb/',
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': getCSRFToken()
+                },
+                data: form_data,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    $("#alert").removeClass("d-none").removeClass("alert-primary").addClass("alert-success")
+                    $("#alert-content").text("Bạn đã thêm nhà cho thuê mới thành công!!!")
+                    window.location.href = '/'
+                },
+                error: function (response) {
+                    $("#alert").removeClass("d-none").removeClass("alert-primary").addClass("alert-danger")
+                    $("#alert-content").text("Có lỗi ùi, hãy thử lại nhé!!! :<")
+                    showSection(1)
+                    $("#alert").addClass("d-none")
+                }
+            })
+        })
+
+
+        function getCSRFToken() {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                let cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    let cookie = cookies[i].trim();
+                    if (cookie.substring(0, 10) === 'csrftoken=') {
+                        cookieValue = decodeURIComponent(cookie.substring(10));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+    </script>
+{% endblock scripts %}

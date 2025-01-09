@@ -37,19 +37,27 @@
                        placeholder="Tìm kiếm địa điểm, tên nhà, ...">
             </div>
         </div>
-        <div class="col-3 d-flex align-items-center">
-            <div class="header-function mx-2 cursor-pointer default-btn-style ">
+        <div class="col-3 d-flex align-items-center justify-content-end">
+{#            <div class="header-function mx-2 cursor-pointer default-btn-style ">#}
+{#                <div class="d-flex justify-content-center">#}
+{#                    <i class="fa-solid fa-calendar-days"></i>#}
+{#                </div>#}
+{#                <p class="">Đặt phòng</p>#}
+{#            </div>#}
+{#            <div class="header-function mx-2 cursor-pointer default-btn-style position-relative">#}
+{#                <div class="d-flex justify-content-center">#}
+{#                    <i class="fa-solid fa-map-location-dot"></i>#}
+{#                </div>#}
+{#                <p class="">Bản đồ</p>#}
+{#            </div>#}
+            {% if role|get_role_user:request.session == 1 %}
+            <div class="header-function mx-2 cursor-pointer default-btn-style" onclick="window.location.href='/owner-management/dashboard'">
                 <div class="d-flex justify-content-center">
                     <i class="fa-solid fa-calendar-days"></i>
                 </div>
-                <p class="">Đặt phòng</p>
+                <p class="">Quản lý BnB</p>
             </div>
-            <div class="header-function mx-2 cursor-pointer default-btn-style position-relative">
-                <div class="d-flex justify-content-center">
-                    <i class="fa-solid fa-map-location-dot"></i>
-                </div>
-                <p class="">Bản đồ</p>
-            </div>
+            {% endif %}
             <div id="user-icon" class="header-function mx-2 cursor-pointer default-btn-style">
             </div>
         </div>
