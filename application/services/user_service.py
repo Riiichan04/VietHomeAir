@@ -1,7 +1,9 @@
-from django.http import Http404
+from django.http import Http404, JsonResponse
 
 from application.models.accounts import Account, WishList, WishListItems
 from application.services.home_service import get_bnb_display_element
+from django.shortcuts import redirect
+from django.contrib.auth.decorators import login_required
 
 def get_user_info(user_id):
     user= Account.objects.filter(status=True).filter(id=user_id).first()
@@ -19,6 +21,16 @@ def get_user_info(user_id):
         'avatar': user.avatar,
     }
 
+# @login_required
+# def update_user_info(request):
+#     if request.method == 'POST':
+#         userId= request.session.get('user')
+#         user= Account.objects.filter(id=userId).first()
+#         user.username= request.POST.get('username')
+#         user.email= request.POST.get('email')
+#         user.phone= request.POST.get('phone')
+#         user.save()
+#         return JsonResponse({'message': 'User updated successfully!'})
 def get_wish_list(user_id:int):
     user= Account.objects.filter(id=user_id).first()
     if user is None: return None

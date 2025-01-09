@@ -1,21 +1,61 @@
 {% load static %}
-{%  block stylesheet %}
+{% block stylesheet %}
     <link rel="stylesheet" type="text/css" href={% static "style/user/user-information.css" %}>
-{%  endblock stylesheet %}
+{% endblock stylesheet %}
 <div class="h4">Thông tin người dùng</div>
 <div class="row mt-4">
     <h6 class="col-3">Tên người dùng: </h6>
-    <input class="col-8" value="{{ userinfo.username}}">
+    <input id="username" class="col-8" value="{{ userinfo.username }}">
 </div>
 <div class="row mt-4">
     <h6 class="col-3">Địa chỉ email: </h6>
-    <input class="col-8" value="{{ userinfo.email}}">
+    <input id="email" class="col-8" value="{{ userinfo.email }}">
 </div>
 <div class="row mt-4">
     <h6 class="col-3">Số điện thoại: </h6>
-    <input class="col-8" value="{{ userinfo.phone }}">
+    <input id="phone" class="col-8" value="{{ userinfo.phone }}">
 </div>
 <div class="row mt-4 pe-4">
     <h6 class="col-8"></h6>
-    <button class="col-4 edit-confirm">Chỉnh sửa</button>
+    <button id="edit-confirm" class="col-4">Chỉnh sửa</button>
 </div>
+<script>
+    $("#edit-confirm").click(function () {
+        const data = {
+            username: $('#username').val(),
+            email: $('#email').val(),
+            phone: $('#phone').val(),
+        }
+        console.log(data)
+        $.ajax({
+            url: '/user/update/',  // URL xử lý request
+            type: 'POST',          // Phương thức POST
+            headers: {
+                'X-CSRFToken': getCookie('csrftoken'),  // Thêm CSRF Token
+            },
+            contentType: 'application/json',           // Dữ liệu gửi đi là JSON
+            data: JSON.stringify(data),
+            success: function (response) {
+                console.log('Success:', response);     // Log dữ liệu thành công
+            },
+            error: function (xhr, status, error) {
+                console.error('Error:', xhr.responseText);  // Log lỗi
+            }
+        })
+
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+    })
+</script>

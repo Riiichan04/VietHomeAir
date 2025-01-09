@@ -26,7 +26,7 @@ from application.views.HomeView import HomeView
 from application.views.ResultView import ResultView
 from application.views.BookView import BookView, HandleNewReview
 from application.views.UserView import UserView, UserInfoView, UserOrderHistoryView, UserViewedHistoryView, \
-    UserReviewHistoryView, UserWishListView
+    UserReviewHistoryView, UserWishListView, UpdateUserView
 from application.views.LogoutView import logout_view
 from application.views.AddNewBnb import AddNewBnb
 from application.views.RegisterView import RegisterView
@@ -66,6 +66,7 @@ urlpatterns = [
     path('user/review-history/', UserReviewHistoryView.as_view(template_name='user/user-reviewed-history.html'),
          name='user-review-history'),
     path('user/wishlist/', UserWishListView.as_view(template_name='user/user-wishlist.html'), name='user-wishlist'),
+    path('user/update/',UpdateUserView.as_view(),name='user-update'),
     path('logout/', logout_view, name='logout'),
     path('user/wishlist', UserWishListView.as_view(template_name='user/user-wishlist.html'), name='user-wishlist'),
     path('post-new-booking/', HandleNewReview.as_view(), name='handle-new-booking'),
@@ -88,4 +89,5 @@ urlpatterns = [
          name='owner-management-update-status-bnn'),
     path('add-new-bnb/', AddNewBnb.as_view(), name='add-new-bnb'),
     path('validate-register/<str:type>', RegisterView.as_view(), name='validate-register'),
+
 ]

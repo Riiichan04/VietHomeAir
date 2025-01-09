@@ -3,7 +3,7 @@
     border:solid 1px var(--sub-text-color);
     border-radius: 5px;
 }
-.edit-confirm{
+#edit-confirm{
     border-radius: 5px;
     border:none;
     height: 40px;
