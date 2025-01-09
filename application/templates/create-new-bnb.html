@@ -1,0 +1,180 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Đăng ký một BnB mới - VietHomeAir</title>
+{% endblock title %}
+
+{% block stylesheet %}
+    <style>
+        .custom-margin {
+            margin-left: 42px;
+            margin-right: 42px;
+        }
+
+        /* Căn chỉnh layout trung tâm */
+        .add-image-card {
+            max-width: 400px;
+            margin: auto;
+            border: 2px dashed #ddd;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            background-color: #fafafa;
+        }
+
+        .add-image-card img {
+            width: 120px;
+            height: 120px;
+            margin-bottom: 20px;
+        }
+
+        .section-card {
+            width: calc(100% / 3 - 1.5rem);
+        }
+
+    </style>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'style/home.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'style/Owner-Register.css' %}">
+
+{% endblock stylesheet %}
+{% block header_scripts %}
+{% endblock header_scripts %}
+{% block content %}
+    <div class="container">
+        <section class="page-section add-bnb-section" id="section-1">
+            <h3 class="text-center my-3">Đặc điểm nào đúng với nhà cho thuê của bạn?</h3>
+            <div class="row gap-4 gy-4 p-5">
+                <div class="rounded default-btn-style category-item text-center cursor-pointer section-card p-4 border border-1 border-black">
+                    <i class="h3 bi bi-building"></i>
+                    <p class="h5 fw-normal">Nhà trong thành phố</p>
+                </div>
+                <div class="rounded default-btn-style category-item text-center cursor-pointer section-card p-4 border border-1 border-black">
+                    <i class="h3 bi bi-house-door"></i>
+                    <p class="h5 fw-normal">Nhà nhỏ</p>
+                </div>
+                <div class="rounded default-btn-style category-item text-center cursor-pointer section-card p-4 border border-1 border-black">
+                    <i class="h3 bi bi-buildings"></i>
+                    <p class="h5 fw-normal">Biệt thự</p>
+                </div>
+                <div class="rounded default-btn-style category-item text-center cursor-pointer section-card p-4 border border-1 border-black">
+                    <i class="h3 bi bi-tsunami"></i>
+                    <p class="h5 fw-normal">Hướng biển</p>
+                </div>
+                <div class="rounded default-btn-style category-item text-center cursor-pointer section-card p-4 border border-1 border-black">
+                    <i class="h3 bi bi-hospital"></i>
+                    <p class="h5 fw-normal">Gần bệnh viện</p>
+                </div>
+                <div class="rounded default-btn-style category-item text-center cursor-pointer section-card p-4 border border-1 border-black">
+                    <i class="h3 bi bi-tree"></i>
+                    <p class="h5 fw-normal">Nhà trên cây cổ thụ </p>
+                </div>
+                <div class="rounded default-btn-style category-item text-center cursor-pointer section-card p-4 border border-1 border-black">
+                    <i class="h3 bi bi-box"></i>
+                    <p class="h5 fw-normal">Container</p>
+                </div>
+                <div class="rounded default-btn-style category-item text-center cursor-pointer section-card p-4 border border-1 border-black">
+                    <i class="h3 bi bi-shop"></i>
+                    <p class="h5 fw-normal">Nhà gần siêu thị</p>
+                </div>
+                <div class="rounded default-btn-style category-item text-center cursor-pointer section-card p-4 border border-1 border-black">
+                    <i class="h3 bi bi-water"></i>
+                    <p class="h5 fw-normal">Nhà gần hồ bơi</p>
+                </div>
+                <div class="rounded default-btn-style category-item text-center cursor-pointer section-card p-4 border border-1 border-black">
+                    <i class="h3 fa-solid fa-wheat-awn"></i>
+                    <p class="h5 fw-normal">Miền quê</p>
+                </div>
+                <div class="rounded default-btn-style category-item text-center cursor-pointer section-card p-4 border border-1 border-black">
+                    <i class="h3 fa-solid fa-mountain-sun"></i>
+                    <p class="h5 fw-normal">Hướng ra núi hoặc thung lũng</p>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-end">
+                <button class="btn btn-outline-secondary px-4 py-2 mx-5" onclick="history.back()">Quay lại</button>
+                <button class="show-section btn btn-primary px-4 py-2" disabled onclick="showSection(2)">Tiếp theo
+                </button>
+            </div>
+        </section>
+
+        <section class="page-section" id="section-2">
+            <h3 class="text-center my-3">Chỗ ở của bạn có những tiện nghi nào?</h3>
+            <p class="text-center my-1">Hãy chọn ít nhất 4 tiện nghi nhé!!</p>
+            <div class="row gap-4 gy-4 p-5">
+                {% for service in list_services %}
+                    <div style="background-color: rgba(0,0,0,0.1)"
+                         class="rounded default-btn-style category-item text-center cursor-pointer section-card p-4 border border-1 border-black">
+                        <p class="h5 fw-normal">{{ service }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="d-flex justify-content-end">
+                <button class="btn btn-outline-secondary px-4 py-2 mx-5" onclick="showSection(1)">Quay lại</button>
+                <button class="show-section btn btn-primary px-4 py-2" disabled onclick="showSection(3)">Tiếp theo
+                </button>
+            </div>
+        </section>
+
+        <section class="page-section" id="section-3">
+            <h3 class="text-center my-3">Nhà cho thuê của bạn trông như thế nào nhỉ?</h3>
+            <p class="text-center my-1">Hãy upload 5 hình ảnh lên nhé!!</p>
+            <div class="row gap-4 gy-4 p-5">
+                <div class="mb-3 row py-3 px-5 gap-4">
+                    <label class="col-12 form-label">
+                        Hình ảnh 1:
+                        <input class="form-control" type="file" id="formFile" accept="image/*">
+                    </label>
+                    <label class="col-12 form-label">
+                        Hình ảnh 2:
+                        <input class="form-control" type="file" id="formFile" accept="image/*">
+                    </label>
+                    <label class="col-12 form-label">
+                        Hình ảnh 3:
+                        <input class="form-control" type="file" id="formFile" accept="image/*">
+                    </label>
+                    <label class="col-12 form-label">
+                        Hình ảnh 4:
+                        <input class="form-control" type="file" id="formFile" accept="image/*">
+                    </label>
+                    <label class="col-12 form-label">
+                        Hình ảnh 5:
+                        <input class="form-control" type="file" id="formFile" accept="image/*">
+                    </label>
+                </div>
+            </div>
+            <div class="d-flex justify-content-end">
+                <button class="btn btn-outline-secondary px-4 py-2 mx-5" onclick="showSection(2)">Quay lại</button>
+                <button class="show-section btn btn-primary px-4 py-2" disabled onclick="showSection(4)">Tiếp theo
+                </button>
+            </div>
+        </section>
+
+        <section class="page-section" id="section-4">
+            <h3 class="text-center my-3">Nhà cho thuê của bạn ở đâu thế?</h3>
+            <p>Chọn địa điểm của nhà cho thuê của bạn trên bản đồ nhé</p>
+            <form method="post" id="upload-new-bnb" class="row">
+                {% csrf_token %}
+                <div class="d-flex justify-content-end">
+                    <button class="btn btn-outline-secondary px-4 py-2 mx-5" onclick="showSection(4)">Quay lại</button>
+                    <button class="show-section btn btn-primary px-4 py-2">Gửi</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="page-section" id="section-5">
+            <h3 class="text-center my-3">Còn những thông tin khác thì sao?</h3>
+            <form method="post" id="upload-new-bnb" class="row">
+                {% csrf_token %}
+                <div class="d-flex justify-content-end">
+                    <button class="btn btn-outline-secondary px-4 py-2 mx-5" onclick="showSection(4)">Quay lại</button>
+                    <button class="show-section btn btn-primary px-4 py-2">Gửi</button>
+                </div>
+            </form>
+        </section>
+    </div>
+{% endblock content %}
+{% block scripts %}
+    <script src="{% static 'scripts/add-bnb.js' %}"></script>
+{% endblock scripts %}
