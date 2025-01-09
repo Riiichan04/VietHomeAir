@@ -1,6 +1,8 @@
 from django.views.generic import TemplateView
 
-from application.services.user_service import get_user_info
+from application.services.user_service import get_user_info, get_wish_list_items
+
+
 class UserView(TemplateView):
     template_name = "application/templates/user.html"  #default view
 
@@ -33,3 +35,9 @@ class UserReviewHistoryView(TemplateView):
 
 class UserWishListView(TemplateView):
     template_name = 'application/templates/user/user-wishlist.html'
+    def get_context_data(self, **kwargs):
+        userId = self.request.session.get('user')
+        print(userId)
+        context = super().get_context_data(**kwargs)
+        context['wishlist']= get_wish_list_items(int(userId))
+        return context

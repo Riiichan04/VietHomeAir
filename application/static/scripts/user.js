@@ -6,22 +6,22 @@ $("#user-information").click(function () {
 $("#order-history").click(function () {
     $(".content-property").removeClass("on");
     $(this).addClass("on");
-    $("#user-content").load("/user/order-history");
+    $("#user-content").load("/user/order-history/");
 })
 $("#viewed-history").click(function () {
     $(".content-property").removeClass("on");
     $(this).addClass("on");
-    $("#user-content").load("/user/viewed-history")
+    $("#user-content").load("/user/viewed-history/")
 })
 $("#review-history").click(function () {
     $(".content-property").removeClass("on");
     $(this).addClass("on");
-    $("#user-content").load("/user/review-history")
+    $("#user-content").load("/user/review-history/")
 })
 $("#wishlist").click(function () {
     $(".content-property").removeClass("on");
     $(this).addClass("on");
-    $("#user-content").load("/user/wishlist")
+    $("#user-content").load("/user/wishlist/")
 })
 
 $("#logout").click(function () {
