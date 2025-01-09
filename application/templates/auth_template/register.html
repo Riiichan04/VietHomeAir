@@ -1,49 +1,97 @@
 {% load static %}
 {% block content %}
-    <div class="main-form col-9 rounded row px-0">
-        <div class="col-7 p-5 ">
-            <h3>Đăng ký</h3>
-            <p class="mt-0 mb-4">Đăng ký để tận hưởng dịch vụ mà chúng tôi đem lại</p>
-            <input required class="my-2 p-2 rounded border-1 d-block w-100" type="email"
-                   placeholder="Email của bạn">
-            <input required class="my-2 p-2 rounded border-1 d-block w-100" type="text"
-                   placeholder="Tên người dùng của bạn">
-            <input required class="my-2 p-2 rounded border-1 d-block w-100" type="text"
-                   placeholder="Họ và tên của bạn">
-            <input required class="my-2 p-2 rounded border-1 d-block w-100" type="password"
-                   placeholder="Mật khẩu của bạn">
-            <input required class="my-2 p-2 rounded border-1 d-block w-100" type="password"
-                   placeholder="Nhập lại mật khẩu của bạn">
-            <select required class="d-block border-black border-1 form-select">
-                <option selected disabled hidden value="">Giới tính của bạn</option>
-                <option value="male">Nam</option>
-                <option value="female">Nữ</option>
-                <option value="other">Khác</option>
-            </select>
-            <div class="mt-3 d-flex align-items-start form-check gap-2">
-                <input required type="checkbox" class="border-secondary form-check-input" id="term-and-policies-btn">
-                <label class="form-check-label" for="term-and-policies-btn">
-                    Tôi đã đồng ý với các <a href="/terms-of-use/" class="text-decoration-none">điều
-                    khoản</a>, <a href="/policy/" class="text-decoration-none">chính
-                    sách</a> và chính sách <a href="/privacy/" class="text-decoration-none">quyền riêng
-                    tư</a> của VietHomeAir
-                </label>
-            </div>
-            <div class="d-flex justify-content-center mt-4">
-                <button type="submit" class="border-0 px-4 py-2 text-white rounded h5"
-                        style="background-color: var(--main-cta-color)">
-                    Đăng ký
-                </button>
-            </div>
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <div class="main-form row col-10 rounded shadow-lg px-0">
+        <!-- Phần đăng ký -->
+        <div class="col-md-6 p-5 bg-white">
+            <form id="register-form" class="card p-4 border-0" method="POST">
+                {% csrf_token %}
+                <h3>Đăng ký</h3>
+                <div class="alert alert-danger" id="message" style="display: none;"></div>
+                <p class="mt-0 mb-4">Đăng ký để tận hưởng dịch vụ mà chúng tôi đem lại</p>
+                <input required class="my-2 p-2 rounded border-1 d-block w-100" type="email"
+                       id="email" name="email" placeholder="Email của bạn">
+                <input required class="my-2 p-2 rounded border-1 d-block w-100" type="text"
+                       id="username" name="username" placeholder="Tên người dùng của bạn">
+                <input required class="my-2 p-2 rounded border-1 d-block w-100" type="text"
+                       id="fullname" name="fullname" placeholder="Họ và tên của bạn">
+                <input required class="my-2 p-2 rounded border-1 d-block w-100" type="password"
+                       id="password" name="password" placeholder="Mật khẩu của bạn">
+                <input required class="my-2 p-2 rounded border-1 d-block w-100" type="password"
+                       id="repassword" name="repassword" placeholder="Nhập lại mật khẩu của bạn">
+                <select required class="d-block border-black border-1 form-select" name="gender" id="gender">
+                    <option selected disabled hidden value="">Giới tính của bạn</option>
+                    <option value="male">Nam</option>
+                    <option value="female">Nữ</option>
+                    <option value="other">Khác</option>
+                </select>
+                <input required class="my-2 p-2 rounded border-1 d-block w-100" type="tel" name="phone" id="phone" placeholder="Số điện thoại (tuỳ chọn)">
+                <div class="mt-3 d-flex align-items-start form-check gap-2">
+                    <input required type="checkbox" class="border-secondary form-check-input" id="term-and-policies-btn">
+                    <label class="form-check-label" for="term-and-policies-btn">
+                        Tôi đã đồng ý với các <a href="/terms-of-use/" class="text-decoration-none">điều
+                        khoản</a>, <a href="/policy/" class="text-decoration-none">chính
+                        sách</a> và chính sách <a href="/privacy/" class="text-decoration-none">quyền riêng
+                        tư</a> của VietHomeAir
+                    </label>
+                </div>
+                <div class="d-flex justify-content-center mt-4">
+                    <button id="register-btn" class="border-0 px-4 py-2 text-white rounded h5"
+                            style="background-color: var(--main-cta-color)">
+                        Đăng ký
+                    </button>
+                </div>
+            </form>
         </div>
-        <div class="col toggle-container rounded-end d-flex flex-column justify-content-center">
-            <h3 class="text-center">Bạn đã có tài khoản?</h3>
-            <p class="text-center">Hãy về với trang đăng nhập tại đây nhé!!!</p>
+        <!-- Phần bên phải -->
+        <div class="col-md-6 p-5 d-flex flex-column justify-content-center align-items-center" style="background-color: var(--main-cta-color); border-bottom-left-radius: 10rem !important; border-top-left-radius: 10rem !important;">
+            <h3 class="text-center text-white">Bạn đã có tài khoản?</h3>
+            <p class="text-center text-white">Hãy về với trang đăng nhập tại đây nhé!!!</p>
             <div class="d-flex justify-content-center">
-                <button type="button" class="border-1 px-4 py-2 rounded text-black"
+                <button type="button" class="border-1 px-4 py-2 rounded bg-white text-black"
                         onclick="window.location = '/login'">Đăng nhập
                 </button>
             </div>
         </div>
     </div>
+</div>
 {% endblock content %}
+{% block scripts %}
+<script>
+    $(document).ready(function () {
+        $('#register-btn').click(e => {
+            e.preventDefault();
+            const formData = {
+                csrfmiddlewaretoken: '{{ csrf_token }}',
+                username: $('#username').val(),
+                email: $('#email').val(),
+                fullname: $('#fullname').val(),
+                password: $('#password').val(),
+                repassword: $('#repassword').val(),
+                gender: $('#gender').val(),
+                phone: $('#phone').val()
+            };
+
+            $.ajax({
+                url: '/validate-register/register',  // Đảm bảo đường dẫn này chính xác
+                type: 'POST',
+                data: formData,
+                success: function (response) {
+                    alert(response.message);
+                    if (response.result) {
+                        window.location.href = '/login/';  // Chuyển hướng đến trang đăng nhập
+                    }
+                },
+               error: function (xhr) {
+                const errorMessage = JSON.parse(xhr.responseText);
+                $('#message').text(errorMessage.message).show();
+                $('html, body').animate({ scrollTop: 0 }, 'slow');  // Cuộn lên trên cùng để hiển thị lỗi
+               }
+            });
+        });
+    });
+</script>
+{% endblock scripts %}
+
+
+
