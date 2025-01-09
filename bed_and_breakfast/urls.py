@@ -51,7 +51,7 @@ urlpatterns = [
     path('about-us/', ContactViews.as_view(template_name='other_template/about-us.html'), name='about-us'),
     path('contact/', ContactViews.as_view(template_name='other_template/contact-us.html'), name='contact-us'),
     path('result/', ResultView.as_view(), name='result'),
-    path('book/', BookView.as_view(), name='book'),
+    path('book/', BookView.as_view(), name='post'),
 
     path('user/', UserView.as_view(), name='user'),
     path('user/user-information/', UserInfoView.as_view(template_name='user/user-information.html'), name='user-info'),

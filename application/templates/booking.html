@@ -95,9 +95,8 @@
             <div class="product-card col-lg-6">
                 <div class="custom-form">
                     <h4 class="fw-bold mb-3">Đặt phòng</h4>
-                    <form method="get" action="">
+                    <form id="booking-form" method="POST" action="">
                         {% csrf_token %}
-                       
                         <!-- Ngày nhận và trả phòng -->
                         <div class="row g-2 mb-3">
                             <div class="col">
@@ -126,27 +125,23 @@
                             <label for="note" class="form-label">Ghi chú </label>
                             <textarea style="resize: none" name="" id="" cols="30" rows="10" placeholder="Bạn muốn thêm điều gì thú vị cho căn phòng..."></textarea>
                         </div>
-                        
-                        
 
                         <!-- Nút đặt phòng -->
                         <div class="d-grid">
-                            <button class="btn btn-primary">Đặt phòng</button>
+                            <button id="booking-button" class="btn btn-primary">Đặt phòng</button>
                         </div>
 
 
                     </form>
                 </div>
-</div>
-
-
-            <!-- Danh sách sản phẩm bên phải -->
+            </div>
+            <!-- sản phẩm bên phải -->
             <div class="col-lg-6">
                     <div class="row">
                         <!-- Sản phẩm 1 -->
-                        <div class="col-md-12">
+                        <div class="col-md-12" >
                             <div class="product-card">
-                                <img src="{{ bnb.image }}" alt="Phòng nghỉ hiện đại" class="img-fluid">
+                                <img src="{{ bnb.image_set.first.url }}" alt="Phòng nghỉ hiện đại" class="img-fluid">
                                 <h5>{{ bnb.name }}</h5>
                                 <p><strong>{{ bnb.price|floatformat:0 }} đ/ đêm</strong></p>
 
@@ -241,15 +236,14 @@
         calculateTotal();
     });
 </script>
-     {{ bnb.booking|json_script:'booking-data' }}
-    <script>
+{{ bnb.booking|json_script:'booking-data' }}
+<script>
         // Wishlist button logic
         $("#wishlist-btn").click(function () {
             {% save_bnb_to_wishlists request.session bnb.id as wishlist %}
         });
     </script>
-    <script src="{% static 'scripts/product.js' %}"></script>
-    <script type="module">
+<script type="module">
         const listAvailableRange = JSON.parse($("#booking-data").text());
         const defaultRange = listAvailableRange[0];
 
@@ -312,90 +306,62 @@
             return price.toLocaleString("vi-VN") + " VNĐ";
         }
     </script>
-    <script type="module">
-        $(document).ready(() => {
-            // Display Markdown content
-            $("#description-display").html(marked.parse(`{{ bnb.description|escapejs }}`));
-            $("#service-bnb").html(marked.parse(`{{ bnb.services|escapejs }}`));
-            $("#owner-description").html(marked.parse(`{{ bnb.owner.description|escapejs }}`));
 
-            // Show or hide comment form based on review status
-            {% user_review_status request.session bnb.id as review_status %}
-            {% if review_status %}
-                $("#upload-comment-form").removeClass('d-none');
-                $("#upload-comment-form button").attr("disabled", false);
-            {% else %}
-                $("#upload-comment-form").addClass('d-none');
-                $("#upload-comment-form button").attr("disabled", true);
-            {% endif %}
-        });
 
-        // Filter reviews based on sentiment
-        function filterReview(sentimentType) {
-            let filterLabel = "";
-            switch (sentimentType) {
-                case "positive":
-                    filterLabel = "Tích cực";
-                    break;
-                case "negative":
-                    filterLabel = "Tiêu cực";
-                    break;
-                default:
-                    filterLabel = "";
-            }
+<!-- Script AJAX -->
+<script>
+    $(document).ready(function () {
+    $('#booking-button').on('click', function (e) {
+        e.preventDefault(); // Prevent the default form submission
 
-            $.ajax({
-                url: '{{ request.path }}',
-                method: 'GET',
-                data: {
-                    'sentiment_type': sentimentType
-                },
-                success: function (response) {
-                    let reviewContents = '';
-                    if (sentimentType !== "all") {
-                        $("#filter-text").removeClass("d-none");
-                        $("#filter-label").text(filterLabel);
-                    } else {
-                        $("#filter-text").addClass("d-none");
-                    }
-                    $.each(response.reviews, function (index, review) {
-                        reviewContents += `
-                            <div class="col-6 comment-component">
-                                <div class="rounded-4 row p-1">
-                                    <div class="col-2 d-flex flex-column justify-content-center">
-                                        <img class="text-center display-4 rounded-circle"
-                                             src="${review.avatar}"
-                                             alt="" width="80px" height="80px">
-                                    </div>
-                                    <div class="col d-flex align-items-center">
-                                        <p style="font-size: 18px"
-                                           class="fw-semibold m-0">${review.fullname}</p>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    ${review.rating_content}
-                                </div>
-                                <div class="row comment-component__content my-2">
-                                    <p>${review.content}</p>
-                                </div>
-                            </div>`;
-                    });
-                    $('#review-display').html(reviewContents);
-                }
-            });
+        // Collect data from the form
+        const bnbId = {{ bnb.id }};
+        const checkinDate = $('#checkin_date').val();
+        const checkoutDate = $('#checkout_date').val();
+        const capacity = $('#capacity').val();
+        const cccd = $('#cccd').val(); // Capture the CCCD field value
+
+        // Validate the input data
+        if (!bnbId || !checkinDate || !checkoutDate || !capacity || !cccd) {
+            alert('Vui lòng điền đầy đủ thông tin!');
+            return; // Stop the submission if fields are missing
         }
 
-        $("#filter-positive-review").click(() => filterReview('positive'));
-        $("#filter-negative-review").click(() => filterReview('negative'));
-        $("#unfilter-review").click(() => filterReview('all'));
+        // Prepare the data to be sent
+        const requestData = {
+            bnb_id: bnbId,
+            checkin: checkinDate,
+            checkout: checkoutDate,
+            capacity: parseInt(capacity),
+            cccd: cccd // Ensure CCCD is sent
+        };
 
-        // Booking button logic
-        $("#booking-btn").click(() => {
-            const checkinDate = $("#checkin-date").val() || $('#checkin-date').attr('placeholder');
-            const checkoutDate = $("#checkout-date").val() || $('#checkout-date').attr('placeholder');
-            window.location = `/book?bnbid={{ bnb.id }}&checkin=${checkinDate.trim()}&checkout=${checkoutDate.trim()}&capacity=${$('#booking-capacity').val()}`;
+        // Send AJAX request
+        $.ajax({
+            url: "/book/", // Thay URL phù hợp
+            type: "POST",
+            data: JSON.stringify(requestData),
+            contentType: "application/json",
+            headers: {
+                "X-CSRFToken": "{{ csrf_token }}" // Gửi CSRF token
+            },
+            success: function (response) {
+                if (response.result) {
+                    alert("Đặt phòng thành công!");
+                    window.location.href = "/home.html"; // Redirect sau thành công
+                } else {
+                    alert(response.message || "Có lỗi xảy ra, hãy thử lại sau.");
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error("Lỗi:", xhr.responseText); // Log lỗi chi tiết
+                alert("Đã xảy ra lỗi: " + error);
+            }
         });
-    </script>
+    });
+});
+</script>
+
 {% endblock scripts %}
 
 
