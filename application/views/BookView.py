@@ -6,7 +6,7 @@ from django.utils.timezone import make_aware
 from django.utils.dateparse import parse_datetime
 from django.views.generic import TemplateView
 from django.shortcuts import render
-from application.models import BnbInformation
+from application.models import BnbInformation, Account
 from application.models.accounts import Booking
 from application.models.bnb import Image
 
@@ -54,15 +54,18 @@ class BookView(TemplateView):
         return render(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
-        try:
+
             data = json.loads(request.body)
 
             # Lấy dữ liệu từ request
+            user_id = data.get('user')
             bnb_id = data.get('bnb_id')
             checkin = data.get('checkin')
             checkout = data.get('checkout')
             capacity = data.get('capacity')
             cccd = data.get('cccd')  # Nhận thêm CCCD từ request
+
+            print(data)
 
             # Kiểm tra dữ liệu đầu vào
             if not all([bnb_id, checkin, checkout, capacity, cccd]):
@@ -95,14 +98,18 @@ class BookView(TemplateView):
                 return JsonResponse({'result': False, 'message': 'BnB đã được đặt trong khoảng thời gian này.'},
                                     status=400)
 
-            # Tìm người dùng theo CCCD
-            try:
-                user = request.user.account  # Assuming request.user has account attribute
-            except AttributeError:
-                return JsonResponse({'result': False, 'message': 'User not found.'}, status=404)
+            user = Account.objects.filter(id=int(user_id)).first()
+
+
+            print(user)
+            print(bnb)
+            print(checkin)
+            print(checkout)
+            print(capacity)
 
             # Lưu thông tin đặt phòng
             booking = Booking.objects.create(
+
                 account=user,
                 bnb=bnb,
                 from_date=checkin_date,
@@ -110,9 +117,9 @@ class BookView(TemplateView):
                 capacity=capacity,
                 status='pending'
             )
+
+
             booking.save()
 
-            return JsonResponse({'result': True, 'message': 'Đặt phòng thành công!', 'bnb_id': booking.id})
 
-        except Exception as e:
-            return JsonResponse({'result': False, 'message': f'Lỗi hệ thống: {str(e)}'}, status=500)
+            return JsonResponse({'result': True, 'message': 'Đặt phòng thành công!', 'bnb_id': booking.id})

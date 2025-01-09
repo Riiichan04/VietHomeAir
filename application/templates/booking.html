@@ -95,7 +95,7 @@
             <div class="product-card col-lg-6">
                 <div class="custom-form">
                     <h4 class="fw-bold mb-3">Đặt phòng</h4>
-                    <form id="booking-form" method="POST" action="">
+                    <form id="booking-form" method="POST" >
                         {% csrf_token %}
                         <!-- Ngày nhận và trả phòng -->
                         <div class="row g-2 mb-3">
@@ -329,19 +329,18 @@
 
         // Prepare the data to be sent
         const requestData = {
+            user : userId,
             bnb_id: bnbId,
             checkin: checkinDate,
             checkout: checkoutDate,
-            capacity: parseInt(capacity),
-            cccd: cccd // Ensure CCCD is sent
+            capacity: parseInt(capacity)
         };
 
         // Send AJAX request
         $.ajax({
             url: "/book/", // Thay URL phù hợp
             type: "POST",
-            data: JSON.stringify(requestData),
-            contentType: "application/json",
+            data: requestData,
             headers: {
                 "X-CSRFToken": "{{ csrf_token }}" // Gửi CSRF token
             },
@@ -361,7 +360,6 @@
     });
 });
 </script>
-
 {% endblock scripts %}
 
 
