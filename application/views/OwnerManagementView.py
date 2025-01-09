@@ -161,3 +161,23 @@ class AcceptBookingView(TemplateView):
             return JsonResponse({'success': True})
         except Exception as e:
             return JsonResponse({'success': False, 'error': str(e)})
+
+class UpdateStatusBnBView(TemplateView):
+    template_name = "manage_of_owner/owner-management-dashboard.html"
+    def post(self, request, *args, **kwargs):
+        # Parse dữ liệu JSON từ request body
+        data = json.loads(request.body)
+        bnb_id = data.get('bnbId')
+        status = data.get('status')
+        try:
+            bnb = get_bnb(bnb_id)
+            if bnb is None:
+                return JsonResponse({'success': False})
+            if status == 'True':
+                bnb.status = False
+            if status == 'False':
+                bnb.status = True
+            bnb.save()
+            return JsonResponse({'success': True})
+        except Exception as e:
+            return JsonResponse({'success': False, 'error': str(e)})

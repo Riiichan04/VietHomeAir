@@ -42,7 +42,12 @@
                     <td>{{ bnb.price }}</td>
                     <td>
                         <a class="btn btn-success mt-1" href="/owner-management/edit-bnb/id={{ bnb.id }}">Chi tiết</a>
-                        <button class="btn btn-danger del-btn mt-1">Xóa</button>
+                        {% if bnb.status == True %}
+                            <button class="btn btn-danger del-btn mt-1 status-bnb" value="{{ bnb.id }}" data-id="{{ bnb.status }}" data-csrf="{{ csrf_token }}">Đã bật</button>
+                        {% endif %}
+                        {% if bnb.status == False %}
+                            <button class="btn btn-danger del-btn mt-1 status-bnb" value="{{ bnb.id }}" data-id="{{ bnb.status }}" data-csrf="{{ csrf_token }}">Đã tắt</button>
+                        {% endif %}
                     </td>
                 </tr>
             {% endfor %}
@@ -126,9 +131,37 @@
                             alert("Duyệt khách hàng đặt BnB thành công!");
                         } else if (status === 'decline') {
                             alert("Xóa booking BnB thành công!");
-                        } else if (status ===  'served') {
+                        } else if (status === 'served') {
                             alert("Khách hàng đã checkin BnB!")
                         }
+                        window.location.href = '/owner-management/dashboard';
+                    } else {
+                        alert("Lỗi không thể thực hiện duyệt yêu cầu!");
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error:', error);
+                    alert("Lỗi không thể thực hiện duyệt yêu cầu!");
+                }
+            });
+        });
+
+        $('.status-bnb').on('click', function (event) {
+            event.preventDefault();
+
+            const value = $(this).val(); // Lấy giá trị từ nút
+            const csrfToken = $(this).data('csrf'); // Lấy CSRF token từ `data-*`
+            const status = $(this).data('id');
+            $.ajax({
+                url: 'update-status-bnn',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({bnbId: value, status: status}),
+                headers: {
+                    'X-CSRFToken': csrfToken // Truyền CSRF token
+                },
+                success: function (response) {
+                    if (response.success) {
                         window.location.href = '/owner-management/dashboard';
                     } else {
                         alert("Lỗi không thể thực hiện duyệt yêu cầu!");
