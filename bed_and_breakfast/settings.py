@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 import os.path
 from pathlib import Path
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -139,3 +142,18 @@ SESSION_COOKIE_HTTPONLY = True
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3110",
 ]
+
+# Tải file .env
+dotenv.load_dotenv()
+
+# Đọc các biến môi trường từ .env
+CLOUDINARY_CLOUD_NAME = os.getenv('CLOUDINARY_CLOUD_NAME')
+CLOUDINARY_API_KEY = os.getenv('CLOUDINARY_API_KEY')
+CLOUDINARY_API_SECRET = os.getenv('CLOUDINARY_API_SECRET')
+
+# Cấu hình Cloudinary
+cloudinary.config(
+    cloud_name=CLOUDINARY_CLOUD_NAME,  # Lấy từ file .env
+    api_key=CLOUDINARY_API_KEY,        # Lấy từ file .env
+    api_secret=CLOUDINARY_API_SECRET   # Lấy từ file .env
+)

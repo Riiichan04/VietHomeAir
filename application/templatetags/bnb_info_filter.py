@@ -16,6 +16,9 @@ def get_current_avatar(avatar_url, session):
     return Account.objects.filter(id=int(session.get('user'))).first().avatar if session.get(
         'user') is not None else None
 
+@register.filter
+def get_role_user(user, session):
+    return Account.objects.filter(id=int(session.get('user'))).first().role if session.get('user') is not None else None
 
 @register.simple_tag(name='save_bnb_to_wishlists')
 def save_bnb_to_wishlists(session, bnb_id):

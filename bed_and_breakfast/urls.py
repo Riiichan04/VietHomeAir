@@ -27,6 +27,8 @@ from application.views.ResultView import ResultView
 from application.views.BookView import BookView
 from application.views.UserView import UserView, UserInfoView, UserOrderHistoryView, UserViewedHistoryView, \
     UserReviewHistoryView, UserWishListView
+from application.views.OwnerManagementView import OwnerManagementView, UpdateBnBView, AcceptBookingView, UpdateStatusBnBView
+from application.views.InfoOwnerBnBView import InfoOwnerBnBView
 
 # Lưu ý: Nếu muốn hiển thị các trang lỗi custom thì phải set DEBUG = False và phải set ALLOWED_HOSTS
 # (Trong môi trường dev thì hãy đặt ALLOWED_HOSTS = ["localhost"])
@@ -60,6 +62,21 @@ urlpatterns = [
     path('user/review-history', UserReviewHistoryView.as_view(template_name='user/user-reviewed-history.html'),
          name='user-review-history'),
     path('user/wishlist', UserWishListView.as_view(template_name='user/user-wishlist.html'), name='user-wishlist'),
+    path('owner-management/', OwnerManagementView.as_view(), name='owner-management'),
+    path('owner-management/dashboard',
+         OwnerManagementView.as_view(template_name='manage_of_owner/owner-management-dashboard.html'),
+         name='owner-management-dashboard'),
+    path('owner-management/info-owner',
+         OwnerManagementView.as_view(template_name='manage_of_owner/info-owner-bnb.html'),
+         name='owner-management-info-owner'),
+    path('owner-management/edit-bnb/id=<int:bnbid>',
+         OwnerManagementView.as_view(template_name='manage_of_owner/form-bnb.html'),
+         name='owner-management-edit-bnb'),
+    path('owner/<int:ownerid>', InfoOwnerBnBView.as_view(), name='info-owner' ),
 
     # Các URL dưới đây chỉ được dùng cho POST AJAX
+    path('owner-management/edit-bnb/update-bnb', UpdateBnBView.as_view(), name='owner-management-update-bnb'),
+    path('owner-management/accept-booking', AcceptBookingView.as_view(), name='owner-management-accept-booking'),
+    path('owner-management/update-status-bnn', UpdateStatusBnBView.as_view(), name='owner-management-update-status-bnn'),
+
 ]
