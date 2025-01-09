@@ -99,7 +99,7 @@
             </div>
         </section>
 
-        <section class="page-section" id="section-2">
+        <section class="page-section d-" id="section-2">
             <h3 class="text-center my-3">Chỗ ở của bạn có những tiện nghi nào?</h3>
             <p class="text-center my-1">Hãy chọn ít nhất 4 tiện nghi nhé!!</p>
             <div class="row gap-4 gy-4 p-5">
@@ -117,7 +117,7 @@
             </div>
         </section>
 
-        <section class="page-section" id="section-3">
+        <section class="page-section d-" id="section-3">
             <h3 class="text-center my-3">Nhà cho thuê của bạn trông như thế nào nhỉ?</h3>
             <p class="text-center my-1">Hãy upload 5 hình ảnh lên nhé!!</p>
             <div class="row gap-4 gy-4 p-5">
@@ -151,9 +151,9 @@
             </div>
         </section>
 
-        <section class="page-section" id="section-4">
+        <section class="page-section d-" id="section-4">
             <h3 class="text-center my-3">Còn những thông tin khác thì sao?</h3>
-            <form method="post" id="upload-new-bnb" class="row">
+            <form method="post" id="upload-new-bnb" class="row" enctype="multipart/form-data">
                 {% csrf_token %}
                 <label class="my-3" for="">
                     Tên nhà cho thuê của bạn<span class="text-danger">*</span>:
@@ -291,15 +291,21 @@
     </script>
 
     <script>
-        $("#submit-new-bnb").click(async function () {
+        $("#submit-new-bnb").click(async function (e) {
+            e.preventDefault()
             const obj = await getPostInfo()
             let listImg = []
             $("input[type=file]").each(function (index, input) {
-                if (input.files.length > 0) {
-                    listImg.append(input.files[0]);
+                if (this.files.length > 0) {
+                    $.each(this.files, function (i, file) {
+                        obj.append('images[]', file);
+                    });
                 }
             })
-            obj['list_image'] = listImg
+
+            $(".select-rules:selected").each(function () {
+                obj.append('rules[]', $(this).val())
+            })
 
             const form_data = new FormData();
             for (const key in obj) {
@@ -307,7 +313,7 @@
             }
 
             $.ajax({
-                url: '/',
+                url: '/add-new-bnb/',
                 method: 'POST',
                 headers: {
                     'X-CSRFToken': getCSRFToken()
@@ -323,8 +329,8 @@
                 }
             })
         })
-        
-        
+
+
         function getCSRFToken() {
             let cookieValue = null;
             if (document.cookie && document.cookie !== '') {

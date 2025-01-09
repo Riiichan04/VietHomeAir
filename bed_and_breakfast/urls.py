@@ -27,7 +27,7 @@ from application.views.ResultView import ResultView
 from application.views.BookView import BookView
 from application.views.UserView import UserView, UserInfoView, UserOrderHistoryView, UserViewedHistoryView, \
     UserReviewHistoryView, UserWishListView
-from application.views.OwnerRegister imports AddNewBnb
+from application.views.AddNewBnb import AddNewBnb
 from application.views.RegisterView import RegisterView
 
 # Lưu ý: Nếu muốn hiển thị các trang lỗi custom thì phải set DEBUG = False và phải set ALLOWED_HOSTS

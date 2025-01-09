@@ -16,12 +16,7 @@ let sessionObject = {
         'lat': -1,
         'lon': -1
     },
-    'rule': {
-        'checkinId': -1,
-        'checkoutId': -1,
-        'refundId': -1,
-        'secureId': -1
-    },
+    'rule': [],
     'ownerId': -1
 }
 
@@ -49,8 +44,7 @@ function getAddressLocation(address) {
                     sessionObject.location.lat = data[0].lat
                     sessionObject.location.lon = data[0].lon
                 })
-            }
-            else {
+            } else {
                 return "Có lỗi!!!"
             }
         })
@@ -70,8 +64,7 @@ $("#section-1 .section-card").click(function () {
 
     if (sessionObject.categoryId !== -1) {
         $("#section-1 .show-section").attr("disabled", false)
-    }
-    else {
+    } else {
         $("#section-1 .show-section").attr("disabled", true)
     }
 })
@@ -88,10 +81,9 @@ $("#section-2 .section-card").click(function () {
         updateLocalStorage()
     }
 
-     if (sessionObject.listBnbService.length >= 4) {
+    if (sessionObject.listBnbService.length >= 4) {
         $("#section-2 .show-section").attr("disabled", false)
-    }
-    else {
+    } else {
         $("#section-2 .show-section").attr("disabled", true)
     }
 })
@@ -102,8 +94,7 @@ $("#section-3 input[type=file]").change(function () {
     }
     if (countUploadedImage === 5) {
         $("#section-3 .show-section").attr("disabled", false)
-    }
-    else {
+    } else {
         $("#section-3 .show-section").attr("disabled", true)
     }
 })
