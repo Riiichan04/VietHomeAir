@@ -13,150 +13,316 @@
         <h1 class="h2 text-center">Chỉnh sửa phòng</h1>
     </header>
     <!-- Form -->
-    <form id="edit-room-form" class="row g-3">
+    <form id="edit-room-form" class="row g-3" enctype="multipart/form-data" method="post">
+        {% csrf_token %}
         <div class="col-12">
-            <label for="img-room" class="form-label">Hình ảnh: (Tick chọn để xóa)</label>
+            <label for="img-room" class="form-label">Xoá hình ảnh</label>
             <div class="row">
-                <div class="col-5">
-                    <div class="img-container">
-                        <img src="https://a0.muscache.com/im/pictures/c4ba9dc7-02dc-4ee3-a293-a91cc20ec90c.jpg?im_w=1200&im_format=avif">
+                {% for img in bnb.images %}
+                    <div class="col-5">
+                        <div class="img-container p-2">
+                            <img src="{{ img.url }}">
+                        </div>
                     </div>
-                </div>
-                <div class="col-1"><input type="checkbox" class="checkbox"></div>
-                <div class="col-5">
-                    <div class="img-container">
-                        <img src="https://a0.muscache.com/im/pictures/c4ba9dc7-02dc-4ee3-a293-a91cc20ec90c.jpg?im_w=1200&im_format=avif">
+                    <div class="col-1"><input type="checkbox" name="delete-image" class="checkbox" value="{{ img.id }}">
                     </div>
-                </div>
-                <div class="col-1"><input type="checkbox" class="checkbox"></div>
+                {% endfor %}
             </div>
         </div>
         <div class="col-12">
-            <label for="img-room" class="form-label">Thêm hình ảnh:</label>
-            <input type="file" id="img-room" accept="image/*" name="img-room" class="form-control" multiple
+            <label for="img-room" class="form-label">Thêm hình ảnh</label>
+            <input type="file" id="img-room" accept="image/*" name="add-image" class="form-control" multiple>
+        </div>
+        <div class="col-6">
+            <label for="roomName" class="form-label">Tên phòng</label>
+            <input type="text" id="roomName" name="name" class="form-control" value="{{ bnb.name }}" required>
+        </div>
+        <div class="col-6">
+            <label for="roomAddress" class="form-label">Địa chỉ</label>
+            <input type="text" id="roomAddress" class="form-control" value="{{ bnb.location.name }}"
+                   disabled required>
+        </div>
+        <div class="col-6">
+            <label for="roomPrice" class="form-label">Giá (VNĐ/đêm)</label>
+            <input type="number" id="roomPrice" min="0" name="price" class="form-control"
+                   value="{{ bnb.prices|floatformat }}"
                    required>
         </div>
         <div class="col-6">
-            <label for="roomName" class="form-label">Tên phòng:</label>
-            <input type="text" id="roomName" name="roomName" class="form-control" required>
-        </div>
-        <div class="col-6">
-            <label for="roomAddress" class="form-label">Địa chỉ:</label>
-            <input type="text" id="roomAddress" name="roomAddress" class="form-control" required>
-        </div>
-        <div class="col-6">
-            <label for="roomPrice" class="form-label">Giá (VNĐ/đêm):</label>
-            <input type="number" id="roomPrice" min="0" name="roomPrice" class="form-control" required>
-        </div>
-        <div class="col-6">
-            <label for="capacity" class="form-label">Sức chứa:</label>
-            <input type="number" id="capacity" min="1" name="capacity" class="form-control" required>
+            <label for="capacity" class="form-label">Sức chứa</label>
+            <input type="number" id="capacity" min="1" name="capacity" class="form-control" value="{{ bnb.capacity }}"
+                   required>
         </div>
 
-        <div class="col-12">
-            <label for="category" class="form-label">Danh mục:</label>
-            <button type="button" class="d-inline add-category-btn text-center"
-                    style="border: none; background-color: var(--web-background-color)">
+        <div class="col-12" id="categories">
+            <label for="category" class="form-label">Danh mục</label>
+            <button type="button" class="d-inline text-center"
+                    style="border: none; background-color: var(--web-background-color)" id="add-category-btn"
+                    onclick="addCategory()">
                 <i class="fas fa-plus-circle"></i></button>
-            <div class="row">
-                <div class="col-2 text-end align-content-center">Danh mục 1: </div>
-                <div class="col"><select class="form-control" name="category" required>
-                    <option>Danh mục 1</option>
-                    <option>Danh mục 2</option>
-                    <option>Danh mục 3</option>
-                    <option>Danh mục 4</option>
-                    <option>Danh mục 4</option>
-                    <option>Danh mục 4</option>
-                    <option>Danh mục 4</option>
-                    <option>Danh mục 4</option>
-                    <option>Danh mục 4</option>
-                    <option>Danh mục 4</option>
-
-
-                </select></div>
-                <div class="col-1">
-                    <button type="button" class="btn btn-danger">Xóa</button>
+            {% for category in bnb.categories %}
+                <div class="row mb-2">
+                    <div class="col-2 text-end align-content-center">Danh mục</div>
+                    <div class="col"><select name="category-id" class="form-control" name="category" required>
+                        {% for c in categories %}
+                            <option value="{{ c.id }}"
+                                    {% if category.id == c.id %}selected{% endif %}>{{ c.name }}</option>
+                        {% endfor %}
+                    </select></div>
+                    <div class="col-1">
+                        <button type="button" class="btn btn-danger" onclick="remove(this)">Xóa</button>
+                    </div>
                 </div>
-            </div>
-            <div class="row mt-2">
-                <div class="col-2 text-end align-content-center">Danh mục 1: </div>
-                <div class="col"><select class="form-control" name="category" required>
-                    <option>Danh mục 1</option>
-                    <option>Danh mục 2</option>
-                    <option>Danh mục 3</option>
-                    <option>Danh mục 4</option>
-                    <option>Danh mục 4</option>
-                    <option>Danh mục 4</option>
-                    <option>Danh mục 4</option>
-                    <option>Danh mục 4</option>
-                    <option>Danh mục 4</option>
-                    <option>Danh mục 4</option>
-
-
-                </select></div>
-                <div class="col-1">
-                    <button type="button" class="btn btn-danger">Xóa</button>
-                </div>
-            </div>
+            {% endfor %}
         </div>
-        <div class="col-12">
-            <label for="service" class="form-label">Tiện ích:</label>
+        <div class="col-12" id="services">
+            <label for="service" class="form-label">Tiện ích</label>
             <button type="button" class="d-inline add-service-btn text-center"
-                    style="border: none; background-color: var(--web-background-color)">
+                    style="border: none; background-color: var(--web-background-color)" onclick="addService()">
                 <i class="fas fa-plus-circle"></i></button>
+            {% for service in bnb.services %}
+                <div class="row mb-2">
+                    <div class="col-2 text-end align-content-center">Tiện ích</div>
+                    <div class="col"><select name="service-id" class="form-control" name="service" required>
+                        {% for s in services %}
+                            <option value="{{ s.id }}"
+                                    {% if service.id == s.id %}selected{% endif %}>{{ s.name }}</option>
+                        {% endfor %}
+                    </select></div>
+                    <div class="col-1">
+                        <button type="button" class="btn btn-danger" onclick="remove(this)">Xóa</button>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="col-12" id="rules">
             <div class="row">
-                <div class="col-2 text-end align-content-center">Tiện ích 1: </div>
-                <div class="col"><select class="form-control" name="service" required>
-                    <option>Tiện ích 1</option>
-                    <option>Tiện ích 2</option>
-                    <option>Tiện ích 3</option>
-                    <option>Tiện ích 4</option>
-                    <option>Tiện ích 4</option>
-                    <option>Tiện ích 4</option>
-                    <option>Tiện ích 4</option>
-                    <option>Tiện ích 4</option>
-                    <option>Tiện ích 4</option>
-                    <option>Tiện ích 4</option>
-
-
-                </select></div>
-                <div class="col-1">
-                    <button type="button" class="btn btn-danger">Xóa</button>
+                <div class="col">
+                    <label class="form-label">Check in</label>
+                    <button type="button" class="d-inline add-rule-btn text-center"
+                            style="border: none; background-color: var(--web-background-color)" onclick="addRule(this)"
+                            data-id="rule-checkin">
+                        <i class="fas fa-plus-circle"></i></button>
+                </div>
+                <div class="col">
+                    <label class="form-label">Check out</label>
+                    <button type="button" class="d-inline add-rule-btn text-center"
+                            style="border: none; background-color: var(--web-background-color)" onclick="addRule(this)"
+                            data-id="rule-checkout">
+                        <i class="fas fa-plus-circle"></i></button>
+                </div>
+                <div class="col">
+                    <label class="form-label">Hoàn tiền</label>
+                    <button type="button" class="d-inline add-rule-btn text-center"
+                            style="border: none; background-color: var(--web-background-color)" onclick="addRule(this)"
+                            data-id="rule-refund">
+                        <i class="fas fa-plus-circle"></i></button>
+                </div>
+                <div class="col">
+                    <label class="form-label">An ninh</label>
+                    <button type="button" class="d-inline add-rule-btn text-center"
+                            style="border: none; background-color: var(--web-background-color)" onclick="addRule(this)"
+                            data-id="rule-secure">
+                        <i class="fas fa-plus-circle"></i></button>
                 </div>
             </div>
-            <div class="row mt-2">
-                <div class="col-2 text-end align-content-center">Tiện ích 1: </div>
-                <div class="col"><select class="form-control" name="service" required>
-                    <option>Tiện ích 1</option>
-                    <option>Tiện ích 2</option>
-                    <option>Tiện ích 3</option>
-                    <option>Tiện ích 4</option>
-                    <option>Tiện ích 4</option>
-                    <option>Tiện ích 4</option>
-                    <option>Tiện ích 4</option>
-                    <option>Tiện ích 4</option>
-                    <option>Tiện ích 4</option>
-                    <option>Tiện ích 4</option>
 
+            {% for rule in bnb.rules %}
+                {% if rule.rule_type == 'checkin' %}
+                    <div class="row mb-2">
+                        <div class="col-2 text-end align-content-center">Quy tắc</div>
+                        <div class="col"><select name="rule-id" class="form-control" name="rule" required>
+                            {% for r in rules_checkin %}
+                                <option value="{{ r.id }}"
+                                        {% if rule.id == r.id %}selected{% endif %}>{{ r.description }}</option>
+                            {% endfor %}
+                        </select></div>
+                        <div class="col-1">
+                            <button type="button" class="btn btn-danger" onclick="remove(this)">Xóa</button>
+                        </div>
+                    </div>
+                {% endif %}
+                {% if rule.rule_type == 'checkout' %}
+                    <div class="row mb-2">
+                        <div class="col-2 text-end align-content-center">Quy tắc</div>
+                        <div class="col"><select name="rule-id" class="form-control" name="rule" required>
+                            {% for r in rules_checkout %}
+                                <option value="{{ r.id }}"
+                                        {% if rule.id == r.id %}selected{% endif %}>{{ r.description }}</option>
+                            {% endfor %}
+                        </select></div>
+                        <div class="col-1">
+                            <button type="button" class="btn btn-danger" onclick="remove(this)">Xóa</button>
+                        </div>
+                    </div>
+                {% endif %}
+                {% if rule.rule_type == 'refund' %}
+                    <div class="row mb-2">
+                        <div class="col-2 text-end align-content-center">Quy tắc</div>
+                        <div class="col"><select name="rule-id" class="form-control" name="rule" required>
+                            {% for r in rules_refund %}
+                                <option value="{{ r.id }}"
+                                        {% if rule.id == r.id %}selected{% endif %}>{{ r.description }}</option>
+                            {% endfor %}
+                        </select></div>
+                        <div class="col-1">
+                            <button type="button" class="btn btn-danger" onclick="remove(this)">Xóa</button>
+                        </div>
+                    </div>
+                {% endif %}
+                {% if rule.rule_type == 'secure' %}
+                    <div class="row mb-2">
+                        <div class="col-2 text-end align-content-center">Quy tắc</div>
+                        <div class="col"><select name="rule-id" class="form-control" name="rule" required>
+                            {% for r in rules_secure %}
+                                <option value="{{ r.id }}"
+                                        {% if rule.id == r.id %}selected{% endif %}>{{ r.description }}</option>
+                            {% endfor %}
+                        </select></div>
+                        <div class="col-1">
+                            <button type="button" class="btn btn-danger" onclick="remove(this)">Xóa</button>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
 
-                </select></div>
-                <div class="col-1">
-                    <button type="button" class="btn btn-danger">Xóa</button>
-                </div>
-            </div>
         </div>
 
         <div class="col-12">
-            <label for="description" class="form-label">Mô tả:</label>
+            <label for="description" class="form-label">Mô tả</label>
             <textarea type="text" name="description" placeholder="Nhập mô tả..."
-                      class="form-control style-text-area" required></textarea>
+                      class="form-control style-text-area">{{ bnb.description }}</textarea>
         </div>
         <div class="col-6 pt-3">
-            <a type="button" class="w-100 btn cancel-btn" href="/owner-management-dashboard/">Hủy</a>
+            <a type="button" class="w-100 btn cancel-btn" href="/owner-management/dashboard">Hủy</a>
         </div>
         <div class="col-6 pt-3">
             <button type="submit" class="w-100 btn btn-success">Chỉnh sửa</button>
         </div>
-
     </form>
 {% endblock sidebar_content %}
+{% block scripts %}
+    <script>
+        function addCategory() {
+            const newRow = document.createElement('div');
+            newRow.className = "row mb-2";
+            newRow.innerHTML = `
+                    <div class="col-2 text-end align-content-center">Danh mục</div>
+                    <div class="col"><select name="category-id" class="form-control" name="category" required>
+                        {% for c in categories %}
+                            <option value="{{ c.id }}">{{ c.name }}</option>
+                        {% endfor %}
+                    </select></div>
+                    <div class="col-1">
+                        <button type="button" class="btn btn-danger" onclick="remove(this)">Xóa</button>
+                    </div>
+                </div>`
+            document.getElementById('categories').append(newRow);
+        }
+
+        function addService() {
+            const newRow = document.createElement('div');
+            newRow.className = "row mb-2";
+            newRow.innerHTML = `
+                    <div class="col-2 text-end align-content-center">Tiện ích</div>
+                    <div class="col"><select name="service-id" class="form-control" name="service" required>
+                        {% for s in services %}
+                            <option value="{{ s.id }}"
+                                    {% if service.id == s.id %}selected{% endif %}>{{ s.name }}</option>
+                        {% endfor %}
+                    </select></div>
+                    <div class="col-1">
+                        <button type="button" class="btn btn-danger" onclick="remove(this)">Xóa</button>
+                    </div>`
+            document.getElementById('services').append(newRow);
+        }
+
+        function addRule(button) {
+            const newRow = document.createElement('div');
+            const id = $(button).data('id');
+            newRow.className = "row mb-2";
+            console.log(id)
+            if (id === 'rule-checkin') {
+                newRow.innerHTML = `
+                    <div class="col-2 text-end align-content-center">Quy tắc</div>
+                    <div class="col"><select name="rule-id" class="form-control" name="rule" required>
+                        {% for r in rules_checkin %}
+                            <option value="{{ r.id }}">{{ r.description }}</option>
+                        {% endfor %}
+                    </select></div>
+                    <div class="col-1">
+                        <button type="button" class="btn btn-danger" onclick="remove(this)">Xóa</button>
+                    </div>`
+            } else if (id === 'rule-checkout') {
+                newRow.innerHTML = `
+                    <div class="col-2 text-end align-content-center">Quy tắc</div>
+                    <div class="col"><select name="rule-id" class="form-control" name="rule" required>
+                        {% for r in rules_checkout %}
+                            <option value="{{ r.id }}">{{ r.description }}</option>
+                        {% endfor %}
+                    </select></div>
+                    <div class="col-1">
+                        <button type="button" class="btn btn-danger" onclick="remove(this)">Xóa</button>
+                    </div>`
+            } else if (id === 'rule-refund') {
+                newRow.innerHTML = `
+                    <div class="col-2 text-end align-content-center">Quy tắc</div>
+                    <div class="col"><select name="rule-id" class="form-control" name="rule" required>
+                        {% for r in rules_refund %}
+                            <option value="{{ r.id }}">{{ r.description }}</option>
+                        {% endfor %}
+                    </select></div>
+                    <div class="col-1">
+                        <button type="button" class="btn btn-danger" onclick="remove(this)">Xóa</button>
+                    </div>`
+            } else if (id === 'rule-secure') {
+                newRow.innerHTML = `
+                    <div class="col-2 text-end align-content-center">Quy tắc</div>
+                    <div class="col"><select name="rule-id" class="form-control" name="rule" required>
+                        {% for r in rules_secure %}
+                            <option value="{{ r.id }}">{{ r.description }}</option>
+                        {% endfor %}
+                    </select></div>
+                    <div class="col-1">
+                        <button type="button" class="btn btn-danger" onclick="remove(this)">Xóa</button>
+                    </div>`
+            }
+            document.getElementById('rules').append(newRow);
+        }
+
+        function remove(button) {
+            const row = button.parentElement.parentElement;
+            row.remove();
+        }
+
+        $('#edit-room-form').on('submit', function (event) {
+            event.preventDefault();
+            var csrftoken = $('input[name="csrfmiddlewaretoken"]').val();
+
+            const bnbId = {{bnb.id}}
+            var formData = new FormData(this);  // tạo dữ liệu form
+            formData.append('bnbid', bnbId);  // Thêm bnbid vào chuỗi query string
+            $.ajax({
+                url: 'update-bnb',
+                type: 'POST', // Gửi yêu cầu POST
+                data: formData, // Dữ liệu từ form
+                contentType: false, // Đảm bảo không set content-type
+                processData: false, // Đảm bảo jQuery không xử lý dữ liệu
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                },
+                success: function (response) {
+                    if (response.success) {
+                        alert('Cập nhật BnB thành công!');
+                        window.location.href = '/owner-management/dashboard';
+                    } else {
+                        alert('Lỗi: ' + response.error);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    alert('Lỗi không thể cập nhật bnb!');
+                }
+            });
+        });
+    </script>
+{% endblock scripts %}

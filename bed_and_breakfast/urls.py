@@ -27,8 +27,8 @@ from application.views.ResultView import ResultView
 from application.views.BookView import BookView
 from application.views.UserView import UserView, UserInfoView, UserOrderHistoryView, UserViewedHistoryView, \
     UserReviewHistoryView, UserWishListView
-from application.views.AddNewBnb import AddNewBnb
-from application.views.RegisterView import RegisterView
+from application.views.OwnerManagementView import OwnerManagementView, UpdateBnBView, AcceptBookingView, UpdateStatusBnBView
+from application.views.InfoOwnerBnBView import InfoOwnerBnBView
 
 # Lưu ý: Nếu muốn hiển thị các trang lỗi custom thì phải set DEBUG = False và phải set ALLOWED_HOSTS
 # (Trong môi trường dev thì hãy đặt ALLOWED_HOSTS = ["localhost"])
@@ -49,8 +49,6 @@ urlpatterns = [
     path('terms-of-use/', PolicyViews.as_view(template_name='other_template/terms.html'), name='terms-of-use'),
     path('policy/', PolicyViews.as_view(template_name='other_template/other-policy.html'), name='terms-of-use'),
     re_path(r'^(?P<type>login|register|forgot-password)/$', AuthView.as_view(), name='auth'),
-
-    path('validate-register/<str:type>', RegisterView.as_view(), name='validate-register'),
     path('about-us/', ContactViews.as_view(template_name='other_template/about-us.html'), name='about-us'),
     path('contact/', ContactViews.as_view(template_name='other_template/contact-us.html'), name='contact-us'),
     path('result/<str:query>', ResultView.as_view(), name='result'),
@@ -64,5 +62,21 @@ urlpatterns = [
     path('user/review-history', UserReviewHistoryView.as_view(template_name='user/user-reviewed-history.html'),
          name='user-review-history'),
     path('user/wishlist', UserWishListView.as_view(template_name='user/user-wishlist.html'), name='user-wishlist'),
-    path('add-new-bnb/', AddNewBnb.as_view())
+    path('owner-management/', OwnerManagementView.as_view(), name='owner-management'),
+    path('owner-management/dashboard',
+         OwnerManagementView.as_view(template_name='manage_of_owner/owner-management-dashboard.html'),
+         name='owner-management-dashboard'),
+    path('owner-management/info-owner',
+         OwnerManagementView.as_view(template_name='manage_of_owner/info-owner-bnb.html'),
+         name='owner-management-info-owner'),
+    path('owner-management/edit-bnb/id=<int:bnbid>',
+         OwnerManagementView.as_view(template_name='manage_of_owner/form-bnb.html'),
+         name='owner-management-edit-bnb'),
+    path('owner/<int:ownerid>', InfoOwnerBnBView.as_view(), name='info-owner' ),
+
+    # Các URL dưới đây chỉ được dùng cho POST AJAX
+    path('owner-management/edit-bnb/update-bnb', UpdateBnBView.as_view(), name='owner-management-update-bnb'),
+    path('owner-management/accept-booking', AcceptBookingView.as_view(), name='owner-management-accept-booking'),
+    path('owner-management/update-status-bnn', UpdateStatusBnBView.as_view(), name='owner-management-update-status-bnn'),
+
 ]
