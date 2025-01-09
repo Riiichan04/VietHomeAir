@@ -27,7 +27,7 @@ from application.views.ResultView import ResultView
 from application.views.BookView import BookView
 from application.views.UserView import UserView, UserInfoView, UserOrderHistoryView, UserViewedHistoryView, \
     UserReviewHistoryView, UserWishListView
-
+from application.views.LogoutView import logout_view
 # Lưu ý: Nếu muốn hiển thị các trang lỗi custom thì phải set DEBUG = False và phải set ALLOWED_HOSTS
 # (Trong môi trường dev thì hãy đặt ALLOWED_HOSTS = ["localhost"])
 # Xem https://docs.djangoproject.com/en/5.1/ref/views/#django.views.defaults.page_not_found
@@ -60,6 +60,7 @@ urlpatterns = [
     path('user/review-history', UserReviewHistoryView.as_view(template_name='user/user-reviewed-history.html'),
          name='user-review-history'),
     path('user/wishlist', UserWishListView.as_view(template_name='user/user-wishlist.html'), name='user-wishlist'),
+    path('logout/', logout_view, name='logout'),
 
     # Các URL dưới đây chỉ được dùng cho POST AJAX
 ]

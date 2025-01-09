@@ -2,23 +2,23 @@
 {% load static %}
 
 {% block title %}
-    <title>Thông tin</title>
+    <title>{{userinfo.username}}</title>
 {% endblock title %}
 {% block stylesheet %}
     <link rel="stylesheet" type="text/css" href={% static "style/user.css" %}>
 {% endblock stylesheet %}
 {% block breadcrumb %}
     <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
-    <li class="breadcrumb-item active">Thông tin về chủ nhà</li>
+    <li class="breadcrumb-item active">{{userinfo.username}}</li>
 {% endblock breadcrumb %}
 {% block content %}
     <div class="row container mx-auto">
         <div class="col-4 me-4">
             <div class="row p-4 card-container user-info ">
                 <div class="col-5 me-4 text-center user-avt">
-                    <img src="../static/image/error_image/error500.jpg" class="row user-img">
+                    <img src="{{ userinfo.avatar }}" class="row user-img">
                     <i class="bi bi-patch-check"></i>
-                    <div class="row user-name h5 ps-4 py-2">Lôi</div>
+                    <div class="row user-name h5 ps-4 py-2">{{userinfo.username}}</div>
                 </div>
                 <div class="col-6">
                     <div class="row reviews border-bottom">
@@ -60,7 +60,7 @@
                 </div>
             </div>
             <div class="row mt-4 p-4 user-verify card-container">
-                <h5>Thông tin đã được xác thực của Lôi</h5>
+                <h5>Thông tin đã được xác thực của {{ userinfo.username }}</h5>
                 <div class="row">
                     <i class="fa-solid fa-check col-1"></i>
                     <div class="col-11">Email đã được xác thực</div>
@@ -86,7 +86,7 @@
     <div id="logout_alert" class="m-10 container">
         <div class="row ps-2"><p>Bạn chắc chắn muốn đăng xuất?</p></div>
         <div class="row pt-5 ps-4 text-center">
-            <button id="yesBtn" class="col-5 text-center">Có</button>
+            <button id="yesBtn" class="col-5 text-center"><a href="/logout/">Có</a></button>
             <div class="col-2"></div>
             <button id="noBtn" class="col-5 text-center">Không</button>
         </div>
