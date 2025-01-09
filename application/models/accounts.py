@@ -52,6 +52,7 @@ class Booking(models.Model):
     from_date = models.DateTimeField()
     to_date = models.DateTimeField()
     capacity = models.IntegerField()
+    note = models.TextField(default='', blank=True, null=True)
     status = models.CharField(max_length=7,
                               choices=(('pending', 'Pending'), ('accept', 'Accept'), ('decline', 'Decline'),
                                        ('served', 'Served')))

@@ -6,7 +6,6 @@ from application.models.bnb import Review
 
 register = template.Library()
 
-
 @register.filter(name='current_user')
 def current_user(user, session):
     return session.get('user') if session.get('user') is not None else None
@@ -35,3 +34,11 @@ def user_review_status(session, bnbid):
     review_data = Review.objects.filter(account=Account.objects.filter(id=int(session.get('user'))).first(),
                                         bnb=BnbInformation.objects.filter(id=bnbid).first()).all()
     return len(booking_data) > len(review_data)
+
+@register.simple_tag
+def add_bnb_to_history(session, bnbid):
+    if session.get('user') is None: return False
+    if session.get('history') is None:
+        session['history'] = []
+    session['history'].append(bnbid)
+    return True
