@@ -8,22 +8,6 @@
 
 {% block stylesheet %}
     <style>
-        .custom-margin {
-            margin-left: 42px;
-            margin-right: 42px;
-        }
-
-        /* Căn chỉnh layout trung tâm */
-        .add-image-card {
-            max-width: 400px;
-            margin: auto;
-            border: 2px dashed #ddd;
-            border-radius: 10px;
-            padding: 30px;
-            text-align: center;
-            background-color: #fafafa;
-        }
-
         .add-image-card img {
             width: 120px;
             height: 120px;
@@ -322,6 +306,7 @@
             e.preventDefault()
             if (userId === 'None') {
                 alert("Bạn chưa đăng nhập")
+                history.back()
                 return
             }
             await getPostInfo(userId)
@@ -368,8 +353,8 @@
                     'X-CSRFToken': getCSRFToken()
                 },
                 data: form_data,
-                processData: false,  // Không để jQuery xử lý dữ liệu
-                contentType: false,  // Không đặt Content-Type, vì FormData tự xử lý
+                processData: false,
+                contentType: false,
                 success: function (response) {
                     $("#alert").removeClass("d-none").removeClass("alert-primary").addClass("alert-success")
                     $("#alert-content").text("Bạn đã thêm nhà cho thuê mới thành công!!!")
