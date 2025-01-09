@@ -24,7 +24,7 @@ from application.views.BnbInfoView import BnbInfoView
 from application.views.LoginView import AuthView
 from application.views.HomeView import HomeView
 from application.views.ResultView import ResultView
-from application.views.BookView import BookView
+from application.views.BookView import BookView, HandleNewReview
 from application.views.UserView import UserView, UserInfoView, UserOrderHistoryView, UserViewedHistoryView, \
     UserReviewHistoryView, UserWishListView
 from application.views.OwnerRegister import OwnerRegisterView
@@ -64,4 +64,5 @@ urlpatterns = [
     path('user/wishlist', UserWishListView.as_view(template_name='user/user-wishlist.html'), name='user-wishlist'),
 
     path('onwner-add-home/',OwnerRegisterView.as_view(), name='owner-register' ),
+    path('post-new-booking/', HandleNewReview.as_view(), name='handle-new-booking'),
 ]
