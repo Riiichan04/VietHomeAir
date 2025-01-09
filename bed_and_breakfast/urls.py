@@ -60,5 +60,5 @@ urlpatterns = [
     path('user/review-history/', UserReviewHistoryView.as_view(template_name='user/user-reviewed-history.html'),
          name='user-review-history'),
     path('user/wishlist/', UserWishListView.as_view(template_name='user/user-wishlist.html'), name='user-wishlist'),
-
+    path('logout/', logout_view, name='logout'),
 ]
