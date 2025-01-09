@@ -1,8 +1,11 @@
 import json
+from django.utils.timezone import now
 
 from cloudinary.uploader import upload
 from django.http.response import Http404, JsonResponse
 from django.views.generic import TemplateView
+
+from application.models.accounts import Booking #phục vụ cho set lại status booking nếu quá hạn checkout (*lưu ý: đây chỉ là giải pháp tạm thời)
 from application.models.bnb import Image, Category, Service, Rule
 from application.services.owner_management_service import (get_info_owner, get_list_info_bnb,
                                                            get_bnb_by_id, get_list_category,
@@ -42,6 +45,9 @@ class OwnerManagementView(TemplateView):
         context['rules'] = get_list_rule()
         context['bnb_reviews'] = get_bnb_reviews(owner.get("id"))
         context['list_bnb_avg'] = get_list_info_bnb_avg_rating(owner.get("id"))
+
+        self.update_booking_status()
+
         return context
 
     def get_info_owner_data(self, userid):
@@ -52,6 +58,26 @@ class OwnerManagementView(TemplateView):
         list_bnb = get_list_info_bnb(owner.get("id"))
         list_booking = get_booking_bnb(list_bnb)
         return owner, list_bnb, list_booking
+
+    # Hàm cập nhật trạng thái booking
+    def update_booking_status(self):
+        try:
+            current_time = now()
+            bookings_to_update_served = Booking.objects.filter(to_date__lt=current_time, status__in=['accept'])
+
+            for booking in bookings_to_update_served:
+                booking.status = 'served'
+                booking.save()
+
+            bookings_to_update_decline = Booking.objects.filter(to_date__lt=current_time, status__in=['pending'])
+
+            for booking in bookings_to_update_decline:
+                booking.status = 'decline'
+                booking.save()
+        except Exception as e:
+            print(f"Error while updating booking status: {e}")
+
+
 
 
 

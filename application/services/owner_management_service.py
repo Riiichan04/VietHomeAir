@@ -2,7 +2,7 @@ import locale
 
 from django.db.models import Avg
 
-from application.models import Account, BnbInformation
+from application.models import BnbInformation
 from application.models.accounts import Owner, Booking
 from application.models.bnb import Category, Service, Rule, Review
 
@@ -58,7 +58,7 @@ def get_bnb_by_id(bnb_id):
     }
 
 def get_bnb_reviews(owner_id):
-    return Review.objects.filter(bnb__owner__id=owner_id)
+    return Review.objects.filter(bnb__owner__id=owner_id, bnb__status=True)
 
 def get_list_category():
     categories = Category.objects.all()
@@ -102,7 +102,7 @@ def get_avg_rating_bnb(bnb_id):
 def get_booking_bnb(list_bnb):
     result = []
     for bnb in list_bnb:
-        list_booking = Booking.objects.select_related('bnb').filter(bnb=bnb, status__in=['pending', 'accept'])
+        list_booking = Booking.objects.filter(bnb=bnb, status__in=['pending', 'accept'], bnb__status=True)
         result.append(list_booking)
     return result
 
