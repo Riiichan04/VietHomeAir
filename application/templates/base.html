@@ -103,7 +103,6 @@
 <script>
     const userId = '{{ userid|current_user:request.session }}'
     const userIcon = $("#user-icon")
-    console.log(userId)
     if (userId !== 'None') {
         let url = '{{ avatar|get_current_avatar:request.session }}'
         userIcon.html(`
