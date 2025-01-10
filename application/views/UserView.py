@@ -49,7 +49,7 @@ class UserOrderHistoryView(TemplateView):
 
 class UserViewedHistoryView(TemplateView):
     template_name = 'application/templates/user/user-viewed-history.html'
-    
+
 
 class UserReviewHistoryView(TemplateView):
     template_name = 'application/templates/user/user-reviewed-history.html'
