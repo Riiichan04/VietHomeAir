@@ -1,26 +1,44 @@
 {% load static %}
 {% block stylesheet %}
     <link rel="stylesheet" type="text/css" href={% static "style/user/wishlist.css" %}>
+    <style>
+        .card-item {
+            width: calc(100% / 4 - 1.5rem);
+            cursor: pointer;
+            height: 60%
+        }
+
+        .card-item img {
+            height: 70%;
+            object-fit: cover;
+            aspect-ratio: 15/ 16;
+        }
+
+    </style>
 {% endblock stylesheet %}
-<div class="h4">Danh sách yêu thích</div>
-<div class="service-list container">
-    <div class="row mt-4">
-        {% for bnb in wishlist %}
-        <div class="col p-0 service-item border-0 m-2" onclick="window.location.href='/rooms/{{ bnb.id }}">
-            <img src="{{ bnb.thumbnail }}" class="card-img" alt="...">
-            <div class="card-body px-1">
-                <h5 class="card-title py-2">{{ bnb.name}}</h5>
-                <div class="row review-order">
-                    <div class=" col-6 d-flex pb-2 mt-2 ">
-                        <div class="text-warning">
-                            <i class="bi bi-star-fill"></i>
-                        </div>
-                        <div class=" ps-2 count-star">{{ bnb.avg_rating }}/5</div>
+<div class="h4">Lịch sử yêu thích</div>
+<div class="order-list container">
+    <div class="col-8 row gap-4" id="category-display">
+        {% if wishlist|length == 0 %}
+            <h5 class="my-5 fw-normal">Bạn chưa lưu nhà cho thuê nào!</h5>
+        {% else %}
+            {% for bnb in wishlist %}
+                <div class="p-0 card-item rounded" onclick="window.location.href='/rooms/{{ bnb.id }}'">
+                    <div>
+                        <img class="col-12 rounded"
+                             src="{{ bnb.thumbnail }}"
+                             alt="...">
                     </div>
-                    <button class="col-5 order-service">Đặt thuê</button>
+                    <div class="p-2">
+                        <h5 class="mb-0 text-truncate ol-12">{{ bnb.name }}</h5>
+                        <div class="mt-1">
+                            <span style="font-size: 14px"><i
+                                    class="fa-solid fa-star main-color"></i> {{ bnb.avg_rating }}/5</span>
+                        </div>
+                        <p class="mt-1 mb-2">Chủ nhà: {{ bnb.owner }}</p>
+                    </div>
                 </div>
-            </div>
-        </div>
-        {% endfor %}
+            {% endfor %}
+        {% endif %}
     </div>
 </div>

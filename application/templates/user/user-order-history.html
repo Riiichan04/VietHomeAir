@@ -1,8 +1,44 @@
 {% load static %}
 {% block stylesheet %}
     <link rel="stylesheet" type="text/css" href={% static "style/user/order-history.css" %}>
+    <style>
+        .card-item {
+            width: calc(100% / 4 - 1.5rem);
+            cursor: pointer;
+            height: 60%
+        }
+
+        .card-item img {
+            height: 70%;
+            object-fit: cover;
+            aspect-ratio: 15/ 16;
+        }
+
+    </style>
 {% endblock stylesheet %}
 <div class="h4">Lịch sử đặt thuê</div>
 <div class="order-list container">
-    <h5 class="my-5 fw-normal">Bạn chưa có lịch sử đặt phòng</h5>
+    <div class="col-8 row gap-4" id="category-display">
+        {% if booking_history|length == 0 %}
+            <h5 class="my-5 fw-normal">Bạn chưa có lịch sử đặt phòng</h5>
+        {% else %}
+            {% for bnb in booking_history %}
+                <div class="p-0 card-item rounded" onclick="window.location.href='/rooms/{{ bnb.id }}'">
+                    <div>
+                        <img class="col-12 rounded"
+                             src="{{ bnb.thumbnail }}"
+                             alt="...">
+                    </div>
+                    <div class="p-2">
+                        <h5 class="mb-0 text-truncate ol-12">{{ bnb.name }}</h5>
+                        <div class="mt-1">
+                            <span style="font-size: 14px"><i
+                                    class="fa-solid fa-star main-color"></i> {{ bnb.avg_rating }}/5</span>
+                        </div>
+                        <p class="mt-1 mb-2">Chủ nhà: {{ bnb.owner }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
 </div>

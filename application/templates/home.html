@@ -31,47 +31,58 @@
         <div class="row d-flex justify-content-center">
             <div class="w-100">
                 <div class="row category-container">
-                    <div class="default-btn-style category-item col text-center me-3 cursor-pointer" onclick="window.location.href='/categories/nhatrongthanhpho'">
+                    <div class="default-btn-style category-item col text-center me-3 cursor-pointer"
+                         onclick="window.location.href='/categories/nhatrongthanhpho'">
                         <i class="h4 bi bi-building"></i>
                         <p>Nhà trong thành phố</p>
                     </div>
-                    <div class="default-btn-style category-item col text-center me-3 cursor-pointer" onclick="window.location.href='/categories/nhanho'">
+                    <div class="default-btn-style category-item col text-center me-3 cursor-pointer"
+                         onclick="window.location.href='/categories/nhanho'">
                         <i class="h4 bi bi-house-door"></i>
                         <p>Nhà nhỏ</p>
                     </div>
-                    <div class="default-btn-style category-item col text-center me-3 cursor-pointer" onclick="window.location.href='/categories/bietthu'">
+                    <div class="default-btn-style category-item col text-center me-3 cursor-pointer"
+                         onclick="window.location.href='/categories/bietthu'">
                         <i class="h4 bi bi-buildings"></i>
                         <p>Biệt thự</p>
                     </div>
-                    <div class="default-btn-style category-item col text-center me-3 cursor-pointer" onclick="window.location.href='/categories/huongbien'">
+                    <div class="default-btn-style category-item col text-center me-3 cursor-pointer"
+                         onclick="window.location.href='/categories/huongbien'">
                         <i class="h4 bi bi-tsunami"></i>
                         <p>Hướng biển</p>
                     </div>
-                    <div class="default-btn-style category-item col text-center me-3 cursor-pointer" onclick="window.location.href='/categories/ganbenhvien'">
+                    <div class="default-btn-style category-item col text-center me-3 cursor-pointer"
+                         onclick="window.location.href='/categories/ganbenhvien'">
                         <i class="h4 bi bi-hospital"></i>
                         <p>Gần bệnh viện</p>
                     </div>
-                    <div class="default-btn-style category-item col text-center me-3 cursor-pointer" onclick="window.location.href='/categories/nhatrencaycothu'">
+                    <div class="default-btn-style category-item col text-center me-3 cursor-pointer"
+                         onclick="window.location.href='/categories/nhatrencaycothu'">
                         <i class="h4 bi bi-tree"></i>
                         <p>Nhà trên cây cổ thụ </p>
                     </div>
-                    <div class="default-btn-style category-item col text-center me-3 cursor-pointer" onclick="window.location.href='/categories/container'">
+                    <div class="default-btn-style category-item col text-center me-3 cursor-pointer"
+                         onclick="window.location.href='/categories/container'">
                         <i class="h4 bi bi-box"></i>
                         <p>Container</p>
                     </div>
-                    <div class="default-btn-style category-item col text-center me-3 cursor-pointer" onclick="window.location.href='/categories/nhagansieuthi'">
+                    <div class="default-btn-style category-item col text-center me-3 cursor-pointer"
+                         onclick="window.location.href='/categories/nhagansieuthi'">
                         <i class="h4 bi bi-shop"></i>
                         <p>Nhà gần siêu thị</p>
                     </div>
-                    <div class="default-btn-style category-item col text-center me-3 cursor-pointer" onclick="window.location.href='/categories/nhaganhoboi'">
+                    <div class="default-btn-style category-item col text-center me-3 cursor-pointer"
+                         onclick="window.location.href='/categories/nhaganhoboi'">
                         <i class="h4 bi bi-water"></i>
                         <p>Nhà gần hồ bơi</p>
                     </div>
-                     <div class="default-btn-style category-item col text-center me-3 cursor-pointer" onclick="window.location.href='/categories/mienque'">
+                    <div class="default-btn-style category-item col text-center me-3 cursor-pointer"
+                         onclick="window.location.href='/categories/mienque'">
                         <i class="fa-solid fa-wheat-awn"></i>
                         <p>Miền quê</p>
                     </div>
-                    <div class="default-btn-style category-item col text-center me-3 cursor-pointer" onclick="window.location.href='/categories/huongranuihoacthunglung'">
+                    <div class="default-btn-style category-item col text-center me-3 cursor-pointer"
+                         onclick="window.location.href='/categories/huongranuihoacthunglung'">
                         <i class="fa-solid fa-mountain-sun"></i>
                         <p>Hướng ra núi hoặc thung lũng</p>
                     </div>
@@ -135,7 +146,7 @@
     </section>
     <section class="container p-4 my-3">
         <h3>Và đây là những nhà nghỉ dưỡng cho thuê tuyệt vời khác</h3>
-        <div class="my-4 row gap-4 justify-content-center">
+        <div class="my-4 row gap-4 justify-content-center" id="other-bnb">
             {% for bnb in other_bnb %}
                 <div class="p-0 card-item rounded" onclick="window.location.href='/rooms/{{ bnb.id }}'">
                     <div>
@@ -146,15 +157,10 @@
                     <div class="p-2">
                         <h5 class="mb-0 text-truncate ol-12">{{ bnb.name }}</h5>
                         <div class="mt-1">
-                            <span style="font-size: 14px"><i
-                                    class="fa-solid fa-star main-color"></i> {{ bnb.avg_rating }}/5</span>
+                                        <span style="font-size: 14px"><i
+                                                class="fa-solid fa-star main-color"></i> {{ bnb.avg_rating }}/5</span>
                         </div>
                         <p class="mt-1 mb-2">Chủ nhà: {{ bnb.owner }}</p>
-                        {#                        <p style="font-size: 14px" class=" ol-12 card-text__description text-truncate">Một biệt thự sang#}
-                        {#                            chảnh cùng với những tiện#}
-                        {#                            ích tuyệt vời nằm giữa lòng Hội An. Chỉ cách biển 5 phút đi bộ. Cùng với đó là hồ bơi riêng,#}
-                        {#                            bể bơi riêng và 3 phòng ngủ với đầy đủ tiện nghi hiện đại.#}
-                        {#                        </p>#}
                     </div>
                 </div>
             {% endfor %}
@@ -166,4 +172,47 @@
             integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
             crossorigin="anonymous"></script>
     <script src="{% static 'scripts/home.js' %}"></script>
+    {#    <script>#}
+    {#        const totalBnb = parseInt('{{ other_bnb|length }}')#}
+    {#        let currentOffset = totalBnb > 10 ? 10 : totalBnb#}
+    {#        let cursor = 0#}
+    {##}
+    {#        const listBnb = []#}
+    {#        {% for bnb in other_bnb %}#}
+    {#            listBnb.push(`#}
+    {#            <div class="p-0 card-item rounded" onclick="window.location.href='/rooms/{{ bnb.id }}'">#}
+    {#                    <div>#}
+    {#                        <img class="col-12 rounded"#}
+    {#                             src="{{ bnb.thumbnail }}"#}
+    {#                             alt="...">#}
+    {#                    </div>#}
+    {#                    <div class="p-2">#}
+    {#                        <h5 class="mb-0 text-truncate ol-12">{{ bnb.name }}</h5>#}
+    {#                        <div class="mt-1">#}
+    {#                            <span style="font-size: 14px"><i#}
+    {#                                    class="fa-solid fa-star main-color"></i> {{ bnb.avg_rating }}/5</span>#}
+    {#                        </div>#}
+    {#                        <p class="mt-1 mb-2">Chủ nhà: {{ bnb.owner }}</p>#}
+    {#                    </div>#}
+    {#                </div>#}
+    {#            `)#}
+    {#        {% endfor %}#}
+    {##}
+    {#        function loadProduct(current, offset) {#}
+    {#            if (current + offset > totalBnb) offset = totalBnb#}
+    {#            for (let i = current; i < offset; i++) {#}
+    {#                $("#other-bnb").append(listBnb[i])#}
+    {#            }#}
+    {#            cursor += offset#}
+    {#        }#}
+    {##}
+    {#        loadProduct(0, currentOffset)#}
+    {##}
+    {#        $(window).on('scroll', function () {#}
+    {#            if ($(window).scrollTop() + $(window).height() >= $(document).height() - 100) {#}
+    {#                loadProduct(cursor, currentOffset);  // Gọi hàm tải thêm sản phẩm#}
+    {#            }#}
+    {#        });#}
+    {##}
+    {#    </script>#}
 {% endblock scripts %}

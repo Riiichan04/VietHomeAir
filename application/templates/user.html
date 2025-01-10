@@ -1,4 +1,5 @@
-{% extends 'other_template/base.html' %}
+{% extends 'base.html' %}
+{% load bnb_info_filter %}
 {% load static %}
 
 {% block title %}
@@ -6,11 +7,13 @@
 {% endblock title %}
 {% block stylesheet %}
     <link rel="stylesheet" type="text/css" href={% static "style/user.css" %}>
+    <script>
+        const userId = '{{ userid|current_user:request.session }}'
+        if (userId === 'None') {
+            window.location = '/'
+        }
+    </script>
 {% endblock stylesheet %}
-{% block breadcrumb %}
-    <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
-    <li class="breadcrumb-item active">{{ userinfo.username }}</li>
-{% endblock breadcrumb %}
 {% block content %}
     <div class="row container mx-auto">
         <div class="col-4 me-4">
@@ -47,11 +50,11 @@
                 {#                    <div class="col-1"><i class="fa-solid fa-pen"></i></div>#}
                 {#                    <div class="col">Lịch sử đánh giá</div>#}
                 {#                </div>#}
-                {#                <div id="wishlist" class="row mt-3 content-property">#}
-                {#                    <div class="col-1"><i class="fa-solid fa-heart"></i></div>#}
-                {#                    <div class="col">Danh sách yêu thích</div>#}
-                {#                </div>#}
-                <div id="logout" class="row mt-3">
+                <div id="wishlist" class="row mt-3 content-property">
+                    <div class="col-1"><i class="fa-solid fa-heart"></i></div>
+                    <div class="col">Danh sách yêu thích</div>
+                </div>
+                <div id="logout" class="row mt-3 cursor-pointer">
                     <div class="col-1"><i class="bi bi-arrow-bar-left"></i></div>
                     <div class="col">Đăng xuất</div>
                 </div>

@@ -1,6 +1,6 @@
 from django.http import Http404, JsonResponse
 
-from application.models.accounts import Account, WishList, WishListItems
+from application.models.accounts import Account, WishList, WishListItems, Booking
 from application.services.home_service import get_bnb_display_element
 
 
@@ -35,13 +35,19 @@ def get_wish_list(user_id: int):
     user = Account.objects.filter(id=user_id).first()
     if user is None: return None
     wishlist = WishList.objects.filter(account=user).first()
-    if wishlist is None: raise Http404("Hong có WishList")
+    if wishlist is None: return None
     return wishlist
 
 
 def get_wish_list_items(user_id: int):
     wishlist = get_wish_list(user_id)
-    if wishlist is None: return None
+    if wishlist is None: return []
     wishlist_items_id = WishListItems.objects.filter(wishlist=wishlist)
     if wishlist_items_id is None: return []
     return [get_bnb_display_element(bnb_id) for bnb_id in wishlist_items_id]
+
+def get_booking_history(user_id: int):
+    user = Account.objects.filter(status=True).filter(id=user_id).first()
+    if user is None: return None
+    booking_history = Booking.objects.filter(account=user).first()
+    return [] if booking_history is None else [get_bnb_display_element(history.bnb.id) for history in booking_history]
