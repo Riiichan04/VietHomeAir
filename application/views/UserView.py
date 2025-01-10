@@ -14,8 +14,6 @@ class UserView(TemplateView):
         userId = self.request.session.get('user')
         context = super().get_context_data(**kwargs)
         context['userinfo'] = get_user_info(int(userId))
-        print("OMGOMGOMG")
-        print(get_user_info(int(userId)))
         return context
 
 class UpdateUserView(TemplateView):
@@ -24,15 +22,9 @@ class UpdateUserView(TemplateView):
         userId = self.request.session.get('user')
         user= Account.objects.filter(status=True).filter(id=userId).first()
         data = json.loads(request.body)
-        # username=request.POST.get('username')
-        # email=request.POST.get('email')
-        # phone=request.POST.get('phone')
         username = data.get('username')
         email = data.get('email')
         phone = data.get('phone')
-        print(username)
-        print(email)
-        print(phone)
 
         user.username=username
         user.email=email
@@ -57,7 +49,7 @@ class UserOrderHistoryView(TemplateView):
 
 class UserViewedHistoryView(TemplateView):
     template_name = 'application/templates/user/user-viewed-history.html'
-
+    
 
 class UserReviewHistoryView(TemplateView):
     template_name = 'application/templates/user/user-reviewed-history.html'

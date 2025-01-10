@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-    <title>{{userinfo.username}}</title>
+    <title>{{userinfo.username}} - VietHomeAir</title>
 {% endblock title %}
 {% block stylesheet %}
     <link rel="stylesheet" type="text/css" href={% static "style/user.css" %}>
@@ -25,12 +25,6 @@
                         <div class="row h5">32</div>
                         <h6 class="row">Đánh giá</h6>
                     </div>
-                    <div class="row experiences pt-2">
-                        <div class="row h5">3</div>
-                        <h6 class="row">
-                            năm hoạt động trên VietHomeAir.
-                        </h6>
-                    </div>
                 </div>
             </div>
             <div class="row mt-4 p-4 card-container user-properties">
@@ -42,18 +36,18 @@
                     <div class="col-1"><i class="fa-solid fa-house"></i></div>
                     <div class="col">Lịch sử đặt thuê</div>
                 </div>
-                <div id="viewed-history" class="row mt-3 content-property">
-                    <div class="col-1"><i class="fa-solid fa-eye"></i></div>
-                    <div class="col">Lịch sử xem</div>
-                </div>
-                <div id="review-history" class="row mt-3 content-property">
-                    <div class="col-1"><i class="fa-solid fa-pen"></i></div>
-                    <div class="col">Lịch sử đánh giá</div>
-                </div>
-                <div id="wishlist" class="row mt-3 content-property">
-                    <div class="col-1"><i class="fa-solid fa-heart"></i></div>
-                    <div class="col">Danh sách yêu thích</div>
-                </div>
+{#                <div id="viewed-history" class="row mt-3 content-property">#}
+{#                    <div class="col-1"><i class="fa-solid fa-eye"></i></div>#}
+{#                    <div class="col">Lịch sử xem</div>#}
+{#                </div>#}
+{#                <div id="review-history" class="row mt-3 content-property">#}
+{#                    <div class="col-1"><i class="fa-solid fa-pen"></i></div>#}
+{#                    <div class="col">Lịch sử đánh giá</div>#}
+{#                </div>#}
+{#                <div id="wishlist" class="row mt-3 content-property">#}
+{#                    <div class="col-1"><i class="fa-solid fa-heart"></i></div>#}
+{#                    <div class="col">Danh sách yêu thích</div>#}
+{#                </div>#}
                 <div id="logout" class="row mt-3">
                     <div class="col-1"><i class="bi bi-arrow-bar-left"></i></div>
                     <div class="col">Đăng xuất</div>
