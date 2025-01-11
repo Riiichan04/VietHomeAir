@@ -19,6 +19,15 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
             integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
             crossorigin=""></script>
+    {#Kiểm tra xem đăng nhập chưa#}
+    <script>
+        const userId = '{{ userid|current_user:request.session }}'
+        if (userId !== 'None') {
+            alert('Bạn cần đăng nhập để tiếp tục')
+            history.back()
+        }
+    </script>
+    
 {% endblock header_scripts %}
 
 {% block stylesheet %}
@@ -330,6 +339,10 @@
             if (!bnbId || !checkinDate || !checkoutDate || !capacity || !cccd) {
                 alert('Vui lòng điền đầy đủ thông tin!');
                 return; // Stop the submission if fields are missing
+            }
+            if (cccd.length < 12) {
+                alert('Căn cước công dân nhập sai định dạng')
+                return
             }
             // Send AJAX request
             $.ajax({
