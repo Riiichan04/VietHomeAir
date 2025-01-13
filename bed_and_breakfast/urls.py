@@ -21,7 +21,7 @@ from django.urls import path, re_path, include
 from application.views.CategoryView import CategoryView
 from application.views.SubInfoView import PolicyViews, ContactViews
 from application.views.BnbInfoView import BnbInfoView
-from application.views.LoginView import AuthView
+from application.views.LoginView import AuthView, ForgetPasswordHandler
 from application.views.HomeView import HomeView
 from application.views.ResultView import ResultView
 from application.views.BookView import BookView, HandleNewReview
@@ -89,5 +89,6 @@ urlpatterns = [
          name='owner-management-update-status-bnn'),
     path('add-new-bnb/', AddNewBnb.as_view(), name='add-new-bnb'),
     path('validate-register/<str:type>', RegisterView.as_view(), name='validate-register'),
+    path('request-forgot-password/', ForgetPasswordHandler.as_view(), name='request-forgot-password'),
 
 ]

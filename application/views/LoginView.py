@@ -1,3 +1,5 @@
+import os
+import smtplib
 from datetime import timezone
 from math import trunc
 from django.contrib.auth import login
@@ -71,3 +73,15 @@ class AuthView(TemplateView):
         #
         #     return JsonResponse({'result': True, 'message': 'Đăng ký thành công'}, status=200)
         return JsonResponse({'result': False}, status=400)
+
+class ForgetPasswordHandler(TemplateView):
+    def post(self, request, *args, **kwargs):
+        email = request.POST.get('email')
+        account = Account.objects.filter(email=email).first()
+        if account is None: return
+        s = smtplib.SMTP('smtp.gmail.com', 587) #Tạo session
+        s.starttls()    #Bảo mật
+        s.login(os.getenv('MAIL_SENDER'), os.getenv('PASSWORD_SENDER'))
+        message = f'Mật khẩu của bạn là {account.password}'
+        s.sendmail(os.getenv('MAIL_SENDER'), email, message)
+        s.quit()
