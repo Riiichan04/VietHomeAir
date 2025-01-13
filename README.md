@@ -1,7 +1,7 @@
 # VietHomeAir - Đồ án môn Lập trình Python - Nhóm 12 - NLU 2024-2025
 
----
-Website cung cấp dịch vụ Bed and Breakfast
+--- 
+Đồ án môn Lập trình Python - Nhóm 12 - NLU 2024-2025. VietHomAir - Website cung cấp dịch vụ Bed and Breakfast
 
 ### Cách chạy code:
 
