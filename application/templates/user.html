@@ -24,21 +24,20 @@
                     <div class="row user-name h5 py-2">{{ userinfo.username }}</div>
                 </div>
                 <div class="col">
-                    <div class="row reviews border-bottom my-2">
-                        <div class="row h5">32</div>
-                        <h6 class="row">Đánh giá</h6>
+                    <div class="row reviews border-bottom my-3">
+                        <div class="m-0 p-0">Số lượt đánh giá: <span class="h5">32</span></div>
                     </div>
-                    <div class="row reviews border-bottom">
-                        <h6 class="m-0 p-0">Là thành viên thứ: <span class="h5">{{ userinfo.id }}</span></h6>
+                    <div class="row reviews border-bottom my-3">
+                        <div class="m-0 p-0">Là thành viên thứ: <span class="h5">{{ userinfo.id }}</span></div>
                     </div>
                 </div>
             </div>
             <div class="row mt-4 p-4 card-container user-properties">
-                <div id="user-information" class="row content-property">
+                <div id="user-information" class="p-2 row content-property">
                     <div class="col-1"><i class="fa-solid fa-user"></i></div>
                     <div class="col">Thông tin</div>
                 </div>
-                <div id="order-history" class="row mt-3 content-property">
+                <div id="order-history" class="p-2 row content-property">
                     <div class="col-1"><i class="fa-solid fa-house"></i></div>
                     <div class="col">Lịch sử đặt thuê</div>
                 </div>
@@ -50,12 +49,12 @@
                 {#                    <div class="col-1"><i class="fa-solid fa-pen"></i></div>#}
                 {#                    <div class="col">Lịch sử đánh giá</div>#}
                 {#                </div>#}
-                <div id="wishlist" class="row mt-3 content-property">
+                <div id="wishlist" class="p-2 row content-property">
                     <div class="col-1"><i class="fa-solid fa-heart"></i></div>
                     <div class="col">Danh sách yêu thích</div>
                 </div>
-                <div id="logout" class="row mt-3 cursor-pointer">
-                    <div class="col-1"><i class="bi bi-arrow-bar-left"></i></div>
+                <div id="logout" class="p-2 row cursor-pointer content-property">
+                    <div class="col-1"><i class="fa-solid fa-right-from-bracket"></i></div>
                     <div class="col">Đăng xuất</div>
                 </div>
             </div>
