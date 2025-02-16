@@ -82,12 +82,29 @@
             </div>
         </div>
     </div>
-    <div id="logout_alert" class="m-10 container">
-        <div class="row ps-2"><p>Bạn chắc chắn muốn đăng xuất?</p></div>
-        <div class="row pt-5 ps-4 text-center">
-            <button id="yesBtn" class="col-5 text-center"><a href="/logout/">Có</a></button>
-            <div class="col-2"></div>
-            <button id="noBtn" class="col-5 text-center">Không</button>
+    <div id="logout-alert" class="d-flex justify-content-center align-items-center d-none">
+        <div id="popup-container" class="p-4 rounded">
+            <div class="row text-center">
+                <i class="bi bi-exclamation-circle display-3" style="color: var(--main-cta-color)"></i>
+            </div>
+            <div class="row d-flex justify-content-center align-items-center flex-column">
+                <p class="w-75 h4 fw-semibold text-center mt-4" style="color: var(--text-color)">Đăng xuất</p>
+                <p class="w-100 text-center">Bạn chắc chắn muốn đăng xuất khỏi tài khoản sao?</p>
+            </div>
+            <div class="row pt-3">
+                <div class="col d-flex justify-content-center">
+                    <button id="popup-cancel-btn"
+                            class="w-75 rounded border-1 border-black h6 p-2 sub-cta-button text-center">
+                        Không
+                    </button>
+                </div>
+                <div class="col-2"></div>
+                <div class="col d-flex justify-content-center">
+                    <button id="popup--logout-btn" class="w-75 rounded h6 p-2 main-cta-button text-center">
+                        <a href="/logout/">Có</a>
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock content %}

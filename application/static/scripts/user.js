@@ -25,9 +25,13 @@ $("#wishlist").click(function () {
 })
 
 $("#logout").click(function () {
-    $("#logout_alert").css("display", "block");
+    $("#logout-alert").removeClass("d-none");
 })
 
-$("#noBtn").click(function () {
-    $("#logout_alert").css("display", "none");
+$("#logout-alert").click(function() {
+    $("#logout-alert").addClass("d-none");
+})
+
+$("#popup-cancel-btn").click(function() {
+    $("#logout-alert").addClass("d-none");
 })
