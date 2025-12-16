@@ -22,7 +22,7 @@
     {#Kiểm tra xem đăng nhập chưa#}
     <script>
         const userId = '{{ userid|current_user:request.session }}'
-        if (userId !== 'None') {
+        if (userId === 'None') {
             alert('Bạn cần đăng nhập để tiếp tục')
             history.back()
         }
